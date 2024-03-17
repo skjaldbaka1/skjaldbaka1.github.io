@@ -21,7 +21,7 @@
   <meta name="keywords" content="zh-cn">
 
 
-<title>纪念一次折腾MatebookEgo系统的过程 | Skjaldbaka1</title>
+<title>如何在MatebookEgo上自己给自己制作一个带原厂驱动的系统安装U盘 | Skjaldbaka1</title>
 
 
 
@@ -160,7 +160,7 @@
         </h2>
       </a>
       <div id="header-title" class="opacity-0 md:ml-2 md:mt-[0.1rem] text-xs font-medium whitespace-nowrap overflow-hidden overflow-ellipsis">
-        纪念一次折腾MatebookEgo系统的过程
+        如何在MatebookEgo上自己给自己制作一个带原厂驱动的系统安装U盘
       </div>
       <div class="flex-1"></div>
       <div class="flex items-center gap-3">
@@ -230,7 +230,7 @@
   <header class="overflow-hidden pt-6 pb-6 md:pt-12">
     <div class="pt-4 md:pt-6">
       <h1 id="article-title" class="text-[2rem] font-bold leading-snug mb-4 md:mb-6 md:text-[2.6rem]">
-        纪念一次折腾MatebookEgo系统的过程
+        如何在MatebookEgo上自己给自己制作一个带原厂驱动的系统安装U盘
       </h1>
       <div>
         <section class="flex items-center gap-3 text-sm">
@@ -241,12 +241,12 @@
           <span class="text-gray-400">·</span>
           <span class="flex items-center gap-1">
             <iconify-icon width="18" icon="ic:round-access-alarm" ></iconify-icon>
-            <span>1 min</span>
+            <span>3 min</span>
           </span>
           <span class="text-gray-400">·</span>
           <span class="flex items-center gap-1">
             <iconify-icon width="18" icon="icon-park-outline:font-search" ></iconify-icon>
-            <span>256 words</span>
+            <span>967 words</span>
           </span>
           
             <span class="text-gray-400">·</span>
@@ -261,12 +261,32 @@
   </header>
   <!-- content -->
   <article class="post-content prose m-auto slide-enter-content dark:prose-invert">
-    <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>总所周知由于某些不知名的原因各大厂商在推出Arm Windows的同时，却不约而同选择在官网不提供原版镜像以及原厂驱动。本文结束一种在原本Windows镜像的基础上保留注入原厂驱动的方法</p>
-<h2 id="前期准备"><a href="#前期准备" class="headerlink" title="前期准备"></a>前期准备</h2><p>Dism++任意架构版本和一个大于8GB的U盘以及一台运行WIndows任意架构的电脑，本文在这里以MatebookEgo在WIndows Arm64系统上如何自己给自己制作一个带原厂驱动重装系统U盘。</p>
-<h2 id="正式开始"><a href="#正式开始" class="headerlink" title="正式开始"></a>正式开始</h2><p>在<a target="_blank" rel="noopener" href="https://next.itellyou.cn/Original/#cbp=Product?ID=42e87ac8-9cd6-eb11-bdf8-e0d4e850c9c6">MSDN</a>网站内找到WIndows Arm64 23H2镜像并通过迅雷下载</p>
-<p><img src="/../images1/image-20240317110814074.png" alt="image-20240317110814074"></p>
-<p>在Dism++的Github release页选择最新版本并下载，解压后根据系统架构选择X64或者其他版本打开。我们在这里打开带有Arm64后缀的exe程序</p>
-<p>由于MatebookEgo特殊的系统架构和触碰驱动以及启动设置，在寻找并在U盘上安装Surface Pro X的Arm版PE后，在启动界面</p>
+    <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>总所周知由于某些不知名的原因各大厂商在推出Arm Windows的同时，却不约而同选择在官网不提供原版镜像以及原厂驱动。这确实给我们在Arm二合一笔记本上安装纯净的原厂镜像造成了一定影响。我这台Ego又遇到了与之前使用三星Arm本同样的情况——无法接受到Windows 21H2及其以后的版本，而微软据说在23H2版本终于实现了Windows系统组件的全Arm64化，对性能本身羸弱的Arm笔记本有一定系统运行效率效率上的提升。而在无数次刷新更新接受界面也是如此的情况下，我无奈的想到了自己用打包一个安装u盘的下下策。</p>
+<h2 id="自己动手制作一个安装U盘"><a href="#自己动手制作一个安装U盘" class="headerlink" title="自己动手制作一个安装U盘"></a>自己动手制作一个安装U盘</h2><h3 id="前期准备"><a href="#前期准备" class="headerlink" title="前期准备"></a>前期准备</h3><p>Dism++任意架构版本和一个大于8GB的U盘以及一台运行WIndows任意架构的电脑，本文在这里以MatebookEgo在WIndows Arm64系统上如何自己给自己制作一个带原厂驱动重装系统U盘。</p>
+<h3 id="正式开始"><a href="#正式开始" class="headerlink" title="正式开始"></a>正式开始</h3><p>本身一开始想到可以安装Tiny11的Arm64精简版，可一番寻找下，只在互联网博物馆作者主页找到了22H1版本，本身想到可以如同如下步骤注入驱动并安装再升级到23H1版本，但实际上Tiny11只要不更新确实可以使用，在我的8+256g的本子是相比原生系统也确实有运行速度上的提升，但只要安装了22H1的累计03更新后，再次启动会十分的缓慢，且与Windows系统组件的一切却会莫名其妙的全部丢失，整个系统好像一直坏掉了。由此，安装原生纯净的镜像成为了本文的唯一选择。</p>
+<ul>
+<li><p>在MSDN<a target="_blank" rel="noopener" href="https://next.itellyou.cn/Original/#cbp=Product?ID=42e87ac8-9cd6-eb11-bdf8-e0d4e850c9c6">点击链接</a>网站内找到WIndows Arm64 23H2镜像并通过迅雷下载</p>
+</li>
+<li><p>Arm设备可以使用Arm原生的7zip对下载下来的安装镜像解压并保存在你记得的文件路径下</p>
+</li>
+<li><p>在Dism++的Github release页选择最新版本并下载<a target="_blank" rel="noopener" href="https://github.com/Chuyu-Team/Dism-Multi-language/releases">查看链接</a>，解压后根据系统架构选择X64或者其他版本打开。我们在这里打开带有Arm64后缀的exe程序，在如图所示的大顶栏中选择第一个蓝色色块，点击<strong>驱动管理—导出驱动—选择一个名称为英文的空文件</strong>夹保存驱动<img src="/../images1/image-20240317152405680.png"></p>
+</li>
+<li><p>再点击左上角文件再点击挂载映像<img src="/../images1/image-20240317150527350.png"></p>
+</li>
+<li><p>在弹出的界面中先点击由上到下第一个浏览选择你刚才解压镜像文件路径下的sources目录下的install.wim，再在系统内的文件管理器中硬盘存储空间剩余较多的地方新建一个名字为英文或者数字的文件夹。再点击第二个浏览，在弹出的界面中选择刚才新建的文件夹。最后在最上面的目标映像一栏中选择Windows pro，点击右下角弹出窗口确定。</p>
+</li>
+</ul>
+<p><img src="/../images1/image-20240317150855597.png"></p>
+<ul>
+<li><p>此时在Dism++左边侧栏中选择<strong>驱动管理—右下角驱动导入</strong>在弹出的窗口选择你刚才保存驱动的文件夹导入</p>
+</li>
+<li><p>耐心等待驱动导入完成，此时点击Dism++左上角的<strong>文件—保存镜像—直接保存</strong>即可<img src="/../images1/image-20240317151938424.png"></p>
+</li>
+<li><p>由于MatebookEgo特殊的系统架构和触碰驱动以及启动设置，在寻找并在U盘上安装Surface Pro X的Arm版PE后，在启动界面找不到U盘的启动项，所以我们在这里直接将在第四步中的解压镜像的文件夹全部复制到U盘内，点击文件夹下的Setup.exe按照安装步骤指引重装win</p>
+</li>
+<li><p>至此，耐心等待Windows11的安装</p>
+</li>
+</ul>
 
   </article>
   <!-- tag -->

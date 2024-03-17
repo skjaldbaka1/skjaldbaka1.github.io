@@ -236,7 +236,7 @@
         <section class="flex items-center gap-3 text-sm">
           <span class="flex items-center gap-1">
             <iconify-icon width="18" icon="carbon-calendar" ></iconify-icon>
-            <time>2024-03-02</time>
+            <time>2024-03-17</time>
           </span>
           <span class="text-gray-400">·</span>
           <span class="flex items-center gap-1">
@@ -246,7 +246,7 @@
           <span class="text-gray-400">·</span>
           <span class="flex items-center gap-1">
             <iconify-icon width="18" icon="icon-park-outline:font-search" ></iconify-icon>
-            <span>129 words</span>
+            <span>233 words</span>
           </span>
           
             <span class="text-gray-400">·</span>
@@ -261,8 +261,14 @@
   </header>
   <!-- content -->
   <article class="post-content prose m-auto slide-enter-content dark:prose-invert">
-    <h2 id="1-1阶跃函数"><a href="#1-1阶跃函数" class="headerlink" title="1.1阶跃函数"></a>1.1阶跃函数</h2><p><em>定义:在某点突然跳跃的函数</em><br><strong>性质:<br>1表示分段常量信号</strong><br>图片<br>$$[ f(t) &#x3D; 2\epsilon(t) - 3\epsilon(t) + 3\epsilon(t) ]$$<br><strong>2表示信号区间作用(门槛性)</strong><br>图片<br><strong>$ε(t-t_1)-ε(t-t_2)$即表示f(t)函数在$t_1$到$t_2$范围内的部分</strong></p>
-<h2 id="1-2冲激函数"><a href="#1-2冲激函数" class="headerlink" title="1.2冲激函数"></a>1.2冲激函数</h2><p><em>定义:单位冲激函数是奇异函数,它是对强度极大,作用时间极短的物理量的理想化模型(狄拉克提出)。</em><br>**性质:</p>
+    <h2 id="Z2-24自相关互相关函数的定义"><a href="#Z2-24自相关互相关函数的定义" class="headerlink" title="Z2.24自相关互相关函数的定义"></a>Z2.24自相关互相关函数的定义</h2><p>相关函数：比较某一信号与另外一延时信号$\tau$的相似度，若有实函数$f_1(t)$和$f_2(t)$，若他们为能量有限信号，则它们之间的互相关函数定义为：是两信号之间时间差为$\tau$的函数且通常$R(\tau)\ne R(-\tau)$但其</p>
+<p>$$\begin{aligned}&amp;R_{12}(\tau)&#x3D;\int_{-\infty}^\infty f_1(t)f_2(t-\tau)dt&#x3D;\int_{-\infty}^\infty f_1(t+\tau)f_2(t)dt\&amp;R_{21}(\tau)&#x3D;\int_{-\infty}^\infty f_1(t-\tau)f_2(t)dt&#x3D;\int_{-\infty}^\infty f_1(t)f_2(t+\tau)dt\end{aligned}$$</p>
+<p>注意下标数字，前面的下标1领先后面下标为2的时间$\tau$</p>
+<p>自相关：两函数是一样的，即为$f_1(t)$和$f_2(t)$相等，则有</p>
+<p>$$\begin{aligned} &amp; R_{}(\tau)&#x3D;\int_{-\infty}^{\infty}f_{}(t)f_{}(t-\tau)dt\  &amp; \end{aligned}$$</p>
+<p>且有它是一个偶函数有</p>
+<p>$$R(\tau)&#x3D;R(-\tau)$$​</p>
+<p>z2.25相关与卷积的比较</p>
 
   </article>
   <!-- tag -->
