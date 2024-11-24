@@ -164,7 +164,50 @@
     </div>
 </div>
     <div class="post-content">
-    <h3><span id="11一个基本的verilog代码构成">1.1一个基本的Verilog代码构成</span></h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">module 模块名 ([端口列表]);</span><br><span class="line">[端口信号声明;]</span><br><span class="line">[参数声明；]</span><br></pre></td></tr></table></figure>
+    <h3><span id="目录">目录</span></h3><!-- toc -->
+
+<ul>
+<li><a href="#11%E4%B8%80%E4%B8%AA%E5%9F%BA%E6%9C%AC%E7%9A%84verilog%E4%BB%A3%E7%A0%81%E6%9E%84%E6%88%90">1.1一个基本的Verilog代码构成</a></li>
+<li><a href="#12%E8%AF%AD%E6%B3%95">1.2语法</a><ul>
+<li><a href="#1%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97%E5%85%B3%E7%B3%BB">(1)逻辑运算关系</a><ul>
+<li><a href="#%E7%AE%97%E6%9C%AF%E5%9E%8B">算术型</a></li>
+<li><a href="#%E9%80%BB%E8%BE%91%E5%9E%8B">逻辑型</a></li>
+<li><a href="#%E5%85%B3%E7%B3%BB%E8%BF%90%E7%AE%97%E7%AC%A6">关系运算符</a></li>
+<li><a href="#%E7%AD%89%E4%BB%B7%E8%BF%90%E7%AE%97%E7%AC%A6">等价运算符</a></li>
+<li><a href="#%E6%8C%89%E4%BD%8D%E8%BF%90%E7%AE%97%E7%AC%A6">按位运算符</a></li>
+<li><a href="#%E7%BC%A9%E5%87%8F%E8%BF%90%E7%AE%97%E7%AC%A6">缩减运算符</a></li>
+<li><a href="#%E7%A7%BB%E4%BD%8D%E8%BF%90%E7%AE%97%E7%AC%A6">移位运算符</a></li>
+<li><a href="#%E6%8B%BC%E6%8E%A5%E5%A4%8D%E5%88%B6%E8%BF%90%E7%AE%97%E7%AC%A6">拼接复制运算符</a></li>
+<li><a href="#%E6%9D%A1%E4%BB%B6%E8%BF%90%E7%AE%97%E7%AC%A6">条件运算符</a></li>
+</ul>
+</li>
+<li><a href="#2assign%E8%AF%AD%E5%8F%A5">(2)assign语句</a></li>
+<li><a href="#3always%E8%AF%AD%E5%8F%A5">(3)always语句</a><ul>
+<li><a href="#always%E8%AF%AD%E6%B3%95%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A0%BC%E5%BC%8F%E5%92%8C%E4%BE%8B%E5%AD%90">always语法的基本格式和例子</a><ul>
+<li><a href="#%E8%BE%B9%E6%B2%BF%E6%95%8F%E6%84%9F">边沿敏感</a></li>
+<li><a href="#%E7%94%B5%E5%B9%B3%E6%95%8F%E6%84%9F">电平敏感</a></li>
+</ul>
+</li>
+<li><a href="#%E5%9C%A8always%E8%AF%AD%E6%B3%95%E4%B8%AD%E6%8F%92%E5%85%A5if%E5%92%8Ccase%E7%AD%89%E8%AF%AD%E5%8F%A5">在always语法中插入if和case等语句</a><ul>
+<li><a href="#%E9%98%BB%E5%A1%9E%E8%B5%8B%E5%80%BC">阻塞赋值</a></li>
+<li><a href="#%E9%9D%9E%E9%98%BB%E5%A1%9E%E8%B5%8B%E5%80%BC">非阻塞赋值</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E5%BA%95%E5%B1%82%E6%A8%A1%E5%9D%97%E5%92%8C%E9%97%A8%E8%AF%AD%E8%A8%80%E8%B0%83%E7%94%A8">底层模块和门语言调用</a><ul>
+<li><a href="#%E5%BA%95%E5%B1%82%E6%A8%A1%E5%9D%97%E8%B0%83%E7%94%A8">底层模块调用</a></li>
+<li><a href="#%E9%97%A8%E5%8E%9F%E8%AF%AD%E8%B0%83%E7%94%A8">门原语调用</a></li>
+<li><a href="#%E4%B8%89%E6%80%81%E9%97%A8">三态门</a></li>
+</ul>
+</li>
+<li><a href="#%E6%95%B0%E5%AD%97%E8%A1%A8%E7%A4%BA%E6%A0%BC%E5%BC%8F">数字表示格式</a></li>
+</ul>
+</li>
+</ul>
+<!-- tocstop -->
+
+<h3><span id="11一个基本的verilog代码构成">1.1一个基本的Verilog代码构成</span></h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">module 模块名 ([端口列表]);</span><br><span class="line">[端口信号声明;]</span><br><span class="line">[参数声明；]</span><br></pre></td></tr></table></figure>
 
 <p>如</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">module full_adder (A,B,CIN,S,COUT);</span><br><span class="line">//端口列表是指电路的输入/输出信号名称列表，信号名由用户指定，各名称间用逗号隔开</span><br><span class="line"> input [3:0] A,B;</span><br><span class="line"> //端口信号声明是要说明端口信号的输入输出属性、信号的数据类型，以及信号的位宽</span><br><span class="line"> //输入输出属性有input,output,inout三种，信号的数据类型常用的有wire,reg两种</span><br><span class="line"> input CIN;</span><br><span class="line"> output reg [3:0] S;</span><br><span class="line"> //[3:0]代表信号的位宽，用[n1:n2]表示;同一类信号之间用逗号隔开</span><br><span class="line"> output COUNT;</span><br></pre></td></tr></table></figure>
@@ -586,16 +629,8 @@
             
             
             
-                Powered by <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/zoeingwingkei/frame/">Frame</a>
+                Welcome to my site & Check out my bilibili <a target="_blank" rel="noopener" href="https://space.bilibili.com/202228736">[Click]</a>
                 
-            {% if (theme.mermaid.enable)  %}
-  <script src='https://unpkg.com/mermaid@{{ theme.mermaid.version }}/dist/mermaid.min.js'></script>
-  <script>
-    if (window.mermaid) {
-      mermaid.initialize({theme: 'forest'});
-    }
-  </script>
-{% endif %}
         </div>
     </div>
 </div>
