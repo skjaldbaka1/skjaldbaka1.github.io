@@ -59,6 +59,13 @@
 
 
 
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        }
+      };
+      </script>
   <!-- hexo injector head_end start -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
 <!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.2.0"></head>
@@ -157,7 +164,7 @@
     </div>
 </div>
     <div class="post-content">
-    <h4 id="Liunx系统命令行指令"><a href="#Liunx系统命令行指令" class="headerlink" title="Liunx系统命令行指令"></a>Liunx系统命令行指令</h4><table>
+    <h4><span id="liunx系统命令行指令">Liunx系统命令行指令</span></h4><table>
 <thead>
 <tr>
 <th>命令行指令</th>
@@ -190,12 +197,12 @@
 </tr>
 </tbody></table>
 <p>注意表中的<code>[ ]</code>中在输入命令的时候不加<code>[ ]</code>直接加路径</p>
-<h4 id="文件解释"><a href="#文件解释" class="headerlink" title="文件解释"></a>文件解释</h4><p><img src="/./../Cmoslayoutimage/image-20240911203018723.png" alt="输入cat cds.lib后输出的该文件的内容"></p>
+<h4><span id="文件解释">文件解释</span></h4><p><img src="/./../Cmoslayoutimage/image-20240911203018723.png" alt="输入cat cds.lib后输出的该文件的内容"></p>
 <p>文件cds.lib其实类似于地图，指引软件找到运行在服务器上的运行所需要的文件，下面运行的Virtuoso软件也是依赖lib运行</p>
-<h4 id="打开Virtuoso软件"><a href="#打开Virtuoso软件" class="headerlink" title="打开Virtuoso软件"></a>打开Virtuoso软件</h4><p>输入<code>virtuoso &amp;</code>注意一定要小写，打开Virtuoso软件，点击最上一栏tools—Library Manager即可查看当前软件里的所有库</p>
+<h4><span id="打开virtuoso软件">打开Virtuoso软件</span></h4><p>输入<code>virtuoso &amp;</code>注意一定要小写，打开Virtuoso软件，点击最上一栏tools—Library Manager即可查看当前软件里的所有库</p>
 <p><img src="/./../Cmoslayoutimage/image-20240911204734844.png"></p>
 <p>现在双击图最右侧的layout，即可查看Nmos版图</p>
-<h5 id="版图认知"><a href="#版图认知" class="headerlink" title="版图认知"></a>版图认知</h5><p><img src="/./../Cmoslayoutimage/image-20240911205027202.png"></p>
+<h5><span id="版图认知">版图认知</span></h5><p><img src="/./../Cmoslayoutimage/image-20240911205027202.png"></p>
 <p>图中</p>
 <ul>
 <li><p>SN N型参杂区</p>
@@ -215,7 +222,7 @@
 </li>
 </ul>
 <p>所有Mos都做在P-sub上面，Nmos做在N陷里</p>
-<h5 id="Virtuoso软件快捷键"><a href="#Virtuoso软件快捷键" class="headerlink" title="Virtuoso软件快捷键"></a>Virtuoso软件快捷键</h5><table>
+<h5><span id="virtuoso软件快捷键">Virtuoso软件快捷键</span></h5><table>
 <thead>
 <tr>
 <th align="center">快捷键</th>
@@ -282,10 +289,10 @@
 <p>一个结点最多链接三根线</p>
 <p><img src="/./../Cmoslayoutimage/image-20240911213552308.png"></p>
 <p>一切结束后点击左边第三个Check and Save保存设计的版图</p>
-<h4 id="PMOS版图"><a href="#PMOS版图" class="headerlink" title="PMOS版图"></a>PMOS版图</h4><p>在绘制版图的时候应从内向外绘制，并遵守DRC规则；在以后绘制反相器时，PMOS应靠近$V_{DD}$，NMOS靠近$GND$</p>
+<h4><span id="pmos版图">PMOS版图</span></h4><p>在绘制版图的时候应从内向外绘制，并遵守DRC规则；在以后绘制反相器时，PMOS应靠近$V_{DD}$，NMOS靠近$GND$</p>
 <p><img src="/./../Cmoslayoutimage/image-20240918192153785.png"></p>
 <p><img src="/./../Cmoslayoutimage/image-20240918193240938.png"></p>
-<h5 id="Virtuous软件版图对应"><a href="#Virtuous软件版图对应" class="headerlink" title="Virtuous软件版图对应"></a>Virtuous软件版图对应</h5><table>
+<h5><span id="virtuous软件版图对应">Virtuous软件版图对应</span></h5><table>
 <thead>
 <tr>
 <th align="center">版图区域</th>
@@ -321,10 +328,10 @@
 <td align="center">M1</td>
 </tr>
 </tbody></table>
-<h5 id="DRC规则英文单词解释"><a href="#DRC规则英文单词解释" class="headerlink" title="DRC规则英文单词解释"></a>DRC规则英文单词解释</h5><p>在DRC文件中语法会加上以下单词告知某些部件的尺寸</p>
+<h5><span id="drc规则英文单词解释">DRC规则英文单词解释</span></h5><p>在DRC文件中语法会加上以下单词告知某些部件的尺寸</p>
 <p><img src="/./../Cmoslayoutimage/image-20240918194258076.png"></p>
 <p><img src="/./../Cmoslayoutimage/image-20240918194310401.png"></p>
-<h5 id="现在就可以开始绘制一个PMOS"><a href="#现在就可以开始绘制一个PMOS" class="headerlink" title="现在就可以开始绘制一个PMOS"></a>现在就可以开始绘制一个PMOS</h5><p><strong>1.绘制有源区：</strong>在左边Layers栏选择AA，按R在图中随便绘制一个正方形，再选择绘制的红色正方形按Q即可修改它的属性，在这里<strong>Bottom和Top分别是正负0.22</strong>，Right和Left暂时不管</p>
+<h5><span id="现在就可以开始绘制一个pmos">现在就可以开始绘制一个PMOS</span></h5><p><strong>1.绘制有源区：</strong>在左边Layers栏选择AA，按R在图中随便绘制一个正方形，再选择绘制的红色正方形按Q即可修改它的属性，在这里<strong>Bottom和Top分别是正负0.22</strong>，Right和Left暂时不管</p>
 <p><strong>2.绘制栅极：</strong>再在Layers选择GP，按照步骤1中<strong>修改Right和Left分别为正负0.18</strong>，长暂时不管</p>
 <p><strong>3.修改有源区宽度：</strong>符合RAC中AA只能延申出GP0.32，故AA的Right和Left应该为0.32</p>
 <p><img src="/./../Cmoslayoutimage/image-20240918202921856.png"></p>
@@ -338,7 +345,7 @@
 <p><strong>6.绘制衬底：</strong>按O修改参数为一行三列，同过M先把它置于X轴和Y轴对称来方便测量长度，注意AA边界与SN的边界仍然为0.18，再者通过M+F3让上面蓝色SN和下面SP间隔为0.08</p>
 <p><img src="/./../Cmoslayoutimage/image-20240918213912283.png"></p>
 <p><strong>7.绘制N阱：</strong>上面边界与蓝色SN平齐，下左右边界间隔都是0.25</p>
-<h3 id="把PMOS变为NMOS"><a href="#把PMOS变为NMOS" class="headerlink" title="把PMOS变为NMOS"></a>把PMOS变为NMOS</h3><p><strong>1.复制：</strong>用C+F3复制在弹出的界面中选择下图的Upside dowm</p>
+<h3><span id="把pmos变为nmos">把PMOS变为NMOS</span></h3><p><strong>1.复制：</strong>用C+F3复制在弹出的界面中选择下图的Upside dowm</p>
 <p><img src="/./../Cmoslayoutimage/image-20240925190924481.png"></p>
 <p>再把最外面的N+注入选中后删除，得到一个上下对称的</p>
 <p><img src="/./../Cmoslayoutimage/image-20240925191126407.png"></p>
@@ -383,7 +390,7 @@
 <li><p><img src="/./../Cmoslayoutimage/image-20240925213735755.png" alt="image-20240925213735755"></p>
 </li>
 </ul>
-<h5 id="如何把丢失的库找回来"><a href="#如何把丢失的库找回来" class="headerlink" title="如何把丢失的库找回来"></a>如何把丢失的库找回来</h5><p><strong>1.创建一个新的库：</strong>在软件的左上角File-New-Library，创建任意一个名字的新库如hxy11</p>
+<h3><span id="如何把丢失的库找回来">如何把丢失的库找回来</span></h3><p><strong>1.创建一个新的库：</strong>在软件的左上角File-New-Library，创建任意一个名字的新库如hxy11</p>
 <p><img src="/./../Cmoslayoutimage/image-20240923223922201.png"></p>
 <p><strong>2.将新创建的库链接到丢失的库：</strong>在软件左上角点击Edit-Library Path</p>
 <p><img src="/./../Cmoslayoutimage/image-20240923224137639.png"></p>
@@ -391,6 +398,46 @@
 <p><img src="/./../Cmoslayoutimage/image-20240923224414347.png"></p>
 <p>将新创建的库原来的路径<code>/home/student20/huxinyinglayout/hxy11</code>中的<code>hxy11</code>改为我们要链接的库<code>huxinying0923</code>即<code>/home/student20/huxinyinglayout/huxinying0923</code> 在点击软件左上角的File-Save即可退出，此时我们就找回了我们的旧库</p>
 <p><img src="/./../Cmoslayoutimage/image-20240923224853471.png"></p>
+<h3><span id="检测版图是否符合rac规则">检测版图是否符合RAC规则</span></h3><p>1.在软件工具栏选择Calibre-nmRAC，先取消弹出来的对话框</p>
+<p>2.载入Rules文件：先复制DRC文件到自己的文件夹<code>cp /home/gz/smic.drc /home/student30/jyhlayout</code>复制完成后点击下图的三个<code>...</code>选择刚才复制过来的DRC文件</p>
+<p><img src="/./../Cmoslayoutimage/image-20241009191749578.png"></p>
+<p>在DRC检测完成后会生成一系列文件，我们要新建一个文件夹存储它们，回到命令行中输入<code>mkdir RAC1</code>新建一个文件夹，回来选中它</p>
+<p><img src="/./../Cmoslayoutimage/image-20241009192330131.png"></p>
+<p>3.找到并更改错误：点击DRC RUN之后在弹出的界面中将all show改成unsolve show，任意选中左边下图的错误，再选中右边的数字，点击软件栏上的小太阳图标便可以表示版图中错误部分</p>
+<p><img src="/./../Cmoslayoutimage/image-20241009194430954.png"></p>
+<p>4.修改GP_5中Minimum space between field interconnect poly and AA 0.10 </p>
+<p><img src="/./../Cmoslayoutimage/image-20241009195605587.png"></p>
+<p>发现只有0.06而最小需要0.10</p>
+<p>1复制.cp &#x2F;home&#x2F;gz&#x2F;smic.lvs &#x2F;home&#x2F;student30&#x2F;jyhlayout之后与上面一切一样</p>
+<p>layout和netlist中的要勾上</p>
+<p><img src="/./../Cmoslayoutimage/image-20241009210320021.png"></p>
+<h3><span id="根据原理图生成版图">根据原理图生成版图</span></h3><p><strong>1.生成版图：</strong>打开原理图addfull点击左上角<code>Launch-Layout XL</code>，弹出的界面一路选择两个ok</p>
+<p><img src="/./../Cmoslayoutimage/image-20241023193617352.png"></p>
+<p><strong>2.生成MOS结构：</strong>在生成的版图界面的最左下角红框部分</p>
+<p><img src="/./../Cmoslayoutimage/image-20241023193410165.png"></p>
+<p>在弹出的界面中如图勾选选项后点击ok，后可以看到生成许多MOS</p>
+<p><img src="/./../Cmoslayoutimage/image-20241023193600870.png"></p>
+<h3><span id="大作业二级运算器模拟电路">大作业二级运算器（模拟电路）</span></h3><p>Q1和Q2管子匹配度要求最高，在版图设计中要交错放置，Q4Q5则无要求，Q7可以随意放置，电容不画</p>
+<p><img src="/./../Cmoslayoutimage/image-20241030191829650.png"></p>
+<p>最上面的Q8Q3Q6</p>
+<p><img src="/./../Cmoslayoutimage/image-20241030193059278.png"></p>
+<p>中间要线交叉的十字要跳线</p>
+<p><img src="/./../Cmoslayoutimage/image-20241030192819339.png"></p>
+<p>Q4Q5</p>
+<p><img src="/./../Cmoslayoutimage/image-20241030193132296.png"></p>
+<p><img src="/./../Cmoslayoutimage/image-20241030193209506.png"></p>
+<p>按P调用一个PMOS，如图设置参数</p>
+<p><img src="/./../Cmoslayoutimage/image-20241030194104799.png"></p>
+<p>Gate Connection 将栅极链接在一起</p>
+<p>S&#x2F;D Connection 将源极或者漏极链接在一起</p>
+<p>Bodytie Type 打衬底极</p>
+<p><img src="/./../Cmoslayoutimage/image-20241030195343034.png"></p>
+<p>电阻按I选择则Rm1用m1做电阻</p>
+<p><img src="/./../Cmoslayoutimage/image-20241030194736385.png" alt="image-20241030194736385"></p>
+<p>Segments选择电阻金属的条数</p>
+<p>1.Rndif用Nmos做电阻</p>
+<p>改变Segment Length和Segment的值可以改变电阻的值，要合理的选择它们的值以求让它们尽量符合整体电路图</p>
+<p><img src="/./../Cmoslayoutimage/image-20241030195136892.png"></p>
 
 </div> 
 

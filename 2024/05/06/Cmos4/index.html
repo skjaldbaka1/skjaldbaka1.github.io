@@ -59,6 +59,13 @@
 
 
 
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        }
+      };
+      </script>
   <!-- hexo injector head_end start -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
 <!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.2.0"></head>
@@ -157,8 +164,8 @@
     </div>
 </div>
     <div class="post-content">
-    <h3 id="第九章"><a href="#第九章" class="headerlink" title="第九章"></a>第九章</h3><h3 id="套筒式电路（差分输出）"><a href="#套筒式电路（差分输出）" class="headerlink" title="套筒式电路（差分输出）"></a>套筒式电路（差分输出）</h3><p><img src="/../../../Blog/source/imagesCmos4/image-20240509164935656.png" alt="image-20240509164935656"></p>
-<h3 id="折叠式套筒电路"><a href="#折叠式套筒电路" class="headerlink" title="折叠式套筒电路"></a>折叠式套筒电路</h3><p><img src="/../imagesCmos4/image-20240509162356445.png"><br>将下面两$Nmos(M_1和M_2)$翻折上去变为$Pmos$，且$I_{SS}$由下端接地变为接$V_{DD}$<br>1.左边套筒式电路的输入范围为</p>
+    <h3><span id="第九章">第九章</span></h3><h3><span id="套筒式电路差分输出">套筒式电路（差分输出）</span></h3><p><img src="/../../../Blog/source/imagesCmos4/image-20240509164935656.png" alt="image-20240509164935656"></p>
+<h3><span id="折叠式套筒电路">折叠式套筒电路</span></h3><p><img src="/../imagesCmos4/image-20240509162356445.png"><br>将下面两$Nmos(M_1和M_2)$翻折上去变为$Pmos$，且$I_{SS}$由下端接地变为接$V_{DD}$<br>1.左边套筒式电路的输入范围为</p>
 <ul>
 <li>上限为$V_{in}-V_{th}-V_P&lt;V_{b1}-V_{GS}+V_{P}$</li>
 <li>下限为$V_{in}&lt;V_{OD1}+V_{ODISS}$</li>
