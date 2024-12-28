@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Skjaldbaka1">
+
+
+    <meta name="subtitle" content="Skjaldbaka1's blog">
+
+
+    <meta name="description" content="渴望变革">
+
+
+    <meta name="keywords" content="zh-cn">
+
+
+
+
+<title>半导体物理1半导体中的电子状态 | Skjaldbaka1</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&family=Roboto+Mono&display=swap');
+</style>
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/menu.js"></script>
+    
+
+
+
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+
+
+<script src='https://unpkg.com/valine@1.4.16/dist/Valine.min.js'></script>
+
+
+
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        }
+      };
+      </script>
+  <!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.2.0"></head>
+  <body>
+    <div class="mask-border">
+    </div>
+
+    <div class="wrapper">
+
+      <div class="header">
+  <div class="flex-container">
+    <div class="header-inner">
+      <div class="site-brand-container">
+        <a href="/">
+          
+            Skjaldbaka1
+          
+        </a>
+      </div>
+      <div id="menu-btn" class="menu-btn" onclick="toggleMenu()">
+        Menu
+      </div>
+      <nav class="site-nav">
+        <ul class="menu-list">
+          
+            
+              <li class="menu-item">
+                <a href="/">开端</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/archives/">随笔</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/categories/gallery/">摄影</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/tag">标签</a>
+              </li> 
+                   
+          
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main">
+        <div class="flex-container">
+          <article id="post">
+
+  
+    <div class="post-head">
+    <div class="post-info">
+        <div class="tag-list">
+            
+                
+                    <span class="post-tag">
+                        <a href="/tags/%E7%AC%94%E8%AE%B0/">
+                            笔记
+                        </a>
+                    </span>    
+                           
+            
+        </div>
+        <div class="post-title">
+            
+            
+                半导体物理1半导体中的电子状态
+            
+            
+        </div>
+        <span class="post-date">
+            9月 14, 2024
+        </span>
+    </div>
+    <div class="post-img">
+        
+            <div class="h-line-primary"></div>
+              
+    </div>
+</div>
+    <div class="post-content">
+    <h2><span id="目录">目录</span></h2><!-- toc -->
+
+<ul>
+<li><a href="#%E5%9B%BA%E4%BD%93%E7%89%A9%E7%90%86%E5%AF%BC%E5%85%A5">固体物理导入</a><ul>
+<li><a href="#11%E5%8D%95%E5%A4%9A%E6%99%B6%E4%BD%93%E9%9D%9E%E5%87%86%E6%99%B6%E4%BD%93%E7%9A%84%E7%89%B9%E5%BE%81">1.1单&#x2F;多晶体，非&#x2F;准晶体的特征</a></li>
+<li><a href="#12%E6%99%B6%E4%BD%93%E7%BB%93%E6%9E%84">1.2晶体结构</a></li>
+<li><a href="#12%E5%A4%84%E5%9F%BA%E5%B9%B3%E7%A7%BB%E7%9F%A2%E9%87%8F">1.2处基平移矢量</a></li>
+<li><a href="#13%E7%82%B9%E9%98%B5%E5%88%9D%E5%9F%BA%E6%99%B6%E8%83%9E">1.3点阵初基晶胞</a></li>
+<li><a href="#14%E7%82%B9%E9%98%B5%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B">1.4点阵的基本类型</a></li>
+<li><a href="#15%E6%99%B6%E9%9D%A2%E6%8C%87%E6%95%B0%E7%B3%BB%E7%BB%9F">1.5晶面指数系统</a></li>
+<li><a href="#16%E5%B8%B8%E8%A7%81%E6%99%B6%E4%BD%93%E7%BB%93%E6%9E%84%E8%8C%83%E4%BE%8B">1.6常见晶体结构范例</a></li>
+<li><a href="#17%E5%80%92%E6%A0%BC%E5%AD%90%E7%9A%84%E6%A0%BC%E7%9F%A2">1.7倒格子的格矢</a></li>
+</ul>
+</li>
+<li><a href="#1%E9%87%8F%E5%AD%90%E5%8A%9B%E5%AD%A6%E5%9F%BA%E7%A1%80">1量子力学基础</a><ul>
+<li><a href="#11%E5%8D%8A%E5%AF%BC%E4%BD%93%E4%B8%AD%E7%9A%84%E7%94%B5%E5%AD%90%E7%8A%B6%E6%80%81">1.1半导体中的电子状态</a><ul>
+<li><a href="#111%E5%AD%A4%E7%AB%8B%E5%8E%9F%E5%AD%90">1.1.1孤立原子：</a></li>
+<li><a href="#112%E8%87%AA%E7%94%B1%E7%94%B5%E5%AD%90">1.1.2自由电子：</a></li>
+<li><a href="#113%E5%8D%8A%E5%AF%BC%E4%BD%93%E4%B8%AD%E7%9A%84%E7%94%B5%E5%AD%90">1.1.3半导体中的电子</a></li>
+</ul>
+</li>
+<li><a href="#12%E5%8D%95%E7%94%B5%E5%AD%90%E8%BF%91%E4%BC%BC">1.2单电子近似</a><ul>
+<li><a href="#121%E7%BB%93%E8%AE%BA">1.2.1结论</a></li>
+</ul>
+</li>
+<li><a href="#13%E5%8D%8A%E5%AF%BC%E4%BD%93%E4%B8%AD%E7%9A%84%E7%94%B5%E5%AD%90%E8%83%BD%E5%B8%A6">1.3半导体中的电子能带</a><ul>
+<li><a href="#131%E5%87%86%E8%87%AA%E7%94%B1%E7%94%B5%E5%AD%90%E8%BF%91%E4%BC%BC">1.3.1准自由电子近似</a></li>
+<li><a href="#132%E7%BB%93%E8%AE%BA">1.3.2结论：</a></li>
+<li><a href="#133%E5%B8%83%E9%87%8C%E6%B8%8A%E5%8C%BA">1.3.3布里渊区</a></li>
+<li><a href="#134%E8%83%BD%E5%B8%A6%E9%87%8F%E5%AD%90%E5%8C%96">1.3.4能带量子化</a></li>
+<li><a href="#135%E5%89%A9%E4%B8%8B%E7%9A%84%E9%83%A8%E5%88%86%E5%9C%A8pdf%E6%96%87%E4%BB%B6%E4%B8%AD">1.3.5剩下的部分在PDF文件中</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<!-- tocstop -->
+
+<h2><span id="固体物理导入">固体物理导入</span></h2><h3><span id="11单x2f多晶体非x2f准晶体的特征">1.1单&#x2F;多晶体，非&#x2F;准晶体的特征</span></h3><table>
+<thead>
+<tr>
+<th>固体</th>
+<th>单晶体</th>
+<th>多晶体</th>
+<th>非晶体</th>
+<th>准晶体</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>排列</strong></td>
+<td>长程有序</td>
+<td>每个晶粒长程有序</td>
+<td>短程有序</td>
+<td>长程有序</td>
+</tr>
+<tr>
+<td><strong>熔点</strong></td>
+<td>有</td>
+<td>有</td>
+<td>没有</td>
+<td>有</td>
+</tr>
+<tr>
+<td><strong>外形</strong></td>
+<td>规则</td>
+<td>不规则</td>
+<td>不规则</td>
+<td>规则</td>
+</tr>
+<tr>
+<td><strong>方向性</strong></td>
+<td>各向异性</td>
+<td>各向同性</td>
+<td>各向同性</td>
+<td>各向异性</td>
+</tr>
+</tbody></table>
+<p>注意<strong>单晶体</strong>有旋转和对称性，而<strong>准晶体</strong>只有旋转对称性</p>
+<h3><span id="12晶体结构">1.2晶体结构</span></h3><p>$$<br>点阵+基元&#x3D;晶体结构<br>$$</p>
+<img src="./../Semiconductorphysicalimage/image-20240914145848490.png" style="zoom: 33%;">
+
+<p>点阵也称晶格：晶体结构可以由点阵来描述，在点阵的每一个点上有一群原子</p>
+<p>基元：上面的一群原子成为基元，基元在空间上重复就构成晶体结构，每个基元的组成，位形和去向全是同向的</p>
+<p>简单格子：基元只含有一个原子的晶格，也称布拉菲格子</p>
+<h3><span id="12处基平移矢量">1.2处基平移矢量</span></h3><p>$$<br>\vec{r}’&#x3D;\vec{a}+u\vec{a}+v\vec{b}+w\vec{c} \<br>u,v,w是整数<br>$$<br>取初基平移矢量一般去abc三个矢量围成最小面积或者体积，即其构成了体积最小的<strong>原胞</strong></p>
+<p>原胞：以一个格点为原点，以三个基矢构成的平行六面体为重复单元，这样的单元可以堆积起来构建整个晶体。其中<strong>体积最小的周期性平行六面体称为原胞</strong>（在下面选取的边和图形内没有格点就是原胞）</p>
+<img src="./../Semiconductorphysicalimage/image-20240914145923020.png" style="zoom: 33%;">
+
+<h3><span id="13点阵初基晶胞">1.3点阵初基晶胞</span></h3><p>结晶学原胞（晶胞）：在选取基矢时，不仅考虑晶体的周期性，还考虑晶体对称性的<strong>重复性单元</strong>（不一定是体积最小的周期性可重复单元，在图形的边和内部有格点如上图的B4）<br>初基晶胞：初基轴abc（类似于坐标系的xyz）确定的平行六面体成为一个初基晶胞，是体积最小的晶胞，只含有一个阵点（平行六面体的八个顶点只有1&#x2F;8共享）<br>abc所确定的平行六面体体积为</p>
+<img src="./../Semiconductorphysicalimage/image-20240914150018813.png" style="zoom: 33%;">
+$$
+V_c=\vec{a}×\vec{b}·\vec{c}
+$$
+维格纳-赛茨初基晶胞：将某个阵点同与它相连的阵点链接起来，再在连线的中点处作垂线和垂面，构成的最小体积就是维格纳-赛茨初基晶胞
+
+<img src="./../Semiconductorphysicalimage/image-20240914150058269.png" style="zoom: 33%;">
+
+<h3><span id="14点阵的基本类型">1.4点阵的基本类型</span></h3><p>总共14种，仍一点阵都是等价的，初基晶胞只含一个原子，它们都是惯用晶胞但不一定是初基晶胞</p>
+<img src="./../Semiconductorphysicalimage/image-20240914150122740.png" style="zoom: 50%;">
+
+<p>简单立方晶胞：内部和边上没有任何格点，它其实是原胞也是晶胞</p>
+<p>体心立方晶胞：在简单立方晶胞体中心加上一个格点</p>
+<p>面心立法晶胞：在体心立方晶胞面中心加上一个格点</p>
+<h3><span id="15晶面指数系统">1.5晶面指数系统</span></h3><p>晶列：点阵中所有阵点全部位于一系列互相平行的直线上，这些直线系成为晶列</p>
+<img src="./../Semiconductorphysicalimage/image-20240914150224704.png" style="zoom:50%;">
+
+<p>晶向：晶列的方向，在实际中方向是从某一阵点沿着某一晶列移动到另一阵点的方向</p>
+<img src="./../Semiconductorphysicalimage/image-20240914150257238.png" style="zoom:50%;">
+$$
+r=l_1a+l_2b+l_3c \\ l_1:l_2:l_3=m:n:p
+$$
+晶向指数：将上面的mnp写成[mnp]且mnp要互为质数
+
+<ul>
+<li><p>同类晶向：在坐标轴中等价的晶向，用<mnp>表示<br>如</mnp></p>
+</li>
+<li><p>&lt;100&gt;表示了立方体中不是对角线的晶向，因为坐标轴abc是人为规定的，虽然有些晶向在同一坐标系中看起来不同，但若调换abc，这些不同的晶向可以变为等价的</p>
+</li>
+<li><p>&lt;111&gt;表示对角线8个晶向</p>
+</li>
+<li><p>&lt;110&gt;表示12个面对角线的晶向<br>晶面：点阵中所有点全部位于一系列相互平行且等距的平面上，这样的面称系为晶面</p>
+</li>
+</ul>
+<p>晶面指数：(hkl)，hkl是晶面与三晶轴rst的倒数，也称为米勒指数，其也为互质的</p>
+<ul>
+<li>若截距为无线大，则相应的指数为无穷大</li>
+<li>晶面的法向量为$$n&#x3D;hx+ky+lz$$</li>
+</ul>
+<h3><span id="16常见晶体结构范例">1.6常见晶体结构范例</span></h3><p>NaCl结构：面心立方（点阵）+NaCl（基元）&#x3D;晶体结构</p>
+<img src="./../Semiconductorphysicalimage/image-20240914150343451.png" style="zoom: 25%;">
+
+<h3><span id="17倒格子的格矢">1.7倒格子的格矢</span></h3><p>正空间是$\vec{r}$的空间而倒空间是$\vec{k}$的空间（动量空间)，在本质上其实是对$\vec{r}$进行傅里叶变换得到了$\vec{k}$</p>
+<p>如$\vec{b_1}$和$\vec{a_2}$和$\vec{a_3}$所构成的晶面实际上是垂直的，由傅里叶可得倒格子的格矢量：<br>$$<br>\vec{b_1}&#x3D;2\pi\frac{\vec{a_2}\times\vec{a_3}}{\vec{a_1}\cdot\vec{a_2}\times\vec{a_3}} \ \vec{b_2}&#x3D;2\pi\frac{\vec{a_1}\times\vec{a_3}}{\vec{a_2}\cdot\vec{a_1}\times\vec{a_3}} \ \vec{b_3}&#x3D;2\pi\frac{\vec{a_1}\times\vec{a_2}}{\vec{a_3}\cdot\vec{a_1}\times\vec{a_2}} \ 其中\Omega_{原胞体积}&#x3D;\vec{a_1}\cdot\vec{a_2}\times\vec{a_3}<br>$$</p>
+<h2><span id="1量子力学基础">1量子力学基础</span></h2><p>波函数：粒子在某时刻某位置出现的概率，且其概率密度函数为<br>$$[ P(x,t) &#x3D; \psi^*(x,t) \psi(x,t) &#x3D; |\psi(x,t)|^2 ]$$<br>与时间无关的概率密度函数为<br>$$P(x) &#x3D; \psi^*(x) \psi(x) &#x3D; |\psi(x)|^2$$</p>
+<h3><span id="11半导体中的电子状态">1.1半导体中的电子状态</span></h3><p>在这里我们讨论两种情况，由两种特殊情况得出半导体中的普遍规律</p>
+<h4><span id="111孤立原子">1.1.1孤立原子：</span></h4><p>电子处于原子核的束缚状态，只含有原子核和核外电子，如</p>
+<ul>
+<li>H原子<br>原子核对于电子有库伦力产生的势场<br>$$V(r)&#x3D;\frac{－q^2}{4\pi\epsilon_0r}$$<br>电子的能量需要满足以下条件薛定谔方程才有解<br>$$E_n&#x3D;－[\frac{m_0q^4}{8\epsilon_0^2h^2}]\frac 1n^2，n量子数&#x3D;1,2,3..$$<br>其中[]为13.6于是公式可以改写为<br>$$E_n&#x3D;－13.6\cdot\frac 1n^2 (eV)，n&#x3D;1,2,3..$$<br>由上述可得出H原子核外电子状态是一系列分立（离散）的确定的能力值（能级）</li>
+<li>多电子原子<br>其电子和电子有作用力称之为微拢，其核与电子有作用力<br>&#x3D;&#x3D;其核外能量依然不连续&#x3D;&#x3D;，量子数不再是单个n，而是有四个量子数为别为：</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>$n$</th>
+<th>主量子数</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$l$</td>
+<td>角量子数</td>
+</tr>
+<tr>
+<td>$m_l$</td>
+<td>磁量子数</td>
+</tr>
+<tr>
+<td>$m_s$</td>
+<td>自旋量子数</td>
+</tr>
+</tbody></table>
+<h4><span id="112自由电子">1.1.2自由电子：</span></h4><p>给定足够的能量，电子挣脱原子核束缚成为自由电子</p>
+<p>由一维薛定谔方程<br>$$<br>-\frac{\hbar^2}{2m} \frac{\partial^2 \psi(x, t)}{\partial x^2} + V(x) \psi(x, t)&#x3D;E\psi(x, t)<br>$$<br>定态薛定谔方程<br>$$<br>-\frac{\hbar^2}{2m} \frac{d^2 \psi(x)}{d x^2} + V(x) \psi(x) &#x3D; E \psi(x)<br>$$</p>
+<p>$$</p>
+<p>$$</p>
+<p>在自由电子中<br>$$<br>V(x)&#x3D;0，<br>可得-\frac{\hbar^2}{2m} \frac{d^2 \psi(x)}{d x^2}  &#x3D; E \psi(x)<br>$$<br>对后面这个二次幂函数求解<br>$$<br>\psi(x)&#x3D;A \cdot e^{i2 \pi kx}，k&#x3D;\frac 1\lambda<br>$$<br>由于并不像氢原子一样E有约束关系，解并不像氢原子一样是分立的，而是连续的从下面也可证得<br>$$<br>由\left{<br>\begin{aligned}<br>E&#x3D;\frac {P^2}{2m_0} \<br>P&#x3D;h\cdot k<br>\end{aligned}<br>\right. 得E&#x3D;\frac{h^2k^2}{2m_0}<br>$$<br>从得出的方程可以看到E和K的关系是连续的，E在坐标轴中是一个开口朝上连续的二次函数，&#x3D;&#x3D;由此可知自由粒子的能量状态是连续的&#x3D;&#x3D;</p>
+<h4><span id="113半导体中的电子">1.1.3半导体中的电子</span></h4><p>半导体中的势场由以下三种组成</p>
+<ul>
+<li>孤立原子中电子势场<br>原子核势场</li>
+</ul>
+<p>$$<br>V(r)&#x3D;\frac{－q^2}{4\pi\epsilon_0r}<br>$$</p>
+<p>  加上其他电子势场</p>
+<ul>
+<li>自由电子</li>
+</ul>
+<p>$$<br>  V(x)&#x3D;0<br>$$</p>
+<ul>
+<li>半导体中电子势场<br>利用单电子近似模型，即把所有电子和其所受的力看做一个整体来研究，&#x3D;&#x3D;其有两个方面理想化：晶体（半导体）无缺陷，原子固定不动&#x3D;&#x3D;</li>
+</ul>
+<h3><span id="12单电子近似">1.2单电子近似</span></h3><p>单电子近似模型的定义：假设&#x3D;&#x3D;半导体中的电子是在严格周期性重复排列的（晶体无缺陷）&#x3D;&#x3D;，且&#x3D;&#x3D;固定不动的原子核势场（原子固定不动）&#x3D;&#x3D;，以及大量电子的平均势场下运动<br>单电子近似的意义：</p>
+<ul>
+<li>把复杂的原子核和电子混合系统中的核与电子之间的作用力加以分离</li>
+<li>把众多电子相互牵制的复杂电子问题，近似看做大量电子对某个（单个）电子的影响等效为一个平均值<br>根据单电子近似，周期性势场＋平均势场&#x3D;周期性势场</li>
+</ul>
+<p>$$<br>V(x)＋V(Sa)&#x3D;V(x)，S整数，a晶格常数<br>$$</p>
+<p>其在二维空间中是具有周期性的一维周期性势阱<br>带入薛定谔方程：<br>$$<br>-\frac{\hbar^2}{2m} \frac{d^2 \psi(x)}{d x^2} + V(x＋Sa) \psi(x) &#x3D; E \psi(x)，\hbar&#x3D;\frac h{2\pi}<br>$$<br>$$\hbar为修正普朗克常数是为了方便计算得出的$$<br>为了解出上面新的$V(x+Sa)$我们要引入布洛赫定理，其是周期性势场的一维薛定谔方程的解，形式为：<br>$$<br>\psi_k(x)&#x3D;u_k(x) \cdot e^{i2 \pi kx},u_k&#x3D;u_k(x+na)<br>$$<br>其中$u_k(x)$是周期性的，不是保持不变的</p>
+<h4><span id="121结论">1.2.1结论</span></h4><ol>
+<li>自由电子波函数：$\psi(x)&#x3D;Ae^{i2 \pi kx}$，其中$k&#x3D;\frac{1}{\lambda}$</li>
+<li>晶体电子波函数（近自由电子近似）：$\psi_{k}(x)&#x3D;u_{k}(x)e^{i2\pi kx}$，其中$\lambda&#x3D;\frac{1}k$<br>两者的波函数形式相似，都表示波长为$\lambda&#x3D;\frac{1}{k}$，沿$k$方向传播的平面波。但晶体中用周期性调制振幅$u_{k}(x)$代替了自由电子中的恒定振幅$A$</li>
+<li>自由电子概率密度：$|\psi(x)\psi^{*}(x)| &#x3D; A^{2}&#x3D;const.$是晶格常数a的周期性函数，表示晶格中找到电子的概率具有周期性</li>
+<li>晶体中电子概率密度函数$|\psi(x)\psi^{<em>}(x)| &#x3D;|u_{k}(x)u_{k}^{</em>}(x)|$反映了电子不再局限于某原子上，而是可以在基本原子自由运动到其近邻格胞对应位置的可能性，&#x3D;&#x3D;也称为共有化运动，电子在每个晶胞对应点等几率出现&#x3D;&#x3D;</li>
+</ol>
+<h3><span id="13半导体中的电子能带">1.3半导体中的电子能带</span></h3><h4><span id="131准自由电子近似">1.3.1准自由电子近似</span></h4><p>设想将一个电子放在晶格中，由于晶格原子的存在，电子波在传播过程中会受到格点原子的反射</p>
+<ol>
+<li><p>一般情况：个反射波会相互抵消，对前进波无重大影响</p>
+</li>
+<li><p>特殊情况：前进波和反射波满足一定相位关系，满足1.2中的布拉格发射条件，在<br>$$<br>k&#x3D;\frac {n}{2a}，n&#x3D;\pm1,\pm2…处<br>$$<br>形成驻点，前进波和反射波形成驻波，&#x3D;&#x3D;且在驻点时：幅度&#x3D;0，速度&#x3D;0&#x3D;&#x3D;<br>在量子力学中，电子运动可以看作波包的运动，波包群速度就是电子运动的平均速度，设波包频率为$\gamma$，电子运动的平均速度可以由：<br>$$<br>\gamma&#x3D;\frac {d\gamma}{dk} &amp;&amp;<br>\left{<br>\begin{aligned}<br>P&#x3D;h \cdot k \<br>E&#x3D;h\gamma<br>\end{aligned}<br>\right.<br>$$<br>可以解得：<br>$$<br>v&#x3D;\frac {d \frac eh}{dk}&#x3D;\frac 1h \cdot \frac {dE}{dk}<br>$$<br>又因为在驻点$v&#x3D;0$<br>$$<br>\frac 1h \cdot \frac {dE}{dk}&#x3D;0<br>$$<br>其中的$\frac {dE}{dk}$为方程$E&#x3D;\frac {h^2k^2}{2m_0}$的斜率</p>
+</li>
+</ol>
+<h4><span id="132结论">1.3.2结论：</span></h4><ol>
+<li>允带禁带：由准自由电子近似可以看出，原先自由电子连续的EK关系被分割为一系列能量允许和不允许的区间，分别称之为允带和禁带</li>
+<li>紧束缚近似：从孤立原子核外电子状态出发，把晶体看作是组成晶体的原子相互靠近到一定程度的结果</li>
+<li>能级分裂：由于原子的靠近，会使电子的能级发生分裂，其能量有可能处于能级1或者能级2上<br>更进一步，电子具有一定几率具有该能级所代表的能量</li>
+</ol>
+<p><img src="/./../Semiconductorphysicalimage/image-20241021112029114.png"></p>
+<ol start="4">
+<li>随着原子互相靠拢，形成晶体，原先孤立原子的电子能级展开形成能带</li>
+</ol>
+<p><img src="/./../Semiconductorphysicalimage/image-20241021112612173.png"></p>
+<h4><span id="133布里渊区">1.3.3布里渊区</span></h4><p>当$k&#x3D;\frac n{za}$时能量出现不连续，形成了一系列相同的允带和禁带，其中：</p>
+<table>
+<thead>
+<tr>
+<th>$－\frac 1{2a}＜k＜\frac 1{2a}$</th>
+<th>第Ⅰ布里渊区</th>
+<th>简约布里渊区，也称为简约波矢</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$－\frac 1{a}＜k＜\frac 1{a}$</td>
+<td>第Ⅱ布里渊区</td>
+<td></td>
+</tr>
+</tbody></table>
+<p><img src="/./../Semiconductorphysicalimage/image-20241021112643489.png"></p>
+<ol>
+<li><p>禁带出现在布里渊区边界上，每个布里渊区对应一个能带</p>
+</li>
+<li><p>由于图中可以看出来，布里渊区具有周期性，其对应的能带对应的有<br>$$<br>E(k)&#x3D;E(k+ \frac na），周期为\frac na<br>$$</p>
+</li>
+</ol>
+<h4><span id="134能带量子化">1.3.4能带量子化</span></h4><p>由于$E&#x3D;\frac {h^2k^2}{2m_0}$，有了确定的k就可以确定E，一个k对应一个能级，若我们知道一个允带中有多少个k，就可以知道一个能带中有多少个能级<br>考虑最简单的情况，在一维晶体中：<br>$$<br>L_{长度}&#x3D;N \cdot a，N为原子数，a为晶格常数<br>$$</p>
+<p>根据循环边界条件：<br>在x&#x3D;0和x&#x3D;L处波函数由于周期性而相等，有：<br>$$<br>\psi(0)&#x3D;\psi(L)，由布洛赫\psi_k(x)&#x3D;u_k(x) \cdot e^{i2 \pi kx}<br>$$<br>故在x&#x3D;0处和x&#x3D;L处<br>$$<br>\psi_k(0) &#x3D; u_k(0) \cdot e^{i2 \pi k 0} &#x3D; \psi_k(L) &#x3D; u_k(L) \cdot e^{i2 \pi k L}<br>$$<br>由于布洛赫定律的幅值函数也具有周期性，$e^0&#x3D;1$，有：<br>$$<br>\psi_k(0) &#x3D;1 \cdot 1 &#x3D; \psi_k(L) &#x3D; 1\cdot e^{i2 \pi k L}&#x3D;1<br>$$<br>整理得$e^{i2 \pi k L}&#x3D;1$运用欧拉公式得：<br>$$<br>e^{i2 \pi k L}&#x3D;cos(2 \pi kL)+isin(2 \pi kL)&#x3D;1<br>$$<br>故解得：<br>$$<br>2 \pi kL&#x3D;2 \pi n，n为整数<br>$$<br>两边同除：<br>$$<br>k&#x3D;\frac nL&#x3D;\frac n {Na}<br>$$<br>观察公式k离散，得到&#x3D;&#x3D;能级离散&#x3D;&#x3D;</p>
+<h4><span id="135剩下的部分在pdf文件中">1.3.5剩下的部分在PDF文件中</span></h4><p><a target="_blank" rel="noopener" href="https://drive.google.com/file/d/1e6L5uE_p_24KuASvOtc0bi2VGdj09Tof/view?usp=sharing">谷歌云盘</a></p>
+
+</div> 
+
+<script>
+    window.onload = detectors();
+</script>
+    <div class="post-footer">
+    <div class="h-line-primary"></div>
+    <nav class="post-nav">
+        <div class="prev-item">
+           
+                <div class="icon arrow-left"></div>
+                <div class="post-link">
+                    <a href="/2024/09/18/yeyuwuxiandian/">Prev</a>
+                </div>
+            
+        </div>
+        <div class="next-item">
+            
+                <div class="icon arrow-right"></div>
+                <div class="post-link">
+                  <a href="/2024/09/14/2%E5%8D%8A%E5%AF%BC%E4%BD%93%E4%B8%AD%E6%9D%82%E8%B4%A8%E5%92%8C%E7%BC%BA%E9%99%B7%E8%83%BD%E7%BA%A7/">Next</a>  
+                </div>  
+            
+        </div>
+    </nav>
+</div>
+
+    
+      <div class="post-comment">
+
+     
+
+     
+    
+    
+
+</div>
+     
+  
+</article>
+        </div>
+      </div>
+      
+      <div class="footer">
+    <div class="flex-container">
+        <div class="footer-text">
+            
+            
+            
+                Welcome to my site & Check out my bilibili <a target="_blank" rel="noopener" href="https://space.bilibili.com/202228736">[Click]</a>
+                
+        </div>
+    </div>
+</div>
+
+    </div>
+
+  </body>
+</html>
