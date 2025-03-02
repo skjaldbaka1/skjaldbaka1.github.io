@@ -1,0 +1,2653 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>修复frame主题的行内公式不渲染问题</title>
+    <url>/2025/03/02/%E4%BF%AE%E5%A4%8Dframe%E4%B8%BB%E9%A2%98%E7%9A%84%E8%A1%8C%E5%86%85%E5%85%AC%E5%BC%8F%E4%B8%8D%E6%B8%B2%E6%9F%93%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<p>在应用frame主题时，按照作者在文档中的提示，将<code>mathjax_enable: false</code>改为<code>mathjax_enable: true</code>后：</p>
+<figure class="highlight markdown"><table><tr><td class="code"><pre><span class="line"><span class="section"># mathjax setting</span></span><br><span class="line"><span class="section"># note: need to install the hexo plugin for math: https://github.com/hexojs/hexo-math</span></span><br><span class="line">mathjax<span class="emphasis">_enable: true</span></span><br></pre></td></tr></table></figure>
+
+<p>发现作者提供的方法可以渲染如下所示的独立公式：<br>$$<br>E &#x3D; mc^2<br>$$<br>但无法渲染$E &#x3D; mc^2$这种通过 <code>$$</code> 符号表示行内公式，在网上查找了一番后发现<code>$$</code> 符号表示行内公式可能并表示标准的数学公式表达形式，无奈基本上所有markdown笔记基本上都是用<code>$$</code> 符号表示行内公式的，在结合GPT的帮助后成功实现了渲染</p>
+<ol>
+<li><p>到GitHub安装<a href="https://github.com/hexojs/hexo-math">hexojs&#x2F;hexo-math: A hexo plugin that uses MathJax to render math equations.</a>，在命令行中输入以下指令，并将上文提到的<code>themes\frame\</code>文件夹下<code>_config.yml</code>中<code>mathjax_enable: false</code>改为<code>mathjax_enable: true</code></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">npm i hexo-math --save</span><br></pre></td></tr></table></figure></li>
+<li><p>将<code>themes\frame\layout</code>文件夹下<code>layout.ejs</code>的内容改为以下内容</p>
+ <figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;&lt;%= config.language %&gt;&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    &lt;%- partial(&#x27;partials/head&#x27;) %&gt;</span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span> <span class="attr">async</span></span></span><br><span class="line"><span class="tag">      <span class="attr">src</span>=<span class="string">&quot;https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">      <span class="variable language_">window</span>.<span class="property">MathJax</span> = &#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="attr">tex</span>: &#123;</span></span><br><span class="line"><span class="language-javascript">          <span class="attr">inlineMath</span>: [[<span class="string">&#x27;$&#x27;</span>, <span class="string">&#x27;$&#x27;</span>], [<span class="string">&#x27;\\(&#x27;</span>, <span class="string">&#x27;\\)&#x27;</span>]]</span></span><br><span class="line"><span class="language-javascript">        &#125;</span></span><br><span class="line"><span class="language-javascript">      &#125;;</span></span><br><span class="line"><span class="language-javascript">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;mask-border&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;wrapper&quot;</span>&gt;</span></span><br><span class="line">      &lt;%- partial(&#x27;partials/header&#x27;) %&gt;</span><br><span class="line"></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;main&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;flex-container&quot;</span>&gt;</span></span><br><span class="line">          &lt;%- body %&gt;</span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">      &lt;%- partial(&#x27;partials/footer&#x27;) %&gt;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>重新编译部署hexo，可以发现公式渲染全部正常</p>
+</li>
+</ol>
+]]></content>
+      <tags>
+        <tag>教程</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>关于新生在湖北大学阳逻学区使用台式机和路由器指北</title>
+    <url>/2024/03/03/%E6%B9%96%E5%A4%A7%E8%B7%AF%E7%94%B1%E5%99%A8%E6%95%99%E7%A8%8B/</url>
+    <content><![CDATA[<h2 id="其一，关于放不放下的问题"><a href="#其一，关于放不放下的问题" class="headerlink" title="其一，关于放不放下的问题"></a>其一，关于放不放下的问题</h2><h3 id="机箱本体："><a href="#机箱本体：" class="headerlink" title="机箱本体："></a>机箱本体：</h3><p>在宿舍改造之前itx放得下，matx应该勉强，atx只能放在桌子下面靠外，挤占宝贵的腿舒展空间</p>
+<h3 id="空间问题："><a href="#空间问题：" class="headerlink" title="空间问题："></a>空间问题：</h3><p>笔者的itx是可以放进桌子下面的隔断的**（在宿舍改造之前）**改造之后不知隔断取消与否<br>显示器：24寸显示器是断然塞不下的，如要强行放下，显示器后损失一大部分有用空间。在前，显示器则会与人眼距离过近，有碍视力和游戏<br>笔者解决办法是购入16寸（不）便携显示器，加上增高，可正好塞入每人前面的小格子</p>
+<h2 id="其二，关于功率和会不会跳闸问题"><a href="#其二，关于功率和会不会跳闸问题" class="headerlink" title="其二，关于功率和会不会跳闸问题"></a>其二，关于功率和会不会跳闸问题</h2><p>笔者寝室比较特殊，室友只有两个是游戏本，其他人都是轻薄本。估算自己电脑功率在250w左右粗略算来差不多总共500w功率，目前还没有发生过跳闸的问题。<br>要是室友全游戏本夜夜电竞寝室的话，还是要小心了</p>
+<h2 id="其三，关于散热和热量的问题"><a href="#其三，关于散热和热量的问题" class="headerlink" title="其三，关于散热和热量的问题"></a>其三，关于散热和热量的问题</h2><p>ITX本身就是闷罐，加上狐带宿舍个人人均空间的特殊性，笔者的ITX只能放在桌子下，一到夏天就会感觉腿部吹来阵阵暖风，更离谱的是，上次友人来本寝室做客，我与客皆问到一股胶糊味，细细排查下竟发现是从机箱中传出来的味道。乃大惊，发现是散热器电源线被烤糊了，从此以后我用电脑只敢把两个侧盖全卸了用，当作开放机箱使用<br>所以在狐带宿舍用台式，方还需考虑一下散热问题</p>
+<h2 id="其四，关于到底要不要配台式机上学的问题"><a href="#其四，关于到底要不要配台式机上学的问题" class="headerlink" title="其四，关于到底要不要配台式机上学的问题"></a>其四，关于到底要不要配台式机上学的问题</h2><h3 id="要不要的问题："><a href="#要不要的问题：" class="headerlink" title="要不要的问题："></a>要不要的问题：</h3><p>近年来各大博主都在宣传大学生除笔记本之外的新游戏选择——ITX台式，称其又便携又性能好又散热好，经过本鼠半年的使用，ITX真是又不便携，同价位性能又不好。在今年矿潮过去，diy市场走弱的大情况下，今年同价位如果接受不了矿卡的情况下，在配好所有外设，台式机真没有同价位的笔记本性能好。</p>
+<h3 id="便携与否："><a href="#便携与否：" class="headerlink" title="便携与否："></a>便携与否：</h3><p>在武汉本地上学的武汉人我觉得还是可以方便携带的，笔者家与学校并不在一地，今年两次回家都下雨，每次都担心电脑进水。其次阳逻校区离火车站足足有一个多小时的车程，倘若把电脑放在行李箱里运输，则需担心上文防水，还有震动问题（<strong>笔者的itx回到家突然发现机箱内有金属晃动之声，细细排查一番居然发现是显卡延长线螺丝掉落）</strong></p>
+<h2 id="其五，算是补充，关于台式机如何使用网络的问题"><a href="#其五，算是补充，关于台式机如何使用网络的问题" class="headerlink" title="其五，算是补充，关于台式机如何使用网络的问题"></a>其五，算是补充，关于台式机如何使用网络的问题</h2><h2 id="写在所有前面的重点："><a href="#写在所有前面的重点：" class="headerlink" title="写在所有前面的重点："></a>写在所有前面的重点：</h2><p><em><strong>尽量不要办理校园网，校园网资费贵，六个人费用加一起完全可以去三家运营商问办理宽带的事宜，一年宽带费绝对要比六个人校园卡费用低的多，且办理校园卡的人会忽悠你可以办宽带，则日按照，然后就一直拖一直拖最后告诉你下文提到的交换机就是宽带，实际上我一友人寝室是确确实实办理了宽带的，所以别听信忽悠，一家不行换一家</strong></em><br>众所周知狐带的校园网无论稳定性和网速和资费实际上都是烂中烂，下面提供三种方法，有些带网口的笔记本也可以借此提升自己的游戏体验**（下文前两段方法有线链接时游戏网络延迟和稳定性大大好过WiFi连接，且可以超过校园网所限制的3m&#x2F;s小水管网速）**</p>
+<h2 id="网线直插："><a href="#网线直插：" class="headerlink" title="网线直插："></a>网线直插：</h2><p>较为推荐的方法，在宿舍门上宿舍内的墙上有带四个网口的交换机，大概需要买4m长的网线加上一些双面强力胶，在墙上走明线链接到台式机，这种方法走线的时候较为dan疼，且链接上网线后开机并不能即插即用，仍需要登陆校园网才能室友</p>
+<h2 id="网线直插自己的路由器："><a href="#网线直插自己的路由器：" class="headerlink" title="网线直插自己的路由器："></a>网线直插自己的路由器：</h2><p>我愿评价为神中神，通过路由器拨号实现自动登陆和链接鼠鼠的ns和平板还有电脑，跨过了校园网不能链接三台设备和以上的限制，然后路由器再链接台式机，有线网给台式用，无线网还可以给手机等设备用</p>
+<h2 id="WiFi连接："><a href="#WiFi连接：" class="headerlink" title="WiFi连接："></a>WiFi连接：</h2><p>大多数丐版主板是不自带网卡的，可以购买cnvi制式的网卡盒给主板增加无线功能在此不在赘述，但是在狐带用无线网连接校园网实际上是在跟寝室六个人抢网，稳定性实在不敢恭维，鼠鼠原来打apex的时候就经常三红</p>
+<p>综上也算是结语，带个台式机上学在设施陈旧，宿舍狭小，第一学期交通不便的狐带属于是自己折磨自己，在今年笔记本市场还算健康的环境下，如果不考虑后续升级，购入笔记本或许是更好的选择</p>
+]]></content>
+      <tags>
+        <tag>教程</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>LDO原理与基本电路设计</title>
+    <url>/2025/03/01/%E7%AC%94%E8%AE%B0LDO%E5%8E%9F%E7%90%86%E4%B8%8E%E5%9F%BA%E6%9C%AC%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1/</url>
+    <content><![CDATA[<p>LDO全称低压差线性稳压器</p>
+<p><img src="/./../pics/%7BF843C675-43C6-4834-AF07-3A71C0667D66%7D.png"></p>
+<ul>
+<li>其通过使用在线性区域内运行的晶体管或者场效应管，通过调节晶体管或者场效应管两端的电压，产生经过调整的输出电压</li>
+<li>但其只能使用降压应用中，$V_{out}&lt;V_{in}$</li>
+</ul>
+<p>LDO的一些功能</p>
+<ul>
+<li>直流转交流：将220V交流市电转化稳定的直流电压</li>
+<li>稳定电池电压：电池电压会随着电量而变化，LDO能将其输出的电压稳定在一个固定值上</li>
+<li>减小输出纹波：在DCDC模块后消除其输出电压的波动</li>
+</ul>
+<h2 id="1一个基本的LDO电路"><a href="#1一个基本的LDO电路" class="headerlink" title="1一个基本的LDO电路"></a>1一个基本的LDO电路</h2><p><img src="/./../pics/%7BAB8890F1-68FD-42FC-87BB-22302E13DADD%7D.png"></p>
+<h3 id="1-1电路组成和原理"><a href="#1-1电路组成和原理" class="headerlink" title="1.1电路组成和原理"></a>1.1电路组成和原理</h3><h4 id="1-1-1组成"><a href="#1-1-1组成" class="headerlink" title="1.1.1组成"></a>1.1.1组成</h4><ul>
+<li>分压取样电路</li>
+<li>基准电压：$V_{ref}$（带隙基准BGR产生的一个不受温度影响的零温度系数电压）</li>
+<li>误差放大电路：运算放大器OPA，总是倾向于使得正（+）负（-）输入端的电压相等，当$V_{FB}&lt;V_{ref}$时，运放就会减小输出</li>
+<li>晶体管调整电路</li>
+</ul>
+<h4 id="1-1-2负反馈调节稳压的原理"><a href="#1-1-2负反馈调节稳压的原理" class="headerlink" title="1.1.2负反馈调节稳压的原理"></a>1.1.2负反馈调节稳压的原理</h4><p>由运算放大器的虚短虚断将$V_{ref}$从‘+’端引到‘-’端：<br>$$<br>V_{ref}&#x3D;V_-&#x3D;V_+<br>$$<br>根据电阻分压得：<br>$$<br>V_{out} \cdot \frac {R_1} {R_1+R_2}&#x3D;V_{ref}<br>$$<br>进一步的：<br>$$<br>V_{out} &#x3D;V_{ref}\cdot \frac  {R_1+R_2}{R_1}<br>$$<br>可以看到$V_{out}$实际上是由$V_{ref}$放大得来的，通过$R_1,R_2$和运放组成的负反馈分压结构将$V_{out}$稳定在与$V_{ref}$相关联的一个固定值，从而&#x3D;&#x3D;实现了当负载电压发生变化时通过反馈回路来控制晶体管两端电压，使输出保持恒定不变&#x3D;&#x3D;</p>
+<h5 id="1-输出电压增大时"><a href="#1-输出电压增大时" class="headerlink" title="1.输出电压增大时"></a>1.输出电压增大时</h5><p>当$V_{out}$增大时，$V_{FB}$相应增大，由放大器$U1$对误差放大，故$UG$增大；若此时$V_{in}$保持不变，对于晶体管两端<br>$$<br>|V_{gs}|\downarrow &#x3D;|V_{in}|-|UG|  \uparrow<br>$$<br>根据晶体管在饱和区有：<br>$$<br>I_D \downarrow &#x3D; \frac 12 \mu_n C_{ox}\frac WL(V_{gs} \downarrow-V_{thp})^2<br>$$<br>$I_D$减小，$R_3$上分得的电流减小，分得的电压也相应减小，故$V_{out}$减小，调整到原理稳定的状态</p>
+<h5 id="2-输出电压减小时"><a href="#2-输出电压减小时" class="headerlink" title="2.输出电压减小时"></a>2.输出电压减小时</h5><p>当$V_{out}$减小时，$V_{FB}$相应减小，由放大器$U1$会减小其的输出&#x3D;&#x3D;（总是倾向于使得正（+）负（-）输入端的电压相等，当$V_{FB}&lt;V_{ref}$时，运放就会减小输出）&#x3D;&#x3D;，故$UG$较小；若此时$V_{in}$保持不变，对于晶体管两端<br>$$<br>|V_{gs}|\uparrow &#x3D;|V_{in}|-|UG|  \downarrow<br>$$<br>根据晶体管在饱和区有：<br>$$<br>I_D \uparrow &#x3D; \frac 12 \mu_n C_{ox}\frac WL(V_{gs} \uparrow-V_{thp})^2<br>$$<br>$I_D$增大，$R_3$上分得的电流增加，分得的电压也相应增大，故$V_{out}$增大，调整到原理稳定的状态</p>
+<h2 id="2LDO设计的设计原理"><a href="#2LDO设计的设计原理" class="headerlink" title="2LDO设计的设计原理"></a>2LDO设计的设计原理</h2><p>一个LDO实际上是由运算放大器模块和带隙组成</p>
+<h3 id="1-2放大电路的设计原理"><a href="#1-2放大电路的设计原理" class="headerlink" title="1.2放大电路的设计原理"></a>1.2放大电路的设计原理</h3>]]></content>
+      <tags>
+        <tag>笔记</tag>
+        <tag>CMOS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Verilog课程笔记</title>
+    <url>/2024/12/13/%E7%AC%94%E8%AE%B0Verilog/</url>
+    <content><![CDATA[<h3 id="1-1一个基本的Verilog代码构成"><a href="#1-1一个基本的Verilog代码构成" class="headerlink" title="1.1一个基本的Verilog代码构成"></a>1.1一个基本的Verilog代码构成</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">module 模块名 ([端口列表]);</span><br><span class="line">[端口信号声明;]</span><br><span class="line">[参数声明；]</span><br></pre></td></tr></table></figure>
+
+<p>如</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">module full_adder (A,B,CIN,S,COUT);</span><br><span class="line">//端口列表是指电路的输入/输出信号名称列表，信号名由用户指定，各名称间用逗号隔开</span><br><span class="line"> input [3:0] A,B;</span><br><span class="line"> //端口信号声明是要说明端口信号的输入输出属性、信号的数据类型，以及信号的位宽</span><br><span class="line"> //输入输出属性有input,output,inout三种，信号的数据类型常用的有wire,reg两种</span><br><span class="line"> input CIN;</span><br><span class="line"> output reg [3:0] S;</span><br><span class="line"> //[3:0]代表信号的位宽，用[n1:n2]表示;同一类信号之间用逗号隔开</span><br><span class="line"> output COUNT;</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-2语法"><a href="#1-2语法" class="headerlink" title="1.2语法"></a>1.2语法</h3><h4 id="1-逻辑运算关系"><a href="#1-逻辑运算关系" class="headerlink" title="(1)逻辑运算关系"></a>(1)逻辑运算关系</h4><h6 id="算术型"><a href="#算术型" class="headerlink" title="算术型"></a>算术型</h6><table>
+<thead>
+<tr>
+<th>*****</th>
+<th><strong>乘法</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>&#x2F;</strong></td>
+<td><strong>除法</strong></td>
+</tr>
+<tr>
+<td><strong>+</strong></td>
+<td><strong>加法</strong></td>
+</tr>
+<tr>
+<td><strong>-</strong></td>
+<td><strong>减法</strong></td>
+</tr>
+<tr>
+<td><strong>%</strong></td>
+<td><strong>求余</strong></td>
+</tr>
+<tr>
+<td>******</td>
+<td><strong>求幂</strong></td>
+</tr>
+</tbody></table>
+<p>其中运算规则为</p>
+<ol>
+<li>加减乘除、求幂的操作数可以是实数也可以是整数，求余运算的操作数只能是整数</li>
+<li>求余运算结果取第一个操作数的符号</li>
+</ol>
+<h6 id="逻辑型"><a href="#逻辑型" class="headerlink" title="逻辑型"></a>逻辑型</h6><table>
+<thead>
+<tr>
+<th><strong>！</strong></th>
+<th><strong>逻辑非</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>&amp;&amp;</strong></td>
+<td><strong>逻辑与</strong></td>
+</tr>
+<tr>
+<td><strong>||</strong></td>
+<td><strong>逻辑或</strong></td>
+</tr>
+</tbody></table>
+<p>其中运算规则为</p>
+<ol>
+<li>逻辑型运算的结果可能是1（逻辑真）、0（逻辑假）、x（不确定）</li>
+<li>逻辑运算的操作数可以是任意表达式，表达式的结果被当做逻辑值处理，只有1、0、x三种情况，非0、x即1</li>
+</ol>
+<h6 id="关系运算符"><a href="#关系运算符" class="headerlink" title="关系运算符"></a>关系运算符</h6><table>
+<thead>
+<tr>
+<th><strong>&gt;</strong></th>
+<th><strong>大于</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>&lt;</strong></td>
+<td><strong>小于</strong></td>
+</tr>
+<tr>
+<td><strong>&gt;&#x3D;</strong></td>
+<td><strong>大于等于</strong></td>
+</tr>
+<tr>
+<td><strong>&lt;&#x3D;</strong></td>
+<td><strong>小于等于</strong></td>
+</tr>
+</tbody></table>
+<h6 id="等价运算符"><a href="#等价运算符" class="headerlink" title="等价运算符"></a>等价运算符</h6><table>
+<thead>
+<tr>
+<th><strong>&#x3D;&#x3D;</strong></th>
+<th><strong>等于</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>！</strong> <strong>&#x3D;</strong></td>
+<td><strong>不等于</strong></td>
+</tr>
+<tr>
+<td><strong>&#x3D;&#x3D;&#x3D;</strong></td>
+<td>**case ** <strong>等于</strong></td>
+</tr>
+<tr>
+<td><strong>！</strong> <strong>&#x3D;&#x3D;</strong></td>
+<td><strong>case</strong> <strong>不等</strong></td>
+</tr>
+</tbody></table>
+<p>其中运算规则为</p>
+<ol>
+<li>等于和不等于运算的结果可能是1（逻辑真）、0（逻辑假）、x（不确定）；对于x或a，认为是不确定的值，比较结果为x</li>
+<li>case等和case不等的结果只能是1或0，对于x、z认为是确定的值，参加比较</li>
+</ol>
+<h6 id="按位运算符"><a href="#按位运算符" class="headerlink" title="按位运算符"></a>按位运算符</h6><p>用于二进制数如1001与1111按照一位一位相比较</p>
+<table>
+<thead>
+<tr>
+<th><strong>~</strong></th>
+<th><strong>按位非</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>&amp;</strong></td>
+<td><strong>按位与</strong></td>
+</tr>
+<tr>
+<td><strong>|</strong></td>
+<td><strong>按位或</strong></td>
+</tr>
+<tr>
+<td><strong>^</strong></td>
+<td><strong>按位异或</strong></td>
+</tr>
+<tr>
+<td><strong>~^</strong> <strong>^~</strong></td>
+<td><strong>按位同或</strong></td>
+</tr>
+</tbody></table>
+<p>其中运算规则为</p>
+<ol>
+<li>其它按位运算的操作数有2个或多个，将两个操作数对应的位两两运算</li>
+<li>如果操作数位宽不同，位宽小的会自动左添0补齐</li>
+</ol>
+<h6 id="缩减运算符"><a href="#缩减运算符" class="headerlink" title="缩减运算符"></a>缩减运算符</h6><p>缩减运算的操作数只有一个，将该数的各位自左至右进行逻辑运算，结果只有一位</p>
+<table>
+<thead>
+<tr>
+<th><strong>&amp;</strong></th>
+<th><strong>缩减与</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>~&amp;</strong></td>
+<td><strong>缩减与非</strong></td>
+</tr>
+<tr>
+<td><strong>|</strong></td>
+<td><strong>缩减或</strong></td>
+</tr>
+<tr>
+<td><strong>~|</strong></td>
+<td><strong>缩减或非</strong></td>
+</tr>
+<tr>
+<td><strong>^</strong></td>
+<td><strong>缩减异或</strong></td>
+</tr>
+<tr>
+<td><strong>~^</strong> <strong>^~</strong></td>
+<td><strong>缩减同或</strong></td>
+</tr>
+</tbody></table>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">例：</span><br><span class="line">Y=&amp; 4’b1001;</span><br><span class="line">//从左到右，逐位进行与运算，结果为0</span><br><span class="line">Y= ~&amp; 4’b1001; </span><br><span class="line">//跟上面一样，先逐渐进行与运算，得出0后非</span><br></pre></td></tr></table></figure>
+
+<h6 id="移位运算符"><a href="#移位运算符" class="headerlink" title="移位运算符"></a>移位运算符</h6><p>将一位或者多位向左或向右移n位</p>
+<table>
+<thead>
+<tr>
+<th><strong>&gt;&gt;</strong></th>
+<th><strong>右移</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>&lt;&lt;</strong></td>
+<td><strong>左移</strong></td>
+</tr>
+<tr>
+<td><strong>&gt;&gt;&gt;</strong></td>
+<td><strong>算术右移</strong></td>
+</tr>
+<tr>
+<td><strong>&lt;&lt;&lt;</strong></td>
+<td><strong>算术左移</strong></td>
+</tr>
+</tbody></table>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">例：</span><br><span class="line">Y= 4’b1001 &gt;&gt; 1;</span><br><span class="line">// &gt;&gt; 1代表整体向右移动一位，空出来的部分自动补0，故结果为0100</span><br><span class="line">Y= 4’sb1001 &gt;&gt;&gt; 1; </span><br><span class="line">// 算术整体右移一位，原来的最后一位1移动到最左边第一位，变成1100</span><br></pre></td></tr></table></figure>
+
+<h6 id="拼接复制运算符"><a href="#拼接复制运算符" class="headerlink" title="拼接复制运算符"></a>拼接复制运算符</h6><p>可以将两个四位二进制数链接起来</p>
+<table>
+<thead>
+<tr>
+<th><strong>{}</strong></th>
+<th><strong>拼接</strong></th>
+<th>{操作数1, 操作数2, …}</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>{ {} }</strong></td>
+<td><strong>复制拼接</strong></td>
+<td><strong>{n{ 操作数 1, 操作数2, …}}</strong></td>
+</tr>
+</tbody></table>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">例：</span><br><span class="line">Y= &#123;4’b1001, 2’b11&#125;;</span><br><span class="line">//将二进制数1001和11拼接起来变成100111</span><br><span class="line">Y= &#123;4&#123;2’b01&#125;&#125;; </span><br><span class="line">//前面的n为多少即复制拼接几次，这里n=4将01复制拼接4次，即01010101</span><br></pre></td></tr></table></figure>
+
+<h6 id="条件运算符"><a href="#条件运算符" class="headerlink" title="条件运算符"></a>条件运算符</h6><p>跟C语言中一样，可以对未知数进行条件赋值</p>
+<table>
+<thead>
+<tr>
+<th><strong>表达式</strong>1 ? 表达式<strong>2 :</strong> 表达式<strong>3</strong></th>
+<th><strong>用于条件赋值</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>表达式1&#x3D;1</strong></td>
+<td><strong>结果等于表达式2</strong></td>
+</tr>
+<tr>
+<td><strong>表达式1&#x3D;0</strong></td>
+<td><strong>结果等于表达式3</strong></td>
+</tr>
+<tr>
+<td><strong>表达式1&#x3D;x</strong></td>
+<td><strong>结果为x</strong></td>
+</tr>
+</tbody></table>
+<h4 id="2-assign语句"><a href="#2-assign语句" class="headerlink" title="(2)assign语句"></a>(2)assign语句</h4><ul>
+<li>assign语句称作连续赋值语句，相当于数电中的电平触发，其总是处于激活状态，只要表达式中的操作数有变化，立即进行计算和赋值（与连续赋值语句对应的另一种语句称为过程赋值语句）</li>
+<li>赋值目标必须是<strong>wire</strong>型的，wire表示电路间的连线</li>
+</ul>
+<p>这里给出一个assign语法的例子</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">assign y=a;</span><br><span class="line">assign y=a&amp;b;</span><br><span class="line">//基本格式：assign 赋值目标 = 表达式</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-always语句"><a href="#3-always语句" class="headerlink" title="(3)always语句"></a>(3)always语句</h4><ul>
+<li>always语句本身不是单一的有意义的一条语句，而是和下面的语句一起构成一个语句块，称之为过程块；过程块中的赋值语句称过程赋值语句</li>
+<li>该语句块不是总处于激活状态，当满足激活条件时才能被执行，否则被挂起，挂起时即使操作数有变化，也不执行赋值，赋值目标值保持不变</li>
+<li>赋值目标必须是<strong>reg</strong>型的</li>
+</ul>
+<h5 id="always语法的基本格式和例子"><a href="#always语法的基本格式和例子" class="headerlink" title="always语法的基本格式和例子"></a>always语法的基本格式和例子</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">always @(敏感信号条件表)</span><br><span class="line">//激活条件由敏感信号条件表决定，当敏感条件满足时，过程块被激活</span><br><span class="line">      各类顺序语句；  </span><br><span class="line">例：</span><br><span class="line">always @(posedge CLK)</span><br><span class="line">      Q=D；</span><br></pre></td></tr></table></figure>
+
+<p>敏感条件即上面的<code>@(敏感信号条件表)</code>有两种，一种是边沿敏感，一种是电平敏感</p>
+<h6 id="边沿敏感"><a href="#边沿敏感" class="headerlink" title="边沿敏感"></a>边沿敏感</h6><table>
+<thead>
+<tr>
+<th>(posedge 信号名)</th>
+<th>信号上升沿到来</th>
+<th>例：(posedge clk)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>(negedge 信号名)</strong></td>
+<td><strong>信号下降沿到来</strong></td>
+<td><strong>例：(negedge clk)</strong></td>
+</tr>
+</tbody></table>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">例：</span><br><span class="line">always @ (posedge CLK)</span><br><span class="line">    Q=D；</span><br><span class="line">//当CLK上升沿到来时，激活该语句块，将D的值赋给Q；否则，该语句块挂起，即使D有变化，Q的值也保持不变，直到下一次赋值</span><br><span class="line">//就是数电中上升沿触发的D触发器</span><br></pre></td></tr></table></figure>
+
+<h6 id="电平敏感"><a href="#电平敏感" class="headerlink" title="电平敏感"></a>电平敏感</h6><table>
+<thead>
+<tr>
+<th>(信号名列表)</th>
+<th>信号列表中任一信号有变化</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>例：(a,b,c)</strong></td>
+<td><strong>的a,b,c中有一个信号发生改变，always下的过程块被触发</strong></td>
+</tr>
+</tbody></table>
+<p>其中逗号也可以换成or就变成<code>(a or b or c)</code></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">例：</span><br><span class="line">always @ (D)</span><br><span class="line">    Q=D；</span><br><span class="line">//当D有变化时（不管是由1变0还是由0变1），激活该语句块，将D的值赋给Q；否则，该语句块挂起，Q的值保持不变，直到下一次赋值</span><br><span class="line">//实际是数电中的非门</span><br></pre></td></tr></table></figure>
+
+<h5 id="在always语法中插入if和case等语句"><a href="#在always语法中插入if和case等语句" class="headerlink" title="在always语法中插入if和case等语句"></a>在always语法中插入if和case等语句</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">例：</span><br><span class="line">module DFF2 (CLK,D,Q,RST,EN)</span><br><span class="line">input CLK,D,RST,EN;</span><br><span class="line">//input定义时必须以字母为开头，数字开头不行</span><br><span class="line">output Q;</span><br><span class="line">reg Q;</span><br><span class="line">//定义output若其与always后的代码块有关系，要将其定义为reg类型</span><br><span class="line">always @(posedge CLK or negedge RST)</span><br><span class="line">begin </span><br><span class="line">        if (!RST) Q&lt;=0；</span><br><span class="line">        else if (EN) Q&lt;=D</span><br><span class="line">end</span><br><span class="line">//使用if或者case语句的或者多个语句存在，要在代码块开头和结尾加上begin和end</span><br><span class="line">endmodule</span><br></pre></td></tr></table></figure>
+
+<p><strong>begin end</strong>之间的赋值语句有阻塞赋值和非阻塞赋值之分</p>
+<h6 id="阻塞赋值"><a href="#阻塞赋值" class="headerlink" title="阻塞赋值"></a>阻塞赋值</h6><p>语句顺序执行，前面的执行完才能执行后面，<code>赋值符号：=</code>，<em>右边表达式的计算和对左边寄存器变量的赋值是一个统一的原子操作中的两个动作，这两个动作之间不能再插入其他任何动作</em></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">赋值目标1=表达式1；</span><br><span class="line">赋值目标2=表达式2；</span><br><span class="line">//赋值语句1会阻塞赋值语句2 ，即只有当赋值语句1执行完才能执行赋值语句2</span><br><span class="line">例:阻塞赋值</span><br><span class="line">begin</span><br><span class="line">    m=a*b;</span><br><span class="line">    y=m;</span><br><span class="line">end</span><br><span class="line">//当m赋值完成后，才能执行y的赋值，y得到的是m的新值</span><br></pre></td></tr></table></figure>
+
+<h6 id="非阻塞赋值"><a href="#非阻塞赋值" class="headerlink" title="非阻塞赋值"></a>非阻塞赋值</h6><p>所有语句并行执行，<code>赋值符号：&lt;=</code>，<em>首先按顺序计算右边表达式的值，但是并不马上赋值，而是要等到过程结束时再按顺序赋值。</em></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">赋值目标1&lt;=表达式1；</span><br><span class="line">赋值目标2&lt;=表达式2；</span><br><span class="line">//赋值语句1不会阻塞赋值语句2 ，赋值语句1和赋值语句2并行执行</span><br><span class="line">例：非阻塞赋值</span><br><span class="line">begin</span><br><span class="line">    m&lt;=a*b;</span><br><span class="line">    y&lt;=m;</span><br><span class="line">end</span><br><span class="line">//m和y的赋值并行执行，y得到的是m的旧值</span><br></pre></td></tr></table></figure>
+
+<h4 id="底层模块和门语言调用"><a href="#底层模块和门语言调用" class="headerlink" title="底层模块和门语言调用"></a>底层模块和门语言调用</h4><h5 id="底层模块调用"><a href="#底层模块调用" class="headerlink" title="底层模块调用"></a>底层模块调用</h5><p>为了实现多个门电路组合使用，我们先设计一个底层的基础的D触发器模块</p>
+<p>其用代码表示为</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">module DFF(CLK,D,Q)</span><br><span class="line">    output reg Q;</span><br><span class="line">    input CLK,D;</span><br><span class="line">always @ (posedge CLK)</span><br><span class="line">    Q&lt;=D;</span><br><span class="line">endmodule</span><br></pre></td></tr></table></figure>
+
+<p>这时我们再将两个模块组合起来，加入两个内部变量d1和q1调用底层模块，在调用底层模块的时候要遵顼这两个格式</p>
+<ul>
+<li><p><strong>端口名关联法（命名法）</strong><br>因为有名字对应，不必按底层模块的端口信号列表顺序</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">(.底层端口名1(外接信号名1),.底层端口名2(外接信号名2),…)</span><br><span class="line">DFF dff1(.CLK(clk),.D(d1),.Q(q1));</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>位置关联法（顺序法）</strong><br>必须严格按照底层模块的端口信号列表顺序书写</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">(外接信号名1,外接信号名2,…)</span><br><span class="line">DFF dff2(q1,d,q);</span><br></pre></td></tr></table></figure></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">module examp (clk,d,a,q)</span><br><span class="line">    output  q;</span><br><span class="line">    input clk,d,a;</span><br><span class="line"></span><br><span class="line">    wire d1;</span><br><span class="line">    wire q1;</span><br><span class="line"></span><br><span class="line">DFF dff1(.CLK(clk),.D(d1),.Q(q1));</span><br><span class="line">DFF dff2(q1,d,q);</span><br><span class="line"></span><br><span class="line">or (d1,a,q);</span><br><span class="line">//门原语或门</span><br><span class="line"></span><br><span class="line">endmodule</span><br></pre></td></tr></table></figure>
+
+<h5 id="门原语调用"><a href="#门原语调用" class="headerlink" title="门原语调用"></a>门原语调用</h5><p>Verilog语言提供已经设计好的门，称为门原语（primitive，共12个），这些门可直接调用，不用再对其进行功能描述</p>
+<p>门原语调用格式：<code>门原语名 实例名 (端口连接)</code></p>
+<p><strong>其中实例名可省略（和模块调用不同），端口连接只能采用顺序法，输出在前，输入在后。</strong></p>
+<p>于是实际情况：<code>例：and (out, in1, in2);</code></p>
+<p>端口连接中第一个是输出，其余是输入，输入个数不限</p>
+<p>下面给出6个与门相关的门原语</p>
+<table>
+<thead>
+<tr>
+<th><strong>and （与）</strong></th>
+<th><strong>or（或）</strong></th>
+<th><strong>xor（异或）</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>nand（与非）</strong></td>
+<td><strong>nor（或非）</strong></td>
+<td><strong>xnor（同或）</strong></td>
+</tr>
+</tbody></table>
+<ul>
+<li>特殊门</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>not （非门）</th>
+<th><strong>not (OUT1, IN);</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>buf（缓冲器）</strong></td>
+<td><strong>buf b1_2out(OUT1, OUT2, IN);</strong></td>
+</tr>
+</tbody></table>
+<h5 id="三态门"><a href="#三态门" class="headerlink" title="三态门"></a>三态门</h5><table>
+<thead>
+<tr>
+<th><strong>bufif1(控制端1有效缓冲器)</strong></th>
+<th><strong>bufif1 b1 (out, in, ctrl);</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>bufif0(控制端0有效缓冲器)</strong></td>
+<td><strong>如上修改名称</strong></td>
+</tr>
+<tr>
+<td><strong>notif1(控制端1有效非门）</strong></td>
+<td><strong>notif1 n1 (out, in, ctrl);</strong></td>
+</tr>
+<tr>
+<td><strong>notif0(控制端0有效非门）</strong></td>
+<td><strong>如上修改名称</strong></td>
+</tr>
+</tbody></table>
+<p>端口列表中前面是输出，中间是输入，最后是使能端，输出个数不限。</p>
+<h4 id="数字表示格式"><a href="#数字表示格式" class="headerlink" title="数字表示格式"></a>数字表示格式</h4><p>无符号数的表示方法：<code>&lt;位宽&gt;’ &lt;进制&gt;&lt;数字&gt;</code></p>
+]]></content>
+      <tags>
+        <tag>笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>业余无线电考试知识</title>
+    <url>/2024/09/18/%E7%AC%94%E8%AE%B0%E4%B8%9A%E4%BD%99%E6%97%A0%E7%BA%BF%E7%94%B5%E8%80%83%E8%AF%95%E7%9F%A5%E8%AF%86/</url>
+    <content><![CDATA[<h4 id="1-不同类别业余无线电台的主要区别在于："><a href="#1-不同类别业余无线电台的主要区别在于：" class="headerlink" title="1.不同类别业余无线电台的主要区别在于："></a>1.不同类别业余无线电台的主要区别在于：</h4><p>允许发射的频率范围&#x2F;频率容限（a类30-3000mhz，符合《中华人民共和国无线电频率划分规定》）和最大发射功率&#x2F;杂散域发射功率（25瓦）- 杂散域发射功率单位：绝对功率dBm，低于栽波发射功率分贝值dBc，低于PEP发射功率的相对值dB</p>
+<h4 id="2-HVU频段："><a href="#2-HVU频段：" class="headerlink" title="2.HVU频段："></a>2.HVU频段：</h4><p>3 HF段 30 VHF段 300 UHF段 3000mhz</p>
+<h4 id="3-无线电作业年龄："><a href="#3-无线电作业年龄：" class="headerlink" title="3.无线电作业年龄："></a>3.无线电作业年龄：</h4><p>用发信功能要满十八岁，操作电台不受年龄限制使用电台只要熟悉规定，具备国家规定操作技术能力，取得技术能力证明</p>
+<h4 id="4-业余无线电证明："><a href="#4-业余无线电证明：" class="headerlink" title="4.业余无线电证明："></a>4.业余无线电证明：</h4><p>中国无线电协会颁发的《业余电台操作证书》（有运动和地方都不对）</p>
+<h4 id="5-设置申请无线电电台："><a href="#5-设置申请无线电电台：" class="headerlink" title="5.设置申请无线电电台："></a>5.设置申请无线电电台：</h4><p>由设台地方无线电管理机构负责受理（批准是国家）- 申请材料：两种表格，身份证，操作证书原件复印件</p>
+<h4 id="6-个人持有多个电台问题："><a href="#6-个人持有多个电台问题：" class="headerlink" title="6.个人持有多个电台问题："></a>6.个人持有多个电台问题：</h4><p>有多台业余无线电发射设备的业余电台都视为一个业余电台，指配一个电台呼号，但所有设备都要载入电台执照</p>
+<h4 id="7-台站种类中的特殊类："><a href="#7-台站种类中的特殊类：" class="headerlink" title="7.台站种类中的特殊类："></a>7.台站种类中的特殊类：</h4><p>中继台，信标台，空间台，移动操作的车载台</p>
+<h4 id="8-业余频率的使用："><a href="#8-业余频率的使用：" class="headerlink" title="8.业余频率的使用："></a>8.业余频率的使用：</h4><p>在规定的频段内不同类别业余电台平等</p>
+<h4 id="9-无线电管理："><a href="#9-无线电管理：" class="headerlink" title="9.无线电管理："></a>9.无线电管理：</h4><ul>
+<li>划分：将某个特定频带列入频率划分表</li>
+<li>分配：无线电频率或频道规定一个或者多个部门在指定区域内供地面或者空间无线电通信业务在指定条件下使用</li>
+<li>指配：无线电频率或频道批准给具体业余无线电电台在规定条件下使用</li>
+</ul>
+<h4 id="10-业余业务即业余无线电在各个波段使用情况："><a href="#10-业余业务即业余无线电在各个波段使用情况：" class="headerlink" title="10.业余业务即业余无线电在各个波段使用情况："></a>10.业余业务即业余无线电在各个波段使用情况：</h4><p>在频率划分表，频带被划分给多种业务时只有<strong>主要业务和次要业务</strong>两种划分</p>
+<ul>
+<li>6米业余波段和卫星业余业务使用状：50~54MHz，主要业务</li>
+<li>2米业余波段：144 ~ 146mHz唯一主要业务（VHF业余电台本地联络避免占用144 ~ 144.035MHz和<strong>145.8 ~ 146MHz卫星通信使用频段</strong>）146 ~ 148mHz为主要业务</li>
+<li>0.7米业余波段：430 ~ 440MHz（UHF在本地避免占用431.9 ~ 432.240MHz和<strong>435 ~ 438MHz卫星通信使用频段</strong>） ，次要业务（主要业务为无线电定位和航空无线电导航）</li>
+</ul>
+<h4 id="11-辐射和发射定义"><a href="#11-辐射和发射定义" class="headerlink" title="11.辐射和发射定义"></a>11.辐射和发射定义</h4><p>闪电产生的电磁波干扰是辐射，业余电台向周围发送的杂散产物是发射</p>
+<h4 id="12-业余电台遵守规则（地位低，不干扰，可要求同级保护）"><a href="#12-业余电台遵守规则（地位低，不干扰，可要求同级保护）" class="headerlink" title="12.业余电台遵守规则（地位低，不干扰，可要求同级保护）"></a>12.业余电台遵守规则（地位低，不干扰，可要求同级保护）</h4><ul>
+<li>不得对主要业务电台产生有害干扰</li>
+<li>可要求保护不受来自同一业务或其他次要业务电台的有害干扰</li>
+</ul>
+<h4 id="13-分配给业余业务和卫星业余业务频段："><a href="#13-分配给业余业务和卫星业余业务频段：" class="headerlink" title="13.分配给业余业务和卫星业余业务频段："></a>13.分配给业余业务和卫星业余业务频段：</h4><ul>
+<li>专用：7，14，21，28MHz（MHz都是7的倍数）47GHz（也带7）</li>
+<li>共用且作为主要业务：30MHz以下1.8，3.5，14.25，18.068，24.89MHz ；VHF和UHF频段：50，144MHz；3GHz以下3个，144 ~ 146MHz；1200MHz以下135.7kHz，10.1MHz，430MHz（由大到小再到大）</li>
+</ul>
+<h4 id="14-业余无线电呼号"><a href="#14-业余无线电呼号" class="headerlink" title="14.业余无线电呼号"></a>14.业余无线电呼号</h4><ul>
+<li>指配：发照同时指配呼号（给了就不能变）</li>
+<li>呼号前缀和后缀可用范围：由国家无线电管理机构编制和分配，地方不能管</li>
+<li>正确使用呼号方法：无线电通信开始和结束应报出呼号，发射过程中每十分钟也应该报出呼号一次</li>
+<li>异地操作：<strong>报出完整呼号的同时还要在前面加上字母B，操作地区分号和符号&#x2F;</strong>；如：BH1ZZZ（第3位为地区编号）北京呼号去河北，应该使用B3&#x2F;BH1ZZZ</li>
+<li>客席发射：自己到别的业余电台发射，且**发射呼号要使用加上字母B，操作地区分号和符号&#x2F;*<em>或者*<em>直接使用别的业余电台的呼号</em></em></li>
+<li>异地发射：带着自己的电台到别的省发射</li>
+</ul>
+<h4 id="15-业余无线电通信规则"><a href="#15-业余无线电通信规则" class="headerlink" title="15.业余无线电通信规则"></a>15.业余无线电通信规则</h4><ul>
+<li>通信对象：业余无线电台的通信对象只有业余无线电台</li>
+<li>通信内容：使用明语或者无线电领域共用的缩略语或者简语；不得转发广播其他如互联网聊天音乐等内容，不得向其他人或者单位传达信息（其实是违反了业余无线电台的通信对象只有业余无线电台）；若要转发其他内容要得到核发执照的无线电机构批准</li>
+<li>不得与公众对讲机通信，只有重大灾害可以例外</li>
+<li>同频段收发频差：业余无线电标准频差144MHz频段600kHz，430MHz频段5MHz</li>
+</ul>
+<h4 id="16-QSL卡片"><a href="#16-QSL卡片" class="headerlink" title="16.QSL卡片"></a>16.QSL卡片</h4><ul>
+<li>迫切需要对方寄回卡片：直接向对方地址邮寄卡片并附加SASE</li>
+<li>不是作为联络或者收听证明交换QSL卡片：应在卡上填上Eye ball QSO</li>
+</ul>
+<h4 id="17-业余通信日志："><a href="#17-业余通信日志：" class="headerlink" title="17.业余通信日志："></a>17.业余通信日志：</h4><p>通信时间DATE TIME，通信频率FREQ，通信模式MODE，对方呼号CALL，双方信号报告RST</p>
+<h4 id="18-询问有人使用频率的"><a href="#18-询问有人使用频率的" class="headerlink" title="18.询问有人使用频率的"></a>18.询问有人使用频率的</h4><p>CW的表达QRL？</p>
+]]></content>
+      <tags>
+        <tag>笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>半导体物理笔记第零章</title>
+    <url>/2024/12/11/%E7%AC%94%E8%AE%B0%E5%8D%8A%E7%89%A90%E5%9B%BA%E4%BD%93%E7%89%A9%E7%90%86%E5%AF%BC%E5%85%A5/</url>
+    <content><![CDATA[<h2 id="固体物理导入"><a href="#固体物理导入" class="headerlink" title="固体物理导入"></a>固体物理导入</h2><h3 id="1-1单-多晶体，非-准晶体的特征"><a href="#1-1单-多晶体，非-准晶体的特征" class="headerlink" title="1.1单&#x2F;多晶体，非&#x2F;准晶体的特征"></a>1.1单&#x2F;多晶体，非&#x2F;准晶体的特征</h3><table>
+<thead>
+<tr>
+<th>固体</th>
+<th>单晶体</th>
+<th>多晶体</th>
+<th>非晶体</th>
+<th>准晶体</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>排列</strong></td>
+<td>长程有序</td>
+<td>每个晶粒长程有序</td>
+<td>短程有序</td>
+<td>长程有序</td>
+</tr>
+<tr>
+<td><strong>熔点</strong></td>
+<td>有</td>
+<td>有</td>
+<td>没有</td>
+<td>有</td>
+</tr>
+<tr>
+<td><strong>外形</strong></td>
+<td>规则</td>
+<td>不规则</td>
+<td>不规则</td>
+<td>规则</td>
+</tr>
+<tr>
+<td><strong>方向性</strong></td>
+<td>各向异性</td>
+<td>各向同性</td>
+<td>各向同性</td>
+<td>各向异性</td>
+</tr>
+</tbody></table>
+<p>注意<strong>单晶体</strong>有旋转和对称性，而<strong>准晶体</strong>只有旋转对称性</p>
+<h3 id="1-2晶体结构"><a href="#1-2晶体结构" class="headerlink" title="1.2晶体结构"></a>1.2晶体结构</h3><p>$$<br>点阵+基元&#x3D;晶体结构<br>$$</p>
+<img src="./../Semiconductorphysicalimage/image-20240914145848490.png" style="zoom: 33%;" />
+
+<p>点阵也称晶格：晶体结构可以由点阵来描述，在点阵的每一个点上有一群原子</p>
+<p>基元：上面的一群原子成为基元，基元在空间上重复就构成晶体结构，每个基元的组成，位形和去向全是同向的</p>
+<p>简单格子：基元只含有一个原子的晶格，也称布拉菲格子</p>
+<h3 id="1-2初基平移矢量"><a href="#1-2初基平移矢量" class="headerlink" title="1.2初基平移矢量"></a>1.2初基平移矢量</h3><p>$$<br>\begin{align}<br>\vec{r’}&#x3D;\vec{a}+u\vec{a}+v\vec{b}+w\vec{c} \<br>u,v,w是整数<br>\end{align}<br>$$<br>取初基平移矢量一般去abc三个矢量围成最小面积或者体积，即其构成了体积最小的<strong>原胞</strong></p>
+<p>原胞：以一个格点为原点，以三个基矢构成的平行六面体为重复单元，这样的单元可以堆积起来构建整个晶体。其中<strong>体积最小的周期性平行六面体称为原胞</strong>（在下面选取的边和图形内没有格点就是原胞）</p>
+<img src="./../Semiconductorphysicalimage/image-20240914145923020.png" style="zoom: 33%;" />
+
+<h3 id="1-3点阵初基晶胞"><a href="#1-3点阵初基晶胞" class="headerlink" title="1.3点阵初基晶胞"></a>1.3点阵初基晶胞</h3><p>结晶学原胞（晶胞）：在选取基矢时，不仅考虑晶体的周期性，还考虑晶体对称性的<strong>重复性单元</strong>（不一定是体积最小的周期性可重复单元，在图形的边和内部有格点如上图的B4）<br>初基晶胞：初基轴abc（类似于坐标系的xyz）确定的平行六面体成为一个初基晶胞，是体积最小的晶胞，只含有一个阵点（平行六面体的八个顶点只有1&#x2F;8共享）<br>abc所确定的平行六面体体积为</p>
+<img src="./../Semiconductorphysicalimage/image-20240914150018813.png" style="zoom: 33%;" />
+$$
+V_c=\vec{a}×\vec{b}·\vec{c}
+$$
+维格纳-赛茨初基晶胞：将某个阵点同与它相连的阵点链接起来，再在连线的中点处作垂线和垂面，构成的最小体积就是维格纳-赛茨初基晶胞
+
+<img src="./../Semiconductorphysicalimage/image-20240914150058269.png" style="zoom: 33%;" />
+
+<h3 id="1-4点阵的基本类型"><a href="#1-4点阵的基本类型" class="headerlink" title="1.4点阵的基本类型"></a>1.4点阵的基本类型</h3><p>总共14种，仍一点阵都是等价的，初基晶胞只含一个原子，它们都是惯用晶胞但不一定是初基晶胞</p>
+<img src="./../Semiconductorphysicalimage/image-20240914150122740.png" style="zoom: 50%;" />
+
+<p>简单立方晶胞：内部和边上没有任何格点，它其实是原胞也是晶胞</p>
+<p>体心立方晶胞：在简单立方晶胞体中心加上一个格点</p>
+<p>面心立法晶胞：在体心立方晶胞面中心加上一个格点</p>
+<h3 id="1-5晶面指数系统"><a href="#1-5晶面指数系统" class="headerlink" title="1.5晶面指数系统"></a>1.5晶面指数系统</h3><p>晶列：点阵中所有阵点全部位于一系列互相平行的直线上，这些直线系成为晶列</p>
+<img src="./../Semiconductorphysicalimage/image-20240914150224704.png" style="zoom:50%;" />
+
+<p>晶向：晶列的方向，在实际中方向是从某一阵点沿着某一晶列移动到另一阵点的方向</p>
+<img src="./../Semiconductorphysicalimage/image-20240914150257238.png" style="zoom:50%;" />
+$$
+r=l_1a+l_2b+l_3c \\ l_1:l_2:l_3=m:n:p
+$$
+晶向指数：将上面的mnp写成[mnp]且mnp要互为质数
+
+<ul>
+<li><p>同类晶向：在坐标轴中等价的晶向，用<mnp>表示<br>如</p>
+</li>
+<li><p>&lt;100&gt;表示了立方体中不是对角线的晶向，因为坐标轴abc是人为规定的，虽然有些晶向在同一坐标系中看起来不同，但若调换abc，这些不同的晶向可以变为等价的</p>
+</li>
+<li><p>&lt;111&gt;表示对角线8个晶向</p>
+</li>
+<li><p>&lt;110&gt;表示12个面对角线的晶向<br>晶面：点阵中所有点全部位于一系列相互平行且等距的平面上，这样的面称系为晶面</p>
+</li>
+</ul>
+<p>晶面指数：(hkl)，hkl是晶面与三晶轴rst的倒数，也称为米勒指数，其也为互质的</p>
+<ul>
+<li>若截距为无线大，则相应的指数为无穷大</li>
+<li>晶面的法向量为$$n&#x3D;hx+ky+lz$$</li>
+</ul>
+<h3 id="1-6常见晶体结构范例"><a href="#1-6常见晶体结构范例" class="headerlink" title="1.6常见晶体结构范例"></a>1.6常见晶体结构范例</h3><p>NaCl结构：面心立方（点阵）+NaCl（基元）&#x3D;晶体结构</p>
+<img src="./../Semiconductorphysicalimage/image-20240914150343451.png" style="zoom: 25%;" />
+
+<h3 id="1-7倒格子的格矢"><a href="#1-7倒格子的格矢" class="headerlink" title="1.7倒格子的格矢"></a>1.7倒格子的格矢</h3><p>正空间是$\vec{r}$的空间而倒空间是$\vec{k}$的空间（动量空间)，在本质上其实是对$\vec{r}$进行傅里叶变换得到了$\vec{k}$</p>
+<p>如$\vec{b_1}$和$\vec{a_2}$和$\vec{a_3}$所构成的晶面实际上是垂直的，由傅里叶可得倒格子的格矢量：<br>$$<br>\vec{b_1}&#x3D;2\pi\frac{\vec{a_2}\times\vec{a_3}}{\vec{a_1}\cdot\vec{a_2}\times\vec{a_3}} \ \vec{b_2}&#x3D;2\pi\frac{\vec{a_1}\times\vec{a_3}}{\vec{a_2}\cdot\vec{a_1}\times\vec{a_3}} \ \vec{b_3}&#x3D;2\pi\frac{\vec{a_1}\times\vec{a_2}}{\vec{a_3}\cdot\vec{a_1}\times\vec{a_2}} \ 其中\Omega_{原胞体积}&#x3D;\vec{a_1}\cdot\vec{a_2}\times\vec{a_3}<br>$$</p>
+]]></content>
+      <tags>
+        <tag>笔记</tag>
+        <tag>半导体物理</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>半导体物理笔记第一章</title>
+    <url>/2024/12/11/%E7%AC%94%E8%AE%B0%E5%8D%8A%E7%89%A91%E5%8D%8A%E5%AF%BC%E4%BD%93%E4%B8%AD%E7%9A%84%E7%94%B5%E5%AD%90%E7%8A%B6%E6%80%81/</url>
+    <content><![CDATA[<p>波函数：粒子在某时刻某位置出现的概率，且其概率密度函数为<br>$$[ P(x,t) &#x3D; \psi^<em>(x,t) \psi(x,t) &#x3D; |\psi(x,t)|^2 ]$$<br>与时间无关的概率密度函数为<br>$$P(x) &#x3D; \psi^</em>(x) \psi(x) &#x3D; |\psi(x)|^2$$</p>
+<h3 id="1-1半导体中的电子状态"><a href="#1-1半导体中的电子状态" class="headerlink" title="1.1半导体中的电子状态"></a>1.1半导体中的电子状态</h3><p>在这里我们讨论两种情况，由两种特殊情况得出半导体中的普遍规律</p>
+<h4 id="1-1-1孤立电子与自由电子的状态"><a href="#1-1-1孤立电子与自由电子的状态" class="headerlink" title="1.1.1孤立电子与自由电子的状态"></a>1.1.1孤立电子与自由电子的状态</h4><h5 id="1孤立原子"><a href="#1孤立原子" class="headerlink" title="1孤立原子"></a>1孤立原子</h5><p>电子处于原子核的束缚状态，只含有原子核和核外电子，如</p>
+<ul>
+<li>H原子<br>原子核对于电子有库伦力产生的势场<br>$$V(r)&#x3D;\frac{－q^2}{4\pi\epsilon_0r}$$<br>电子的能量需要满足以下条件薛定谔方程才有解<br>$$E_n&#x3D;－[\frac{m_0q^4}{8\epsilon_0^2h^2}]\frac 1n^2，n量子数&#x3D;1,2,3..$$<br>其中[]为13.6于是公式可以改写为<br>$$E_n&#x3D;－13.6\cdot\frac 1n^2 (eV)，n&#x3D;1,2,3..$$<br>由上述可得出H原子核外电子状态是一系列分立（离散）的确定的能量值（能级），&#x3D;&#x3D;可以得到孤立原子中电子的能量是不连续的，这种各个分立的能量值称为能级&#x3D;&#x3D;</li>
+<li>多电子原子<br>其电子和电子有作用力称之为微拢，其核与电子有作用力<br>&#x3D;&#x3D;其核外能量依然不连续&#x3D;&#x3D;，量子数不再是单个n，而是有四个量子数为别为：</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>$n$</th>
+<th>主量子数</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$l$</td>
+<td>角量子数</td>
+</tr>
+<tr>
+<td>$m_l$</td>
+<td>磁量子数</td>
+</tr>
+<tr>
+<td>$m_s$</td>
+<td>自旋量子数</td>
+</tr>
+</tbody></table>
+<h5 id="2自由电子"><a href="#2自由电子" class="headerlink" title="2自由电子"></a>2自由电子</h5><p>给定足够的能量，电子挣脱原子核束缚成为自由电子</p>
+<p>由一维薛定谔方程<br>$$<br>-\frac{\hbar^2}{2m} \frac{\partial^2 \psi(x, t)}{\partial x^2} + V(x) \psi(x, t)&#x3D;E\psi(x, t)<br>$$<br>定态薛定谔方程<br>$$<br>-\frac{\hbar^2}{2m} \frac{d^2 \psi(x)}{d x^2} + V(x) \psi(x) &#x3D; E \psi(x)<br>$$</p>
+<p>$$</p>
+<p>$$</p>
+<p>在自由电子中<br>$$<br>V(x)&#x3D;0，<br>可得-\frac{\hbar^2}{2m} \frac{d^2 \psi(x)}{d x^2}  &#x3D; E \psi(x)<br>$$<br>对后面这个二次幂函数求解<br>$$<br>\psi(x)&#x3D;A \cdot e^{i2 \pi kx}，k&#x3D;\frac 1\lambda<br>$$<br>由于并不像氢原子一样E有约束关系，解并不像氢原子一样是分立的，而是连续的从下面也可证得<br>$$<br>由\left{<br>\begin{aligned}<br>E&#x3D;\frac {P^2}{2m_0} \<br>P&#x3D;\hbar\cdot k<br>\end{aligned}<br>\right. 得E&#x3D;\frac{\hbar^2k^2}{2m_0}<br>$$</p>
+<ul>
+<li>从几何角度看，从得出的方程可以看到E和K的关系是连续的，E在坐标轴中是一个开口朝上连续的二次函数</li>
+<li>从波矢角度看，由于波矢是矢量，是连续变化的，E和K的关系中除$\vec k$都是固定的数，因此$\vec k$的连续变化引起了能量的连续变化</li>
+</ul>
+<p>&#x3D;&#x3D;由此可知自由粒子的能量状态是连续的&#x3D;&#x3D;</p>
+<h5 id="3半导体中的电子"><a href="#3半导体中的电子" class="headerlink" title="3半导体中的电子"></a>3半导体中的电子</h5><p>半导体中的势场由以下三种组成</p>
+<ul>
+<li>孤立原子中电子势场&#x3D;原子核势场+其他电子的势场</li>
+</ul>
+<p>$$<br>V(r)&#x3D;\frac{－q^2}{4\pi\epsilon_0r}<br>$$</p>
+<ul>
+<li>自由电子不受任何势场的控制</li>
+</ul>
+<p>$$<br>  V(x)&#x3D;0<br>$$</p>
+<ul>
+<li>半导体中电子势场不清楚，只讨论背景（严格周期性重复排列的原子间运动）<br>利用单电子近似模型，即把所有电子和其所受的力看做一个整体来研究，&#x3D;&#x3D;其有两个方面理想化：晶体（半导体）无缺陷，原子固定不动&#x3D;&#x3D;</li>
+</ul>
+<h4 id="1-1-2分析半导体电子状态的方法——单电子近似"><a href="#1-1-2分析半导体电子状态的方法——单电子近似" class="headerlink" title="1.1.2分析半导体电子状态的方法——单电子近似"></a>1.1.2分析半导体电子状态的方法——单电子近似</h4><p>单电子近似模型的定义：假设&#x3D;&#x3D;半导体中的电子是在严格周期性重复排列的（晶体无缺陷）&#x3D;&#x3D;，且&#x3D;&#x3D;固定不动的原子核势场（原子固定不动）&#x3D;&#x3D;，以及大量电子的平均势场下运动</p>
+<h5 id="1单电子近似的意义"><a href="#1单电子近似的意义" class="headerlink" title="1单电子近似的意义"></a>1单电子近似的意义</h5><ul>
+<li>把复杂的原子核和电子混合系统中的核与电子之间的作用力加以分离</li>
+<li>把众多电子相互牵制的复杂电子问题，近似看做大量电子对某个（单个）电子的影响等效为一个平均势场对电子的影响</li>
+</ul>
+<p>这种用单电子近似法研究晶体中电子状态的理论称为能带论</p>
+<h5 id="2单电子近似的计算"><a href="#2单电子近似的计算" class="headerlink" title="2单电子近似的计算"></a>2单电子近似的计算</h5><p>根据单电子近似，周期性势场＋平均势场&#x3D;周期性势场<br>$$<br>V(x)＋V(Sa)&#x3D;V(x)，S整数，a晶格常数<br>$$</p>
+<p>其在二维空间中是具有周期性的一维周期性势阱，再带入薛定谔方程：<br>$$<br>-\frac{\hbar^2}{2m} \frac{d^2 \psi(x)}{d x^2} + V(x＋Sa) \psi(x) &#x3D; E \psi(x)，\hbar&#x3D;\frac h{2\pi} \\hbar为修正普朗克常数是为了方便计算得出的<br>$$<br>为了解出上面新的$V(x+Sa)$我们要引入布洛赫定理，其是周期性势场的一维薛定谔方程的解，形式为：<br>$$<br>\psi_k(x)&#x3D;u_k(x) \cdot e^{ikx} \ u_k&#x3D;u_k(x+na)<br>$$<br>其中$u_k(x)$是周期性的，不是保持不变的</p>
+<h5 id="3结论"><a href="#3结论" class="headerlink" title="3结论"></a>3结论</h5><table>
+<thead>
+<tr>
+<th></th>
+<th>自由电子</th>
+<th>晶体中电子</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>波函数</td>
+<td>$\psi(x)&#x3D;Ae^{ikx}$，其中$k&#x3D;\frac{2 \pi}{\lambda}$</td>
+<td>$\psi_{k}(x)&#x3D;u_{k}(x)e^{i kx}$，其中$\lambda&#x3D;\frac{2\pi}k$</td>
+</tr>
+</tbody></table>
+<p>两者的波函数形式相似，都表示波长为$\lambda&#x3D;\frac{1}{k}$，沿$k$方向传播的平面波。但晶体中用周期性调制振幅$u_{k}(x)$代替了自由电子中的恒定振幅$A$</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>自由电子</th>
+<th>晶体中电子</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>概率密度函数</td>
+<td>$</td>
+<td>\psi(x)\psi^{*}(x)</td>
+</tr>
+<tr>
+<td>意义</td>
+<td>是晶格常数$a(A)$的周期性函数，表示晶格中找到电子的概率具有周期性</td>
+<td>反映了电子不再局限于某原子上，而是可以在基本原子自由运动到其近邻格胞对应位置的可能性，&#x3D;&#x3D;也称为共有化运动，电子在每个晶胞对应点等几率出现&#x3D;&#x3D;</td>
+</tr>
+</tbody></table>
+<h4 id="1-1-3半导体中的电子能带"><a href="#1-1-3半导体中的电子能带" class="headerlink" title="1.1.3半导体中的电子能带"></a>1.1.3半导体中的电子能带</h4><h5 id="1准自由电子近似"><a href="#1准自由电子近似" class="headerlink" title="1准自由电子近似"></a>1准自由电子近似</h5><p>设想将一个电子放在晶格中，由于晶格原子的存在，电子波在传播过程中会受到格点原子的反射</p>
+<ol>
+<li><p>一般情况：个反射波会相互抵消，对前进波无重大影响</p>
+</li>
+<li><p>特殊情况：前进波和反射波满足一定相位关系，满足1.2中的布拉格发射条件，在<br>$$<br>k&#x3D;\frac {n}{2a}，n&#x3D;\pm1,\pm2…处<br>$$<br>形成驻点，前进波和反射波形成驻波，&#x3D;&#x3D;且在驻点时：幅度&#x3D;0，速度&#x3D;0&#x3D;&#x3D;</p>
+</li>
+</ol>
+<p>在量子力学中，电子运动可以看作波包的运动，波包群速度就是电子运动的平均速度，设波包频率为$\gamma$，电子运动的平均速度可以由：<br>$$<br>v &#x3D; \frac{d\gamma}{dk} \leftarrow<br>\left{<br>\begin{aligned}<br>P &amp;&#x3D; h \cdot k \<br>E &amp;&#x3D; h \gamma<br>\end{aligned}<br>\right.<br>$$</p>
+<p>可以解得：</p>
+<p>$$<br>v &#x3D; \frac{d \frac{E}{h}}{dk} &#x3D; \frac{1}{h} \cdot \frac{dE}{dk}<br>$$</p>
+<p>又因为在驻点$v&#x3D;0$<br>$$<br>\frac 1h \cdot \frac {dE}{dk}&#x3D;0<br>$$<br>   其中的$\frac {dE}{dk}$为方程$E&#x3D;\frac {h^2k^2}{2m_0}$的斜率</p>
+<h5 id="2能带结构"><a href="#2能带结构" class="headerlink" title="2能带结构"></a>2能带结构</h5><ol>
+<li>允带禁带：由准自由电子近似可以看出，原先自由电子连续的EK关系被分割为一系列能量允许和不允许的区间，分别称之为允带和禁带</li>
+<li>紧束缚近似：从孤立原子核外电子状态出发，把晶体看作是组成晶体的原子相互靠近到一定程度的结果</li>
+<li>能级分裂：由于原子的靠近，会使电子的能级发生分裂，其能量有可能处于能级1或者能级2上<br>更进一步，电子具有一定几率具有该能级所代表的能量</li>
+</ol>
+<p>![image-20241021112029114 1](..&#x2F;pics&#x2F;image-20241021112029114 1.png)</p>
+<ol start="4">
+<li>随着原子互相靠拢，形成晶体，原先孤立原子的电子能级展开形成能带</li>
+</ol>
+<p>![image-20241021112612173 1](..&#x2F;pics&#x2F;image-20241021112612173 1.png)</p>
+<h5 id="3布里渊区"><a href="#3布里渊区" class="headerlink" title="3布里渊区"></a>3布里渊区</h5><p>当$k&#x3D;\frac n{za}$时能量出现不连续，形成了一系列相同的允带和禁带，其中：</p>
+<table>
+<thead>
+<tr>
+<th>$－\frac 1{2a}＜k＜\frac 1{2a}$</th>
+<th>第Ⅰ布里渊区</th>
+<th>简约布里渊区，也称为简约波矢</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$－\frac 1{a}＜k＜\frac 1{a}$</td>
+<td>第Ⅱ布里渊区</td>
+<td></td>
+</tr>
+</tbody></table>
+<p>![image-20241021112643489 1](..&#x2F;pics&#x2F;image-20241021112643489 1.png)</p>
+<ol>
+<li><p>禁带出现在布里渊区边界上，每个布里渊区对应一个能带</p>
+</li>
+<li><p>由于图中可以看出来，布里渊区具有周期性，其对应的能带对应的有<br>$$<br>E(k)&#x3D;E(k+ \frac na），周期为\frac na<br>$$</p>
+</li>
+</ol>
+<h5 id="4能带量子化"><a href="#4能带量子化" class="headerlink" title="4能带量子化"></a>4能带量子化</h5><p>由于$E&#x3D;\frac {h^2k^2}{2m_0}$，有了确定的k就可以确定E，一个k对应一个能级，若我们知道一个允带中有多少个k，就可以知道一个能带中有多少个能级<br>考虑最简单的情况，在一维晶体中：<br>$$<br>L_{长度}&#x3D;N \cdot a，N为原子数，a为晶格常数<br>$$</p>
+<p>根据循环边界条件：<br>在$x&#x3D;0$和$x&#x3D;L$处波函数由于周期性而相等，有：<br>$$<br>\psi(0)&#x3D;\psi(L)，由布洛赫\psi_k(x)&#x3D;u_k(x) \cdot e^{i2 \pi kx}<br>$$<br>故在$x&#x3D;0$处和$x&#x3D;L$处<br>$$<br>\psi_k(0) &#x3D; u_k(0) \cdot e^{i2 \pi k 0} &#x3D; \psi_k(L) &#x3D; u_k(L) \cdot e^{i2 \pi k L}<br>$$<br>由于布洛赫定律的幅值函数也具有周期性，$e^0&#x3D;1$，有：<br>$$<br>\psi_k(0) &#x3D;1 \cdot 1 &#x3D; \psi_k(L) &#x3D; 1\cdot e^{i2 \pi k L}&#x3D;1<br>$$<br>整理得$e^{i2 \pi k L}&#x3D;1$运用欧拉公式得：<br>$$<br>e^{i2 \pi k L}&#x3D;cos(2 \pi kL)+isin(2 \pi kL)&#x3D;1<br>$$<br>故解得：<br>$$<br>2 \pi kL&#x3D;2 \pi n，n为整数<br>$$<br>两边同除：<br>$$<br>k&#x3D;\frac nL&#x3D;\frac n {Na}<br>$$<br>观察公式k离散，得到&#x3D;&#x3D;能级离散&#x3D;&#x3D;</p>
+<h5 id="5布里渊区和k的关系"><a href="#5布里渊区和k的关系" class="headerlink" title="5布里渊区和k的关系"></a>5布里渊区和k的关系</h5><p>一个布里渊区对应一个允带，其中k的个数有如下关系：</p>
+<p><img src="/../pics/%7B6FFD74D3-4B9E-4D7A-BAA8-6D5C09E9B362%7D.png" alt="{6FFD74D3-4B9E-4D7A-BAA8-6D5C09E9B362}"><br>$$<br>k &#x3D; \frac {布里渊区宽度}{单位晶格长度} &#x3D; \frac {\frac 1a}{\frac 1L} &#x3D; \frac La &#x3D; \frac {Na}a &#x3D; N<br>$$<br>其中：</p>
+<ul>
+<li>$N$为原子个数，对应$N$个能级</li>
+<li>一个$k$对应一个能级</li>
+</ul>
+<h5 id="6结论"><a href="#6结论" class="headerlink" title="6结论"></a>6结论</h5><ol>
+<li><p>根据泡利不相容原理，每个能级上不可能有两个或两个以上完全相同的电子，但是可以有两个自旋相反的电子处在一个能级；&#x3D;&#x3D;一个布里渊区可以容纳$2N$个电子&#x3D;&#x3D;（因为每个布里渊区对应$N$个能级，每个能级上可对应两个自旋相反的电子）</p>
+</li>
+<li><p>允带中有$N$个分立的能级，其宽度又特别小只有几个$eV$，故其能级分布非常密，甚至可以称之为&#x3D;&#x3D;准连续&#x3D;&#x3D;</p>
+</li>
+</ol>
+<h3 id="1-1-4导体半导体和绝缘体的能带"><a href="#1-1-4导体半导体和绝缘体的能带" class="headerlink" title="1.1.4导体半导体和绝缘体的能带"></a>1.1.4导体半导体和绝缘体的能带</h3><p>固体物理认为晶体中的电子能够参与导电是因为在外力或者外场作用下，电子的能量状态，以及其在布里渊区的分布情况发生了改变</p>
+<h5 id="1在外电场作用条件下满带中电子分布情况"><a href="#1在外电场作用条件下满带中电子分布情况" class="headerlink" title="1在外电场作用条件下满带中电子分布情况"></a>1在外电场作用条件下满带中电子分布情况</h5><p><img src="/../pics/%7B3692DB25-A057-4DF2-98D1-9AA0358AED92%7D.png" alt="{3692DB25-A057-4DF2-98D1-9AA0358AED92}"></p>
+<ul>
+<li>在宏观上分布情况并未改变，故&#x3D;&#x3D;满带中电子不参与导电&#x3D;&#x3D;</li>
+<li>$k$随$t$均匀变化，由：</li>
+</ul>
+<p>$$<br>dE&#x3D;|\vec F|dS&#x3D;-q|\vec E|dS&#x3D;-q|\vec E|Vdt<br>$$</p>
+<p>​	又$v&#x3D;\frac 1h \frac {dE}{dk}dt$带入上式：<br>$$<br>dE&#x3D;-q|\vec E| \cdot \frac 1h\frac {dE}{dk}dt<br>$$<br>​	两边约去$dE$得：<br>$$<br>\frac {dk}{dt}&#x3D;-q|\vec E| \cdot \frac 1h<br>$$<br>​	等式左边都是常数，得$k$随$t$均匀变化</p>
+<h5 id="2在外电场作用条件下半满带中电子分布情况"><a href="#2在外电场作用条件下半满带中电子分布情况" class="headerlink" title="2在外电场作用条件下半满带中电子分布情况"></a>2在外电场作用条件下半满带中电子分布情况</h5><p><img src="/../pics/%7B72F91ACA-34D8-4836-B83B-3E97B2746F1E%7D.png" alt="{72F91ACA-34D8-4836-B83B-3E97B2746F1E}"></p>
+<h5 id="3导体、绝缘体、半导体的能带"><a href="#3导体、绝缘体、半导体的能带" class="headerlink" title="3导体、绝缘体、半导体的能带"></a>3导体、绝缘体、半导体的能带</h5><p><img src="/../pics/%7B648D89F0-0349-42CB-9C33-2C72A170F1BA%7D.png" alt="{648D89F0-0349-42CB-9C33-2C72A170F1BA}"></p>
+<h5 id="4在实验中各元素的禁带宽度"><a href="#4在实验中各元素的禁带宽度" class="headerlink" title="4在实验中各元素的禁带宽度"></a>4在实验中各元素的禁带宽度</h5><p>在室温$T&#x3D;300k$时</p>
+<table>
+<thead>
+<tr>
+<th>元素种类</th>
+<th>$Eg$</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$Si$</td>
+<td>$1.12eV$</td>
+</tr>
+<tr>
+<td>$Ge$</td>
+<td>$0.67eV$</td>
+</tr>
+<tr>
+<td>$GrAs$</td>
+<td>$1.43eV$</td>
+</tr>
+<tr>
+<td>绝缘体或金刚石</td>
+<td>$6 - 7eV$</td>
+</tr>
+</tbody></table>
+<h5 id="5本征半导体"><a href="#5本征半导体" class="headerlink" title="5本征半导体"></a>5本征半导体</h5><ul>
+<li>本征半导体：纯净的，不含任何杂质和缺陷的半导体</li>
+<li>本征激发：本征半导体中价带电子在电场作用下跃迁到导带的过程，&#x3D;&#x3D;即共价键上电子挣脱束缚成为自由电子的过程&#x3D;&#x3D;</li>
+</ul>
+<h2 id="1-2半导体中电子的运动"><a href="#1-2半导体中电子的运动" class="headerlink" title="1.2半导体中电子的运动"></a>1.2半导体中电子的运动</h2><h3 id="1-2-1半导体中电子的EK关系"><a href="#1-2-1半导体中电子的EK关系" class="headerlink" title="1.2.1半导体中电子的EK关系"></a>1.2.1半导体中电子的EK关系</h3><p><img src="/../pics/image-20250224090647239.png" alt="image-20250224090647239"></p>
+<p>在上图中我们研究的主要区域是$\frac {dE}{dk}&#x3D;0$</p>
+<h5 id="1导带底附近的EK关系（引入了有效质量-m-n-）"><a href="#1导带底附近的EK关系（引入了有效质量-m-n-）" class="headerlink" title="1导带底附近的EK关系（引入了有效质量$m_n^*$）"></a>1导带底附近的EK关系（引入了有效质量$m_n^*$）</h5><p>对于极值$\frac {dE}{dk}&#x3D;0$在$x_0$附近使用泰勒展开：<br>$$<br>f(x)&#x3D;f(x_0)+f’(x_0)+f’(x_0)(x-X_0)’+\frac 1{2!}f’(x_0)(x-x_0)^2…<br>$$<br>在波矢k空间中$x&#x3D;k&#x3D;0$：<br>$$<br>E(k)&#x3D;E(k&#x3D;0)+\frac {dE}{dk}|<em>{k&#x3D;0}\cdot(k-0)’+\frac 12 \frac{d^2E}{dk^2}(k-0)^2…<br>$$<br>将第三项提出：<br>$$<br>E(k)-E(0)&#x3D;\frac 12 \frac{d^2E}{dk^2}k^2 \rightarrow式1<br>$$<br>又因为在自由电子中<br>$$<br>E(k)-E(0)&#x3D;\frac {h^2k^2}{2m</em>{0}}\rightarrow式2<br>$$<br>将这个式子中的$m_0$换成有效质量$m_{n}^*$，并将式1和式2联立：<br>$$<br>\begin{align}<br>\frac 12 \frac{d^2E}{dk^2}k^2&amp;&#x3D;\frac {h^2k^2}{2m_{0}}<br>$$</p>
+]]></content>
+      <tags>
+        <tag>笔记</tag>
+        <tag>半导体物理</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>半导体物理笔记第二章</title>
+    <url>/2024/12/11/%E7%AC%94%E8%AE%B0%E5%8D%8A%E7%89%A92%E5%8D%8A%E5%AF%BC%E4%BD%93%E4%B8%AD%E6%9D%82%E8%B4%A8%E5%92%8C%E7%BC%BA%E9%99%B7%E8%83%BD%E7%BA%A7/</url>
+    <content><![CDATA[<h3 id="1-1引入实际晶体与理想晶体的区别"><a href="#1-1引入实际晶体与理想晶体的区别" class="headerlink" title="1.1引入实际晶体与理想晶体的区别"></a>1.1引入实际晶体与理想晶体的区别</h3><ul>
+<li>原子不是静止的，而是在平衡位置附近做热运动</li>
+<li>实际半导体并不纯洁，或多或少含有若干杂质（非本征材料以外的元素）</li>
+<li>半导体的晶格存在者各式各样的缺陷<ul>
+<li>点缺陷：空位，间隙原子</li>
+<li>面缺陷：层错，多晶体中的晶粒间界</li>
+<li>线缺陷：位错</li>
+</ul>
+</li>
+</ul>
+<p>杂质和缺陷的引入会使严格周期性排列的原子产生的周期性势场受到破坏，有可能在禁带$E_g$中引入允许电子具有的能量状态</p>
+<h3 id="1-2Si和Ge中的杂质能级"><a href="#1-2Si和Ge中的杂质能级" class="headerlink" title="1.2Si和Ge中的杂质能级"></a>1.2Si和Ge中的杂质能级</h3><h4 id="1-2-1杂质来源与掺杂出本征半导体的方法"><a href="#1-2-1杂质来源与掺杂出本征半导体的方法" class="headerlink" title="1.2.1杂质来源与掺杂出本征半导体的方法"></a>1.2.1杂质来源与掺杂出本征半导体的方法</h4><h5 id="1-杂质来源"><a href="#1-杂质来源" class="headerlink" title="1.杂质来源"></a>1.杂质来源</h5><ul>
+<li>原材料纯度不够</li>
+<li>单晶制备和器件制造过程中的污染</li>
+<li>为了控制半导体的性质而人为引入的杂质，<strong>这个技术称为&#x3D;&#x3D;掺杂&#x3D;&#x3D;</strong>；掺杂出的半导体称为&#x3D;&#x3D;<strong>非本征半导体</strong>&#x3D;&#x3D;</li>
+</ul>
+<h5 id="2-掺杂出含杂质本征半导体的方法"><a href="#2-掺杂出含杂质本征半导体的方法" class="headerlink" title="2.掺杂出含杂质本征半导体的方法"></a>2.掺杂出含杂质本征半导体的方法</h5><p>杂质扩散：依赖于材料的特性，必要条件高温</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">graph TD;</span><br><span class="line">    A[加热到高温] --&gt; B[晶体原子随机进入或者移出晶格格点];</span><br><span class="line">    B --&gt; C[产生空位];</span><br><span class="line">    C --&gt; D[杂质原子通过空位移动；方向是从高浓度流向低浓度];</span><br><span class="line">    D --&gt; E[温度下降后杂质原子留在占据的晶格格点处];</span><br></pre></td></tr></table></figure>
+
+<p>离子注入：</p>
+<ul>
+<li>优点：所需温度低，可控制适量杂质离子注入到晶体指定区域</li>
+<li>缺点：入射杂质原子与晶体原子发生碰撞会引起&#x3D;&#x3D;晶格损伤&#x3D;&#x3D;；但通过热退火消除</li>
+</ul>
+<h4 id="1-2-2替位式杂质和间隙式杂质"><a href="#1-2-2替位式杂质和间隙式杂质" class="headerlink" title="1.2.2替位式杂质和间隙式杂质"></a>1.2.2替位式杂质和间隙式杂质</h4><h5 id="1-金刚石晶胞的特点"><a href="#1-金刚石晶胞的特点" class="headerlink" title="1.金刚石晶胞的特点"></a>1.金刚石晶胞的特点</h5><ul>
+<li>原子数目：8</li>
+<li>原子半径：</li>
+<li>致密度$k&#x3D;34 $%</li>
+</ul>
+<p>说明晶胞中至少有66%的体积是空的，是原子的间隙</p>
+<h5 id="2-杂质进入半导体的存在方式"><a href="#2-杂质进入半导体的存在方式" class="headerlink" title="2.杂质进入半导体的存在方式"></a>2.杂质进入半导体的存在方式</h5><ul>
+<li>间隙式杂质：位于晶格原子的间隙位置；原子一般较小如$Li,H$</li>
+<li>替位式杂质：位于晶格原子的格点位置：原子大小与被替代的晶格原子大小比较接近，且价电子的壳层结构也接近如，被替位的$Si,Ge$为Ⅳ族元素，故靠近Ⅳ族的Ⅲ、Ⅴ族元素是理想的替位杂质</li>
+</ul>
+<h5 id="3-杂质浓度"><a href="#3-杂质浓度" class="headerlink" title="3.杂质浓度"></a>3.杂质浓度</h5><p>单位体积中的杂质原子个数，它反映了杂质含量的多少（单位为$cm^3$）</p>
+<h4 id="1-2-3施主杂质和施主能级"><a href="#1-2-3施主杂质和施主能级" class="headerlink" title="1.2.3施主杂质和施主能级"></a>1.2.3施主杂质和施主能级</h4><h5 id="1-施主杂质的定义"><a href="#1-施主杂质的定义" class="headerlink" title="1.施主杂质的定义"></a>1.施主杂质的定义</h5><p>能够向晶体提供电子同时变成正电中心的杂质，以$Si$掺入Ⅴ族元素$P$为例</p>
+<h5 id="2-施主能级形成过程"><a href="#2-施主能级形成过程" class="headerlink" title="2.施主能级形成过程"></a>2.施主能级形成过程</h5><p>元素$P$五价元素替代Si后<br>![[2024-11-14 15_57_25.513575.png]]</p>
+<ul>
+<li>负电电子：五个价电子中的四个与周围Si原子形成饱和共价键；多余的一个价电子填充在导带中，可以在晶体中运动</li>
+<li>正电中心：失去电子的P原子会带正电，即形成了一个正电中心</li>
+</ul>
+<p>但其整体看来仍然为电中性，以下是施主能级的形成过程</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">graph TD;</span><br><span class="line">    A[Si中掺P] --&gt; B[产生正电中心的P+ + 多余一个电子];</span><br><span class="line">    B --&gt; C[受正电中心P+的空穴对电子的束缚远小于共价键的束缚（很小的能量ΔE就能使它挣脱束缚）];</span><br><span class="line">    C --&gt; E[成为准自由电子，做共有化运动];</span><br></pre></td></tr></table></figure>
+<p>且Ⅴ族元素在$Si,Ge$的电离能远小于$E_g$，进一步的，在进入实际的能带图前首先要有一些名词概念</p>
+<h5 id="3-名词概念"><a href="#3-名词概念" class="headerlink" title="3.名词概念"></a>3.名词概念</h5><ol>
+<li>杂质电离：电子挣脱施主杂质原子的束缚成为导电电子的过程</li>
+<li>杂质电离能：电子挣脱施主杂质原子的束缚，成为导电电子所需的能量，记为$\Delta E_g$，如Ⅴ族元素可以称为施主元素</li>
+<li>施主能级：电子被束缚在施主中心时，能量低于导带低的能量，相应的能级称为施主能级$E_D$</li>
+<li>施主电离：释放电子的过程</li>
+<li>施主电离能：$\Delta E_D &#x3D; E_c - E_D$</li>
+<li>束缚态&#x2F;中性态：施主杂质未电离时是电中性的</li>
+<li>离化态：电离后成为正电中心<br>之后再看这些概念在图中实际的位置<br>![[2024-11-14 15_57_25.513575 1.png]]<br>施主能级$E_D$一般离导带低很近，施主杂质电离后导带中的导电电子增多，我们称主要依靠电子导电的半导体为N型半导体</li>
+</ol>
+<h4 id="1-2-4受主杂质和受主能级"><a href="#1-2-4受主杂质和受主能级" class="headerlink" title="1.2.4受主杂质和受主能级"></a>1.2.4受主杂质和受主能级</h4><h5 id="1-受主杂质"><a href="#1-受主杂质" class="headerlink" title="1.受主杂质"></a>1.受主杂质</h5><p>能够接收价电子，即能提供空穴并形成负电中心的杂质</p>
+<h5 id="2-受主能级形成过程（以-Si-掺入Ⅲ族元素-B-为例）"><a href="#2-受主能级形成过程（以-Si-掺入Ⅲ族元素-B-为例）" class="headerlink" title="2.受主能级形成过程（以$Si$掺入Ⅲ族元素$B$为例）"></a>2.受主能级形成过程（以$Si$掺入Ⅲ族元素$B$为例）</h5><p>![[Screenshot_20241114_160759_Samsung capture.jpg]]<br>元素$B$五价元素替代Si后</p>
+<ul>
+<li>与周围4个原子形成饱和共价键</li>
+<li>由于还缺少一个价电子，要从周围夺取一个价电子<br>以下是受主能级的形成过程</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">graph TD;</span><br><span class="line">    A[Si中掺B] --&gt; B[产生负电中心的B + 一个空穴];</span><br><span class="line">    B --&gt; C[受负电中心B对空穴的束缚远小于共价键的束缚（很小的能量ΔE就能使它挣脱束缚）];</span><br></pre></td></tr></table></figure>
+<h5 id="3-名词概念-1"><a href="#3-名词概念-1" class="headerlink" title="3.名词概念"></a>3.名词概念</h5><ol>
+<li>受主电离：空穴挣脱受主杂质的束缚的过程</li>
+<li>束缚态&#x2F;中性态：受主主杂质未电离时是电中性的</li>
+<li>受主离化态：电离时形成负电中心</li>
+<li>杂质电离能：空穴挣脱受主杂质原子的束缚，成为导电空穴所需的能量记为$\Delta E_A$，如Ⅲ族元素可以称为受主元素</li>
+<li>受主能级：被受主杂质束缚的空穴能量状态，记为$E_A$<br>之后再看这些概念在图中实际的位置<br>![[SmartSelect_20241114_160819.jpg]]<br>施主能级$E_A$一般离价带顶很近，受主杂质电离后价带中的导电电子增多，我们称主要依靠空穴导电的半导体为P型半导体</li>
+</ol>
+<h5 id="4-N型P型小结"><a href="#4-N型P型小结" class="headerlink" title="4.N型P型小结"></a>4.N型P型小结</h5><table>
+<thead>
+<tr>
+<th>元素族属</th>
+<th>类型</th>
+<th>能级形成</th>
+<th>状态</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Ⅲ族元素</td>
+<td>受主杂质</td>
+<td>禁带中引入比价带顶$E_V$高$\Delta E_A$的受主能级</td>
+<td>束缚态和离化态（向价带提供导电空穴从而形成负电中心）</td>
+</tr>
+<tr>
+<td>Ⅴ族元素</td>
+<td>施主主杂质</td>
+<td>禁带中引入比导带低$E_c$低$\Delta E_D$的施主能级</td>
+<td>束缚态和离化态（向导带提供导电电子从而形成正电中心）</td>
+</tr>
+</tbody></table>
+<ul>
+<li>Ⅲ、Ⅴ族元素的$\Delta E_A,\Delta E_D$很小，即它们离价带顶和导带低很近，我们把这种能级称为浅能级，对应的杂质称为&#x3D;&#x3D;浅能级杂质&#x3D;&#x3D;</li>
+<li>室温下，晶格原子热振动的能量会传递给电子，使$Si,Ge$中的Ⅲ、Ⅴ族杂质全部离化</li>
+<li>浅能级杂质的电离能可以用类氢模型简单计算<br>掺杂目的:</li>
+<li>浅能级杂质：增强导电能力，改变导电类型</li>
+</ul>
+<h5 id="5-补充类氢模型："><a href="#5-补充类氢模型：" class="headerlink" title="5.补充类氢模型："></a>5.补充类氢模型：</h5><p>浅能级杂质的电离能很低，电子或者空穴受到正负电中心的束缚很弱；束缚态时对于P掺杂，相当于正电中心束缚着一个价电子，这与氢原子原子核外只有一个电子很类似，故可以类比氢原子相关的能级<br>$$<br>氢原子的质量 E_n &#x3D; - \frac {m_0C}{2(4 \pi \epsilon_0)^2\hbar^2}<br>$$<br>$$<br>n &#x3D; 1时，是基态能量E_1 &#x3D;  - \frac {m_0C}{2(4 \pi \epsilon_0)^2\hbar^2}<br>$$<br>$$<br>n &#x3D; \infty时，氢原子电离E_{\infty} &#x3D; 0<br>$$<br> 故基态原子的电离能$E_0 &#x3D; E_{\infty} - E_1 &#x3D; 13.6eV$<br> 推广到晶体中的杂质电子，要做出以下改变</p>
+<ul>
+<li>正负电荷处于介电常数$\epsilon &#x3D; \epsilon_0 \cdot \epsilon_r$的介质中，不像氢原子在自由空间中，故要使用$\epsilon &#x3D; \epsilon_0 \cdot \epsilon_r$替代原式中的$\epsilon_0$</li>
+<li>电子不在自由空间中运动，而是在晶格周期性势场中运动，故要使用有效质量$m_n^*$来代替电子的惯性质量$m_0$<br>&#x3D;&#x3D;以上两个改变使得$\Delta E$计算值与实验值具有同一个数量级&#x3D;&#x3D;，修正后：</li>
+<li>对于施主杂质电离能：<br>  $$\Delta E_D &#x3D; \frac {m_n^<em>q^4}{2(4 \pi \epsilon_0 \epsilon_r)^2\hbar^2} &#x3D; \frac {m_n^</em> \cdot E_0}{m_0 \cdot \epsilon ^2_r}$$<br>  后面的式子是用基态能量$E_0$表示的</li>
+<li>对于受主杂质电离能：<br>$$\Delta E_A &#x3D; \frac {m_p^<em>q^4}{2(4 \pi \epsilon_0 \epsilon_r)^2\hbar^2} &#x3D; \frac {m_p^</em> \cdot E_0}{m_0 \cdot \epsilon ^2_r}$$</li>
+</ul>
+<h2 id="氢原子的玻尔半径：-a-0-frac-4-pi-epsilon-0-hbar-2-m-0q-2-推广到杂质中，依然替换-epsilon-m-0-得到杂质的等效玻尔半径：-a-0-frac-4-pi-epsilon-0-epsilon-r-hbar-2-m-n-q-2-epsilon-r-frac-m-0-m-n-a-0"><a href="#氢原子的玻尔半径：-a-0-frac-4-pi-epsilon-0-hbar-2-m-0q-2-推广到杂质中，依然替换-epsilon-m-0-得到杂质的等效玻尔半径：-a-0-frac-4-pi-epsilon-0-epsilon-r-hbar-2-m-n-q-2-epsilon-r-frac-m-0-m-n-a-0" class="headerlink" title="氢原子的玻尔半径：$$a_0 &#x3D; \frac {4 \pi \epsilon_0 \hbar^2}{m_0q^2}$$推广到杂质中，依然替换$\epsilon,m_0$得到杂质的等效玻尔半径：$$a_0 &#x3D; \frac {4 \pi \epsilon_0 \epsilon_r \hbar^2}{m_n^q^2} &#x3D; \epsilon_r(\frac {m_0}{m_n^})a_0$$"></a>氢原子的玻尔半径：<br>$$<br>a_0 &#x3D; \frac {4 \pi \epsilon_0 \hbar^2}{m_0q^2}<br>$$<br>推广到杂质中，依然替换$\epsilon,m_0$得到杂质的等效玻尔半径：<br>$$<br>a_0 &#x3D; \frac {4 \pi \epsilon_0 \epsilon_r \hbar^2}{m_n^<em>q^2} &#x3D; \epsilon_r(\frac {m_0}{m_n^</em>})a_0<br>$$</h2><h4 id="1-2-5杂质的补偿作用"><a href="#1-2-5杂质的补偿作用" class="headerlink" title="1.2.5杂质的补偿作用"></a>1.2.5杂质的补偿作用</h4><h5 id="1-杂质补偿的定义"><a href="#1-杂质补偿的定义" class="headerlink" title="1.杂质补偿的定义"></a>1.杂质补偿的定义</h5><p>在同一半导体的同一区域中，即掺入施主杂质又掺入受主杂质时，这两种杂质具有相互抵消的性质<br>一般情况下我们</p>
+<ul>
+<li>用$N_D$表示施主杂质浓度</li>
+<li>用$N_A$表示受主杂质浓度</li>
+<li>用$n$表示导带电子浓度</li>
+<li>用$p$表示价带空穴浓度</li>
+<li>假设杂质全部离化</li>
+</ul>
+<h5 id="2-N-D-N-A-施主多"><a href="#2-N-D-N-A-施主多" class="headerlink" title="2.$N_D &gt;&gt; N_A$施主多"></a>2.$N_D &gt;&gt; N_A$施主多</h5><ul>
+<li>在$T &#x3D; 0k$时严格按照能量最低原理，电子依次填充，由低能级到高能级（其实是由施主杂质浓度高的地方流向受主杂质低的地方，且对于能带来说越靠里为高能级），此时有效的施主浓度其实上减小了，为：<br>$$<br>N_D^*&#x3D; N_D -N_A<br>$$</li>
+<li>在温度升高至室温$T &#x3D; 300k$，有效施主中多余的价电子电离，释放至导带中，导带电子浓度为：<br>$$<br>n&#x3D; N_D - N_A<br>$$</li>
+</ul>
+<h5 id="3-N-D-N-A-受主多"><a href="#3-N-D-N-A-受主多" class="headerlink" title="3.$N_D &lt;&lt; N_A$受主多"></a>3.$N_D &lt;&lt; N_A$受主多</h5><ul>
+<li>同样的价带空穴浓度为<br>$$<br>p&#x3D; N_A -N_D<br>$$<br>补偿后的净杂质浓度称为有效杂质浓度</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>$N_D &gt; N_A$</th>
+<th>称$N_D - N_A$为有效施主浓度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$N_A &lt; N_D$</td>
+<td>称$N_D - N_A$为有效受主浓度</td>
+</tr>
+</tbody></table>
+<hr>
+<h4 id="1-2-6深能级杂质（非Ⅲ、Ⅴ族杂质）"><a href="#1-2-6深能级杂质（非Ⅲ、Ⅴ族杂质）" class="headerlink" title="1.2.6深能级杂质（非Ⅲ、Ⅴ族杂质）"></a>1.2.6深能级杂质（非Ⅲ、Ⅴ族杂质）</h4><h5 id="1-深能级杂质的定义"><a href="#1-深能级杂质的定义" class="headerlink" title="1.深能级杂质的定义"></a>1.深能级杂质的定义</h5><p>非Ⅲ、Ⅴ族元素在$Si,Ge$的禁带中也能产生能级，但施主和受主能级距离导带底和价带顶距离较远</p>
+<h5 id="2-深能级的多次电离特性"><a href="#2-深能级的多次电离特性" class="headerlink" title="2.深能级的多次电离特性"></a>2.深能级的多次电离特性</h5><p>深能级杂质可以产生多次电离，每一次电离相应的存在一个能级，所以深能级的杂质在$Si,Ge$的禁带中往往引入若干能级，并且有施主能级也有受主能级，故有些杂质即可以做施主也可以做受主</p>
+<h5 id="3-深能级杂质一般是替位式杂质"><a href="#3-深能级杂质一般是替位式杂质" class="headerlink" title="3.深能级杂质一般是替位式杂质"></a>3.深能级杂质一般是替位式杂质</h5><table>
+<thead>
+<tr>
+<th>对于$Si$</th>
+<th>$Cu$</th>
+<th>3个受主能级</th>
+<th>对于$Ge$</th>
+<th>$Cu$</th>
+<th>3个受主能级</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td>$Ag$</td>
+<td>1个受主能级＋1个施主能级</td>
+<td></td>
+<td>$Ag$</td>
+<td>3个受主能级</td>
+</tr>
+<tr>
+<td></td>
+<td>$Au$</td>
+<td>2个施主能级＋1个受主能级</td>
+<td></td>
+<td>$Au$</td>
+<td>3个受主能级＋1个施主能级</td>
+</tr>
+</tbody></table>
+<h5 id="4-以-Ge-掺杂金-Au-为例子讨论深能级杂质的能带关系"><a href="#4-以-Ge-掺杂金-Au-为例子讨论深能级杂质的能带关系" class="headerlink" title="4.以$Ge$掺杂金$Au$为例子讨论深能级杂质的能带关系"></a>4.以$Ge$掺杂金$Au$为例子讨论深能级杂质的能带关系</h5><p>![[SmartSelect_20241117_124101.jpg]]</p>
+<p>图中：</p>
+<ul>
+<li>$Ei$为禁带中线</li>
+<li>$Ei$上标的$eV$为距离导带底距离</li>
+<li>$Ei$下标的$eV$为距离价带底距离<br>中性的金原子$Au$替代了$Ge$原子，位于$Ge$的格点上，会有以下情况</li>
+</ul>
+<ol>
+<li>中性金原子$Au$的一个价电子，可以电离释放到导带，形成施主能级$E_D$；在结构上会形成正电中心$Au^+$，被称为单重电离施主离化态，因该电子为共价键束缚，故其电离能很大，略小于禁带宽度<br>$$<br>电离能\Delta E_D &#x3D; E_c - E_D ＝ E_g - 0.04eV<br>$$</li>
+<li>中性的金原子$Au$（原本只有一个核外电子）与周围4个$Ge$原子形成共价键，可以从价带接受3个价电子，这样便形成了$E_{A1 ～ 3}$这3个受主能级</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>从价带激发一个电子给$Au$</th>
+<th>使之成为$Au^-$</th>
+<th>电离能$E_{A1} - E_V$</th>
+<th>称$Au^-$“单重电离受主离化态”</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>再从价带激发一个电子给$Au^-$</td>
+<td>使之成为$Au^&#x3D;$</td>
+<td>电离能$E_{A2} - E_V$</td>
+<td>称$Au^&#x3D;$“二重电离受主离化态”</td>
+</tr>
+<tr>
+<td>再从价带激发一个电子给$Au^＝$</td>
+<td>使之成为$Au^≡$</td>
+<td>电离能$E_{A3} - E_V$</td>
+<td>称$Au^≡$“三重电离受主离化态”</td>
+</tr>
+</tbody></table>
+<ol start="3">
+<li>综上所述，由于电子之间的斥力作用，$Au$从价带接受电子越来越难，故Au在Ge中有五个荷电状态：$Au(中性态),Au^+(E_D),Au^-(E_{A1}),Au^＝(E_{A2}),Au^≡(E_{A3})$但是这些状态不能同时存在，最多只能有2个能级，故有以下结论，&#x3D;&#x3D;多重电离杂质能级不是相互独立的，不能同时存在&#x3D;&#x3D;</li>
+</ol>
+<h5 id="5-深能级杂质的作用"><a href="#5-深能级杂质的作用" class="headerlink" title="5.深能级杂质的作用"></a>5.深能级杂质的作用</h5><p>数量小，对导电影响小，对导电类型控制弱；主要起复合中心（用于做高速开关器件，工程上用掺金提高器件速度）的作用，即降低非平衡载流子的寿命</p>
+<h4 id="1-2-8Ⅲ-Ⅴ族化合物半导体的杂质"><a href="#1-2-8Ⅲ-Ⅴ族化合物半导体的杂质" class="headerlink" title="1.2.8Ⅲ-Ⅴ族化合物半导体的杂质"></a>1.2.8Ⅲ-Ⅴ族化合物半导体的杂质</h4><h5 id="1-杂质进入化合物半导体的存在方式"><a href="#1-杂质进入化合物半导体的存在方式" class="headerlink" title="1.杂质进入化合物半导体的存在方式"></a>1.杂质进入化合物半导体的存在方式</h5><p>同样的分为替位式和间隙式</p>
+<ol>
+<li>替位式杂质：由于有两种元素组合形成，所替代的位置可以是Ⅲ或者Ⅴ族所在的位置，故有两种<ul>
+<li>替Ⅲ族元素原子位于其格点</li>
+<li>替Ⅴ族元素原子位于其格点</li>
+</ul>
+</li>
+<li>间隙式杂质：<ul>
+<li>位于周围四个Ⅲ族元素原子的间隙</li>
+<li>位于周围四个Ⅴ族元素原子的间隙</li>
+</ul>
+</li>
+</ol>
+<h5 id="2-主要实验结果"><a href="#2-主要实验结果" class="headerlink" title="2.主要实验结果"></a>2.主要实验结果</h5><ol>
+<li>Ⅱ族元素通常替代Ⅲ族元素位置而位于格点上，但由于Ⅱ族元素比Ⅲ族元素少一个价电子，要获得一个价电子完成共价键的倾向；&#x3D;&#x3D;故表现为受主杂质，并引入浅受主能级&#x3D;&#x3D;</li>
+<li>VI族元素通常替代Ⅴ族元素位置而位于格点下，但由于VI族元素比Ⅴ族元素多一个价电子；&#x3D;&#x3D;表现为施主杂质，引入了施主能级&#x3D;&#x3D;</li>
+<li>IV族元素要看所处的位置，可替代Ⅲ族元素起施主作用或者替代Ⅴ元素起受主作用，都可参考1，2点<ul>
+<li>两性行为：$Si$在$GaAs$中既可以取代$Ga$($Si$浓度较低)，表现为施主杂质；又能取代$As$(浓度较低),表现为受主杂质，总体情况下起施主作用，具有补偿作用，保持$GaAs$为$N$型半导体</li>
+</ul>
+</li>
+<li>Ⅲ族和Ⅴ族元素掺入半到不是其本身所形成的Ⅲ-Ⅴ半导体中，实验测不到这些杂质的影响，在禁带中不引入能级</li>
+</ol>
+<h5 id="3-特殊情况-GaP-例外"><a href="#3-特殊情况-GaP-例外" class="headerlink" title="3.特殊情况$GaP$例外"></a>3.特殊情况$GaP$例外</h5><p>在上一点中第4点，如果对$GaP$的掺杂例外，当掺入N或Bi元素代替P，并产生能级，称为“等电子陷阱”，负电中心周围会束缚着电子，而这个被束缚电子所处的位置对应的能量状态就在原本的禁带之中，相当于在禁带中形成了一个特殊的、局域化的能级<br>具体表现如下：<br>1.$N（Ⅴ族）$掺入GaP$中，$N$取代$P$，由于N比P具有更强的电负性 ，共价半径差距大，所以</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">graph TB;</span><br><span class="line"> A[N具有较强的得到电子的能力] --&gt; B[N取代了P后可以获得电子形成负电中心];</span><br><span class="line"> B --&gt; C[形成等电子陷阱（负电中心会束缚电子且被束缚电子所处的位置对应的能量状态在禁带中）];</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>$Bi（Ⅴ族）$掺入$GaP$中，$Bi$取代$P$，BI但负电性比P弱，有较强的得到空穴的能力</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">graph TB;</span><br><span class="line"> A[P具有较强的得到空穴的能力] --&gt; B[Bi取代了P后可以获得空穴形成正电中心];</span><br><span class="line"> B --&gt; C[形成等电子陷阱];</span><br></pre></td></tr></table></figure>
+<h5 id="3-等电子陷阱"><a href="#3-等电子陷阱" class="headerlink" title="3.等电子陷阱"></a>3.等电子陷阱</h5><p>等电子杂质是与基质原子同族的杂质元素，它们替代了格点上的同族原子后，仍为电中性，但是因为原子序数共价半径以及电负性的不同，从而能够获得俘获某种载流子而成为带电中心，这样的带电中心就称为等电子陷阱</p>
+<h5 id="4-束缚激子"><a href="#4-束缚激子" class="headerlink" title="4.束缚激子"></a>4.束缚激子</h5><p>等电子陷阱俘获载流子后成为带电中心，转载带电中心又因为库伦力俘获与它本身电性相反的载流子，这种载流子就称为束缚激子</p>
+<h5 id="5-各族元素在化合物的作用"><a href="#5-各族元素在化合物的作用" class="headerlink" title="5.各族元素在化合物的作用"></a>5.各族元素在化合物的作用</h5><table>
+<thead>
+<tr>
+<th>元素</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>I族元素($Au,Cu,Ag…$)</td>
+<td>在$GaAs$中引入受主杂质</td>
+</tr>
+<tr>
+<td>过度元素($Cr,Fe,Mn,Co,Ni…$)</td>
+<td>在$GaAS$中引入深受主能级</td>
+</tr>
+</tbody></table>
+<h3 id="1-3缺陷与位错能级"><a href="#1-3缺陷与位错能级" class="headerlink" title="1.3缺陷与位错能级"></a>1.3缺陷与位错能级</h3><h5 id="1-3-1点缺陷"><a href="#1-3-1点缺陷" class="headerlink" title="1.3.1点缺陷"></a>1.3.1点缺陷</h5><p>温度一定时组成晶体的原子在平衡位置附近做振动，部分原子可获得足够的能量来挣脱周围原子的束缚，挤入间隙位置留下相应的空位，其有如下情况</p>
+<ol>
+<li>弗伦仓耳缺陷：原子从原格点挤入间隙（相当于间隙式杂质），之后呈现为间隙原子和相应空位成对出现，同时存在</li>
+<li>肖特基缺陷：若间隙原子运动至（扩散至）样品表面，其在表面形成新原子层，体内仅存在空位，&#x3D;&#x3D;注：晶体形成后往往只有空位没有间隙，故肖特基的缺陷多&#x3D;&#x3D;<br>这两种由问题决定的点缺陷称为热缺陷</li>
+</ol>
+<h5 id="1-对于Ge-Si"><a href="#1-对于Ge-Si" class="headerlink" title="1.对于Ge,Si"></a>1.对于Ge,Si</h5><ol>
+<li>空位最近邻为4个原子，每个原子各有一个不成对的价电子，倾向于接受一个价电子，起受主作用</li>
+<li>间隙原子有4个未成键的价电子，它们既可起受主作用，又可以起施主作用</li>
+</ol>
+<h5 id="2-对于Ⅲ-Ⅴ族化合物半导体"><a href="#2-对于Ⅲ-Ⅴ族化合物半导体" class="headerlink" title="2.对于Ⅲ-Ⅴ族化合物半导体"></a>2.对于Ⅲ-Ⅴ族化合物半导体</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">graph LR; A[点缺陷来源] --&gt; B[热振动]; B --&gt; D[Ge间隙; As空位]; B --&gt; E[As间隙; Ge空位]; A --&gt; G[成分偏离正常比]; G --&gt; H[As偏移; Ga空位]; H --&gt; J[均表现为受主能级]; G --&gt; Y[Ge偏移; As空位]; Y --&gt; J[均表现为受主能级];</span><br></pre></td></tr></table></figure>
+<p>替位式原子缺陷也称反结构（反位缺陷）<br>对于一个化合物半导体AB</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">graph TD; A[AB] --&gt; B[A价电子少]; A --&gt; C[B价电子多] </span><br></pre></td></tr></table></figure>
+
+<p>有以下两种情况</p>
+<table>
+<thead>
+<tr>
+<th>A替代B</th>
+<th>记作$A_B$受主</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>B替代A</td>
+<td>记作$B_A$施主</td>
+</tr>
+</tbody></table>
+<h5 id="3-位错"><a href="#3-位错" class="headerlink" title="3.位错"></a>3.位错</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">graph TD; A[位错] --&gt; B[刃位错]; B --&gt; C[位错线存在悬挂键，即可给出电子也起施主作用又可接受电子起受主作用]; A --&gt; D[螺位错];</span><br></pre></td></tr></table></figure>
+]]></content>
+      <tags>
+        <tag>笔记</tag>
+        <tag>半导体物理</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>半导体物理笔记第三章</title>
+    <url>/2024/12/11/%E7%AC%94%E8%AE%B0%E5%8D%8A%E7%89%A93%E5%8D%8A%E5%AF%BC%E4%BD%93%E4%B8%AD%E8%BD%BD%E6%B5%81%E5%AD%90%E7%9A%84%E7%BB%9F%E8%AE%A1%E5%88%86%E5%B8%83/</url>
+    <content><![CDATA[<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">graph TD; A[载流子] --&gt; B[电子]; B --&gt; C[N型]; A --&gt; D[空穴]; D --&gt; E[P型]</span><br></pre></td></tr></table></figure>
+
+
+<p>由本征激发和杂质电离产生NP型</p>
+<h3 id="1-2状态密度"><a href="#1-2状态密度" class="headerlink" title="1.2状态密度"></a>1.2状态密度</h3><h4 id="1-2-1引入热平衡状态"><a href="#1-2-1引入热平衡状态" class="headerlink" title="1.2.1引入热平衡状态"></a>1.2.1引入热平衡状态</h4><p>T一定时，无外界其他激励因素，如光照等，下面两种情况产生和消失动态平衡</p>
+<ol>
+<li>电子可以从价带跃迁到导带，即本征激发，导致电子和空穴成对出现（本质是&#x3D;&#x3D;电子和空穴的产生，即电子从低能状态到高能状态&#x3D;&#x3D;），形成导电的电子与空穴；相应的有产生就会有消失，&#x3D;&#x3D;电子和空穴的消失（复合状态）电子从高能状态到低能状态，电子空穴减少&#x3D;&#x3D;</li>
+<li>电子和空穴也可由杂质电离方式产生，同样的也存在电子空穴消失的过程<br>这两种热平衡态下的导电电子和空穴称为热平衡载流子</li>
+</ol>
+<h4 id="1-2-2-g-E-状态密度对于导带底来说"><a href="#1-2-2-g-E-状态密度对于导带底来说" class="headerlink" title="1.2.2$g(E)$状态密度对于导带底来说"></a>1.2.2$g(E)$状态密度对于导带底来说</h4><p>导带或者价带很多能级存在，并且能级之间间隔很小，称为准连续，有定义：<br>$$<br>g(E)&#x3D;\frac {dZ(E)}{dE}<br>$$</p>
+<ul>
+<li>$g(E)$为状态密度：单位能量间隔中的量子态数</li>
+<li>$dZ(E)$在能量$E ～ E+dE$之间的量子态数<br>计算状态密度的步骤：</li>
+</ul>
+<ol>
+<li>计算k空间的量子态密度</li>
+<li>在计算能量为E但等能面所包含的体积大小，再乘以k空间的量子态密度得到Z(E)</li>
+<li>按上面的定义式求导</li>
+</ol>
+<h5 id="1-等能面为球体的状态密度即电子"><a href="#1-等能面为球体的状态密度即电子" class="headerlink" title="1.等能面为球体的状态密度即电子"></a>1.等能面为球体的状态密度即电子</h5><ol>
+<li>k空间的量子态密度<br>晶体中的电子满足如下两个关系式：<br>$$<br> -\frac{\hbar^2}{2m_0} \frac{d^2 \psi(x)}{dx^2} + V(x)\psi(x) &#x3D; E\psi(x)<br>$$<br>$$<br> \psi(x) &#x3D; V(x + a)<br>$$<br>得到布洛赫定理：<br>$$<br> \psi_{\mathbf{k}}(x) &#x3D; u_{\mathbf{k}}(x) e^{i \mathbf{k} \cdot x}<br>$$<br>$$<br> u_{\mathbf{k}}(x) &#x3D; u_{\mathbf{k}}(x + \mathbf{Sa})<br>$$<br>根据波恩卡曼循环边界条件：<br>$$<br>\psi_{\mathbf{k}}(0) &#x3D; u_{\mathbf{k}}(L)<br>$$<br>$$<br>L &#x3D; Na<br>$$<br>将其带入布洛赫定理中得到：<br>$$<br>e^{ikL} &#x3D; 1<br>$$<br>$$<br>k &#x3D; \frac {2 \pi n}{L}<br>$$<br>在x,y,z轴k值可以由上式求出：<br>$$<br>k_x &#x3D; \frac {2 \pi n_x}{L},<br>k_y &#x3D; \frac {2 \pi n_y}{L},<br>k_z &#x3D; \frac {2 \pi n_z}{L}<br>$$<br>把他们相乘可以得出每个k值在k空间中所占的体积：<br>$$<br>\frac {2 \pi}{L} \cdot \frac {2 \pi}{L} \cdot \frac {2 \pi}{L} &#x3D; \frac {8 \pi^3}V<br>$$<br>又因为量子态密度是k体积的倒数，故量子态密度，再计入自旋（乘于2）：<br>$$<br>\frac {2V}{8 \pi^3}<br>$$</li>
+<li>能量为E但等能面所包含的体积<br>对于一个各项同性的半导体，它的等能面是球形的：<br>其有效质量有：<br>$$ E(\mathbf{k}) - E_c &#x3D; \frac{\hbar^2 \mathbf{k}^2}{2m_n^<em>} $$<br>将式子表示为k的形式：<br>$$ \mathbf{k} &#x3D; ｛{\frac{2m_n^</em>}{\hbar^2} \left[ E(\mathbf{k}) - E_c \right]} ｝^{\frac 12}$$ 带入球形的体积公式$\frac 43 \pi k^3$中：<br>$$ \frac{4}{3} \pi \left( \frac{2m_n^<em>}{\hbar^2} \right)^{3&#x2F;2} (E - E_c)^{3&#x2F;2} $$<br>等能面中总量子态数为2中量子态密度和3中最终求出体积的乘积：<br>$$<br>Z(E) &#x3D; \frac {2V}{8 \pi^3} \cdot \frac{4}{3} \pi \left( \frac{2m_n^</em>}{\hbar^2} \right)^{3&#x2F;2} (E - E_c)^{3&#x2F;2}<br>$$</li>
+<li>根据定义式求导<br>将3中的$Z(E)$带入$g(E)&#x3D;\frac {dZ(E)}{dE}$对$dE$求导，得到导带底的状态密度为：<br>$$<br>g_c(E)&#x3D;\frac {dZ(E)}{dE} &#x3D; \frac {V}{2 \pi^2} (\frac {2m^*_n}{\hbar^2})^{\frac 32}(E - E_c)^{\frac 12}<br>$$</li>
+</ol>
+<h5 id="2-等能面为椭球体的状态密度"><a href="#2-等能面为椭球体的状态密度" class="headerlink" title="2.等能面为椭球体的状态密度"></a>2.等能面为椭球体的状态密度</h5><p>$$ E(\mathbf{k}) - E_c &#x3D; \frac{\hbar^2}{2} \left[ \frac{(k_x - k_{0x})^2}{m_{nx}^<em>} + \frac{(k_y - k_{0y})^2}{m_{ny}^</em>} + \frac{(k_z - k_{0z})^2}{m_{nz}^*} \right] $$</p>
+<h5 id="3-特殊Si-Ge的等能面的状态密度"><a href="#3-特殊Si-Ge的等能面的状态密度" class="headerlink" title="3.特殊Si,Ge的等能面的状态密度"></a>3.特殊Si,Ge的等能面的状态密度</h5><p>对于Si,Ge：</p>
+<p>$$<br>m_{nx}^* &#x3D; m_{ny}^* &#x3D; m_t, \quad m_{nz}^* &#x3D; m_l<br>$$</p>
+<p>$$<br>E(\mathbf{k}) - E_c &#x3D; \frac{\hbar^2}{2} \left[ \frac{k_1^2 + k_2^2}{m_t} + \frac{k_3^2}{m_l} \right]<br>$$</p>
+<p>可以得到类似于椭圆公式：</p>
+<p>$$<br>\frac{k_1^2 + k_2^2}{ \frac{2}{\hbar^2}m_t(E(\mathbf{k}) - E_c)} + \frac{k_3^2}{ \frac{2}{\hbar^2}m_l(E(\mathbf{k}) - E_c)} &#x3D; 1<br>$$</p>
+<p>其中：</p>
+<p>$$<br>a^2 &#x3D; b^2 &#x3D; \frac{2}{\hbar^2}m_t(E(\mathbf{k}) - E_c)<br>$$</p>
+<p>$$<br>c^2 &#x3D; \frac{2}{\hbar^2}E(\mathbf{k}) - E_c<br>$$</p>
+<p>代入椭球体积公式$\frac{4}{3} \pi abc$得</p>
+<p>$$<br>\frac{4}{3} \pi \frac{2}{\hbar^2}m_t(E(\mathbf{k}) - E_c) \sqrt{\frac{2}{\hbar^2}E(\mathbf{k}) - E_c}<br>$$</p>
+<p>$$<br>&#x3D; \frac{4}{3} \cdot \frac{m_t}{\hbar^3} \cdot 2^{\frac{3}{2}}(E(k) - E_c)^{\frac{3}{2}} \cdot m_t m_l^{\frac{1}{2}}<br>$$</p>
+<p>由于Si中有6个椭球</p>
+<p>$$<br>Z(E) &#x3D; (\text{椭球个数} S) \cdot (\text{椭球体积} V) \cdot \frac{2V}{8 \pi^3}<br>$$</p>
+<p>再对$Z(E)$进行求导得到最终结果：</p>
+<p>$$<br>g_c(E) &#x3D; \frac{dZ}{dE} &#x3D; \frac{V}{\pi^2} \cdot \frac{m_t}{\hbar^3} \cdot \sqrt{2} \cdot (E(k) - E_c)^{\frac{1}{2}} m_l^{\frac{1}{2}} \cdot S<br>$$</p>
+<h5 id="4-m-n-与-m-t-和-m-l-的区别"><a href="#4-m-n-与-m-t-和-m-l-的区别" class="headerlink" title="4. $m_n^*$与$m_t$和$m_l$的区别"></a>4. $m_n^*$与$m_t$和$m_l$的区别</h5><p>将上式与球形等能面相等：</p>
+<p>$$<br>\frac{dZ}{dE} &#x3D; \frac{V}{\pi^2} \cdot \frac{m_t}{\hbar^3} \cdot \sqrt{2} \cdot (E(k) - E_c)^{\frac{1}{2}} m_l^{\frac{1}{2}} \cdot S &#x3D; \frac{dZ(E)}{dE} &#x3D; \frac{V}{2 \pi^2} \left(\frac{2m_n^*}{\hbar^2}\right)^{\frac{3}{2}} (E - E_c)^{\frac{1}{2}}<br>$$</p>
+<p>化简之后得：</p>
+<p>$$<br>m_n^* &#x3D; (m_t^2 S^2 m_l)^{\frac{1}{3}}<br>$$</p>
+<p>在这里$m_n^*$的主要作用是为了使球形等能面与椭球等能面表达形式相同而设定的一个量，没有实际的物理含义。</p>
+<h5 id="5-状态密度对于价带顶即空穴"><a href="#5-状态密度对于价带顶即空穴" class="headerlink" title="5. 状态密度对于价带顶即空穴"></a>5. 状态密度对于价带顶即空穴</h5><p>对于价带顶，若$m_n^<em>$为正，则$m_p^</em>$为负，且各项同性，由含$m_n^<em>$的$E \sim k$关系得出$m_p^</em>$的表达式：</p>
+<p>$$<br>E(\mathbf{k}) - E_v &#x3D; -\frac{\hbar^2 k^2}{2m_p^<em>} \quad k &#x3D; \sqrt{\frac{2m_p^</em> (E_v - E)}{\hbar^2}}<br>$$</p>
+<p>球形等能面包围的体积：</p>
+<p>$$<br>\frac{4}{3} \pi k^3 &#x3D; \frac{4}{3} \pi \left( \frac{2m_p^*}{\hbar^2} \right)^{\frac{3}{2}} (E_v - E)^{\frac{3}{2}}<br>$$</p>
+<p>总量子态数目：</p>
+<p>$$<br>\frac{2v}{8\pi^3} \cdot \frac{4}{3} \pi \left( \frac{2m_p^*}{\hbar^2} \right)^{\frac{3}{2}} (E_v - E)^{\frac{3}{2}}<br>$$</p>
+<p>最后求状态密度：</p>
+<p>$$<br>g_c &#x3D; \frac{dZ}{dE} &#x3D; \frac{2v}{8\pi^3} \cdot \frac{4}{3} \pi \left( \frac{2m_p^*}{\hbar^2} \right)^{\frac{3}{2}} \cdot \frac{3}{2} (E_v - E)^{\frac{1}{2}}<br>$$</p>
+<p>$$<br>&#x3D; \frac{v}{2\pi^2} \left( \frac{2m_p^*}{\hbar^2} \right)^{\frac{3}{2}} (E_v - E)^{\frac{1}{2}}<br>$$</p>
+<h5 id="6-实际具体的状态密度"><a href="#6-实际具体的状态密度" class="headerlink" title="6.实际具体的状态密度"></a>6.实际具体的状态密度</h5><p>实际晶体的价带由重空穴和轻空穴两个能带组成，体积计算时应考虑中空穴和轻空穴两个能带</p>
+<ul>
+<li>重空穴<br>$$<br>g_v(E)<em>h &#x3D; \frac{v}{2\pi^2} \left( \frac{2m</em>{ph}^*}{\hbar^2} \right)^{\frac{3}{2}} (E_v - E)^{\frac{1}{2}}<br>$$</li>
+<li>轻空穴<br>$$<br>g_v(E)<em>l &#x3D; \frac{v}{2\pi^2} \left( \frac{2m</em>{pl}^*}{\hbar^2} \right)^{\frac{3}{2}} (E_v - E)^{\frac{1}{2}}<br>$$</li>
+<li>二者相加得到总状态密度<br>$$<br>g_v(E)<em>{all} &#x3D; \frac{v}{2\pi^2} \left( \frac{(2m</em>{ph}^<em>)^\frac 32 + (2m_{pl}^</em>)^\frac 32}{(\hbar^2)^\frac 32} \right) (E_v - E)^{\frac{1}{2}}<br>$$<br>同样的为了求出与原$m_n^<em>$的关系让上式与球形状态密度联立：<br>$$<br>g_c(E)&#x3D;\frac {dZ(E)}{dE} &#x3D; \frac {V}{2 \pi^2} (\frac {2m^</em><em>n}{\hbar^2})^{\frac 32}(E - E_c)^{\frac 12}<br>$$<br>最终会得到：<br>$$<br>m_p^* &#x3D; ((m_ph^<em>)^\frac 32 + (m_pl^</em>)^\frac 32)^\frac 23<br>$$<br>禁带中不存在量子态，因此在$E_g$中，$g</em>(E)&#x3D;0$，如果电子和空穴的有效质量相同，那么$g_c(E)$和$g_v(E)$它们所代表的函数曲线将对于禁带中线对称<br>![[SmartSelect_20241125_105722_Obsidian.jpg]]</li>
+</ul>
+<h3 id="1-3费米能级以及载流子的统计分布"><a href="#1-3费米能级以及载流子的统计分布" class="headerlink" title="1.3费米能级以及载流子的统计分布"></a>1.3费米能级以及载流子的统计分布</h3><p>电子是费米子，受到泡利不相容原理制约，遵循费米狄拉克统计</p>
+<h4 id="1-3-1费米分布函数"><a href="#1-3-1费米分布函数" class="headerlink" title="1.3.1费米分布函数"></a>1.3.1费米分布函数</h4><p>这个函数反映的几率是一个能量为$E$的能级上被电子占据的几率<br>$$<br>f &#x3D; \frac 1 {1 + exp(\frac {E - E_F}{k_0T})}<br>$$</p>
+<ul>
+<li>$k_0$为玻尔兹曼常数在室温下$k_0T &#x3D; 0.026eV$（其余温度下的$k_0T$的值可由比值求出，如$\frac {200} {300} &#x3D; \frac {k_0T}{0.026}$)</li>
+<li>$T$热力学温度，如$300k$</li>
+<li>$E_F$费米能级，可以通过电中性条件求得，是平衡电子系统的一个重要参考量<br>讨论</li>
+</ul>
+<ol>
+<li>$f$是一个单调下降的函数：随着$E$上升，$E-E_F$上升，$exp(\frac {E - E_F}{k_0T})$上升，$f$下降</li>
+<li>$T\rightarrow0k$时，$k_0T$无限小<ul>
+<li>$E &gt; E_F,exp(\frac {E - E_F}{k_0T}) \rightarrow \infty,f\rightarrow0$ </li>
+<li>$E &lt; E_F,exp(\frac {E - E_F}{k_0T}) \rightarrow 0,f\rightarrow1$<br> 故在绝对零度时，费米能级是电子占据能级的标点，即在费米能级$E_F$之下所有的能级都被电子占据（电子占据能级的概率是$100％$），在之上没有任何电子<br> ![[SmartSelect_20241125_112814.jpg]]</li>
+</ul>
+</li>
+<li>$T&gt;0k$时，$k_0T$为正数<ul>
+<li>$E &gt; E_F,exp(\frac {E - E_F}{k_0T}) &gt; 1,f&lt;\frac12$ </li>
+<li>$E &lt; E_F,exp(\frac {E - E_F}{k_0T}) &lt; 1,f&gt;\frac12$<br> ![[SmartSelect_20241125_113052_Obsidian.jpg]]</li>
+</ul>
+</li>
+<li>$T&#x3D;0k$时，若$E&#x3D;E_F$，则$f(E_F) &#x3D; \frac 12$</li>
+</ol>
+<h5 id="1-费米能级的物理意义"><a href="#1-费米能级的物理意义" class="headerlink" title="1.费米能级的物理意义"></a>1.费米能级的物理意义</h5><p>费米能级是电子填充能级水平的标志，起着衡量能级被电子占据概率的作用，能量比费米能级高的量子态基本都是空的，而能量比费米能级低的量子态基本都是满的</p>
+<h5 id="2-空穴的费米能级"><a href="#2-空穴的费米能级" class="headerlink" title="2.空穴的费米能级"></a>2.空穴的费米能级</h5><p>相反的科学被占据的几率等于能级不被电子占据的几率，有：<br>$$<br>1 - f &#x3D; \frac 1 {1 + exp(\frac {E_F - E}{k_0T})}<br>$$<br>与电子费米分布相比只用$E_F - E$替代了$E - E_F$，因此在电子的能带图中，空穴的能量高低与电子的相反，空穴所处的能级越低，能量越高（即其分布函数与电子的对称相反）</p>
+<h5 id="3-通过-E-F-位置判断半导体导电类型"><a href="#3-通过-E-F-位置判断半导体导电类型" class="headerlink" title="3.通过$E_F$位置判断半导体导电类型"></a>3.通过$E_F$位置判断半导体导电类型</h5><table>
+<thead>
+<tr>
+<th>费米能级越靠近导带</th>
+<th>则导带中的电子越多</th>
+<th>N型半导体</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>费米能级越靠近价带</td>
+<td>则导带中的电子越少</td>
+<td>P型半导体</td>
+</tr>
+<tr>
+<td>在费米能级以上、并且越靠近费米能级（也就是能量差值 越小）的能级，被电子所占据的概率就越大</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<blockquote>
+<p><em>可以这样类比理解，把能级想象成一个个高低不同的台阶，费米能级是一个具有特殊意义的 “分界线”，电子就像是小球，小球更倾向于待在靠近这个 “分界线” 且在 “分界线” 以下的台阶上（对应能级被填满情况），而在 “分界线” 之上，越靠近它的那些较高台阶（能级），虽然总体小球数量少，但相对更靠近 “分界线” 的台阶上出现小球（电子占据）的可能性会比那些离得远的台阶更大一些</em></p>
+</blockquote>
+<h4 id="1-3-2玻尔兹曼分布函数"><a href="#1-3-2玻尔兹曼分布函数" class="headerlink" title="1.3.2玻尔兹曼分布函数"></a>1.3.2玻尔兹曼分布函数</h4><p>描述在一定温度一下电子在非简并半导体能带中的运动分布概率<br>$$<br>f &#x3D; \frac 1 {exp(\frac {E - E_F}{k_0T})}<br>$$<br>与费米分布的区别是将分母中的1去掉了，先将上式化为：<br>$$<br>f &#x3D; exp(- \frac {E - E_F}{k_0T})<br>$$<br>当$E - E_F &gt;&gt; k_0T$时：<br>$$<br>f &#x3D; exp(- \frac {E}{k_0T})&#x3D;Ae^{(- \frac {E}{k_0T})}&#x3D;1<br>$$<br>最终得到：<br>$$<br>A&#x3D;exp{(\frac {E}{k_0T})}<br>$$<br>除去在$E_F$附近几个量子态外，在$E - E_F &gt;&gt; k_0T$处，量子态被电子占据的几率很小，玻尔兹曼分布于费米分布相同,因为：<br>$$<br>f &#x3D; \frac 1 {1 + exp(\frac {E - E_F}{k_0T})}<br>$$<br>中$exp(\frac {E - E_F}{k_0T})\rightarrow \infty$故分母中的1可以省去，这样子就跟玻尔兹曼分布一样了<br>进一步的费米统计分布与玻尔兹曼统计分布的主要区别在费米分布受泡利不相容原理限制，而当$E - E_F &gt;&gt; k_0T$时泡利不相容原理失去作用跟我们上面证得到$f$表达式一样正好吻合</p>
+<h4 id="1-3-3载流子浓度的求法"><a href="#1-3-3载流子浓度的求法" class="headerlink" title="1.3.3载流子浓度的求法"></a>1.3.3载流子浓度的求法</h4><h5 id="1-非简并半导体与简并半导体"><a href="#1-非简并半导体与简并半导体" class="headerlink" title="1.非简并半导体与简并半导体"></a>1.非简并半导体与简并半导体</h5><p>从电子系统的角度出发</p>
+<ul>
+<li>非简并半导体：服从玻尔兹曼统计分布的半导体</li>
+<li>简并半导体：服从费米统计分布的半导体</li>
+</ul>
+<h5 id="2-电子浓度"><a href="#2-电子浓度" class="headerlink" title="2.电子浓度"></a>2.电子浓度</h5><p>求电子浓度的思路</p>
+<ol>
+<li>将导带分成无限小的能量间隔，在$E ～ E＋dE$之间有$dZ＝g_c(E)dE$个量子态</li>
+<li>电子占据能量为E的量子态概率E的量子态概率为$f(E)$</li>
+<li>$E ～ E＋dE$的内容了间隔内被电子占据的量子态$f(E)g_c(E)dE$<ul>
+<li>每个量子态上占有有不一个电子，故被占据的量子态数＝电子数</li>
+</ul>
+</li>
+<li>所有电子数相加为求积分，其范围为从导带底到导带顶对$f(E)g_c(E)dE$积分</li>
+<li>总电子数目再处于体积得到导带电子的浓度<br>![[SmartSelect_20241126_102400.jpg]]能量$E ～ E＋dE$的电子数，$dN&#x3D;f_{波尔斯曼}(E)g_c(E)dE$<br>所以：<br>$$<br>dN &#x3D; \frac {V}{2 \pi^2} (\frac {2m^*_n}{\hbar^2})^{\frac 32}(E - E_c)^{\frac 12} exp(- \frac {E - E_F}{k_0T}) dE<br>$$</li>
+</ol>
+<p>再除于所在k空间的体积可以得到单位体积电子数：<br>$$<br>dn &#x3D; \frac {dN} {V}  &#x3D; \frac {V}{2 \pi^2} (\frac {2m^<em><em>n}{\hbar^2})^{\frac 32}(E - E_c)^{\frac 12} exp(- \frac {E - E_F}{k_0T}) dE<br>$$<br>再次积分可得到热平衡态非简并半导体导带电子浓度：<br>$$<br>n_0 &#x3D; \int</em>{E_c}^{E_c^&#96;}\frac {1}{2\pi^2} (\frac {2m^</em><em>n}{\hbar^2})^{\frac 32}(E - E_c)^{\frac 12} exp(- \frac {E - E_F}{k_0T}) dE<br>$$<br>令$x&#x3D;\frac {E - E_c}{k_0T} \rightarrow dE&#x3D;E - E_c&#x3D;xk_0T$同时将$exp$这一项拆开：<br>$$<br>\begin{align}<br>&amp;&#x3D;exp(-\frac {E-E_c+E_c-E_F}{k_0T}) \<br>&amp;&#x3D; exp(- \frac {E_c - E_F}{k_0T}) exp(- \frac {E - E_c}{k_0T}) \<br>&amp;&#x3D; exp(- \frac {E_c - E_F}{k_0T}) exp(- x)<br>\end{align}<br>$$<br>将上面两式子带入式子化简：<br>$$ \begin{align} &amp;&#x3D;\int</em>{0}^{\infty}\frac{1}{2\pi^2}\left(\frac{2m^<em>}{\hbar^2}\right)^{3&#x2F;2}(k_0Tx)^{1&#x2F;2}\exp\left(-\frac{E_c - E_F}{kT}\right)exp(-x)d(k_0Tx)\ &amp;&#x3D;\frac{1}{2\pi^2}\left(\frac{2m^</em><em>n}{\hbar^2}\right)^{3&#x2F;2}(k_0T)^\frac 12\exp\left(-\frac{E_c - E_F}{k_0T}\right)k_0T\int</em>{0}^{\infty}x^{1&#x2F;2}e^{-x}dx\ &amp;&#x3D;\frac{1}{2\pi^2}\left(\frac{2m^<em>_n}{\hbar^2}\right)^{3&#x2F;2}(k_oT)^\frac 32\exp\left(-\frac{E_c - E_F}{k_0T}\right){\frac{\sqrt\pi}{2}}\ &amp;&#x3D;2\left(\frac{m^</em>_nk_0T}{2\pi\hbar^2}\right)^{3&#x2F;2}\exp\left(-\frac{E_c - E_F}{k_0T}\right) \end{align} $$</p>
+<ul>
+<li>令$N_c &#x3D; 2\left(\frac{m^*_nk_0T}{2\pi\hbar^2}\right)^{3&#x2F;2}$，我们称$N_c$为导带的有效状态密度，导带所有能被电子占据态度总数，其与$T$有正比例系数关系</li>
+<li>令$f(E_c)&#x3D;\exp\left(-\frac{E_c - E_F}{k_0T}\right)$，我们称电子占据能量为$E_c$的量子态概率＝占据导带的电子概率</li>
+<li>把导带中所有的量子态都集中在导带底$E_c$，而它的状态密度则为$N_c$，则导带中的电子浓度是$N_c$中有电子占据的量子态密度<ul>
+<li>$f(E_c)&#x3D;\exp\left(-\frac{E_c - E_F}{k_0T}\right)$这个式子类似于波尔斯曼分布不过把E换成$E_c$，就从原来在整个能带中的分布概率，变成了在导带$E_c$中的分布概率，与$N_c$相乘就得到了导带中有电子占据的量子态数$n_0$<br>$$<br>  n_0&#x3D;2\left(\frac{m^*_nk_0T}{2\pi\hbar^2}\right)^{3&#x2F;2}\exp\left(-\frac{E_c - E_F}{k_0T}\right)</li>
+</ul>
+</li>
+</ul>
+<p>$$</p>
+<h5 id="3-空穴浓度"><a href="#3-空穴浓度" class="headerlink" title="3.空穴浓度"></a>3.空穴浓度</h5><p>热平衡状态下非简并半导体中的空穴浓度为$p_0$，与上面求电子相同，只不过最初式子要换成空穴的<br>$$<br>\begin{align}<br>p_0 &amp;&#x3D; \frac {\int_{E_v^,}^{E_v}[1-f(E)g_v(E)]}{V}\<br>&amp;&#x3D;\int_{E_v^,}^{E_v}\frac {1}{2\pi^2} (\frac {2m^<em>_p}{\hbar^2})^{\frac 32}(E_v - E)^{\frac 12} exp(\frac {E - E_F}{k_0T}) dE<br>\end{align}<br>$$<br>同样的代换后可以得到：<br>$$<br>p_0&#x3D;2\left(\frac{m^</em>_pk_0T}{2\pi\hbar^2}\right)^{3&#x2F;2}\exp\left(-\frac{E_F - E_V}{k_0T}\right)<br>$$</p>
+<ul>
+<li>令$N_v &#x3D; &#x3D;2\left(\frac{m^*_pk_0T}{2\pi\hbar^2}\right)^{3&#x2F;2}$故，$N_v$表示价带有效状态密度，同样与温度T有正比例关系</li>
+<li>$f_v(E)&#x3D;\exp\left(-\frac{E_F - E_V}{k_0T}\right)$是空穴占据能量E的量子态概率，把价带中所有量子态都集中在价带顶E处，而它的状态密度为N，则价带中的空穴浓度是N中有空穴占据的量子态数</li>
+<li>注意：exp中的数必须小于0</li>
+</ul>
+<h5 id="4-影响-n-0-p-0-的重要参数"><a href="#4-影响-n-0-p-0-的重要参数" class="headerlink" title="4.影响$n_0,p_0$的重要参数"></a>4.影响$n_0,p_0$的重要参数</h5><ol>
+<li>温度T：$N_c,N_v \propto T^{\frac 32}$题目中只给了温度可以利用这个简单的式子比大小</li>
+<li>费米能级$E_F$：费米能级本身与温度和掺杂浓度相关，其掺杂浓度越高，电子跃迁到价带越多，电子浓度越高，变相的$E_F$越靠近，温度也同理</li>
+<li>载流子浓度的乘积：<br>$$<br>\begin{align}<br>n_0p_0&amp;&#x3D;N_cN_v\exp\left(-\frac{E_c - E_F}{k_0T}\right)\exp\left(-\frac{E_F - E_V}{k_0T}\right) \<br>&amp;&#x3D;N_cN_v\exp\left(\frac{-E_c + E_F-  E_F + E_V}{k_0T}\right) \<br>&amp;&#x3D;N_cN_v\exp\left(-\frac{E_V-E_c}{k_0T}\right) \<br>&amp;&#x3D;N_cN_v\exp\left(-\frac{E_g}{k_0T}\right)<br>\end{align}<br>$$</li>
+</ol>
+<ul>
+<li>可以看到电子浓度和空穴浓度积$n_0p_0$与费米能级无关</li>
+<li>半导体材料一定($m_n^<em>,m_p^</em>,E_g$)，$n_0p_0$只于温度相关，掺杂与否和杂质浓度无关，将上式中的$N_cN_v$拆开可以观察到变量只有温度T</li>
+<li>温度T一定时，不同材料，$n_0p_0$积不同</li>
+<li>$n_0p_0$不论对本征半导体还是杂质半导体，只要是热平衡态的非简并半导体都适用</li>
+<li>对于特定的半导体材料温度一定时，$n_0p_0$积是一定的</li>
+<li>半导体中热平衡时如果$n_0大p_0小$反之亦然</li>
+</ul>
+<h4 id="1-3-4本征半导体的载流子浓度"><a href="#1-3-4本征半导体的载流子浓度" class="headerlink" title="1.3.4本征半导体的载流子浓度"></a>1.3.4本征半导体的载流子浓度</h4><p>本征半导体：没有任何杂质和缺陷的半导体，其在0k时价带中的量子态全部被电子所占据，导带中的量子态都是空的<br>本征激发：电子空穴对来自于本征激发，最主要的特征是电子空穴成对出现，于是有<br>$$<br>导带电子浓度n_0 &#x3D; 价带空穴浓度p_0<br>$$</p>
+<h5 id="1-E-i-本征费米能级："><a href="#1-E-i-本征费米能级：" class="headerlink" title="1.$E_i$本征费米能级："></a>1.$E_i$本征费米能级：</h5><p>$$<br>\begin{align}<br>n_0 &amp;&#x3D; N_c\exp\left(-\frac{E_c - E_F}{k_0T}\right) \<br>p_0 &amp;&#x3D; N_v\exp\left(-\frac{E_F - E_V}{k_0T}\right)<br>\end{align}<br>$$<br>将$E_i$当作$E_F$带入上两式中，又因为$n_0 &#x3D; p_0$得：<br>$$<br>N_c\exp\left(-\frac{E_c - E_i}{k_0T}\right) &#x3D;N_v\exp\left(-\frac{E_i - E_V}{k_0T}\right)<br>$$<br>两边同取$ln$：<br>$$<br>\begin{align}<br>-\frac{E_c - E_i}{k_0T}&amp;&#x3D; ln \frac {N_v}{N_c} - \frac{E_i - E_V}{k_0T} \<br>2E_i &amp;&#x3D; k_0Tln \frac {N_v}{N_c} +E_v+E_c \<br>E_i &amp;&#x3D; \frac {k_0T}{2}ln \frac {N_v}{N_c} + \frac {E_c + E_v}{2}<br>\end{align}<br>$$<br>上式中的$\frac {E_c + E_v}{2}$其实上是禁带的中心，即禁带中线，且比它向上移了$\frac {k_0T}{2}ln \frac {N_v}{N_c}$<br>![[SmartSelect_20241128_114950.jpg]]<br>若我们将$N_c,N_v$的表达式也带入，即可得到：<br>$$<br>\begin{align}<br>E_i &amp;&#x3D; \frac {k_0T}{2}ln \frac {N_v}{N_c} + \frac {E_c + E_v}{2} \<br> &amp;&#x3D; \frac {3k_0T}{4}ln \frac {m_p^<em>}{m_n^</em>} + \frac {E_c + E_v}{2}<br>\end{align}<br>$$</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>$m_p^*$</th>
+<th>$m_n^*$</th>
+<th>$\frac {m_p^<em>}{m_n^</em>}$</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$Si$</td>
+<td>$0.59m_0$</td>
+<td>$1.08m_0$</td>
+<td>0.55</td>
+</tr>
+<tr>
+<td>$Ge$</td>
+<td>$0.37m_0$</td>
+<td>$0.56m_0$</td>
+<td>0.66</td>
+</tr>
+<tr>
+<td>$GaAs$</td>
+<td>$0.47m_0$</td>
+<td>$0.068m_0$</td>
+<td>6.91</td>
+</tr>
+<tr>
+<td>我们以$GaAS$为例子$ln \frac {m_p^<em>}{m_n^</em>} &#x3D; 1.93$</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>且在室温下$k_0T&#x3D;0.026eV \rightarrow \frac {3k_0T}{4}ln \frac {m_p^<em>}{m_n^</em>}&#x3D;0.0366eV$</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<ul>
+<li>通常情况：故相比于禁带中线只往上偏移了$0.0366eV$，相比于整个能带的宽度基本上可以忽略不计，故本征费米能级$E_i$基本位于禁带中线</li>
+<li>特殊情况：但如果导带底电子有效质量$m_n^<em>$如果很小，会让$ln \frac {m_p^</em>}{m_n^*}$比值较大，让最后相比禁带中线的偏移量较大</li>
+</ul>
+<h5 id="2-本征载流子浓度-n-i"><a href="#2-本征载流子浓度-n-i" class="headerlink" title="2.本征载流子浓度$n_i$"></a>2.本征载流子浓度$n_i$</h5><p>由于本征费米能级$E_i$基本位于禁带中线，故有：<br>$$<br>\begin{align}<br>E_c - E_i &amp;&#x3D; \frac 12E_g\<br>E_i - E_v&amp;&#x3D; \frac 12E_g<br>\end{align}<br>$$<br>在带入$n_0,p_0$表达式后可以得到：<br>$$<br>n_0&#x3D;p_0&#x3D;n_i<br>$$<br>进一步得到质量作用定律：<br>$$<br>n_0 \cdot p_0&#x3D;n_i^2<br>$$<br>这个式子对于任何非简并半导体在热平衡条件下，其载流子浓度之乘积，与掺杂情况无关，&#x3D;&#x3D;对于掺杂本征半导体均成立&#x3D;&#x3D;<br>由上式进一步计算：<br>$$<br>\begin{align}<br>n_i^2 &amp;&#x3D; N_c  N_v\exp\left(-\frac{E_c - E_i}{k_0T}\right) \exp\left(-\frac{E_i - E_V}{k_0T}\right) \<br>&amp;&#x3D;N_c N_v exp(\frac {- E_c + E_i -E_i + E_V}{k_0T}) \<br>&amp;&#x3D;N_c N_v exp(-\frac { E_c - E_V}{k_0T}) \<br>&amp;&#x3D;N_c N_v exp(-\frac { E_g}{k_0T})<br>\end{align}<br>$$<br>开根号最终得到$n_i$的计算式子:<br>$$<br>n_0&#x3D;\sqrt{N_c N_v} exp(-\frac { E_g}{k_0T} \cdot \frac 12)<br>$$</p>
+<h5 id="3-载流子的来源"><a href="#3-载流子的来源" class="headerlink" title="3.载流子的来源"></a>3.载流子的来源</h5><p>一般报道体载流子来源一般有两种：</p>
+<ul>
+<li>本征激发</li>
+<li>杂质电离<br>由于杂质电离出的载流子浓度远远比本征激发都高，&#x3D;&#x3D;故本征激发一般忽略不计&#x3D;&#x3D;<br>随着温度身高，本征载流子浓度迅速增大，当温度升高到本征激发占主要地位时，器件将无法正常工作；因此每种半导体制成的器件都有一定的极限工作温度，超过这一温度，器件将失效<br>对于$Si$来说，当保持载流子浓度主要来源于杂质电离时，要求本征载流子浓度至少比杂质浓度低一个数量级<br>例题：<a href="https://www.bilibili.com/video/BV15i4y1X7Ud">半物第三章2</a></li>
+</ul>
+<h3 id="1-4简并半导体"><a href="#1-4简并半导体" class="headerlink" title="1.4简并半导体"></a>1.4简并半导体</h3><p>N型半导体：一般情况下$施主浓度N_D &lt; N_c$或者$有效施主浓度N_D^* &#x3D; N_D - N_A &lt; N_c$，此时半导体为普通的N型半导体，$E_F$始终在$E_F$之下，$E_g$之中<br>N型简并半导体：$施主浓度N_D &gt; N_c$，$E_F$将在$E_c$之上，费米能级不在$E_g$中将进入导带$E_c$中，根据费米能级的意义，N型掺杂浓度很高，导带底附近的量子态基本已经被电子占据，此时，不能使用波尔斯曼分布，而是转而使用费米统计分布</p>
+<h4 id="1-4-1简并半导体载流子浓度的计算"><a href="#1-4-1简并半导体载流子浓度的计算" class="headerlink" title="1.4.1简并半导体载流子浓度的计算"></a>1.4.1简并半导体载流子浓度的计算</h4><p>对于一个N型简并半导体：</p>
+<h5 id="1-电子系统-n-0"><a href="#1-电子系统-n-0" class="headerlink" title="1.电子系统$n_0$"></a>1.电子系统$n_0$</h5><p>–&gt;由于电子是简并态的，用费米分布算<br>$$<br>\begin{align}<br>n_0 &amp;&#x3D; \frac 1V \int_{E_c}^{\infty}g(E)f_b(E)dE \<br>&amp;&#x3D;\frac {4\pi}{\hbar^3} (2m_n^<em>)^{\frac 32}\int_{E_c}^{\infty}\sqrt{E - E_c}\frac {1}{1+exp(\frac {E - E_F}{k_0T})}dE<br>\end{align}<br>$$<br>同样的把$\frac {E - E_F}{k_0T}$写成$\frac {E - E_c + E_c - E_F}{k_0T}$得：<br>$$<br>&#x3D;\frac {4\pi}{\hbar^3} (2m_n^</em>)^{\frac 32}\int_{E_c}^{\infty}\sqrt{E - E_c}\frac {1}{1+exp(\frac {E - E_c}{k_0T})+exp(\frac {E_c - E_F}{k_0T})}dE<br>$$<br>令$\frac {E - E_c }{k_0T} &#x3D; x,\frac {E_c - E_F}{k_0T} &#x3D; -y$，同时变积分上下限：<br>$$<br>\begin{align}<br>&amp;&#x3D;\frac {4\pi}{\hbar^3} (2m_n^*)^{\frac 32}\int_{0}^{\infty}\sqrt{xk_0T}\frac {1}{1+exp(x-y)}k_0Tdx \<br>&amp;&#x3D;\frac {4\pi}{\hbar^3} (2m_n^*k_oT)^{\frac 32}\int_{0}^{\infty}\frac {x^{\frac 12}}{1+exp(x-y)}dx<br>\end{align}<br>$$<br>将上式的前面用$N_c$替换，后面是费米积分$F_{\frac 12}(y) &#x3D;\int_{0}^{\infty}\frac {x^{\frac 12}}{1+e^{x-y}}dx$最终得到：<br>$$<br>n_0 &#x3D; \frac 2 {\sqrt \pi}N_cF_{\frac 12}(y)<br>$$</p>
+<h5 id="2-空穴系统-p-0"><a href="#2-空穴系统-p-0" class="headerlink" title="2.空穴系统$p_0$"></a>2.空穴系统$p_0$</h5><p>–&gt;空穴很少是非简并态度，用波尔斯曼分布算<br>$$<br>p_0&#x3D;N_v\exp\left(-\frac{E_F - E_V}{k_0T}\right)<br>$$<br>不能用$n_0 \cdot p_0&#x3D;n_i^2$计算</p>
+<h4 id="1-4-2简并化条件"><a href="#1-4-2简并化条件" class="headerlink" title="1.4.2简并化条件"></a>1.4.2简并化条件</h4><h5 id="1-对于N型半导体简并化条件"><a href="#1-对于N型半导体简并化条件" class="headerlink" title="1.对于N型半导体简并化条件"></a>1.对于N型半导体简并化条件</h5><table>
+<thead>
+<tr>
+<th>范围</th>
+<th>状态</th>
+<th>服从类型</th>
+<th>计算载流子公式</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$E_c - E_F &gt;&gt; 2k_0T$</td>
+<td>非简并</td>
+<td>波尔斯曼分布</td>
+<td>$n_0&#x3D;N_cexp(-\frac{E_c - E_F}{k_0T})$</td>
+<td>$p_0&#x3D;\frac {n_i^2}{n_0}&#x3D;N_v\exp(-\frac{E_F - E_V}{k_0T})$</td>
+</tr>
+<tr>
+<td>$E_c - E_F &lt;&lt; 2k_0T$</td>
+<td>弱简并</td>
+<td>同简并处理费米分布</td>
+<td>$n_0 &#x3D; \frac 2 {\sqrt \pi}N_cF_{\frac 12}(y)$</td>
+<td>$p_0&#x3D;N_v\exp\left(-\frac{E_F - E_V}{k_0T}\right)$但不能用$p_0&#x3D;\frac {n_i^2}{n_0}$计算</td>
+</tr>
+<tr>
+<td>$E_c - E_F &lt;0$</td>
+<td>简并</td>
+<td>费米分布</td>
+<td>同上</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>对于简并的N型半导体，它的电中性条件：</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>$$</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>n_0 &#x3D; 杂质电离的浓度n_D^+（本征激发可以忽略）</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>$$</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>其中：</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>$$</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>n_D^+ &#x3D; N_D \cdot f(E) &#x3D; \frac {N_D}{1 + 2exp(-\frac {E_D - E_F}{k_0T})}</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>$$</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<ul>
+<li>电离了的杂质的总数为$N_D$​</li>
+<li>$f(E)$ 是杂质电离的概率</li>
+<li>分式下面的$2exp$是考虑自旋情况下得出的<br>$$<br>\begin{align}<br>\frac 2 {\sqrt \pi}N_cF_{\frac 12}(y) &amp;&#x3D; \frac {N_D}{1 + 2exp(-\frac {E_D - E_F}{k_0T})} \<br>N_D&amp;&#x3D;\frac 2 {\sqrt \pi}N_cF_{\frac 12}(y)[1 + 2exp(-\frac {E_D - E_F}{k_0T})] \<br>&amp;&#x3D; \frac 2 {\sqrt \pi}N_cF_{\frac 12}(y)[1 + 2exp(\frac {\Delta  E_D}{k_0T})exp(-\frac {E_c - E_F}{k_0T})]<br>\end{align}<br>$$<br>观察上式可以看到随着杂质浓度的增加，$E_F$逐渐升高，升到$E_c$处$E_c - E_F &#x3D; 0$发生简并：<br>$$<br>\begin{align}<br>N_D &amp;&#x3D; \frac 2 {\sqrt \pi}N_cF_{\frac 12}(y)[1 + 2exp(\frac {\Delta  E_D}{k_0T})] \<br>&amp;&#x3D; 0.68N_c[1+2exp(\frac {\Delta  E_D}{k_0T})]<br>\end{align}<br>$$<br>简并时：</li>
+<li>杂质浓度很高</li>
+<li>简并与否与施主杂质电离能$\Delta E_D$很大时不易简并，很小时容易简并</li>
+<li>若$N_D,\Delta E_D$一定时，是否发生简并与温度有关，简并发生时有温度区间<ul>
+<li>温度升高时，会由本身杂质电离起作用过渡到本征激发起作用，原本$n_0 &gt;&gt; p_0，n_0$会逐渐增大到$n_0 &#x3D; p_0 &#x3D; n_i,E_F \rightarrow E_i$费米能级正好在中线附近</li>
+<li>当T过高时，半导体会呈本征激发，$E_F$在$E_i$附近</li>
+<li>当T过低时，$E_F$在$\frac {1}{2(E_c + E_D)}$附近</li>
+</ul>
+</li>
+</ul>
+<h5 id="2-简并时杂质不能充分电离"><a href="#2-简并时杂质不能充分电离" class="headerlink" title="2.简并时杂质不能充分电离"></a>2.简并时杂质不能充分电离</h5><p>$$<br>n_D^+ &#x3D; N_D \cdot f(E) &#x3D; \frac {N_D}{1 + 2exp(-\frac {E_D - E_F}{k_0T})} &#x3D; \frac {N_D}<br>{1 + 2exp(\frac {\Delta  E_D}{k_0T})exp(-\frac {E_c - E_F}{k_0T})}<br>$$<br>根据上面的规定：$-\frac {E_c - E_F}{k_0T} &#x3D; y$<br>$$<br>\frac {n_D^+} {N_D} &#x3D; \frac {N_D}<br>{1 + 2exp(\frac {\Delta  E_D}{k_0T})e^y}<br>$$ 电离载流子对杂质总数的占比，在简并时不超过总杂质浓度的$\frac 13$<br>$$E_c &#x3D; E_F \rightarrow y&#x3D;0 \rightarrow \frac {n_D^+} {N_D} &#x3D; \frac {N_D}<br>{1 + 2exp(\frac {\Delta  E_D}{k_0T})}&lt;&#x3D; \frac 13<br>$$</p>
+<h5 id="3-杂质带导电"><a href="#3-杂质带导电" class="headerlink" title="3.杂质带导电"></a>3.杂质带导电</h5><p>总掺杂才能实现简并，杂质原子距离很近，相互作用不可忽略，晶体中电子做共有化运动，能级展宽成为能带（杂质能带），将与导带连接在一起（$E_D$会向上靠近$E_c$）<br>重掺杂引起简并化：</p>
+<ul>
+<li>杂质不能充分电离</li>
+<li>离化能&#x2F;电离能</li>
+<li>禁带宽度变窄，形成杂质带导电</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>笔记</tag>
+        <tag>半导体物理</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>半导体物理笔记第四章</title>
+    <url>/2024/12/11/%E7%AC%94%E8%AE%B0%E5%8D%8A%E7%89%A94%E5%8D%8A%E5%AF%BC%E4%BD%93%E7%9A%84%E5%AF%BC%E7%94%B5%E6%80%A7/</url>
+    <content><![CDATA[<p>一个运动：载流子在外电场作用下的飘移运动<br>一个概率：载流子散射概念<br>一个规律：半导体中电阻率电导率迁移率和杂质浓度温度的变化规律</p>
+<h4 id="1-1载流子的飘移运动和迁移率"><a href="#1-1载流子的飘移运动和迁移率" class="headerlink" title="1.1载流子的飘移运动和迁移率"></a>1.1载流子的飘移运动和迁移率</h4><h5 id="1-微分形式的欧姆定律"><a href="#1-微分形式的欧姆定律" class="headerlink" title="1.微分形式的欧姆定律"></a>1.微分形式的欧姆定律</h5><p>对于一个半导体来说，再它两边施加上电源<br>![[SmartSelect_20241129_102910.jpg]]<br>$$<br>I&#x3D;\frac UR \leftarrow R&#x3D;\rho\frac lS<br>$$<br>得到：<br>$$<br>I&#x3D;\frac UR &#x3D; \frac U{\rho \frac lS}&#x3D;\frac {ElS}{\rho l}&#x3D;\frac {ES}{\rho}<br>$$<br>电流密度：单位截面积上通过的电流<br>$$<br>J&#x3D;\frac {ES}{\rho S}&#x3D;\frac {E}{\rho}<br>$$<br>又因为$\frac {1}{\rho}&#x3D;\sigma$这个符号是电导率的意思，代回到上式，得到欧姆定律的微分形式：<br>$$<br>J &#x3D; \sigma E<br>$$</p>
+<h5 id="2-漂移速度"><a href="#2-漂移速度" class="headerlink" title="2.漂移速度"></a>2.漂移速度</h5><p>漂移运动：指电子在外电场作用下，逆着电场线方向做定向运动<br>漂移速度：定向运动的速度称漂移速度，记作$V_d$<br>设电子平均漂移速度是$V_d$，则AB面相距$V_dt$其围成体积$SV_dt$<br>设半导体中电子浓度为n，AB面所围成的体积中总电子数为N</p>
+<ul>
+<li>$N &#x3D; n \cdot S V_d t$从A到B的这截半导体的电子数</li>
+<li>$I &#x3D; \frac Qt &#x3D; \frac {-qN}{t} &#x3D; \frac {-qSV_dt}{t} &#x3D; -qnsV_d$<br>再带入电流密度中：</li>
+<li>$J &#x3D; \frac IS &#x3D; -qnV_d$</li>
+<li>$J &#x3D; \sigma |E|$</li>
+</ul>
+<h5 id="3-迁移率"><a href="#3-迁移率" class="headerlink" title="3.迁移率"></a>3.迁移率</h5><p>观察上面一式可以得，当半导体内部电场恒定时，电子应具有一个恒定不变的平均漂移速度；电场强度增大，电流密度相应增加，平均漂移速度随着电场强度增大而增加<br>可知$V_d由E$引起的，令$V_d &#x3D; \mu |E| \rightarrow \mu &#x3D; \frac {\vec V_d}{|E|}$<br>我们称$\mu$为迁移率：单位电场强度下载流子的平均漂移速度，单位$cm^2&#x2F;vs$；<br>物理意义：反应了在外电场的作用下，载流子运动能力的强弱<br>我们规定：迁移率恒取正值<br>$$<br>\mu &#x3D; \frac {|\vec V_d|}{|E|}&#x3D;|\frac {\vec V_d}{E}|<br>$$</p>
+<h5 id="4-电导率"><a href="#4-电导率" class="headerlink" title="4.电导率"></a>4.电导率</h5><p>将上面的$V_d &#x3D; \mu|E|$带入下式第三个式子中<br>$$<br>J &#x3D; \frac IS &#x3D; -qnV_d &#x3D; nq\mu |E|<br>$$<br>我们令$\sigma &#x3D; nq\mu_n$它是电导率的定义式<br>5.<br>![[SmartSelect_20241129_163506.jpg]]<br>对于一个均匀半导体，两端施加电压，在半导体内部形成电场，电子带负电，逆电场运动；空穴带正电，沿着电场线方向运动，但形成的电流方向都是沿着电场方向的</p>
+<ul>
+<li>因此半导体的导电作用应为电子导电和空穴导电的总和</li>
+<li>导电的电子是在导带中，它们是脱离了共价键可以在半导体中自由运动的电子</li>
+<li>导电的空穴是在价带中，空穴电流实际上是代表共价键的电子在价键间运动产生的电流<br>故在相同的电场作用下，两者平均漂移速度是不同的，导带电子的漂移速度大；如以$\mu_n,\mu_p$代表电子和空穴的迁移率，$J_n,J_p$分别代表电子和空穴的电流密度，$n,p$代表电子和空穴的浓度，有：<br>$$<br>J_{总电流密度}  &#x3D; J_n + J_p &#x3D;(nq\mu_n + nq\mu_p)E<br>$$<br>且在电场强度不太大时，$J,E$之间仍然遵守欧姆定律<br>$$<br>\sigma_{总电导率} &#x3D; nq\mu_n + pq\mu_p<br>$$<br>对于两种载流子相差很悬殊且迁移率差别不大的杂质半导体来说，电导率主要取决于多数载流子</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>N型半导体</th>
+<th>$n&gt;&gt;p$</th>
+<th>空穴对电流贡献可以忽略</th>
+<th>$\sigma &#x3D; nq\mu_n，J&#x3D;\sigma E &#x3D; nq\mu_nE$</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>P型半导体</td>
+<td>$n&lt;&lt;p$</td>
+<td>电子对电流贡献可以忽略</td>
+<td>$\sigma &#x3D; pq\mu_p，J &#x3D; \sigma E ＝pq\mu_pE$</td>
+</tr>
+<tr>
+<td>本征半导体</td>
+<td>$n&#x3D;p&#x3D;n_i$</td>
+<td>都不可忽略</td>
+<td>$\sigma &#x3D; n_i(\mu_n+\mu_p)$</td>
+</tr>
+</tbody></table>
+<h4 id="1-2载流子的散射"><a href="#1-2载流子的散射" class="headerlink" title="1.2载流子的散射"></a>1.2载流子的散射</h4><h5 id="1散射的概念"><a href="#1散射的概念" class="headerlink" title="1散射的概念"></a>1散射的概念</h5><p>载流子在电场的作用下沿着某一方向运动，遭到其他离子库伦力改变方向和运动速度称为散射</p>
+<p>$$<br>\begin{align}<br>J &amp;&#x3D; \sigma |E| \rightarrow |E|一定J一定 \<br>J &amp;&#x3D; nq|\vec V_d| \ a &amp;&#x3D; - \frac {q\vec E}{m_n^*}<br>\end{align}<br>$$<br>矛盾：上三式中$a$为恒量，就有$\vec V_d$不断增大，$J$不断增大；但实际上（上一式），在恒定的场强作用，$J$是恒定的<br>解释：</p>
+<ul>
+<li>散射影响了$\vec V_d$</li>
+<li>载流子在没有外电场时，做无规则热运动，与格点上的原子（离子）以及其他载流子相互不碰撞，用波的概念，即电子波在传播的过程中遭受到散射</li>
+<li>存在外电场时，载流子一方面做漂移运动；另一方面在漂移过程中遭到散射，使漂移运动的大小与方向不断改变使漂移速度$\vec V_d$不能无限积累<br>载流子只有在连续两次散射作用（之间绿色的）下才存在加速作用；平均速度$\vec V_d$是指在外力和散射的双重作用下，载流子以一定平均速度作漂移运动</li>
+</ul>
+<h5 id="2-重要概念"><a href="#2-重要概念" class="headerlink" title="2.重要概念"></a>2.重要概念</h5><ul>
+<li>自由载流子：连续两次散射之间，载流子是自由的</li>
+<li>平均自由程：连续两次散射之间，载流子自由运动的平均路程</li>
+<li>平均自由时间：连续两次散射之间，载流子所经历的平均时间</li>
+</ul>
+<h4 id="1-3半导体中载流子的散射结构"><a href="#1-3半导体中载流子的散射结构" class="headerlink" title="1.3半导体中载流子的散射结构"></a>1.3半导体中载流子的散射结构</h4><p>散射原因：晶格的严格周期性势场遭到破坏，并且存在附加势场，从而使周期性势场发生变化；由于附加势场的作用，会使能带中电子在不同k状态之间发生跃迁</p>
+<h5 id="1-电离杂质散射"><a href="#1-电离杂质散射" class="headerlink" title="1.电离杂质散射"></a>1.电离杂质散射</h5><p>施主电离之后成为带正电的离子，受主电离成为带负电的离子，这电离的这两中离子的周围会形成库伦势场，这一库伦势场会破坏杂质附近的周期性势场，&#x3D;&#x3D;这个势场是使载流子散射的附加势场&#x3D;&#x3D;<br>常用散射几率$P$（单位时间内一个载流子发生散射的次数）表示散射的强弱<br>浓度为$N_i &#x3D; N_D + N_A$的电离杂质对载流子的散射概率$P_i$与温度的关系<br>$$<br>P \propto N_i T^{- \frac 32}<br>$$</p>
+<ul>
+<li>$N_i$越大遭到散射的机会越多</li>
+<li>温度越高，载流子热运动的平均速度越大，可以较快的掠过杂质离子，偏转越小，不易散射；可以利用离心力公式$F＝\frac {mV^2}{R}$理解，当速度越大，对抗引力的离心力就越大，偏转就越小</li>
+</ul>
+<h5 id="2-晶格振动散射和声子"><a href="#2-晶格振动散射和声子" class="headerlink" title="2.晶格振动散射和声子"></a>2.晶格振动散射和声子</h5><p>格波：在一定的温度下，晶格中的原子在各自平衡位置做微震动，晶格中的原子的震动都是有若干不同的基本波动按照波的叠加原理组合而成，这些基本振动称为格波<br>常用格波波矢$\vec q$表示格波的波长和传播方向，其数值是格波波长倒数的$2\pi$倍<br>$$<br>q &#x3D; \frac {2\pi}{\lambda}<br>$$<br>对于$Si,Ge$及Ⅲ、Ⅴ族化合物半导体，原胞中大多含有2个原子，对应$q$有6个格波，这6个格波的频率高的三支为光学波，频率低的为声学波</p>
+<ul>
+<li>声学波：相邻两个原子相位一致的振动</li>
+<li>光学波：质心不动，相邻两个原子相位相反的振动<br>从原子的振动方式来看，无论声学波还是光学波原子位移方向与波的传播方向都是一纵两横<br>![[SmartSelect_20241201_160835.jpg]]</li>
+</ul>
+<h5 id="3-声子的能量"><a href="#3-声子的能量" class="headerlink" title="3.声子的能量"></a>3.声子的能量</h5><p>角频率为$\omega_a$的格波能量是量子化的：<br>$$(n + \frac 12)\hbar \omega_a$$<br>当晶格与其他物质（电子光子）相互作用而交换能量时，晶格原子的振动状态要发生变化，格波能力也发生变化</p>
+<ul>
+<li>声子：格波的能量量子$\hbar \omega_a$</li>
+<li>当格波能量减少一个$\hbar \omega_a$时，放出一个声子</li>
+<li>当格波能量增加一个$\hbar \omega_a$时，吸收一个声子<br>温度为T，角频率为$\omega_a$的格波平均能量为：<br>$$<br>\frac 12 \hbar \omega_a + \vec n_q \hbar \omega_a,其中n_{q平均声子数}&#x3D;\frac {1}{exp(\frac {\hbar \omega_a}{k_0T}-1)}<br>$$<br>电子和声子的碰撞要遵守准动量守恒和能量守恒，对于散射时常发生的电子和晶格交换一个声子的单声子过程来说：</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>散射前</th>
+<th>散射后</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>波矢$k$</td>
+<td>能量$E$</td>
+</tr>
+<tr>
+<td>波矢$k’$</td>
+<td>能量$E’$</td>
+</tr>
+<tr>
+<td>满足以下两个公式：</td>
+<td></td>
+</tr>
+<tr>
+<td>$$</td>
+<td></td>
+</tr>
+<tr>
+<td>\begin{align}</td>
+<td></td>
+</tr>
+<tr>
+<td>\hbar k’ - \hbar k &amp;&#x3D; +- \hbar q声子的准动量</td>
+<td></td>
+</tr>
+<tr>
+<td>\</td>
+<td></td>
+</tr>
+<tr>
+<td>E’ - E &amp;&#x3D; +-\hbar \omega_a声子的能量</td>
+<td></td>
+</tr>
+<tr>
+<td>\end{align}</td>
+<td></td>
+</tr>
+<tr>
+<td>$$</td>
+<td></td>
+</tr>
+</tbody></table>
+<ul>
+<li>弹性散射：对于长声学波振动，声子的速度很小，散射之后电子能量基本不变</li>
+<li>非弹性散射：对于光学波来说$\omega_a$高，声子能量$\hbar \omega_a$大，散射后电子能量有较大改变</li>
+</ul>
+<h5 id="4-声学波散射"><a href="#4-声学波散射" class="headerlink" title="4.声学波散射"></a>4.声学波散射</h5><p>能带具有单一极值的半导体，起主要散射作用的是长学波，波长比原子间距大很多倍的格波；在长学波中，只有纵波起主要的散射作用<br>解释：纵波会引起原子疏密的变化，产生体变，稀疏的地方原子$E_g$变小，密处反之；因为稀疏处原子间距变大，共价键减小电子容易被激发<br>![[SmartSelect_20241201_164334.jpg]]<br>在图中相当于把能带变成了波型，波距离相比原来变大的地方相当于原子稀疏处；波相比原来减小处相当于原子密处<br>进一步的，禁带宽度的改变反应了$E_c,E_v$的升降，引起了极值的变化，同时处于$E_c,E_v$的电子或空穴，在半导体的不同地点，其能量就有差别，如同施加了一个附加的势场$\Delta E_c,\Delta E_v$<br>![[SmartSelect_20241201_165051_Obsidian.jpg]]<br>这一附加势场会破坏原来势场的周期性，使电子从k状态散射到k’状态<br>上面我们都讨论是单极值的情况，对于$Si,Ge$等具有多极值的有多个旋转椭球等能面，$m_n^*$应区状态密度有效质量，横声学波的散射一般较弱，只考虑强的纵声学波</p>
+<h5 id="4-光学波散射"><a href="#4-光学波散射" class="headerlink" title="4.光学波散射"></a>4.光学波散射</h5><p>对于离子性半导体（三五族化合物）离子晶体中，原胞中包含正负两个离子，在长纵光学波传播时振动方向相反，所形成的附加势场：</p>
+<ul>
+<li>正负离子分区形成疏密相间的区域</li>
+<li>正离子的密区与负离子的疏区相结合</li>
+<li>正离子的疏区与负离子的密区相结合<br>从造成在半个波长的区域带正电，另半个波长的区域带负电，带正负电的区域将会产生电场，对载流子施加一个附加势场<br>$$<br>p_{o光学波散射概率} \propto \vec n_q<br>$$<br>可得到如下的传导关系：<br>$$<br>T增加 \rightarrow \vec n_q 增加\rightarrow p_o增加<br>$$<br>可见低温时，光学波散射基本上不起作用<br>5.其主要散射作用的机构<br>对于$Si,Ge$等元素的半导体主要散射机构：</li>
+<li>电离杂质散射<br>$$<br>p_i \propto N_iT^{- \frac 32}<br>$$</li>
+<li>长纵声学波散射<br>$$<br>p_s &#x3D; T^{\frac 32}<br>$$<br>$GeAs$等化合物半导体，起主要散射机构：</li>
+<li>电离杂质散射<br>$$<br>p_i \propto N_iT^{- \frac 32}<br>$$</li>
+<li>长纵声学波散射<br>$$<br>p_s &#x3D; T^{\frac 32}<br>$$</li>
+<li>纵光学波散射<br>$$<br>p_o \propto \vec n_q<br>$$<br>其他因素引起的散射：</li>
+</ul>
+<ol>
+<li>等同的能谷间散射（高温时谷间散射比较总要低温时谷间散射很小）：<br>等同的能谷的概念：Si的导带具有极值能量相同的6个旋转椭球面，载流子在这些能谷中分布相同，称这些能谷为等同的能谷<br>谷间散射：对于多能谷半导体，电子从一个极值附近散射到另一个极值附近称为谷间散射</li>
+<li>中性杂质散射（重掺杂且低温下此散射可能起作用）：<br>没有电离的杂质显中性，它对周期性势场有一定的微扰作用而引起散射</li>
+<li>位错散射（散射几率与位错密度相关）：</li>
+<li>刃型位错处，刃型的原子共价键不饱和，易俘获电子形成负电中心</li>
+<li>合金散射：<br>混合晶体中所特有的散射机制，但在原子有序排列的混合解题中不存在合金散射效应</li>
+<li>载流子间的散射（在强简并条件下起作用）</li>
+</ol>
+<h3 id="1-4迁移率与杂质浓度和温度的关系"><a href="#1-4迁移率与杂质浓度和温度的关系" class="headerlink" title="1.4迁移率与杂质浓度和温度的关系"></a>1.4迁移率与杂质浓度和温度的关系</h3><h5 id="1-平均自由时间于散射几率的关系"><a href="#1-平均自由时间于散射几率的关系" class="headerlink" title="1.平均自由时间于散射几率的关系"></a>1.平均自由时间于散射几率的关系</h5><p>存在外电场E时，载流子做漂移运动，但仅在连续的两次散射之间载流子才被加速<br>连续两次散射之间所经历的时间称为自由时间，由于它长短不一，故取平均值，称为平均自由时间记为$t$<br>进一步的：若在$t$时刻没有遭到散射的电子数为$N(t)$，在$t + \Delta t$时刻未遭受散射的电子数为$N(t + \Delta t)$<br>可以得到在$\Delta t$之间散射的电子数为：<br>$$<br>PN(t)\Delta t<br>$$<br>散射前后电子数关系：<br>$$<br>N(t) &#x3D; PN(t)\Delta t + N(t + \Delta t)<br>$$<br>$$<br>N(t + \Delta t) - N(t) &#x3D; -PN(t)\Delta t<br>$$<br>两边同除一个$\Delta t$，得到的式子类似于高数中导数的定义式：<br>$$<br>\begin{align}<br>\frac {N(t + \Delta t) - N(t)}{\Delta t} &amp;&#x3D; \frac {-PN(t)\Delta t}{\Delta t}  \<br>\frac {dN(t)}{dt} &amp;&#x3D; -PN(t) \<br>N_t &amp;&#x3D; Ce^{-Pt}<br>\end{align}<br>$$<br>带入初始条件$t&#x3D;0,N(t)&#x3D;N_0$得到：<br>$$<br>N(t) &#x3D; N_0e^{-Pt}<br>$$<br>这个式子是在$t$时刻，未遭到散射的电子数<br>再对其积分可以得到平均自由时间<br>$$<br>\begin{align}<br>\tau &amp;&#x3D; \frac {1}{N_0} \int_0^{\infty} t P N_0 e^{-Pt} dt \<br> &amp;&#x3D; \frac {1}{P}<br>\end{align}<br>$$<br>可知平均自由时间$t$与散射几率互为倒数</p>
+<h5 id="2-迁移率电导率与平均自由时间的关系"><a href="#2-迁移率电导率与平均自由时间的关系" class="headerlink" title="2.迁移率电导率与平均自由时间的关系"></a>2.迁移率电导率与平均自由时间的关系</h5><p>设沿着x方向的电场$|E|$，电子有效质量为$m_n^<em>$为各项同性，若在$T &#x3D; 0$时刻某电子恰好被散射后，沿着$x$方向的速度分量记作$V_{x0}$，此电子接着加速被散射前的速度为$V_x$<br>$$<br>\begin{align}<br>V_x &amp;&#x3D; V_{x0} + at \<br>&amp;&#x3D; V_{x0} +(-\frac {q|E|}{m_n^</em>}t)<br>\end{align}<br>$$<br>若对大量电子，取平均自由时间$\tau$：<br>$$<br>\overline V_x &#x3D; \overline V_{x0} +(-\frac {q|E|}{m_n^*}\tau)<br>$$<br>由于大量电子运动沿着个方向上几率相同，所以$\overline V_{x0} &#x3D; 0$，又因为$V &#x3D; \mu |E|$可以得到：</p>
+<ul>
+<li>迁移率$\mu$，且迁移率只取正值<br>$$<br>\mu &#x3D; \frac {|\overline V_X|}{E} &#x3D; \frac {q\tau}{m_n^*}<br>$$</li>
+<li>电导率$\sigma$<br>$$<br>\begin{align}<br>\sigma &amp;&#x3D; nq\mu_n + pq\mu_p \<br> &amp;&#x3D; nq\frac {q\tau_n}{m_n^<em>} + pq\frac {q\tau_p}{m_p^</em>}<br>\end{align}<br>$$<br>可以得到：</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>迁移率$\mu$</th>
+<th>电子</th>
+<th>$\mu_n &#x3D; \frac {q\tau_n}{m_n^*}$</th>
+<th>空穴</th>
+<th>$\mu_p &#x3D; \frac {q\tau_n}{m_p^*}$</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>电导率$\sigma$</td>
+<td>N型</td>
+<td>$nq\frac {q\tau_n}{m_n^*}$</td>
+<td>P型</td>
+<td>$pq\frac {q\tau_p}{m_p^*}$</td>
+</tr>
+</tbody></table>
+<p>在实际情况下，以各向异性的$m_n^*$的半导体为例子，其等能面为椭球</p>
+<ul>
+<li>其长轴的有效质量为$m_l^<em>$，短轴的为$m_t^</em>$</li>
+<li>设电场$E$的方向是沿着$x$，记作$E_x$</li>
+<li>设$x,y,z$各轴的迁移率为$\mu_x &#x3D; \frac {q\tau_n}{m_l^<em>}$和$\mu_y &#x3D; \mu_z &#x3D;\frac {q\tau_n}{m_t^</em>}$</li>
+<li>设电子浓度为$n$，则六个能谷中一个能谷的浓度为$\frac n6$<br>对于$x$轴的电流密度$J &#x3D; nq\mu E$ 为：<br>$$<br>\begin{align}<br>J_x &amp;&#x3D; 2(\frac n6 q\mu_xE_x + \frac n6 q\mu_yE_x + \frac n6 q\mu_zE_x) \<br>&amp;&#x3D; \frac 13nq(\mu_x + \mu_y + \mu_z) \<br>\end{align}<br>$$<br>令$J_x &#x3D; nq\mu_cE_x$可以得到$\mu_c$电导迁移率为：<br>$$<br>\mu_c &#x3D; \frac 13(\frac {q\tau_n}{m_l^<em>} + 2 \cdot \frac {q\tau_n}{m_t^</em>})<br>$$<br>我们称$m_c$为电导有效质量<br>$$<br>\mu_c &#x3D; \frac {q\tau_n}{m_c}<br>$$<br>与上式联立得到：<br>$$<br>\frac 1{m_c} &#x3D; \frac 13 (\frac {1}{m_l} + \frac {2}{m_t})<br>$$</li>
+</ul>
+<h5 id="3迁移率跟杂质浓度和温度的关系"><a href="#3迁移率跟杂质浓度和温度的关系" class="headerlink" title="3迁移率跟杂质浓度和温度的关系"></a>3迁移率跟杂质浓度和温度的关系</h5><p>$GaAs$等化合物半导体</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th>$p &#x3D; \frac {1}{\tau}$</th>
+<th>$\mu &#x3D; \frac {q\tau}{m_n^*}$</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>电离杂质散射</td>
+<td>$p_i \propto N_iT^{- \frac 32}$</td>
+<td>$\tau_i \propto N_i^{-1}T^{ \frac 32}$</td>
+<td>$\mu_i \propto N_i^{-1}T^{ \frac 32}$</td>
+</tr>
+<tr>
+<td>长纵声学波散射</td>
+<td>$p_s &#x3D; T^{\frac 32}$</td>
+<td>$\tau_s &#x3D; T^{- \frac 32}$</td>
+<td>$\mu_s &#x3D; T^{- \frac 32}$</td>
+</tr>
+<tr>
+<td>纵光学波散射</td>
+<td>$p_o \propto \vec n_q$</td>
+<td>$\tau_o \propto \vec n_q^{-1}$</td>
+<td>$\mu_o \propto \vec n_q^{-1}$</td>
+</tr>
+<tr>
+<td>假设几种散射机构都是独立平行发生的–&gt;相互独立，互不影响</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>总的散射几率可由独立的相加：</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>$$</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>\begin{align}</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>p_{all} &amp;&#x3D; p_1 + p_2 + …. \</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>\tau_{all} &amp;&#x3D; \frac {1}{p_{all}} ＝ \frac {1}{p_1 + p_2 + ….} \</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>\frac {1}{\tau_{all}} &amp;&#x3D; p_1 + p_2 + …. &#x3D; \frac {1}{\tau_1} + \frac {1}{\tau_2} +…. \leftarrow 同乘\frac {1}{\frac {1}{m_n^*}} \</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>\frac {1}{\mu_{all}} &amp;&#x3D; \frac {1}{\mu_1} + \frac {1}{\mu_2}….</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>\end{align}</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>$$</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>观察上式可以得到</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<ul>
+<li>总平均时间的倒数等于各散射机构分别存在时所决定的平均自由时间之和</li>
+<li>迁移率的倒数等于各散射机构所决定的迁移到倒数之和<br>对于$Si,Ge$等元素的半导体主要散射机构：</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th>$p &#x3D; \frac {1}{\tau}$</th>
+<th>$\mu &#x3D; \frac {q\tau}{m_n^*}$</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>电离杂质散射</td>
+<td>$p_i \propto N_iT^{- \frac 32}$</td>
+<td>$\tau_i \propto N_i^{-1}T^{ \frac 32}$</td>
+<td>$\mu_i \propto N_i^{-1}T^{ \frac 32}$</td>
+</tr>
+<tr>
+<td>长纵声学波散射</td>
+<td>$p_s &#x3D; T^{\frac 32}$</td>
+<td>$\tau_s &#x3D; T^{- \frac 32}$</td>
+<td>$\mu_s &#x3D; T^{- \frac 32}$</td>
+</tr>
+<tr>
+<td>假设我们令</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>$\tau_i \propto (BN_i)^{-1}T^{ \frac 32} \rightarrow \mu_i &#x3D; \frac {q\tau}{m_n^*} &#x3D;  \frac {qT^{\frac 32}}{m_n^*BN_i}$</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>$\tau_s &#x3D; AT^{- \frac 32} \rightarrow \mu_s &#x3D; \frac {q \tau}{m_n^<em>} &#x3D; \frac {q}{m_n^</em> AT^{\frac 32}}$</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>按照上面的线性叠加关系可以得到：</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>$$ \begin{align} \frac {1}{\mu} &amp;&#x3D; \frac {1}{\mu_s} + \frac {1}{\mu_i}\ \mu &amp;&#x3D;\frac {q}{m_n^*}\left(\frac {1}{AT^{\frac 32} + \frac {BN_i}{T^{\frac {3}{2}}}}\right) \end{align} $$</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>观察上面的式子可以得到：</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<ul>
+<li>$N_i$较低时：在高纯样品$N_i &#x3D; 10^{13}cm^{-3}$或者杂质浓度较低的样品中，迁移率随温度升高迅速减小；$\frac {BN_i}{T^{\frac {3}{2}}}$可以忽略，晶格振动散射起主要作用，故迁移率随着温度升高迅速减小</li>
+<li>当杂质浓度增大时，迁移率下降趋势不明显，因为杂质散射作用增强；当杂质浓度继续增大到$N_i &#x3D; 10^{18} cm^{-3}$以上<ul>
+<li>在低温范围内，随温度升高，迁移率上升，杂质散射为主，晶格振动散射影响有限，$\frac {1}{AT^{\frac 32}}$可以忽略</li>
+<li>当温度升高时，以晶格振动散射为主，温度升高迁移率下降</li>
+</ul>
+</li>
+<li>当杂质浓度继续增大到$10^{18}cm^{-3}$以上<ul>
+<li>在低温范围内，随着温度升高迁移率上升，杂质散射为主</li>
+<li>升高到一定温度下才降低，以晶格振动为主，迁移率下降</li>
+</ul>
+</li>
+</ul>
+<h4 id="1-5电阻率与杂质浓度和温度的关系"><a href="#1-5电阻率与杂质浓度和温度的关系" class="headerlink" title="1.5电阻率与杂质浓度和温度的关系"></a>1.5电阻率与杂质浓度和温度的关系</h4><p>电阻率等于电导率的倒数有：<br>$$<br>\rho &#x3D; \frac {1}{\sigma} &#x3D; \frac {1}{nq\mu_n + pq\mu_q}<br>$$</p>
+<table>
+<thead>
+<tr>
+<th>N型</th>
+<th>由于$n &gt;&gt; p$</th>
+<th>$\rho &#x3D; \frac {1}{nq\mu_n}$</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>P型</td>
+<td>由于$n &lt;&lt;p$</td>
+<td>$\rho &#x3D; \frac {1}{pq\mu_p}$</td>
+</tr>
+<tr>
+<td>本征半导体</td>
+<td></td>
+<td>$\rho_i &#x3D; \frac {1}{n_iq(\mu_n+\mu_p)}$</td>
+</tr>
+<tr>
+<td>杂质补偿时电阻率的计算：</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<ul>
+<li>载流子浓度$n_0,p_0 &#x3D; |N_A - N_D|$</li>
+<li>迁移率影响$N_i &#x3D; N_A + N_P$，根据它的值选择$\mu_n,\mu_p$</li>
+</ul>
+<h6 id="4-电阻率和杂质浓度的关系"><a href="#4-电阻率和杂质浓度的关系" class="headerlink" title="4.电阻率和杂质浓度的关系"></a>4.电阻率和杂质浓度的关系</h6><ul>
+<li>轻参杂时($10^{16} ～ 10^{18}cm^{-3}$)，电阻率与杂质浓度成简单反比关系：<br>$$<br>\rho &#x3D; \frac {1}{\sigma} &#x3D; \frac {1}{nq\mu_n + pq\mu_q}<br>$$</li>
+<li>杂质浓度升高时，曲线严重偏移直线<ul>
+<li>杂质在室温下不能完全电离，在重参杂时的简并半导体中情况更加严重</li>
+<li>迁移率随杂质浓度增加而显著下降</li>
+</ul>
+</li>
+</ul>
+<h6 id="5-电阻率与温度之间的关系"><a href="#5-电阻率与温度之间的关系" class="headerlink" title="5.电阻率与温度之间的关系"></a>5.电阻率与温度之间的关系</h6><p>元素类掺杂半导体，随着温度升高，电离度逐渐增大，如图所示：<br>![[Screenshot_20241210_165611.jpg]]</p>
+<ol>
+<li>在AB段温度很低，本征激发可以忽略<ul>
+<li>载流子主要由杂质电离产生，随着$T \uparrow \rightarrow n \uparrow$</li>
+<li>散射主要为电离杂质散射，随着$T \uparrow \rightarrow \mu \uparrow$<br> $p \downarrow &#x3D; \frac {1}{n \uparrow q\mu_n \uparrow}$故电阻率随着温度升高而降低</li>
+</ul>
+</li>
+<li>在BC段室温下，杂质已完全电离，本征激发不明显<ul>
+<li>载流子浓度基本上不随温度变化</li>
+<li>散射主要为晶格振动散射，$T \uparrow \rightarrow \mu \downarrow$<br> $p \uparrow &#x3D; \frac {1}{n  q\mu_n \downarrow}$故电阻率随着温度升高而上升</li>
+</ul>
+</li>
+<li>在C之后，温度继续升高，本征激发起主要作用<ul>
+<li>载流子由本征激发迅速增加，成几何指数增加</li>
+<li>大量本征载流子$n \uparrow$远远超过$\mu \downarrow$，故$n$起主要作用<br> $p \downarrow &#x3D; \frac {1}{n \uparrow q\mu_n }$故电阻率随着温度升高而急剧下降<br> 且$n$也有如下的关系</li>
+</ul>
+</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>强电离</th>
+<th>$n_0 &#x3D; N_D$</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>过渡区</td>
+<td>$n_0 &#x3D; N_D + p_0$</td>
+</tr>
+<tr>
+<td>本征激发</td>
+<td>$n_0 &#x3D; p_0$</td>
+</tr>
+<tr>
+<td>本征激发越占优势温度就越高，温度高到本征导电起主要作用时，一般器件就无法正常工作，它就是器件的最高工作温度</td>
+<td></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>最高工作温度$°C$</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$Ge$</td>
+<td>100</td>
+</tr>
+<tr>
+<td>$Si$</td>
+<td>250</td>
+</tr>
+<tr>
+<td>$GaAs$</td>
+<td>450</td>
+</tr>
+<tr>
+<td>材料的禁带宽度越大，同一温度下的本征载流子浓度就越低，进入本征导电的温度就越高</td>
+<td></td>
+</tr>
+</tbody></table>
+]]></content>
+      <tags>
+        <tag>笔记</tag>
+        <tag>半导体物理</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>半导体物理笔记第五章</title>
+    <url>/2024/12/10/%E7%AC%94%E8%AE%B0%E5%8D%8A%E7%89%A95%E9%9D%9E%E5%B9%B3%E8%A1%A1%E8%BD%BD%E6%B5%81%E5%AD%90/</url>
+    <content><![CDATA[<h3 id="5-1导入"><a href="#5-1导入" class="headerlink" title="5.1导入"></a>5.1导入</h3><p>热平衡态：</p>
+<ul>
+<li>在一定温度下不存在外部激励因素</li>
+<li>载流子（承载电流的粒子$n_0,p_0$）的产生与复合过程建立动态平衡</li>
+<li>导电电子和导电空穴的浓度保持温度数值<br>热平衡状态下载流子浓度$n_0,p_0$就称为热平衡载流子浓度<br>$$<br>\begin{align}<br>n_0&amp;&#x3D;N_c\exp\left(-\frac{E_c - E_F}{k_0T}\right)<br> \<br>p_0&amp;&#x3D;N_v\exp\left(-\frac{E_F - E_V}{k_0T}\right)<br>\<br>n_0p_0 &amp;&#x3D; N_cN_v\exp\left(-\frac{E_c - E_V}{k_0T}\right)<br>\<br>n_0 p_0 &amp;&#x3D; n_i^2<br>\end{align}<br>$$<br>相关公式推导可以回去看第三章<br>如果外加光照、电池等，会引入$\Delta n,\Delta p$，如果光照、电池撤去$\Delta n,\Delta p$会逐渐消失（复合），回到热平衡态</li>
+</ul>
+<h3 id="5-2非载流子的注入和复合"><a href="#5-2非载流子的注入和复合" class="headerlink" title="5.2非载流子的注入和复合"></a>5.2非载流子的注入和复合</h3><h4 id="1-非平衡态的定义"><a href="#1-非平衡态的定义" class="headerlink" title="1.非平衡态的定义"></a>1.非平衡态的定义</h4><ul>
+<li>半导体的热平衡态是相对的有条件的；如果对半导体施加外部作用，破坏了热平衡条件，使其偏离热平衡态，这就称为非平衡态</li>
+<li>处于非平衡态的半导体，其载流子浓度不再是$n_0,p_0$而是多出一部分$\Delta n,\Delta p$，多出来的这部分载流子称为非平衡载流子：<br>$$<br>\begin{align}<br>n&amp;&#x3D;n_0 + \Delta n \<br>p&amp;&#x3D;p_0 + \Delta p<br>\end{align}<br>$$<br>需要注意是由于电子和空穴成对产生，在这里$\Delta n &#x3D; \Delta p$</li>
+</ul>
+<h4 id="2-非平衡多子少子"><a href="#2-非平衡多子少子" class="headerlink" title="2.非平衡多子少子"></a>2.非平衡多子少子</h4><ul>
+<li>多子：多数载流子</li>
+<li>少子：少数载流子</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>多子</th>
+<th>少子</th>
+<th>施加外部激励</th>
+<th>非平衡多子</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>N型半导体</td>
+<td>电子</td>
+<td>空穴</td>
+<td>$n_0 + \Delta n,p_0 + \Delta p$</td>
+<td>$\Delta n$</td>
+</tr>
+<tr>
+<td>P型半导体</td>
+<td>空穴</td>
+<td>电子</td>
+<td>$n_0 + \Delta n,p_0 + \Delta p$</td>
+<td>$\Delta p$</td>
+</tr>
+<tr>
+<td>要注意到非平衡多子少子的判断不以$\Delta n,\Delta p$大小来判断，因为它们本身就是相等的；而是以在平衡态下，如果$n$为多子，其对应到非平衡态下$\Delta n$也为多子</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h4 id="3-小注入"><a href="#3-小注入" class="headerlink" title="3.小注入"></a>3.小注入</h4><ul>
+<li>光注入：采用光照使半导体内部产生非平衡载流子的方法</li>
+<li>电注入：采用电的方法使半导体内部产生非平衡载流子的方法（如PN结加电）</li>
+<li>小注入：一般情况下，如果注入的非平衡载流子浓度远小于平衡态时的多子浓度<br>例如：对于N型半导体来说，小注入时的浓度，下列式子非平衡载流子浓度比平衡态多子浓度低两个数量级就可以认为是小注入<br>$$<br>\begin{align}<br>\Delta n &amp;&lt;&lt; n_0  \<br>\Delta p &amp;&lt;&lt; n_0<br>\end{align}<br>$$<br>但是否有$\Delta p &lt;&lt; p_0$不一定，非平衡少子浓度可以远远大于平衡态少子浓度，即$\Delta p &gt;&gt; p_0$进一步可以得到：<br>$$<br>\begin{align}<br>n&amp;\approx n_0 + \Delta n \<br>\Delta p&amp;\approx p_0 + \Delta p<br>\end{align}<br>$$<br>非平衡多子浓度数量级小，$\Delta p$数量级大，非平衡少子起主要和决定作用，&#x3D;&#x3D;我们说非平衡载流子是指非平衡少子&#x3D;&#x3D;</li>
+</ul>
+<h4 id="4-附加电导率"><a href="#4-附加电导率" class="headerlink" title="4.附加电导率"></a>4.附加电导率</h4><p>$\Delta n,\Delta p$使原来的电导率$\sigma_0 \rightarrow \sigma_0 + \Delta \sigma$<br>原来的电导率：<br>$$<br>\sigma_0 &#x3D; n_0q\mu_n + p_0q\mu_p<br>$$<br>由于非平衡态下载流子浓度的变化：<br>$$<br>\begin{align}<br>\sigma_0 &amp;&#x3D; n_0q\mu_n + p_0q\mu_p \<br> &amp;&#x3D; (n_0 + \Delta n)q\mu_n + (p_0 + \Delta p)q\mu_p \<br> &amp;&#x3D; n_0q\mu_n + p_0q\mu_p + \Delta nq\mu_n + \Delta pq\mu_p \<br> &amp;&#x3D; \sigma_0 + \Delta \sigma<br>\end{align}<br>$$<br>在这个公式中附加电导率<br>$$<br>\Delta \sigma &#x3D; \Delta nq\mu_n + \Delta pq\mu_p \approx \Delta pq\mu_p<br>$$<br>由于$\Delta p$的非平衡少子起主要作用$\Delta n$可以省略，因此最终可化简为等是右边的式子</p>
+<h4 id="5非平衡的复合理论"><a href="#5非平衡的复合理论" class="headerlink" title="5非平衡的复合理论"></a>5非平衡的复合理论</h4><p>一定温度下，半导体的热平衡态是具有“记忆性”的由于半导体内部原因：热平衡态不是绝对静止的状态，电子和空穴一直在产生与消失，只是浓度值保持不变</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">graph TD; A[光注入时] --&gt; B[产生&gt;复合]; B --&gt; C[净产生，非平衡载流子产生]; D[光照消失后] --&gt; E[载流子数量&gt;热平衡态时]; E --&gt; F[复合机会很大]; F --&gt; G[恢复至平衡态];</span><br></pre></td></tr></table></figure>
+<h3 id="5-3非平衡载流子的寿命"><a href="#5-3非平衡载流子的寿命" class="headerlink" title="5.3非平衡载流子的寿命"></a>5.3非平衡载流子的寿命</h3><h4 id="1非平衡载流子寿命和复合概率的关系"><a href="#1非平衡载流子寿命和复合概率的关系" class="headerlink" title="1非平衡载流子寿命和复合概率的关系"></a>1非平衡载流子寿命和复合概率的关系</h4><p>非平衡载流子寿命：定义为非平衡载流子的平均生存时间为平均自由时间$\tau$<br>复合概率：单位时间内非平衡载流子复合的概率为散射几率$p$<br>它们之间有如下关系：<br>$$<br>\tau &#x3D; \frac {1}{p}<br>$$<br>经过t时间还有多少非平衡载流子未复合的计算公式：<br>$$<br>\Delta P(t) &#x3D; \Delta P_0(t)e^{- \frac {t}{\tau}}<br>$$</p>
+<ul>
+<li>$\Delta P_0(t)$为最开始的非平衡载流子的数量</li>
+</ul>
+<p>将$\tau$带入上式可以发现：<br>$$<br>\Delta P(t) &#x3D; \Delta P_0(t)e^{- \frac {\tau}{\tau}} &#x3D; \Delta P_0(t)e^{-1}<br>$$<br>借助这个式子我们可以得到寿命$\tau$的另外一种定义：非平衡载流子浓度降为原先$\frac {1}{e}$的时间<br>![[Screenshot_20241213_161027_Samsung capture.jpg]]<br>实验结果：一般情况下，不同材料非平衡载流子的寿命不同</p>
+<table>
+<thead>
+<tr>
+<th>材料</th>
+<th>平均生存时间$\tau$</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$Ge$</td>
+<td>$10^4\mu s$</td>
+</tr>
+<tr>
+<td>$Si$</td>
+<td>$10^3\mu s$</td>
+</tr>
+<tr>
+<td>$GaAs$</td>
+<td>$10^{-8}\mu s ～ 10^{-9}\mu s$甚至更小</td>
+</tr>
+</tbody></table>
+<h4 id="2非平衡载流子的复合率"><a href="#2非平衡载流子的复合率" class="headerlink" title="2非平衡载流子的复合率"></a>2非平衡载流子的复合率</h4><p>单位时间单位体积内由于净复合而消失的电子－空穴对数，&#x3D;&#x3D;与复合概率$p$不一样&#x3D;&#x3D;：<br>$$<br> \Delta P(t) \cdot p &#x3D; \Delta P(t) \frac {1}{\tau}<br>$$</p>
+<h4 id="5-4准费米能级"><a href="#5-4准费米能级" class="headerlink" title="5.4准费米能级"></a>5.4准费米能级</h4><p>$$<br>\begin{align}<br>n_0&amp;&#x3D;N_c\exp\left(-\frac{E_c - E_F}{k_0T}\right)<br> \<br>p_0&amp;&#x3D;N_v\exp\left(-\frac{E_F - E_V}{k_0T}\right)<br>\<br>n_0p_0 &amp;&#x3D; N_cN_v\exp\left(-\frac{E_c - E_V}{k_0T}\right)<br>\<br>n_0 p_0 &amp;&#x3D; n_i^2<br>\end{align}<br>$$</p>
+<p>由于载流子浓度改变，进一步的对应的$E_F$在能带中的位置也发生改变，变为$E_F^n,E_F^p$；将$p_0,n_0$的计算公式带入上式：<br>$$<br>\begin{align}<br>n&amp;&#x3D;n_0 + \Delta n &#x3D; N_c\exp\left(-\frac{E_c - E_F^n}{k_0T}\right)\<br>p&amp;&#x3D;p_0 + \Delta p &#x3D; N_v\exp\left(-\frac{E_F^p - E_V}{k_0T}\right)<br>\end{align}<br>$$<br>由于在非平衡态中</p>
+<ul>
+<li>$\Delta n$较小–&gt;$E_F^n$偏移原先的$E_F$较小</li>
+<li>$\Delta p$较大–&gt;$E_F^p$偏移原先的$E_F$较大<br>导致原先统一的费米能级$E_F$分化为了两个准费米能级$E_F^n,E_F^p$，进一步将上式拆开可以得到：</li>
+</ul>
+<ol>
+<li><p>费米能级距离准费米能级距离计算公式<br>$$<br>\begin{align}<br>n&amp;&#x3D; N_c\exp\left(-\frac{E_c - E_F + E_F- E_F^n}{k_0T}\right) \<br>&amp;&#x3D;N_c\exp\left(-\frac{E_c - E_F }{k_0T}\right)\exp\left(-\frac{E_F- E_F^n}{k_0T}\right) \<br>&amp;&#x3D;n_0\exp\left(-\frac{E_F- E_F^n}{k_0T}\right) \<br>p&amp;&#x3D;p_0\exp\left(-\frac{E_F- E_F^p}{k_0T}\right)<br>\end{align}<br>$$</p>
+</li>
+<li><p>本征能级距离准费米能级距离计算公式<br>$$<br>\begin{align}<br>n&amp;&#x3D; N_c\exp\left(-\frac{E_c - E_i + E_i- E_F^n}{k_0T}\right) \<br>&amp;&#x3D;N_c\exp\left(-\frac{E_c - E_i }{k_0T}\right)\exp\left(-\frac{E_i- E_F^n}{k_0T}\right) \<br>&amp;&#x3D;n_i\exp\left(-\frac{E_i- E_F^n}{k_0T}\right) \<br>p &amp;&#x3D;n_i\exp\left(-\frac{E_i- E_F^p}{k_0T}\right)<br>\end{align}<br>$$<br>推导过程（待补）<br>![[SmartSelect_20241213_172149.jpg]]</p>
+</li>
+</ol>
+<ul>
+<li>$E_F^n$跟原来比往上走，偏移较小</li>
+<li>$E_F^p$跟原来比往下走，偏移较大<br>将$n,p$两个式子相乘：<br>$$<br>\begin{align}<br>n_0 p_0 &amp;&#x3D; n_i^2 \<br>n p &amp;&#x3D; n_i^2exp(\frac {E_F^n - E_F^p}{k_0T})<br>\end{align}<br>$$<br>$E_F^n - E_F^p$相比：</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>$E_F^n - E_F^p$相比</th>
+<th>现象</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$E_F^n - E_F^p$越大</td>
+<td>偏移越大，不平衡情况越显著</td>
+</tr>
+<tr>
+<td>$E_F^n &#x3D; E_F^p$</td>
+<td>平衡态，$E_F^n &#x3D; E_F^p &#x3D;E_F$</td>
+</tr>
+<tr>
+<td>$E_F^n - E_F^p$较小</td>
+<td>偏移很小，不平衡情况不显著</td>
+</tr>
+</tbody></table>
+]]></content>
+      <tags>
+        <tag>笔记</tag>
+        <tag>半导体物理</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>微机原理复习</title>
+    <url>/2024/12/28/%E7%AC%94%E8%AE%B0%E5%BE%AE%E6%9C%BA%E5%8E%9F%E7%90%86%E5%A4%8D%E4%B9%A0/</url>
+    <content><![CDATA[<h2 id="1、BCD码的意义和表示"><a href="#1、BCD码的意义和表示" class="headerlink" title="1、BCD码的意义和表示"></a>1、BCD码的意义和表示</h2><p><strong>压缩BCD数</strong> → 用8位二进制数表示2个十进制数位</p>
+<p><strong>非压缩BCD数</strong> → 用8位二进制数表示1个十进制数位</p>
+<p><strong>如：19</strong></p>
+<ul>
+<li><strong>压缩BCD</strong> → <strong>0001 1001 &#x3D; 19H</strong></li>
+<li><strong>非压缩BCD</strong> → <strong>00000001 00001001 &#x3D; 0109H</strong></li>
+</ul>
+<p><strong>① 十进制数与BCD数的转换</strong></p>
+<p>直接转换</p>
+<p><strong>② BCD数转换为二进制数</strong></p>
+<p>写出BCD数的十进制数 → 十进制数转换为二进制数</p>
+<p><strong>③ 二进制数转换为BCD数</strong></p>
+<p>二进制数转换为十进制数 → 根据十进制数写出BCD数</p>
+<p><strong>十进制数4256的压缩BCD码表示为：</strong></p>
+<p>0100 0010 0101 0110 B (即4256H)</p>
+<p><strong>十进制数4256的非压缩BCD码表示为：</strong></p>
+<p>xxxx0100 xxxx0010 xxxx0101 xxxx0110 B</p>
+<p>有时，要求非压缩BCD码的高4位为0，这时，4256（10）的非压缩BCD码为04020506H。</p>
+<p><strong>BCD数低位与高位之间逢“10”进1，4位二进制数之间逢“16”进1。而计算机按二进制规律运算，故BCD数进行运算后须进行调整</strong></p>
+<p><strong>简而言之，压缩BCD码就是一个十进制数占4位，非压缩BCD码就是一个十进制数占8位。</strong></p>
+<h3 id="1-BCD数加法运算"><a href="#1-BCD数加法运算" class="headerlink" title="1. BCD数加法运算"></a>1. BCD数加法运算</h3><p><strong>调整规则:</strong></p>
+<ul>
+<li>和在0～9之间, 保持不变;</li>
+<li>和大于9, 加6调整</li>
+</ul>
+<p><strong>如：48+59&#x3D;107</strong></p>
+<h3 id="1-BCD数减法运算"><a href="#1-BCD数减法运算" class="headerlink" title="1. BCD数减法运算"></a>1. BCD数减法运算</h3><p><strong>调整规则:</strong></p>
+<ul>
+<li>差在0～9之间, 不变;</li>
+<li>差大于9, 减6调整</li>
+</ul>
+<hr>
+<h2 id="2、执行单元和总线接口单元的作用"><a href="#2、执行单元和总线接口单元的作用" class="headerlink" title="2、执行单元和总线接口单元的作用"></a>2、执行单元和总线接口单元的作用</h2><p>8086 CPU从功能上可分为两部分，即总线接口部件(bus interface unit，缩写为BIU)和执行部件EU(execution unit)。8086的内部结构如图所示。</p>
+<p><img src="/./../Downloads/5f20676e3947118b71cf9ba82948ea41.png" alt="img"></p>
+<p>EU不与外部总线，即外部世界相连，只负责执行指令。BIU则负责从存储器或外部设备中读取指令和读写数据，即完成所有的总线操作。这两个单元处于并行工作状态，可以同时进行执行指令和读写操作。</p>
+<h3 id="1-执行单元EU"><a href="#1-执行单元EU" class="headerlink" title="1.执行单元EU"></a>1.执行单元EU</h3><p>对于负责执行指令的执行单元EU</p>
+<ul>
+<li>算数逻辑单元ALU</li>
+<li>标志寄存器FLAGS：反映CPU状态和控制标志状态的</li>
+<li>一组通用寄存器和运算寄存器系统：内部的数据传输都是16位</li>
+</ul>
+<p>EU从BIU中取得指令和数据，执行指令要求的操作，该操作有2种：</p>
+<ol>
+<li>进行算数逻辑运算</li>
+<li>计算存储器操作数的偏移地址</li>
+</ol>
+<p>当指令要求执行存储器或IO设备的数据存取操作时，EU向BIU发出请求,BIU根据EU的请求，完成8088&#x2F;8086与存储器或外设之间的数据传送</p>
+<h3 id="2总线接口BIU"><a href="#2总线接口BIU" class="headerlink" title="2总线接口BIU"></a>2总线接口BIU</h3><p>对于负责与存储器或外设进行读取指令和数据的总线接口BIU</p>
+<ul>
+<li>一组段寄存器CS,DS,SS,ES（S-segment）</li>
+<li>一个指令寄存器IP，6个字节的指令队列</li>
+<li>地址加法器</li>
+<li>总线控制逻辑。</li>
+</ul>
+<p>段寄存器提供的段地址和偏移地址在地址加法器中相加，并将其结果存放在物理地址锁存器中。</p>
+<p>指令队列寄存器为一个能存放6个字节的存储器，在EU执行指令的过程中，BIU根据指令提示器的偏移地址，从存放指令的存储器中预先取出一些指令放在指令队列中。指令在队列中是顺序排序的。（流水线结构）</p>
+<p>多数情况下，指令队列中至少应有一个字节的指令，这样EU不比等待BIU去取指令。</p>
+<p>BIU在下面两种情况要执行取值操作：</p>
+<ol>
+<li>指令队列中出现2个以上字节空的时候</li>
+<li>当程序发生转移时，BIU执行取值操作，BIU将所取得的第一条指令直接送到EU中去执行，将随后取来的指令重新填入指令队列中，冲掉转移前放入指令队列中的指令。</li>
+</ol>
+<hr>
+<h2 id="3、什么是物理地址，什么是逻辑地址，如何转换"><a href="#3、什么是物理地址，什么是逻辑地址，如何转换" class="headerlink" title="3、什么是物理地址，什么是逻辑地址，如何转换?"></a>3、什么是物理地址，什么是逻辑地址，如何转换?</h2><p>采用分段结构的存储器中，任何一个逻辑地址都是由段基址和偏移地址两部分构成，它们都是无符号的16位二进制数。存储器的任何单元都有唯一的物理地址。也就是说每个存储单元都可以用物理地址和逻辑地址来表示。物理地址是用唯一的20位二进制数表示的，CPU与存储器交换信息使用的是物理地址。程序中不能使用物理地址（位数不够），而要使用逻辑地址，即段基址：偏移地址</p>
+<p>物理地址的形成：段寄存器的值 × 10H + 偏移地址</p>
+<p>将段寄存器的值即段基址乘以10H(将16位二进制数逻辑左移4位)得到20位的段首址，然后与16位的偏移地址相加得到20位的物理地址。例如：</p>
+<ul>
+<li>逻辑地址0001H：1010H对应的物理地址为00010H+1010H&#x3D;01020H</li>
+<li>逻辑地址0101H：0010H对应的物理地址为01010H+0010H&#x3D;01020H</li>
+</ul>
+<hr>
+<h2 id="4、什么是段基址，什么是偏移地址-什么段-理解段的概念、意义、性质和使用。"><a href="#4、什么是段基址，什么是偏移地址-什么段-理解段的概念、意义、性质和使用。" class="headerlink" title="4、什么是段基址，什么是偏移地址?什么段?理解段的概念、意义、性质和使用。"></a>4、什么是段基址，什么是偏移地址?什么段?理解段的概念、意义、性质和使用。</h2><p>8086&#x2F;8088有20条地址线，存储器的物理地址必须用20位二进制数表示。ALU只能处理16位的地址运算，与地址有关的寄存器都只有16位。因此8086&#x2F;8088把20位的存储器地址分成若干个段来表示。段寄存器就是用来存放段基址（段的起始地址的高16位地址）的寄存器。段内再由16位二进制数来寻址，段内寻址的16位二进制数是段起始地址到存储单元的字节距离，称为段内偏移地址。</p>
+<p>存储单元的地址由段基址或段寄存器和偏移地址两部分组成，用冒号连接段基址或段寄存器和偏移地址，像这样表示的地址称为逻辑地址。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">段基址：偏移地址 或 段寄存器：偏移地址</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>CS——存放代码段的段基址</p>
+</li>
+<li><p>SS——存放堆栈段的段基址</p>
+</li>
+<li><p>DS——存放数据段的段基址</p>
+</li>
+<li><p>ES——存放附加数据段的段基址</p>
+</li>
+<li><p>代码段的逻辑地址 ——CS:IP</p>
+</li>
+<li><p>堆栈段的逻辑地址—— SS:SP</p>
+</li>
+</ul>
+<p>通过4个段寄存器的使用，使得在任意时刻，程序都可以仅通过偏移地址立即访问4个段中的存储器，CPU自动根据偏移地址安排到代码段中去存取指令代码，到数据段中去存储数据，到堆栈段中执行进栈和出栈操作。</p>
+<p>每次需要生成物理地址的时候，一个段寄存器就会自动被选择，且都可以自动左移4位，再与一个16位的偏移地址相加，产生所需要的20位物理地址。</p>
+<p>8086&#x2F;88有4个段寄存器CS,DS,SS,ES来存放段基址，还有6个16位寄存器SP,SI,DI,BX,BP,SP来存放偏移地址，在寻址时要使用哪个寄存器是BIU根据操作要求来确定的。</p>
+<p>如果是取指令，则由代码段寄存器CS给段基址，指令提示器IP给取指令的偏移地址。</p>
+<p>如果是存取数据，段基址一般由DS给出，偏移地址可以由指令直接给出，也可由BX,SI,DI给出，或者根据指令的要求计算出来，计算出来的偏移地址称为有效地址。</p>
+<p>如果是堆栈操作，被寻址的操作数的段基址和偏移地址由堆栈寄存器和堆栈指示器给出。</p>
+<h3 id="为什么一个段最大为64K？"><a href="#为什么一个段最大为64K？" class="headerlink" title="为什么一个段最大为64K？"></a>为什么一个段最大为64K？</h3><p>8086&#x2F;88是16位微处理器，所有操作可以按字节为单位也可以按字为单位处理。该系统中存储器是以8位（1个字节）为一个存储单元进行编址的，每个存储单元用唯一的一个地址码来表示，一个字即16位占2个单元，这两个单元都有各自的地址，规定处于低地址的字节的地址称为这个字的地址。存储器中任何连续存放2个字节都可以称为一个字。偶数地址的字称规则字，奇数地址的字称为非规则字。高地址字节为高位字节，低地址字节为低位字节。如00000H地址中存放一个字2301H，则00000H单元中存放01H，00001H单元中存放23H。字4523H的存放地址为00001H。字2301H为规则字，4523H为非规则字。</p>
+<p>大端：高对低，低对高</p>
+<p>小端：高对高，低对低</p>
+<h2 id="5、出栈和入栈操作的过程"><a href="#5、出栈和入栈操作的过程" class="headerlink" title="5、出栈和入栈操作的过程"></a>5、出栈和入栈操作的过程</h2><p>概念：是按后进先出原则组织的一片存储区域，用来暂存一批需要回避的数据或地址。用途：暂存数据、断点信息或传送信息</p>
+<p>8086中的堆栈是向下生长的。即栈顶向地址码小的方向生长。</p>
+<p><img src="https://i-blog.csdnimg.cn/blog_migrate/0277153f2e96c24037f70c251e017448.png" alt="在这里插入图片描述"></p>
+<p>空栈：在进行堆栈操作前，为空栈。此时SP应预置一个初值。该值为堆栈空间的大小。</p>
+<p>SP初值&#x3D;堆栈空间的最大容量</p>
+<p>例：SP&#x3D;0008H。则最大容量为8个字节。</p>
+<p>SP指向当前的栈顶。</p>
+<p><img src="https://i-blog.csdnimg.cn/blog_migrate/09c8fac629905acf630ce5ecbd0e0043.png" alt="img"></p>
+<h2 id="6、如何定义变量"><a href="#6、如何定义变量" class="headerlink" title="6、如何定义变量?"></a>6、如何定义变量?</h2><p>变量是存储器中数据的符号表示，变量名为数据首地址</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[变量名] DB 表达式[, ……] ;定义字节变量</span><br><span class="line">[变量名] DW 表达式[, ……] ;定义字变量</span><br><span class="line">[变量名] DD 表达式[, ……] ;定义双字变量</span><br><span class="line">[变量名] DQ 表达式[, ……] ;定义四字变量</span><br><span class="line">[变量名] DT 表达式[, ……] ;定义六字节变量</span><br><span class="line">[变量名] DT 表达式[, ……] ;定义十字节变量</span><br></pre></td></tr></table></figure>
+
+<p>数据定义指明了变量的类型</p>
+<p>表达式确定变量的初值。表达式有如下6种：</p>
+<p>（1）表达式为常量或数值表达式 → 存入数值</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">W1 DW 1</span><br></pre></td></tr></table></figure>
+
+<p>（2）表达式为ASCII字符串 → 存入ASCII值</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">W2 DW ’AB’ ;用DW定义时，串长不可大于2</span><br><span class="line">B2 DB ’AB$’ ;用DB定义时，串长可大于2</span><br></pre></td></tr></table></figure>
+
+<p>（3）表达式为重复子句</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">N DUP（表达式）</span><br><span class="line">如：B3 DB 2 DUP(0) ;B3为2个0</span><br><span class="line">B4 DB 2 DUP(5,’A’) ;B4为2个5&#x27;A&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>（4）地址表达式(只适用DW、DD和DF3个伪指令)</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[变量名] DW 地址表达式 ;取其偏移地址来初始化变量</span><br><span class="line">[变量名] DD 地址表达式 ;取16位偏移地址和段基址来初始化其变量</span><br><span class="line">[变量名] DF 地址表达式 ;取32位偏移地址和段基址来初始化其变量</span><br></pre></td></tr></table></figure>
+
+<p>（5）由以上表达式组成的序列，之间用‘，’分隔</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">B5 DB 1,2,3</span><br><span class="line">B6 DB ’1,2,3’ ;此行的“,”不是序列分隔符</span><br></pre></td></tr></table></figure>
+
+<p>（6）地址表达式类型的变更</p>
+<p>变量、标号以及由其组成的地址表达式均有类型属性。地址表达式的类型属性由其中的变量或标号（一个地址表达式不可能同时含有变量和标号）决定。不含变量或标号，仅含寄存器的地址表达式没有类型属性。可以使用PTR算符临时变更原地址表达式的类型属性,或者明确没有类型属性的地址表达式的类型，而仍保持它们原来的段基址和偏移地址属性不变。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">类型 PTR 地址表达式</span><br><span class="line">如：BYTE PTR [BX+5] ；明确类型</span><br><span class="line">WORD PTR B2 ；临时变更</span><br><span class="line">例：B DB 3</span><br><span class="line">W DW 1122H</span><br><span class="line">WORD PTR B ;将B临时改变为字类型</span><br><span class="line">BYTE PTR W ;将W临时改变为字节类型</span><br><span class="line">例：BYTE PTR BX ╳ ;寄存器有类型属性，不能变更</span><br><span class="line">BYTE PTR [BX] √</span><br></pre></td></tr></table></figure>
+
+<p>7、8255写方式控制字时，地址线应如何连接?</p>
+<p>见笔记</p>
+<h2 id="8、定义变量在存储器中的存放，表7-2"><a href="#8、定义变量在存储器中的存放，表7-2" class="headerlink" title="8、定义变量在存储器中的存放，表7-2"></a>8、定义变量在存储器中的存放，表7-2</h2><p>在汇编语言中，我们通常使用变量和地址表达式来访问存储器，而不是直接使用物理地址。</p>
+<ul>
+<li><strong>变量：</strong> 变量是存储器位置的符号名称。例如，<code>BUFF</code> 就是一个变量，它代表存储器中的一个地址。</li>
+<li><strong>地址表达式：</strong> 地址表达式是使用变量和运算符（如 <code>+</code>、<code>-</code>）计算出的地址。例如，<code>BUFF+1</code> 表示 <code>BUFF</code> 地址后的一个字节的地址。</li>
+</ul>
+<p><strong>字（Word）和双字（Double Word）</strong></p>
+<ul>
+<li><strong>字（Word）：</strong> 一个字通常由 2 个字节（16 位）组成。</li>
+<li><strong>双字（Double Word）：</strong> 一个双字通常由 4 个字节（32 位）组成。</li>
+</ul>
+<p><strong>存储方式、地址和字节序（小端）</strong></p>
+<p>假设变量 <code>BUFF</code> 指向的内存区域如下（以十六进制表示，并假设 <code>BUFF</code> 的起始地址为 <code>0x1000</code>，仅作示例）：</p>
+<table>
+<thead>
+<tr>
+<th>地址</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>0x1000 (BUFF)</code></td>
+<td><code>01H</code></td>
+</tr>
+<tr>
+<td><code>0x1001 (BUFF+1)</code></td>
+<td><code>23H</code></td>
+</tr>
+<tr>
+<td><code>0x1002 (BUFF+2)</code></td>
+<td><code>45H</code></td>
+</tr>
+<tr>
+<td><code>0x1003 (BUFF+3)</code></td>
+<td><code>67H</code></td>
+</tr>
+<tr>
+<td><code>0x1004 (BUFF+4)</code></td>
+<td><code>89H</code></td>
+</tr>
+<tr>
+<td><code>0x1005 (BUFF+5)</code></td>
+<td><code>ABH</code></td>
+</tr>
+</tbody></table>
+<ul>
+<li><strong>字 <code>2301H</code>：</strong> 存储在 <code>BUFF</code> 和 <code>BUFF+1</code> 两个字节中。由于是<strong>小端字节序</strong>，低位字节 <code>01H</code> 存储在低地址 <code>BUFF (0x1000)</code>，高位字节 <code>23H</code> 存储在高地址 <code>BUFF+1 (0x1001)</code>。因此，字 <code>2301H</code> 的地址是 <code>BUFF (0x1000)</code>。</li>
+<li><strong>字 <code>4523H</code>：</strong> 存储在 <code>BUFF+1</code> 和 <code>BUFF+2</code> 两个字节中。低位字节 <code>23H</code> 存储在 <code>BUFF+1 (0x1001)</code>，高位字节 <code>45H</code> 存储在 <code>BUFF+2 (0x1002)</code>。因此，字 <code>4523H</code> 的地址是 <code>BUFF+1 (0x1001)</code>。</li>
+<li><strong>双字 <code>AB896745H</code>：</strong> 存储在 <code>BUFF+2</code>、<code>BUFF+3</code>、<code>BUFF+4</code> 和 <code>BUFF+5</code> 四个字节中。按照小端存储，字节的排列顺序为 <code>45H</code>、<code>67H</code>、<code>89H</code>、<code>ABH</code>。因此，双字 <code>AB896745H</code> 的地址是 <code>BUFF+2 (0x1002)</code>。</li>
+</ul>
+<p><strong>规则字和非规则字</strong></p>
+<ul>
+<li><strong>规则字：</strong> 如果一个字的起始地址是偶数，则称为规则字（或对齐的字）。</li>
+<li><strong>非规则字：</strong> 如果一个字的起始地址是奇数，则称为非规则字（或未对齐的字）。</li>
+</ul>
+<p>在上面的例子中，如果 <code>BUFF</code> 的地址是偶数（例如 <code>0x1000</code>），那么字 <code>2301H</code> 就是规则字，而字 <code>4523H</code> 就是非规则字。访问非规则字在某些处理器上可能会导致性能下降或需要特殊的处理。</p>
+<p><strong>字节序（小端）</strong></p>
+<p><strong>小端字节序（Little Endian）</strong> 指的是：</p>
+<ul>
+<li><strong>低位字节存储在低地址，高位字节存储在高地址。</strong></li>
+</ul>
+<p>这是与人类书写数字的习惯相反的。</p>
+<h2 id="9、总线中的数据流通是通过什么控制的"><a href="#9、总线中的数据流通是通过什么控制的" class="headerlink" title="9、总线中的数据流通是通过什么控制的?"></a>9、总线中的数据流通是通过什么控制的?</h2><h2 id="10、dos2号功能调用是做什么"><a href="#10、dos2号功能调用是做什么" class="headerlink" title="10、dos2号功能调用是做什么?"></a>10、dos2号功能调用是做什么?</h2><p>2号功能调用——显示器显示一个字符</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">MOV DL，;待显示字符的ASCII</span><br><span class="line">MOV AH，2</span><br><span class="line">INT 21H</span><br></pre></td></tr></table></figure>
+
+<p>入口：输出字符的ASCII 送 DL</p>
+<p>出口：无出口参数</p>
+<p>例：显示字符 ’B’</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">MOV AH，2</span><br><span class="line">MOV DL，’B’</span><br><span class="line">INT 21H</span><br></pre></td></tr></table></figure>
+
+<h2 id="11、什么是中断方式，什么是查询方式"><a href="#11、什么是中断方式，什么是查询方式" class="headerlink" title="11、什么是中断方式，什么是查询方式?"></a>11、什么是中断方式，什么是查询方式?</h2><p>传送控制方式有查询、中断和DMA 3种。</p>
+<p>（1）查询方式</p>
+<p>查询方式是中央处理器在数据传送之前通过接口的状态设置存储电路询问外设，待外设允许传送数据后才传送数据的操作方式。</p>
+<p>在查询方式下，CPU需要完成以下操作：</p>
+<ol>
+<li>CPU向接口发出传送命令，输入数据或输出数据；</li>
+<li>中央处理器查询外设是否允许传送？</li>
+</ol>
+<p>在查询方式下，中央处理器会询问外设是否允许传送，若不允许传送，则继续查询外设，直到外设允许CPU传送数据后，CPU才会向外设发送数据，因此CPU需要花费较多的时间去不断地“询问”外设，外设的接口电路处于被动状态。</p>
+<p>（2）中断方式</p>
+<p>中断方式是在外设要与中央处理器传送数据时，外设向中央处理器发出请求，中央处理器响应后再传送数据的操作方式。</p>
+<p>在中断方式下，中央处理器不必查询外设，提高了系统的工作效率，但中央处理器管理中断的接口比管理查询复杂。</p>
+<h2 id="12、8253的初始化、频率如何计算"><a href="#12、8253的初始化、频率如何计算" class="headerlink" title="12、8253的初始化、频率如何计算?"></a>12、8253的初始化、频率如何计算?</h2><h2 id="13、8255A的编程"><a href="#13、8255A的编程" class="headerlink" title="13、8255A的编程"></a>13、8255A的编程</h2><h2 id="14、左移指令，右移指令，求补指令，取反指令"><a href="#14、左移指令，右移指令，求补指令，取反指令" class="headerlink" title="14、左移指令，右移指令，求补指令，取反指令"></a>14、左移指令，右移指令，求补指令，取反指令</h2><p><strong>1. 左移指令 (Shift Left)</strong></p>
+<p>左移指令将操作数中的所有位向左移动指定的位数。空出的位用 0 填充。</p>
+<ul>
+<li><p><strong>逻辑左移 (SHL&#x2F;SAL):</strong> 移出的最高位进入进位标志位 CF (Carry Flag)，最低位补 0。SHL 和 SAL 指令在功能上是相同的。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">SHL 操作数, 移位次数</span><br><span class="line">SAL 操作数, 移位次数</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>操作数</code>：可以是寄存器或内存单元。</li>
+<li><code>移位次数</code>：可以是立即数 (1 或 CL 寄存器中的值)。</li>
+</ul>
+<p><strong>例子：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">MOV AL, 00011011B  ; AL = 27</span><br><span class="line">SHL AL, 1         ; AL 左移 1 位，AL = 00110110B = 54，CF = 0</span><br><span class="line">SHL AL, 2         ; AL 左移 2 位，AL = 11011000B = 216，CF = 0</span><br></pre></td></tr></table></figure>
+
+<p><strong>解释：</strong> 每次左移一位，相当于将原数乘以 2。</p>
+</li>
+<li><p><strong>循环左移 (ROL):</strong> 移出的最高位不仅进入 CF，还填补到最低位。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ROL 操作数, 移位次数</span><br></pre></td></tr></table></figure>
+
+<p><strong>例子：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">MOV AL, 10000001B</span><br><span class="line">ROL AL, 1         ; AL 循环左移 1 位，AL = 00000011B, CF=1</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p><strong>2. 右移指令 (Shift Right)</strong></p>
+<p>右移指令将操作数中的所有位向右移动指定的位数。</p>
+<ul>
+<li><p><strong>逻辑右移 (SHR):</strong> 移出的最低位进入 CF，最高位补 0。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">SHR 操作数, 移位次数</span><br></pre></td></tr></table></figure>
+
+<p><strong>例子：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">MOV AL, 11001000B</span><br><span class="line">SHR AL, 1        ; AL 逻辑右移 1 位，AL = 01100100B, CF = 0</span><br></pre></td></tr></table></figure>
+
+<p><strong>解释：</strong> 每次逻辑右移一位，相当于将无符号数除以 2。</p>
+</li>
+<li><p><strong>算术右移 (SAR):</strong> 移出的最低位进入 CF，最高位保持不变 (即用原最高位的值填充)。这对于有符号数的除法很有用，可以保持符号位不变。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">SAR 操作数, 移位次数</span><br></pre></td></tr></table></figure>
+
+<p><strong>例子：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">MOV AL, 11001000B (-56)  ; 假设是有符号数</span><br><span class="line">SAR AL, 1        ; AL 算术右移 1 位，AL = 11100100B (-28), CF = 0</span><br></pre></td></tr></table></figure>
+
+<p><strong>解释：</strong> 每次算术右移一位，相当于将有符号数除以 2。</p>
+</li>
+<li><p><strong>循环右移 (ROR):</strong> 移出的最低位不仅进入 CF，还填补到最高位。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ROR 操作数, 移位次数</span><br></pre></td></tr></table></figure>
+
+<p><strong>例子：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">MOV AL, 00000011B</span><br><span class="line">ROR AL, 1         ; AL 循环右移 1 位，AL = 10000001B, CF=1</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p><strong>3. 求补指令 (NEG - Negate)</strong></p>
+<p>求补指令将操作数取反 (所有位取反)，然后加 1。这实际上就是计算操作数的二进制补码，相当于乘以 -1。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">NEG 操作数</span><br></pre></td></tr></table></figure>
+
+<p><strong>例子：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">MOV AX, 0000000000001010B (10)</span><br><span class="line">NEG AX             ; AX = 1111111111110110B (-10)</span><br></pre></td></tr></table></figure>
+
+<p><strong>解释：</strong></p>
+<ol>
+<li>先取反：<code>0000000000001010B</code> 取反后得到 <code>1111111111110101B</code>。</li>
+<li>然后加 1：<code>1111111111110101B + 1 = 1111111111110110B</code>。</li>
+</ol>
+<p><strong>4. 取反指令 (NOT - Not)</strong></p>
+<p>取反指令将操作数中的每一位进行翻转，0 变为 1，1 变为 0。</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">NOT 操作数</span><br></pre></td></tr></table></figure>
+
+<p><strong>例子：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">MOV AL, 00111100B</span><br><span class="line">NOT AL             ; AL = 11000011B</span><br></pre></td></tr></table></figure>
+
+<p><strong>总结</strong></p>
+<table>
+<thead>
+<tr>
+<th>指令</th>
+<th>功能</th>
+<th>影响标志位</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>SHL&#x2F;SAL</td>
+<td>逻辑&#x2F;算术左移</td>
+<td>CF, OF, PF, SF, ZF</td>
+</tr>
+<tr>
+<td>SHR</td>
+<td>逻辑右移</td>
+<td>CF, OF, PF, SF, ZF</td>
+</tr>
+<tr>
+<td>SAR</td>
+<td>算术右移</td>
+<td>CF, OF, PF, SF, ZF</td>
+</tr>
+<tr>
+<td>ROL</td>
+<td>循环左移</td>
+<td>CF, OF</td>
+</tr>
+<tr>
+<td>ROR</td>
+<td>循环右移</td>
+<td>CF, OF</td>
+</tr>
+<tr>
+<td>NEG</td>
+<td>求补 (取反加 1)</td>
+<td>AF, CF, OF, PF, SF, ZF</td>
+</tr>
+<tr>
+<td>NOT</td>
+<td>取反</td>
+<td>无</td>
+</tr>
+</tbody></table>
+<h2 id="编程例题"><a href="#编程例题" class="headerlink" title="编程例题"></a>编程例题</h2><h3 id="Eg2两个BCD数相加"><a href="#Eg2两个BCD数相加" class="headerlink" title="Eg2两个BCD数相加"></a>Eg2两个BCD数相加</h3><p>编程实现如下功能：已知字变量W1和W2分别存放着两个压缩BCD数，分别为W1&#x3D;8931H,W2&#x3D;5678H，求两数之和，并将其和送到SUM字节变量中</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">DATA SEGMENT</span><br><span class="line">    A DW 8931H</span><br><span class="line">    B DW 5678H</span><br><span class="line">    SUM DW ?</span><br><span class="line">DATA ENDS</span><br><span class="line"></span><br><span class="line">CODE SEGMENT</span><br><span class="line">    ASSUME CS:CODE,DS:DATA</span><br><span class="line">START:</span><br><span class="line">    MOV AX,DATA</span><br><span class="line">    MOV DS,AX</span><br><span class="line">    MOV AX,A</span><br><span class="line">    MOV BX,B</span><br><span class="line">    ADD AX,BX</span><br><span class="line">    DAA</span><br><span class="line">    MOV SUM AX</span><br><span class="line"></span><br><span class="line">    MOV AL,4CH</span><br><span class="line">    INT 21H</span><br><span class="line">CODE ENDS</span><br><span class="line">END START</span><br></pre></td></tr></table></figure>
+
+<p><code>DAA</code> (Decimal Adjust Accumulator after Addition) 指令用于在加法运算后对AL寄存器中的结果进行十进制调整，使其符合压缩BCD码的表示。</p>
+<ul>
+<li><p><code>DAA</code> 指令只对AL寄存器有效。由于我们进行的是字（16位）加法，结果在AX中，<code>DAA</code> 只会调整AL部分。因此，如果需要处理多字节BCD加法，需要分别处理每个字节，并考虑进位。</p>
+</li>
+<li><pre><code>DAA
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">   </span><br><span class="line"></span><br><span class="line">  指令根据以下规则进行调整：</span><br><span class="line"></span><br><span class="line">  - 如果AL的低四位大于9或辅助进位标志AF=1，则AL=AL+6。</span><br><span class="line">  - 如果AL的高四位大于9或进位标志CF=1，则AL=AL+60H。</span><br><span class="line"></span><br><span class="line">### Eg3冒泡法从大到小排序</span><br><span class="line"></span><br><span class="line">编程实现如下功能：设有3个单字节无符号数存放在BUF开始的缓冲区中，编写一个能将它们从大到小排列的程序。如何将以上三个数字代表的字符在屏幕上进行显示？</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+DATA SEGMENT
+  BUF DB 3H,7H,9H
+DATA ENDS
+</code></pre>
+</li>
+</ul>
+<p>CODE SEGMENT<br>    ASSUME CS:CODE,DS:DATA<br>START:<br>    MOV AX,DATA<br>    MOV DS,AX<br>    MOV AL,BUF[0]<br>    CMP AL,BUF[1]<br>    JG CON<br>    XCHG AL,BUF[1]<br>    ;如果0&lt;1，交换。此时AL中是BUF1的值为最大<br>    MOV BUF[0],AL<br>    ;最大值在AL中要给BUF0<br>CON:<br>    MOV AL,BUF[2]<br>    JG CON2<br>    XCHG AL,BUF[2]<br>    MOV BUF[0],AL<br>CON2:<br>    MOV AL,BUF[1]<br>    CMP AL,BUF[2]<br>    JG FINISH<br>    XCHG AL,BUF[2]<br>    MOV BUF[1],AL<br>FINISH:<br>    MOV AH,4CH<br>    INT 21H<br>CODE END<br>START END</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">在这个代码运用了冒泡的思想</span><br><span class="line"></span><br><span class="line">- 将1和2位比较，如果1比2小就交换</span><br><span class="line">- 再将2和3比较，如果2比3小就交换，这样就保证了最小的两个数在第23位</span><br><span class="line">- 最后再将23相比较</span><br><span class="line"></span><br><span class="line">就完成了从大到小的排列，这个代码中，两数之间较大的数永远在`AL`中，在利用`XCHG`指令</span><br><span class="line"></span><br><span class="line">**执行 `XCHG AL, BUF[2]` 后会发生什么：**</span><br><span class="line"></span><br><span class="line">1. 读取 `AL` 寄存器中的值。</span><br><span class="line">2. 读取 `BUF` 数组中第三个元素（`BUF[2]`）的值。</span><br><span class="line">3. 将 `AL` 寄存器中的值存储到 `BUF[2]` 所在内存单元。</span><br><span class="line">4. 将 `BUF[2]` 原来的值存储到 `AL` 寄存器</span><br><span class="line"></span><br><span class="line">由于 `AL` 中是最大的数，要存入BUF2和BUF1中较大的一位，还要执行`MOV BUF[2],AL`</span><br><span class="line"></span><br><span class="line">### Eg4循环的应用——两个双字相加</span><br><span class="line"></span><br><span class="line">编程实现如下功能：使用LOOP指令编程计算 Z=X+Y，其中X=723156A8H、Y= 91A4C2EFH，皆为双字变量。</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>DATA SEGMENT<br>    X DD 723156A8H<br>    Y DD 91A4C2EFH<br>    Z DD ?<br>DATA ENDS</p>
+<p>CODE SEGMENT<br>    CS:CODE,DS:DATA<br>START:<br>    MOV AX,DATA<br>    MOV DS,AX</p>
+<pre><code>MOV CX,4
+MOV SI,0
+AND AX,AX
+</code></pre>
+<p>AGAIN:<br>    MOV AL,BYTE PTR X[SI]<br>    ADC AL,BYTE PTR Y[SI]<br>    MOV BYTE PTR Z[SI],AL<br>    INC SI<br>    LOOP AGAIN<br>    MOV AL,4CH<br>    INT 21H<br>CODE ENDS<br>START END</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">**易错点变量 Z 的存储方式：** 定义了 `Z` 为双字 (`DD`)，但是在代码中使用了 `MOV Z[SI], AL` 这样的方式将结果存储到 `Z`，这会导致访问错误。你应该确保按字节、字、双字的方式处理数据。应该是`MOV BYTE PTR Z[SI],AL`</span><br><span class="line"></span><br><span class="line">**为什么非要使用循环：**不能直接使用 `MOV EAX, X` 和 `ADC EAX, Y` 来进行双字（32位）的加法，原因在于 `MOV` 指令和 `ADC` 指令在用于内存操作数时，默认情况下只能操作字（16位）或字节（8位），除非使用特定的前缀来指定操作数大小。</span><br><span class="line"></span><br><span class="line">### Eg5统计0变量的个数</span><br><span class="line"></span><br><span class="line">编程实现如下功能：设有5个字节数据，存放在数据段BUF1变量中，编程实现如下功能：统计其中零数据的个数，结果放入字节变量CNT中，请完成该程序。</span><br><span class="line"></span><br><span class="line">如何在程序运行时候直接在屏幕上显示零数据的个数？</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>DATA SEGMENT<br>   BUF1 DB 1H,0H,5H,0H,9H<br>   CNT DB 0<br>DATA ENDS</p>
+<p>CODE SEGMENT<br>    CS:CODE,DS:DATA<br>START:<br>    MOV AX,DATA<br>    MOV DS,AX</p>
+<pre><code>MOV CX,5
+MOV SI,0
+AND AX,AX
+</code></pre>
+<p>AGAIN:<br>    MOV AL,BYTE BUF1[SI]<br>    CMP AL,0<br>    JNE CON<br>    INC BL<br>    MOV CNT,BL<br>CON:<br>    INC SI<br>    LOOP AGAIN<br>FINISH:<br>    MOV AL,4CH<br>    INT 21H<br>CODE ENDS<br>START END</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">**易错点`CNT`变量的存储：** 不能直接在代码中使用了 `INC CNT` 来增加 `CNT` 的值，但这是不合法的，因为 `CNT` 是一个字节变量。如果你直接将 `CNT` 用作内存地址，它应该是 `MOV AL, [CNT]` 来读数据，再写回 `MOV [CNT], AL`。</span><br><span class="line"></span><br><span class="line">**解决方法：** 用 `BL` 寄存器来操作 `CNT` 变量的值，如</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>INC BL<br>MOV CNT,BL</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">### Eg5正负数分开存储</span><br><span class="line"></span><br><span class="line">编程实现如下功能：设BLOCK数据块中存储有正数和负数，试编写程序将正负数分开，分别存放在Dplus和Dminus开始的存储区域。</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>DATA SEGMENT<br>    BLOCK DB 1H,-3H,5H,-7H,9H<br>    COUNT EQU $-BLOCK<br>    DPLUS DB COUNT DUP(0)<br>    DMINUS DB COUNT DUP(0)<br>DATA ENDS</p>
+<p>CODE SEGMENT<br>    CS:CODE,DS:DATA<br>START:<br>    MOV AX,DATA<br>    MOV DS,AX</p>
+<pre><code>MOV CX,5
+MOV SI,0
+MOV DI,0
+XOR AX,AX
+</code></pre>
+<p>AGAIN:<br>    MOV AL,BYTE BLOCK[SI]<br>    CMP AL,0<br>    JG PLUS<br>    MOV BYTE DMINUS[DI],AL<br>    INC DI<br>    JMP NEXT<br>PLUS:<br>    MOV BYTE DPLUE[DI],AL<br>    INC DI<br>NEXT:<br>    INC SI<br>    LOOP AGAIN<br>    MOV AL,4CH<br>    INT 21H<br>CODE ENDS<br>START END</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">**在这个代码中：**`COUNT EQU $-BLOCK`相当于`COUNT = BLOCK中字节个数`</span><br><span class="line"></span><br><span class="line">**`DPLUS` 和 `DMINUS` 数组索引问题：** 使用相同的 `SI` 值来存储正数和负数。这会导致它们混合存储在 `DPLUS` 和 `DMINUS` 数组中，因此需要分别使用不同的索引来存储正数和负数。应该通过通过设置两个不同的寄存器（例如 `SI` 和 `DI`）来分别索引它们。</span><br><span class="line"></span><br><span class="line">### Eg6统计负数个数</span><br><span class="line"></span><br><span class="line">编程实现如下功能：数据区从字节变量DATT开始的10个内存单元中存有10个8位二进制符号数，编写程序，统计这10个符号数中有多少个负数，放入字节变量NUM中。</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>DATA SEGMENT<br>    DATT DB 10H,-20H,23H,45H,-66H,77H,88H,99H,-32H,-12H<br>    NUM DB 0<br>DATA ENDS</p>
+<p>CODE SEGMENT<br>    CS:CODE,DS:DATA<br>START:<br>    MOV AX,DATA<br>    MOV DS,AX</p>
+<pre><code>MOV CX,10
+MOV SI,0
+MOV DI,0
+XOR AX,AX
+</code></pre>
+<p>AGAIN:<br>    MOV AL,BYTE DATT[SI]<br>    JS NEXT<br>    INC DI<br>NEXT:<br>    INC SI<br>    LOOP AGAIN<br>    MOV NUM,DL<br>    MOV AL,<br>    INT 21H<br>CODE ENDS<br>START END</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">**易错点：**</span><br><span class="line"></span><br><span class="line">**符号数判断：**</span><br><span class="line"></span><br><span class="line">- 使用 `JS` 指令判断当前值是否为负数，`JS` 会在符号位为 1 时跳转，因此它可以直接判断符号数是否为负。</span><br><span class="line">- 如果的用`CMP AL, 0` 判断方法对于 8 位符号数并不完全可靠，因为负数的值是小于 0 的（负数在 8 位二进制表示中是补码表示，负数的值会在 0x80 以上）。所以使用 `JS` 来检查符号位是更合适的做法。</span><br><span class="line"></span><br><span class="line">**`MOV NUM, DL`：**</span><br><span class="line"></span><br><span class="line">- `DI` 是一个 16 位寄存器，而 `NUM` 是一个 8 位字节，因此不能直接将 `DI` 存储到 `NUM`。我们需要用 `DI` 的低字节（即 `DL`）来存储负数计数。</span><br><span class="line"></span><br><span class="line">Eg7</span><br><span class="line"></span><br><span class="line">编程实现如下功能：</span><br><span class="line"></span><br><span class="line">统计字符串STRING的长度(字符的个数)，并通过系统功能调用将结果输出。</span><br><span class="line"></span><br><span class="line">数据段定义如下：</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>DATA   SEGMENT<br>    STRING DB  ‘AOPYSYSNN$’ ;（元素个数&lt;10）<br>DATA   ENDS<br>DATA SEGMENT<br>    STRING DB  ‘AOPYSYSNN$’<br>    LENGTH DB 0<br>DATA ENDS</p>
+<p>CODE SEGMENT<br>    CS:CODE,DS:DATA<br>START:<br>    MOV AX,DATA<br>    MOV DS,AX<br>    XOR DI,DI<br>    MOV SI, OFFSET STRING<br>AGAIN:<br>    CMP STRING[SI],’$’<br>    JE FINISH<br>    INC SI<br>    INC DI<br>    JMP AGAIN<br>FINISH:<br>    MOV LENGTH,DL<br>    ADD DL,’0’                  ; 将数字转换为 ASCII 字符<br>    MOV DL,DL                  ; 将字符存入 DL 寄存器（输出字符）<br>    MOV AH,2                    ; 系统调用：显示字符<br>    INT 21H                       ; 输出字符<br>CODE ENDS<br>START END</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">`MOV SI, OFFSET STRING` 将 `SI` 设置为 `STRING` 的起始地址。</span><br><span class="line"></span><br><span class="line">`ADD CL, &#x27;0&#x27;` 将 `CL` 中的数字转换为 ASCII 字符。</span><br><span class="line"></span><br><span class="line">`MOV DL, CL` 将字符放入 `DL` 寄存器。</span><br><span class="line"></span><br><span class="line">`MOV AH, 2` 和 `INT 21H` 用于输出字符。</span><br><span class="line"></span><br><span class="line">### Eg7综合题</span><br><span class="line"></span><br><span class="line">编程实现如下功能：ARRAY数组中有10个有符号字节数据，编写程序将ARRAY数据中的数据按正、负分别存入POSI和NEGA中，并统计最大值和最小值，以及正负数的个数，分别存在MAX、MIN、NUMPOSI和NUMNEGA中</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>DATA SEGMENT<br>	ARRAY DB 10H,-20H,23H,45H,-66H,77H,88H,99H,-32H,-12H<br>	POSI DB ?<br>	NEGA DB ?<br>	MAX DB ?<br>	MIN DB ?<br>	NUMPOSI DB ?<br>DATA ENDS</p>
+<pre><code>
+</code></pre>
+]]></content>
+      <tags>
+        <tag>笔记</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>集成版图实验课笔记</title>
+    <url>/2025/12/13/%E7%AC%94%E8%AE%B0%E9%9B%86%E6%88%90%E7%89%88%E5%9B%BE%E5%AE%9E%E9%AA%8C%E8%AF%BE/</url>
+    <content><![CDATA[<h4 id="Liunx系统命令行指令"><a href="#Liunx系统命令行指令" class="headerlink" title="Liunx系统命令行指令"></a>Liunx系统命令行指令</h4><table>
+<thead>
+<tr>
+<th>命令行指令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>pwd</code></td>
+<td>查看当前处于什么路径</td>
+</tr>
+<tr>
+<td><code>ls</code></td>
+<td>查看cp所在路径文件夹下文件</td>
+</tr>
+<tr>
+<td><code>cd [路径]</code></td>
+<td>进入你输入的路径</td>
+</tr>
+<tr>
+<td><code>cat</code></td>
+<td>读取文件内容</td>
+</tr>
+<tr>
+<td><code>cp [源文件/目录] [目标位置]</code></td>
+<td>复制文件到另一处</td>
+</tr>
+<tr>
+<td><code>mkdir [新目录名字]</code></td>
+<td>创建新目录</td>
+</tr>
+</tbody></table>
+<p>注意表中的<code>[ ]</code>中在输入命令的时候不加<code>[ ]</code>直接加路径</p>
+<h4 id="文件解释"><a href="#文件解释" class="headerlink" title="文件解释"></a>文件解释</h4><p><img src="/../pics/image-20240911203018723.png" alt="输入cat cds.lib后输出的该文件的内容"></p>
+<p>文件cds.lib其实类似于地图，指引软件找到运行在服务器上的运行所需要的文件，下面运行的Virtuoso软件也是依赖lib运行</p>
+<h4 id="打开Virtuoso软件"><a href="#打开Virtuoso软件" class="headerlink" title="打开Virtuoso软件"></a>打开Virtuoso软件</h4><p>输入<code>virtuoso &amp;</code>注意一定要小写，打开Virtuoso软件，点击最上一栏tools—Library Manager即可查看当前软件里的所有库</p>
+<p><img src="/./../pics/%E7%AC%94%E8%AE%B0%E9%9B%86%E6%88%90%E7%89%88%E5%9B%BE%E5%AE%9E%E9%AA%8C%E8%AF%BE/image-20240911204734844.png" alt="img"></p>
+<p>现在双击图最右侧的layout，即可查看Nmos版图</p>
+<h5 id="版图认知"><a href="#版图认知" class="headerlink" title="版图认知"></a>版图认知</h5><p><img src="/./../pics/%E7%AC%94%E8%AE%B0%E9%9B%86%E6%88%90%E7%89%88%E5%9B%BE%E5%AE%9E%E9%AA%8C%E8%AF%BE/image-20240911205027202.png" alt="img"></p>
+<p>图中</p>
+<ul>
+<li>SN N型参杂区</li>
+<li>PN P型参杂区</li>
+</ul>
+<p>右边两个蓝色正方形中间的即是Nmos版</p>
+<p><img src="/../pics/image-20240911205643948.png" alt="img"></p>
+<p>最绿色正方形为P参杂的与地相接</p>
+<ul>
+<li>左边第一个红色S极</li>
+<li>第二个蓝色长方形是G端</li>
+<li>第三个是D端</li>
+</ul>
+<p>所有Mos都做在P-sub上面，Nmos做在N陷里</p>
+<h5 id="Virtuoso软件快捷键"><a href="#Virtuoso软件快捷键" class="headerlink" title="Virtuoso软件快捷键"></a>Virtuoso软件快捷键</h5><table>
+<thead>
+<tr>
+<th>快捷键</th>
+<th>作用</th>
+<th>快捷键</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>I</td>
+<td>打开添加一个元器件界面，之后点击版图可以添加你选择元器件</td>
+<td>C</td>
+<td>复制图形，再按F3可以选择复制的方式</td>
+</tr>
+<tr>
+<td>P</td>
+<td>打开添加一个电源，地界面，之后点击版图可以添加你选择源地</td>
+<td>L</td>
+<td>命名</td>
+</tr>
+<tr>
+<td>F</td>
+<td>将元器件整体在版图视角居中</td>
+<td>Pmos</td>
+<td>W为440nm</td>
+</tr>
+<tr>
+<td>W</td>
+<td>开启布线模式</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>R</td>
+<td>用于画各种版图</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Q</td>
+<td>显示并可以修改图形的四边坐标</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>O</td>
+<td>打孔</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>A</td>
+<td>将图形的边和边对齐</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>M</td>
+<td>移动图形，再按F3可精确控制移动距离</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>一个结点最多链接三根线</p>
+<p><img src="/../pics/image-20240911213552308.png" alt="img"></p>
+<p>一切结束后点击左边第三个Check and Save保存设计的版图</p>
+<h4 id="PMOS版图"><a href="#PMOS版图" class="headerlink" title="PMOS版图"></a>PMOS版图</h4><p>在绘制版图的时候应从内向外绘制，并遵守DRC规则；在以后绘制反相器时，PMOS应靠近VDD，NMOS靠近GND</p>
+<p><img src="/../pics/image-20240918192153785.png" alt="img"></p>
+<p><img src="/../pics/image-20240918193240938.png" alt="img"></p>
+<h5 id="Virtuous软件版图对应"><a href="#Virtuous软件版图对应" class="headerlink" title="Virtuous软件版图对应"></a>Virtuous软件版图对应</h5><table>
+<thead>
+<tr>
+<th>版图区域</th>
+<th>对应软件层名称</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>有源区</td>
+<td>AA</td>
+</tr>
+<tr>
+<td>栅电极</td>
+<td>GP</td>
+</tr>
+<tr>
+<td>P注入</td>
+<td>SP</td>
+</tr>
+<tr>
+<td>N注入</td>
+<td>SN</td>
+</tr>
+<tr>
+<td>N阱</td>
+<td>NW</td>
+</tr>
+<tr>
+<td>接触孔</td>
+<td>CT</td>
+</tr>
+<tr>
+<td>金属</td>
+<td>M1</td>
+</tr>
+</tbody></table>
+<h5 id="DRC规则英文单词解释"><a href="#DRC规则英文单词解释" class="headerlink" title="DRC规则英文单词解释"></a>DRC规则英文单词解释</h5><p>在DRC文件中语法会加上以下单词告知某些部件的尺寸</p>
+<p><img src="/../pics/image-20240918194258076.png" alt="img"></p>
+<p><img src="/../pics/image-20240918194310401.png" alt="img"></p>
+<h5 id="现在就可以开始绘制一个PMOS"><a href="#现在就可以开始绘制一个PMOS" class="headerlink" title="现在就可以开始绘制一个PMOS"></a>现在就可以开始绘制一个PMOS</h5><p><strong>1.绘制有源区：<strong>在左边Layers栏选择AA，按R在图中随便绘制一个正方形，再选择绘制的红色正方形按Q即可修改它的属性，在这里</strong>Bottom和Top分别是正负0.22</strong>，Right和Left暂时不管</p>
+<p><strong>2.绘制栅极：<strong>再在Layers选择GP，按照步骤1中</strong>修改Right和Left分别为正负0.18</strong>，长暂时不管</p>
+<p>**3.修改有源区宽度：**符合RAC中AA只能延申出GP0.32，故AA的Right和Left应该为0.32</p>
+<p><img src="/../pics/image-20240918202921856.png" alt="img"></p>
+<p><strong>4.绘制接触控：孔的最小尺寸是0.22，两个孔的相邻最小间距为0.25，但若孔的个数大于3个时，最小间距为0.28</strong>，按O在Via Definition中选择M1_AA，选择两行一列如下图</p>
+<p><img src="/../pics/image-20240918203857916.png" alt="img"></p>
+<p>在版图中在点击即可画出M1_AA的矩形，选择这矩形按Shift+F即可显示内部实际版图，再按M即可移动，按A可以对齐边，将两个孔对齐</p>
+<p>**5.绘制P注入区：**只需要覆盖有源区，注意与有源区的所有边界都为0.18，按Q调整将AA的边界加上0.18，Right和Left为0.75，Bottom和Top为0.625</p>
+<p><img src="/../pics/image-20240918212155108.png" alt="image-20240918212155108"></p>
+<p>再绘制中间的参杂区Right和Left为0.41，Bottom和Top为0.695</p>
+<p><img src="/../pics/image-20240918212520595.png" alt="img"></p>
+<p>**6.绘制衬底：**按O修改参数为一行三列，同过M先把它置于X轴和Y轴对称来方便测量长度，注意AA边界与SN的边界仍然为0.18，再者通过M+F3让上面蓝色SN和下面SP间隔为0.08</p>
+<p><img src="/../pics/image-20240918213912283.png" alt="img"></p>
+<p>**7.绘制N阱：**上面边界与蓝色SN平齐，下左右边界间隔都是0.25</p>
+<h3 id="把PMOS变为NMOS"><a href="#把PMOS变为NMOS" class="headerlink" title="把PMOS变为NMOS"></a>把PMOS变为NMOS</h3><p>**1.复制：**用C+F3复制在弹出的界面中选择下图的Upside dowm</p>
+<p><img src="/../pics/image-20240925190924481.png" alt="img"></p>
+<p>再把最外面的N+注入选中后删除，得到一个上下对称的</p>
+<p><img src="/../pics/image-20240925191126407.png" alt="img"></p>
+<p>2.替换：选择上图下面NMOS的中黄色SP区域，按Q再弹出的界面中将SP drawing换成SN，同理SN区域换成SP</p>
+<p><img src="/../pics/image-20240925191805374.png" alt="img"></p>
+<p>3.修改宽长比：将复制过来的原本PMOS的宽长比修改成NMOS的如下图修改Bottom和Top</p>
+<p><img src="/../pics/image-20240925192508724.png" alt="img"></p>
+<p>4.链接成反相器：先将鼠标移动最小距离修改成0.01，点击软件上方栏的Options-Display将下图红色框中修改为0.01</p>
+<p><img src="/../pics/image-20240925192905587.png" alt="img"></p>
+<p>现在就可以开始链接金属线0</p>
+<ul>
+<li><p>按P将栅极和栅极链接再一起</p>
+</li>
+<li><p>按P后F3将线宽修改成034，将PMOS右边的下面的金属孔和NOS右边上面的金属孔链接在一起</p>
+</li>
+<li><p>画出一段金属线作为GND</p>
+</li>
+<li><p>将PMOS左边上面的孔链接到上面三个孔的最左边，中间孔链接倒上面的GND</p>
+</li>
+<li><p>按O打一个新通孔，选择M1_GP，如图放置并连线</p>
+<p><img src="/../pics/image-20240925194939688.png" alt="img"></p>
+</li>
+<li><p>按L将Patten改为VDD，Height改为0.3，图层改成M1，放置并关联后按Q修改名字，如图关联四个</p>
+<p><img src="/../pics/image-20240925195701422.png" alt="img"></p>
+</li>
+</ul>
+<p>画与或器</p>
+<ul>
+<li><p>将原先的PMOS layout复制一份倒Nand</p>
+</li>
+<li><p>然后按C选中原先PMOS的右半部分，复制后按A对齐得到</p>
+</li>
+<li><p>修改P区宽度，Right变为2倍<img src="/../pics/image-20240925205306162.png" alt="img"></p>
+<p><img src="/../pics/image-20240925212148980.png" alt="img"></p>
+</li>
+<li><p>打孔，按O修改成1行5列将新的替换旧的3列并想办法对齐，注意一定要把M1_AA改成M1_SN</p>
+</li>
+<li><p>复制镜像对称，参考上面几步</p>
+</li>
+<li><p>重复上面最后几步</p>
+</li>
+<li><p><img src="/../pics/image-20240925213735755.png" alt="image-20240925213735755"></p>
+</li>
+</ul>
+<h3 id="如何把丢失的库找回来"><a href="#如何把丢失的库找回来" class="headerlink" title="如何把丢失的库找回来"></a>如何把丢失的库找回来</h3><p>**1.创建一个新的库：**在软件的左上角File-New-Library，创建任意一个名字的新库如hxy11</p>
+<p><img src="/../pics/image-20240923223922201.png" alt="img"></p>
+<p>**2.将新创建的库链接到丢失的库：**在软件左上角点击Edit-Library Path</p>
+<p><img src="/../pics/image-20240923224137639.png" alt="img"></p>
+<p>在第一步骤中我们创建的新库名字是hxy11，要把新创建的库链接到丢失的库，要修改下图中红色框中是库指向的路径</p>
+<p><img src="/../pics/image-20240923224414347.png" alt="img"></p>
+<p>将新创建的库原来的路径<code>/home/student20/huxinyinglayout/hxy11</code>中的<code>hxy11</code>改为我们要链接的库<code>huxinying0923</code>即<code>/home/student20/huxinyinglayout/huxinying0923</code> 在点击软件左上角的File-Save即可退出，此时我们就找回了我们的旧库</p>
+<p><img src="/../pics/image-20240923224853471.png" alt="img"></p>
+<h3 id="检测版图是否符合RAC规则"><a href="#检测版图是否符合RAC规则" class="headerlink" title="检测版图是否符合RAC规则"></a>检测版图是否符合RAC规则</h3><p>1.在软件工具栏选择Calibre-nmRAC，先取消弹出来的对话框</p>
+<p>2.载入Rules文件：先复制DRC文件到自己的文件夹<code>cp /home/gz/smic.drc /home/student30/jyhlayout</code>复制完成后点击下图的三个<code>...</code>选择刚才复制过来的DRC文件</p>
+<p><img src="/../pics/image-20241009191749578.png" alt="img"></p>
+<p>在DRC检测完成后会生成一系列文件，我们要新建一个文件夹存储它们，回到命令行中输入<code>mkdir RAC1</code>新建一个文件夹，回来选中它</p>
+<p><img src="/../pics/image-20241009192330131.png" alt="img"></p>
+<p>3.找到并更改错误：点击DRC RUN之后在弹出的界面中将all show改成unsolve show，任意选中左边下图的错误，再选中右边的数字，点击软件栏上的小太阳图标便可以表示版图中错误部分</p>
+<p><img src="/../pics/image-20241009194430954.png" alt="img"></p>
+<p>4.修改GP_5中Minimum space between field interconnect poly and AA 0.10</p>
+<p><img src="/../pics/image-20241009195605587.png" alt="img"></p>
+<p>发现只有0.06而最小需要0.10</p>
+<p>1复制.cp &#x2F;home&#x2F;gz&#x2F;smic.lvs &#x2F;home&#x2F;student30&#x2F;jyhlayout之后与上面一切一样</p>
+<p>layout和netlist中的要勾上</p>
+<p><img src="/../pics/image-20241009210320021.png" alt="img"></p>
+<h3 id="根据原理图生成版图"><a href="#根据原理图生成版图" class="headerlink" title="根据原理图生成版图"></a>根据原理图生成版图</h3><p>**1.生成版图：**打开原理图addfull点击左上角<code>Launch-Layout XL</code>，弹出的界面一路选择两个ok</p>
+<p><img src="/../pics/image-20241023193617352.png" alt="img"></p>
+<p>**2.生成MOS结构：**在生成的版图界面的最左下角红框部分</p>
+<p><img src="/../pics/image-20241023193410165.png" alt="img"></p>
+<p>在弹出的界面中如图勾选选项后点击ok，后可以看到生成许多MOS</p>
+<p><img src="/../pics/image-20241023193600870.png" alt="img"></p>
+<h3 id="大作业二级运算器（模拟电路）"><a href="#大作业二级运算器（模拟电路）" class="headerlink" title="大作业二级运算器（模拟电路）"></a>大作业二级运算器（模拟电路）</h3><p>Q1和Q2管子匹配度要求最高，在版图设计中要交错放置，Q4Q5则无要求，Q7可以随意放置，电容不画</p>
+<p><img src="/../pics/image-20241030191829650.png" alt="img"></p>
+<p>最上面的Q8Q3Q6</p>
+<p><img src="/../pics/image-20241030193059278.png" alt="img"></p>
+<p>中间要线交叉的十字要跳线</p>
+<p><img src="/../pics/image-20241030192819339.png" alt="img"></p>
+<p>Q4Q5</p>
+<p><img src="/../pics/image-20241030193132296.png" alt="img"></p>
+<p><img src="/../pics/image-20241030193209506.png" alt="img"></p>
+<p>按P调用一个PMOS，如图设置参数</p>
+<p><img src="/../pics/image-20241030194104799.png" alt="img"></p>
+<p>Gate Connection 将栅极链接在一起</p>
+<p>S&#x2F;D Connection 将源极或者漏极链接在一起</p>
+<p>Bodytie Type 打衬底极</p>
+<p><img src="/../pics/image-20241030195343034.png" alt="img"></p>
+<p>电阻按I选择则Rm1用m1做电阻</p>
+<p><img src="/../pics/image-20241030194736385.png" alt="image-20241030194736385"></p>
+<p>Segments选择电阻金属的条数</p>
+<p>1.Rndif用Nmos做电阻</p>
+<p>改变Segment Length和Segment的值可以改变电阻的值，要合理的选择它们的值以求让它们尽量符合整体电路图</p>
+<p><img src="/../pics/image-20241030195136892.png" alt="img"> </p>
+]]></content>
+      <tags>
+        <tag>笔记</tag>
+        <tag>CMOS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>&#39;tag&#39;</title>
+    <url>/tag/index.html</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
+    <title>友情链接</title>
+    <url>/frd/index.html</url>
+    <content><![CDATA[<p><a href="https://flwty.github.io/">Flwty</a></p>
+<img src="./../pics/index/avatar.png" height="33%;" />
+
+<p><em>人，不过是一点灵魂载负着一具尸体。</em></p>
+]]></content>
+  </entry>
+</search>
