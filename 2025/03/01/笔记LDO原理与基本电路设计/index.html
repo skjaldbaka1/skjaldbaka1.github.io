@@ -166,8 +166,8 @@
     </div>
 </div>
     <div class="post-content">
-    <p>LDO全称低压差线性稳压器</p>
-<p><img src="/./../pics/%7BF843C675-43C6-4834-AF07-3A71C0667D66%7D.png"></p>
+    <h1 id="LDO原理与基本电路设计"><a href="#LDO原理与基本电路设计" class="headerlink" title="LDO原理与基本电路设计"></a>LDO原理与基本电路设计</h1><p>LDO全称低压差线性稳压器</p>
+<p><img src="/./../pics/COMSLDO/%7BF843C675-43C6-4834-AF07-3A71C0667D66%7D.png" alt="{F843C675-43C6-4834-AF07-3A71C0667D66}"></p>
 <ul>
 <li>其通过使用在线性区域内运行的晶体管或者场效应管，通过调节晶体管或者场效应管两端的电压，产生经过调整的输出电压</li>
 <li>但其只能使用降压应用中，$V_{out}&lt;V_{in}$</li>
@@ -178,7 +178,7 @@
 <li>稳定电池电压：电池电压会随着电量而变化，LDO能将其输出的电压稳定在一个固定值上</li>
 <li>减小输出纹波：在DCDC模块后消除其输出电压的波动</li>
 </ul>
-<h2 id="1一个基本的LDO电路"><a href="#1一个基本的LDO电路" class="headerlink" title="1一个基本的LDO电路"></a>1一个基本的LDO电路</h2><p><img src="/./../pics/%7BAB8890F1-68FD-42FC-87BB-22302E13DADD%7D.png"></p>
+<h2 id="1一个基本的LDO电路"><a href="#1一个基本的LDO电路" class="headerlink" title="1一个基本的LDO电路"></a>1一个基本的LDO电路</h2><p><img src="/./../pics/COMSLDO/%7BAB8890F1-68FD-42FC-87BB-22302E13DADD%7D.png" alt="{AB8890F1-68FD-42FC-87BB-22302E13DADD}"></p>
 <h3 id="1-1电路组成和原理"><a href="#1-1电路组成和原理" class="headerlink" title="1.1电路组成和原理"></a>1.1电路组成和原理</h3><h4 id="1-1-1组成"><a href="#1-1-1组成" class="headerlink" title="1.1.1组成"></a>1.1.1组成</h4><ul>
 <li>分压取样电路</li>
 <li>基准电压：$V_{ref}$（带隙基准BGR产生的一个不受温度影响的零温度系数电压）</li>
@@ -188,7 +188,71 @@
 <h4 id="1-1-2负反馈调节稳压的原理"><a href="#1-1-2负反馈调节稳压的原理" class="headerlink" title="1.1.2负反馈调节稳压的原理"></a>1.1.2负反馈调节稳压的原理</h4><p>由运算放大器的虚短虚断将$V_{ref}$从‘+’端引到‘-’端：<br>$$<br>V_{ref}&#x3D;V_-&#x3D;V_+<br>$$<br>根据电阻分压得：<br>$$<br>V_{out} \cdot \frac {R_1} {R_1+R_2}&#x3D;V_{ref}<br>$$<br>进一步的：<br>$$<br>V_{out} &#x3D;V_{ref}\cdot \frac  {R_1+R_2}{R_1}<br>$$<br>可以看到$V_{out}$实际上是由$V_{ref}$放大得来的，通过$R_1,R_2$和运放组成的负反馈分压结构将$V_{out}$稳定在与$V_{ref}$相关联的一个固定值，从而&#x3D;&#x3D;实现了当负载电压发生变化时通过反馈回路来控制晶体管两端电压，使输出保持恒定不变&#x3D;&#x3D;</p>
 <h5 id="1-输出电压增大时"><a href="#1-输出电压增大时" class="headerlink" title="1.输出电压增大时"></a>1.输出电压增大时</h5><p>当$V_{out}$增大时，$V_{FB}$相应增大，由放大器$U1$对误差放大，故$UG$增大；若此时$V_{in}$保持不变，对于晶体管两端<br>$$<br>|V_{gs}|\downarrow &#x3D;|V_{in}|-|UG|  \uparrow<br>$$<br>根据晶体管在饱和区有：<br>$$<br>I_D \downarrow &#x3D; \frac 12 \mu_n C_{ox}\frac WL(V_{gs} \downarrow-V_{thp})^2<br>$$<br>$I_D$减小，$R_3$上分得的电流减小，分得的电压也相应减小，故$V_{out}$减小，调整到原理稳定的状态</p>
 <h5 id="2-输出电压减小时"><a href="#2-输出电压减小时" class="headerlink" title="2.输出电压减小时"></a>2.输出电压减小时</h5><p>当$V_{out}$减小时，$V_{FB}$相应减小，由放大器$U1$会减小其的输出&#x3D;&#x3D;（总是倾向于使得正（+）负（-）输入端的电压相等，当$V_{FB}&lt;V_{ref}$时，运放就会减小输出）&#x3D;&#x3D;，故$UG$较小；若此时$V_{in}$保持不变，对于晶体管两端<br>$$<br>|V_{gs}|\uparrow &#x3D;|V_{in}|-|UG|  \downarrow<br>$$<br>根据晶体管在饱和区有：<br>$$<br>I_D \uparrow &#x3D; \frac 12 \mu_n C_{ox}\frac WL(V_{gs} \uparrow-V_{thp})^2<br>$$<br>$I_D$增大，$R_3$上分得的电流增加，分得的电压也相应增大，故$V_{out}$增大，调整到原理稳定的状态</p>
-<h2 id="2LDO设计的设计原理"><a href="#2LDO设计的设计原理" class="headerlink" title="2LDO设计的设计原理"></a>2LDO设计的设计原理</h2><p>一个LDO实际上是由运算放大器模块和带隙组成</p>
+<h2 id="2LDO的重要性能指标"><a href="#2LDO的重要性能指标" class="headerlink" title="2LDO的重要性能指标"></a>2LDO的重要性能指标</h2><h3 id="2-1压差-V-drop-out"><a href="#2-1压差-V-drop-out" class="headerlink" title="2.1压差$V_{drop-out}$"></a>2.1压差$V_{drop-out}$</h3><p><img src="/./../pics/COMSLDO/image-20250303083503844.png" alt="image-20250303083503844"></p>
+<p>如上图所示$V_{drop-out}$即压差，&#x3D;&#x3D;是指正常稳压所需的$V_{IN}-V_{OUT}$的最小差值&#x3D;&#x3D;</p>
+<table>
+<thead>
+<tr>
+<th>情况</th>
+<th>工作状态</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$V_{IN}-V_{OUT}&gt;V_{drop-out}$</td>
+<td>LDO电路正常工作</td>
+</tr>
+<tr>
+<td>$V_{IN}-V_{OUT}&lt;V_{drop-out}$</td>
+<td>由于功率管处于线性区，LDO对$V_{OUT}$失去调节作用，反馈环路不稳定</td>
+</tr>
+</tbody></table>
+<p>$V_{drop-out}$可以用以下公式表达：<br>$$<br>V_{drop-out}&#x3D; I_{POWER} \cdot r_{ds}<br>$$<br>其中：</p>
+<ul>
+<li>$I_{POWER}$是功率管上通过的电流</li>
+<li>$r_{ds}$是功率管的等效电阻</li>
+</ul>
+<p>还需要注意的是，$V_{drop-out}$还会受到$V_{IN}$，功率管种类尺寸，温度等因素影响，&#x3D;&#x3D;但通常来说更小压差代表LDO的效率更高&#x3D;&#x3D;；故一般来说，要把一个$9V$的电压转化为$3.3V$，我们通常取一个中间电压来提升LDO电路的效率</p>
+<h3 id="2-1静态电流-I-Q"><a href="#2-1静态电流-I-Q" class="headerlink" title="2.1静态电流$I_Q$"></a>2.1静态电流$I_Q$</h3><p>是指LDO工作在稳态情况下，$I_Q$有：<br>$$<br>I_Q &#x3D; I_{IN} - I_{LOAD}<br>$$<br>其中：</p>
+<ul>
+<li>$I_{IN}$是由$V_{IN}$提供的LDO工作所需要的电流大小</li>
+<li>$I_{LOAD}$负载电流</li>
+</ul>
+<p>在习惯上，一般认为静态电流为LDO空载时消耗的电流，此时$I_{LOAD}&#x3D;0$，上面的公式可改写为：<br>$$<br>I_Q &#x3D; I_{IN}<br>$$<br>误差放大器是主要消耗静态电流的模块</p>
+<h3 id="2-2效率-eta"><a href="#2-2效率-eta" class="headerlink" title="2.2效率$\eta$"></a>2.2效率$\eta$</h3><p>是指LDO输出与输入功率之比，有：<br>$$<br>\eta &#x3D; \frac {I_{OUT}V_{OUT}}{(I_{OUT}+I_Q) \cdot V_{IN}}…式1<br>$$<br>$I_Q$越小$\eta$越高，当$I_Q$足够小时，即$I_{OUT}&gt;&gt;I_Q$，上式可改写为：<br>$$<br>\eta &#x3D; \frac {V_{OUT}}{V_{IN}}…式2<br>$$<br>观察上面的公式：</p>
+<table>
+<thead>
+<tr>
+<th>工作状态</th>
+<th>影响效率的主要因素</th>
+<th>为什么？</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>工作时</td>
+<td>$V_{drop-out}$</td>
+<td>由式1，$V_{drop-out}$越小，代表$V_{OUT},V_{IN}$的差值越小，$\eta$的分子分母的值将接近，故效率越高</td>
+</tr>
+<tr>
+<td>空载时</td>
+<td>$I_Q$</td>
+<td>由式2，$I_Q$越小$\eta$越高</td>
+</tr>
+</tbody></table>
+<h3 id="2-3负载调整率LDR"><a href="#2-3负载调整率LDR" class="headerlink" title="2.3负载调整率LDR"></a>2.3负载调整率LDR</h3><p>是输出电流变化时，输出电压维持在标称值上的能力衡量，代表了LDO电路的大信号调节能力，有：<br>$$<br>L D R&#x3D;\frac{\Delta V_{OUT }}{\Delta I_{OUT } V_{OUT }}<br>$$<br>我们一般使用的PMOS管LDO：<br>$$<br>\Delta I_{OUT }&#x3D;\Delta V_{OUT } \frac{R_{F 2}}{R_{F 1}+R_{F 2}} A_{v, EA} \cdot g_{mP}<br>$$<br>其中：</p>
+<ul>
+<li>$\Delta V_{OUT }$是输出电压变化量</li>
+<li>$\Delta I_{OUT }$指负载电流变化量</li>
+<li>$A_{v, EA}$指误差放大器的低频增益</li>
+<li>$g_{mP}$指PMOS功率管的跨导</li>
+</ul>
+<p>进一步的，两边同除$\Delta V_{OUT}$可得：<br>$$<br>\frac {\Delta I_{OUT }}{V_{OUT}}&#x3D; \frac{R_{F 2}}{R_{F 1}+R_{F 2}} A_{v, EA} \cdot g_{mP}<br>$$<br>由上述两式可以得到：<br>$$<br>L D R&#x3D;\frac{1}{V_{OUT }} \frac{1}{A_{v, EA} g_{mP}} \frac{R_1+R_2}{R_2} × 100<br>$$<br>由此可知，负载调整率可由提高LDO的误差放大器低频增益，增大功率管宽长比得到改善。</p>
+<h3 id="2-4线性调整率"><a href="#2-4线性调整率" class="headerlink" title="2.4线性调整率"></a>2.4线性调整率</h3><p>是当输入电压变化时，输出电压维持在标称值上的能力，也是代表了LDO电路的大信号调节能力，表示为：<br>$$<br>LNR&#x3D;\frac{\Delta V_{OUT }}{\Delta V_{IN} V_{OUT }}…式1<br>$$<br>当输入电压变化引起输出电压变化时，$\Delta V_{\mathbb{N}}$与$\Delta V_{OUT }$有如下关系：<br>$$<br>\frac{\Delta V_{OUT}}{\Delta V_{IN}}&#x3D;\frac{1}{A_{v, EA} \cdot g_{mP}\left(r_{ds}+R_{LOAD}\right)} \frac{R_{F 1}+R_{F 2}}{R_{F 2}}…式2<br>$$<br>其中：</p>
+<ul>
+<li>$\Delta V_{IN}$是输入电压变化量</li>
+<li>$R_{LOAD }$是负载电阻大小</li>
+</ul>
+<p>将式2代入式1，可以得到：<br>$$<br>LR&#x3D;\frac{1}{V_{OUT}} \frac{1}{A_{v, EA} g_{mP}\left(r_{ds}+R_{LOAD}\right)} \frac{R_{F 1}+R_{F 2}}{R_{F 2}} × 100 %<br>$$<br>观察上式线性调整率也可由提高LDO的误差放大器低频增益得到改善</p>
+<h2 id="3LDO设计的设计原理"><a href="#3LDO设计的设计原理" class="headerlink" title="3LDO设计的设计原理"></a>3LDO设计的设计原理</h2><p>一个LDO实际上是由运算放大器模块和带隙组成</p>
 <h3 id="1-2放大电路的设计原理"><a href="#1-2放大电路的设计原理" class="headerlink" title="1.2放大电路的设计原理"></a>1.2放大电路的设计原理</h3>
 </div> 
 

@@ -43,8 +43,8 @@
   <entry>
     <title>LDO原理与基本电路设计</title>
     <url>/2025/03/01/%E7%AC%94%E8%AE%B0LDO%E5%8E%9F%E7%90%86%E4%B8%8E%E5%9F%BA%E6%9C%AC%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1/</url>
-    <content><![CDATA[<p>LDO全称低压差线性稳压器</p>
-<p><img src="/./../pics/%7BF843C675-43C6-4834-AF07-3A71C0667D66%7D.png"></p>
+    <content><![CDATA[<h1 id="LDO原理与基本电路设计"><a href="#LDO原理与基本电路设计" class="headerlink" title="LDO原理与基本电路设计"></a>LDO原理与基本电路设计</h1><p>LDO全称低压差线性稳压器</p>
+<p><img src="/./../pics/COMSLDO/%7BF843C675-43C6-4834-AF07-3A71C0667D66%7D.png" alt="{F843C675-43C6-4834-AF07-3A71C0667D66}"></p>
 <ul>
 <li>其通过使用在线性区域内运行的晶体管或者场效应管，通过调节晶体管或者场效应管两端的电压，产生经过调整的输出电压</li>
 <li>但其只能使用降压应用中，$V_{out}&lt;V_{in}$</li>
@@ -55,7 +55,7 @@
 <li>稳定电池电压：电池电压会随着电量而变化，LDO能将其输出的电压稳定在一个固定值上</li>
 <li>减小输出纹波：在DCDC模块后消除其输出电压的波动</li>
 </ul>
-<h2 id="1一个基本的LDO电路"><a href="#1一个基本的LDO电路" class="headerlink" title="1一个基本的LDO电路"></a>1一个基本的LDO电路</h2><p><img src="/./../pics/%7BAB8890F1-68FD-42FC-87BB-22302E13DADD%7D.png"></p>
+<h2 id="1一个基本的LDO电路"><a href="#1一个基本的LDO电路" class="headerlink" title="1一个基本的LDO电路"></a>1一个基本的LDO电路</h2><p><img src="/./../pics/COMSLDO/%7BAB8890F1-68FD-42FC-87BB-22302E13DADD%7D.png" alt="{AB8890F1-68FD-42FC-87BB-22302E13DADD}"></p>
 <h3 id="1-1电路组成和原理"><a href="#1-1电路组成和原理" class="headerlink" title="1.1电路组成和原理"></a>1.1电路组成和原理</h3><h4 id="1-1-1组成"><a href="#1-1-1组成" class="headerlink" title="1.1.1组成"></a>1.1.1组成</h4><ul>
 <li>分压取样电路</li>
 <li>基准电压：$V_{ref}$（带隙基准BGR产生的一个不受温度影响的零温度系数电压）</li>
@@ -65,7 +65,71 @@
 <h4 id="1-1-2负反馈调节稳压的原理"><a href="#1-1-2负反馈调节稳压的原理" class="headerlink" title="1.1.2负反馈调节稳压的原理"></a>1.1.2负反馈调节稳压的原理</h4><p>由运算放大器的虚短虚断将$V_{ref}$从‘+’端引到‘-’端：<br>$$<br>V_{ref}&#x3D;V_-&#x3D;V_+<br>$$<br>根据电阻分压得：<br>$$<br>V_{out} \cdot \frac {R_1} {R_1+R_2}&#x3D;V_{ref}<br>$$<br>进一步的：<br>$$<br>V_{out} &#x3D;V_{ref}\cdot \frac  {R_1+R_2}{R_1}<br>$$<br>可以看到$V_{out}$实际上是由$V_{ref}$放大得来的，通过$R_1,R_2$和运放组成的负反馈分压结构将$V_{out}$稳定在与$V_{ref}$相关联的一个固定值，从而&#x3D;&#x3D;实现了当负载电压发生变化时通过反馈回路来控制晶体管两端电压，使输出保持恒定不变&#x3D;&#x3D;</p>
 <h5 id="1-输出电压增大时"><a href="#1-输出电压增大时" class="headerlink" title="1.输出电压增大时"></a>1.输出电压增大时</h5><p>当$V_{out}$增大时，$V_{FB}$相应增大，由放大器$U1$对误差放大，故$UG$增大；若此时$V_{in}$保持不变，对于晶体管两端<br>$$<br>|V_{gs}|\downarrow &#x3D;|V_{in}|-|UG|  \uparrow<br>$$<br>根据晶体管在饱和区有：<br>$$<br>I_D \downarrow &#x3D; \frac 12 \mu_n C_{ox}\frac WL(V_{gs} \downarrow-V_{thp})^2<br>$$<br>$I_D$减小，$R_3$上分得的电流减小，分得的电压也相应减小，故$V_{out}$减小，调整到原理稳定的状态</p>
 <h5 id="2-输出电压减小时"><a href="#2-输出电压减小时" class="headerlink" title="2.输出电压减小时"></a>2.输出电压减小时</h5><p>当$V_{out}$减小时，$V_{FB}$相应减小，由放大器$U1$会减小其的输出&#x3D;&#x3D;（总是倾向于使得正（+）负（-）输入端的电压相等，当$V_{FB}&lt;V_{ref}$时，运放就会减小输出）&#x3D;&#x3D;，故$UG$较小；若此时$V_{in}$保持不变，对于晶体管两端<br>$$<br>|V_{gs}|\uparrow &#x3D;|V_{in}|-|UG|  \downarrow<br>$$<br>根据晶体管在饱和区有：<br>$$<br>I_D \uparrow &#x3D; \frac 12 \mu_n C_{ox}\frac WL(V_{gs} \uparrow-V_{thp})^2<br>$$<br>$I_D$增大，$R_3$上分得的电流增加，分得的电压也相应增大，故$V_{out}$增大，调整到原理稳定的状态</p>
-<h2 id="2LDO设计的设计原理"><a href="#2LDO设计的设计原理" class="headerlink" title="2LDO设计的设计原理"></a>2LDO设计的设计原理</h2><p>一个LDO实际上是由运算放大器模块和带隙组成</p>
+<h2 id="2LDO的重要性能指标"><a href="#2LDO的重要性能指标" class="headerlink" title="2LDO的重要性能指标"></a>2LDO的重要性能指标</h2><h3 id="2-1压差-V-drop-out"><a href="#2-1压差-V-drop-out" class="headerlink" title="2.1压差$V_{drop-out}$"></a>2.1压差$V_{drop-out}$</h3><p><img src="/./../pics/COMSLDO/image-20250303083503844.png" alt="image-20250303083503844"></p>
+<p>如上图所示$V_{drop-out}$即压差，&#x3D;&#x3D;是指正常稳压所需的$V_{IN}-V_{OUT}$的最小差值&#x3D;&#x3D;</p>
+<table>
+<thead>
+<tr>
+<th>情况</th>
+<th>工作状态</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$V_{IN}-V_{OUT}&gt;V_{drop-out}$</td>
+<td>LDO电路正常工作</td>
+</tr>
+<tr>
+<td>$V_{IN}-V_{OUT}&lt;V_{drop-out}$</td>
+<td>由于功率管处于线性区，LDO对$V_{OUT}$失去调节作用，反馈环路不稳定</td>
+</tr>
+</tbody></table>
+<p>$V_{drop-out}$可以用以下公式表达：<br>$$<br>V_{drop-out}&#x3D; I_{POWER} \cdot r_{ds}<br>$$<br>其中：</p>
+<ul>
+<li>$I_{POWER}$是功率管上通过的电流</li>
+<li>$r_{ds}$是功率管的等效电阻</li>
+</ul>
+<p>还需要注意的是，$V_{drop-out}$还会受到$V_{IN}$，功率管种类尺寸，温度等因素影响，&#x3D;&#x3D;但通常来说更小压差代表LDO的效率更高&#x3D;&#x3D;；故一般来说，要把一个$9V$的电压转化为$3.3V$，我们通常取一个中间电压来提升LDO电路的效率</p>
+<h3 id="2-1静态电流-I-Q"><a href="#2-1静态电流-I-Q" class="headerlink" title="2.1静态电流$I_Q$"></a>2.1静态电流$I_Q$</h3><p>是指LDO工作在稳态情况下，$I_Q$有：<br>$$<br>I_Q &#x3D; I_{IN} - I_{LOAD}<br>$$<br>其中：</p>
+<ul>
+<li>$I_{IN}$是由$V_{IN}$提供的LDO工作所需要的电流大小</li>
+<li>$I_{LOAD}$负载电流</li>
+</ul>
+<p>在习惯上，一般认为静态电流为LDO空载时消耗的电流，此时$I_{LOAD}&#x3D;0$，上面的公式可改写为：<br>$$<br>I_Q &#x3D; I_{IN}<br>$$<br>误差放大器是主要消耗静态电流的模块</p>
+<h3 id="2-2效率-eta"><a href="#2-2效率-eta" class="headerlink" title="2.2效率$\eta$"></a>2.2效率$\eta$</h3><p>是指LDO输出与输入功率之比，有：<br>$$<br>\eta &#x3D; \frac {I_{OUT}V_{OUT}}{(I_{OUT}+I_Q) \cdot V_{IN}}…式1<br>$$<br>$I_Q$越小$\eta$越高，当$I_Q$足够小时，即$I_{OUT}&gt;&gt;I_Q$，上式可改写为：<br>$$<br>\eta &#x3D; \frac {V_{OUT}}{V_{IN}}…式2<br>$$<br>观察上面的公式：</p>
+<table>
+<thead>
+<tr>
+<th>工作状态</th>
+<th>影响效率的主要因素</th>
+<th>为什么？</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>工作时</td>
+<td>$V_{drop-out}$</td>
+<td>由式1，$V_{drop-out}$越小，代表$V_{OUT},V_{IN}$的差值越小，$\eta$的分子分母的值将接近，故效率越高</td>
+</tr>
+<tr>
+<td>空载时</td>
+<td>$I_Q$</td>
+<td>由式2，$I_Q$越小$\eta$越高</td>
+</tr>
+</tbody></table>
+<h3 id="2-3负载调整率LDR"><a href="#2-3负载调整率LDR" class="headerlink" title="2.3负载调整率LDR"></a>2.3负载调整率LDR</h3><p>是输出电流变化时，输出电压维持在标称值上的能力衡量，代表了LDO电路的大信号调节能力，有：<br>$$<br>L D R&#x3D;\frac{\Delta V_{OUT }}{\Delta I_{OUT } V_{OUT }}<br>$$<br>我们一般使用的PMOS管LDO：<br>$$<br>\Delta I_{OUT }&#x3D;\Delta V_{OUT } \frac{R_{F 2}}{R_{F 1}+R_{F 2}} A_{v, EA} \cdot g_{mP}<br>$$<br>其中：</p>
+<ul>
+<li>$\Delta V_{OUT }$是输出电压变化量</li>
+<li>$\Delta I_{OUT }$指负载电流变化量</li>
+<li>$A_{v, EA}$指误差放大器的低频增益</li>
+<li>$g_{mP}$指PMOS功率管的跨导</li>
+</ul>
+<p>进一步的，两边同除$\Delta V_{OUT}$可得：<br>$$<br>\frac {\Delta I_{OUT }}{V_{OUT}}&#x3D; \frac{R_{F 2}}{R_{F 1}+R_{F 2}} A_{v, EA} \cdot g_{mP}<br>$$<br>由上述两式可以得到：<br>$$<br>L D R&#x3D;\frac{1}{V_{OUT }} \frac{1}{A_{v, EA} g_{mP}} \frac{R_1+R_2}{R_2} × 100<br>$$<br>由此可知，负载调整率可由提高LDO的误差放大器低频增益，增大功率管宽长比得到改善。</p>
+<h3 id="2-4线性调整率"><a href="#2-4线性调整率" class="headerlink" title="2.4线性调整率"></a>2.4线性调整率</h3><p>是当输入电压变化时，输出电压维持在标称值上的能力，也是代表了LDO电路的大信号调节能力，表示为：<br>$$<br>LNR&#x3D;\frac{\Delta V_{OUT }}{\Delta V_{IN} V_{OUT }}…式1<br>$$<br>当输入电压变化引起输出电压变化时，$\Delta V_{\mathbb{N}}$与$\Delta V_{OUT }$有如下关系：<br>$$<br>\frac{\Delta V_{OUT}}{\Delta V_{IN}}&#x3D;\frac{1}{A_{v, EA} \cdot g_{mP}\left(r_{ds}+R_{LOAD}\right)} \frac{R_{F 1}+R_{F 2}}{R_{F 2}}…式2<br>$$<br>其中：</p>
+<ul>
+<li>$\Delta V_{IN}$是输入电压变化量</li>
+<li>$R_{LOAD }$是负载电阻大小</li>
+</ul>
+<p>将式2代入式1，可以得到：<br>$$<br>LR&#x3D;\frac{1}{V_{OUT}} \frac{1}{A_{v, EA} g_{mP}\left(r_{ds}+R_{LOAD}\right)} \frac{R_{F 1}+R_{F 2}}{R_{F 2}} × 100 %<br>$$<br>观察上式线性调整率也可由提高LDO的误差放大器低频增益得到改善</p>
+<h2 id="3LDO设计的设计原理"><a href="#3LDO设计的设计原理" class="headerlink" title="3LDO设计的设计原理"></a>3LDO设计的设计原理</h2><p>一个LDO实际上是由运算放大器模块和带隙组成</p>
 <h3 id="1-2放大电路的设计原理"><a href="#1-2放大电路的设计原理" class="headerlink" title="1.2放大电路的设计原理"></a>1.2放大电路的设计原理</h3>]]></content>
       <tags>
         <tag>笔记</tag>
@@ -489,110 +553,6 @@
       </tags>
   </entry>
   <entry>
-    <title>半导体物理笔记第零章</title>
-    <url>/2024/12/11/%E7%AC%94%E8%AE%B0%E5%8D%8A%E7%89%A90%E5%9B%BA%E4%BD%93%E7%89%A9%E7%90%86%E5%AF%BC%E5%85%A5/</url>
-    <content><![CDATA[<h2 id="固体物理导入"><a href="#固体物理导入" class="headerlink" title="固体物理导入"></a>固体物理导入</h2><h3 id="1-1单-多晶体，非-准晶体的特征"><a href="#1-1单-多晶体，非-准晶体的特征" class="headerlink" title="1.1单&#x2F;多晶体，非&#x2F;准晶体的特征"></a>1.1单&#x2F;多晶体，非&#x2F;准晶体的特征</h3><table>
-<thead>
-<tr>
-<th>固体</th>
-<th>单晶体</th>
-<th>多晶体</th>
-<th>非晶体</th>
-<th>准晶体</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><strong>排列</strong></td>
-<td>长程有序</td>
-<td>每个晶粒长程有序</td>
-<td>短程有序</td>
-<td>长程有序</td>
-</tr>
-<tr>
-<td><strong>熔点</strong></td>
-<td>有</td>
-<td>有</td>
-<td>没有</td>
-<td>有</td>
-</tr>
-<tr>
-<td><strong>外形</strong></td>
-<td>规则</td>
-<td>不规则</td>
-<td>不规则</td>
-<td>规则</td>
-</tr>
-<tr>
-<td><strong>方向性</strong></td>
-<td>各向异性</td>
-<td>各向同性</td>
-<td>各向同性</td>
-<td>各向异性</td>
-</tr>
-</tbody></table>
-<p>注意<strong>单晶体</strong>有旋转和对称性，而<strong>准晶体</strong>只有旋转对称性</p>
-<h3 id="1-2晶体结构"><a href="#1-2晶体结构" class="headerlink" title="1.2晶体结构"></a>1.2晶体结构</h3><p>$$<br>点阵+基元&#x3D;晶体结构<br>$$</p>
-<img src="./../Semiconductorphysicalimage/image-20240914145848490.png" style="zoom: 33%;" />
-
-<p>点阵也称晶格：晶体结构可以由点阵来描述，在点阵的每一个点上有一群原子</p>
-<p>基元：上面的一群原子成为基元，基元在空间上重复就构成晶体结构，每个基元的组成，位形和去向全是同向的</p>
-<p>简单格子：基元只含有一个原子的晶格，也称布拉菲格子</p>
-<h3 id="1-2初基平移矢量"><a href="#1-2初基平移矢量" class="headerlink" title="1.2初基平移矢量"></a>1.2初基平移矢量</h3><p>$$<br>\begin{align}<br>\vec{r’}&#x3D;\vec{a}+u\vec{a}+v\vec{b}+w\vec{c} \<br>u,v,w是整数<br>\end{align}<br>$$<br>取初基平移矢量一般去abc三个矢量围成最小面积或者体积，即其构成了体积最小的<strong>原胞</strong></p>
-<p>原胞：以一个格点为原点，以三个基矢构成的平行六面体为重复单元，这样的单元可以堆积起来构建整个晶体。其中<strong>体积最小的周期性平行六面体称为原胞</strong>（在下面选取的边和图形内没有格点就是原胞）</p>
-<img src="./../Semiconductorphysicalimage/image-20240914145923020.png" style="zoom: 33%;" />
-
-<h3 id="1-3点阵初基晶胞"><a href="#1-3点阵初基晶胞" class="headerlink" title="1.3点阵初基晶胞"></a>1.3点阵初基晶胞</h3><p>结晶学原胞（晶胞）：在选取基矢时，不仅考虑晶体的周期性，还考虑晶体对称性的<strong>重复性单元</strong>（不一定是体积最小的周期性可重复单元，在图形的边和内部有格点如上图的B4）<br>初基晶胞：初基轴abc（类似于坐标系的xyz）确定的平行六面体成为一个初基晶胞，是体积最小的晶胞，只含有一个阵点（平行六面体的八个顶点只有1&#x2F;8共享）<br>abc所确定的平行六面体体积为</p>
-<img src="./../Semiconductorphysicalimage/image-20240914150018813.png" style="zoom: 33%;" />
-$$
-V_c=\vec{a}×\vec{b}·\vec{c}
-$$
-维格纳-赛茨初基晶胞：将某个阵点同与它相连的阵点链接起来，再在连线的中点处作垂线和垂面，构成的最小体积就是维格纳-赛茨初基晶胞
-
-<img src="./../Semiconductorphysicalimage/image-20240914150058269.png" style="zoom: 33%;" />
-
-<h3 id="1-4点阵的基本类型"><a href="#1-4点阵的基本类型" class="headerlink" title="1.4点阵的基本类型"></a>1.4点阵的基本类型</h3><p>总共14种，仍一点阵都是等价的，初基晶胞只含一个原子，它们都是惯用晶胞但不一定是初基晶胞</p>
-<img src="./../Semiconductorphysicalimage/image-20240914150122740.png" style="zoom: 50%;" />
-
-<p>简单立方晶胞：内部和边上没有任何格点，它其实是原胞也是晶胞</p>
-<p>体心立方晶胞：在简单立方晶胞体中心加上一个格点</p>
-<p>面心立法晶胞：在体心立方晶胞面中心加上一个格点</p>
-<h3 id="1-5晶面指数系统"><a href="#1-5晶面指数系统" class="headerlink" title="1.5晶面指数系统"></a>1.5晶面指数系统</h3><p>晶列：点阵中所有阵点全部位于一系列互相平行的直线上，这些直线系成为晶列</p>
-<img src="./../Semiconductorphysicalimage/image-20240914150224704.png" style="zoom:50%;" />
-
-<p>晶向：晶列的方向，在实际中方向是从某一阵点沿着某一晶列移动到另一阵点的方向</p>
-<img src="./../Semiconductorphysicalimage/image-20240914150257238.png" style="zoom:50%;" />
-$$
-r=l_1a+l_2b+l_3c \\ l_1:l_2:l_3=m:n:p
-$$
-晶向指数：将上面的mnp写成[mnp]且mnp要互为质数
-
-<ul>
-<li><p>同类晶向：在坐标轴中等价的晶向，用<mnp>表示<br>如</p>
-</li>
-<li><p>&lt;100&gt;表示了立方体中不是对角线的晶向，因为坐标轴abc是人为规定的，虽然有些晶向在同一坐标系中看起来不同，但若调换abc，这些不同的晶向可以变为等价的</p>
-</li>
-<li><p>&lt;111&gt;表示对角线8个晶向</p>
-</li>
-<li><p>&lt;110&gt;表示12个面对角线的晶向<br>晶面：点阵中所有点全部位于一系列相互平行且等距的平面上，这样的面称系为晶面</p>
-</li>
-</ul>
-<p>晶面指数：(hkl)，hkl是晶面与三晶轴rst的倒数，也称为米勒指数，其也为互质的</p>
-<ul>
-<li>若截距为无线大，则相应的指数为无穷大</li>
-<li>晶面的法向量为$$n&#x3D;hx+ky+lz$$</li>
-</ul>
-<h3 id="1-6常见晶体结构范例"><a href="#1-6常见晶体结构范例" class="headerlink" title="1.6常见晶体结构范例"></a>1.6常见晶体结构范例</h3><p>NaCl结构：面心立方（点阵）+NaCl（基元）&#x3D;晶体结构</p>
-<img src="./../Semiconductorphysicalimage/image-20240914150343451.png" style="zoom: 25%;" />
-
-<h3 id="1-7倒格子的格矢"><a href="#1-7倒格子的格矢" class="headerlink" title="1.7倒格子的格矢"></a>1.7倒格子的格矢</h3><p>正空间是$\vec{r}$的空间而倒空间是$\vec{k}$的空间（动量空间)，在本质上其实是对$\vec{r}$进行傅里叶变换得到了$\vec{k}$</p>
-<p>如$\vec{b_1}$和$\vec{a_2}$和$\vec{a_3}$所构成的晶面实际上是垂直的，由傅里叶可得倒格子的格矢量：<br>$$<br>\vec{b_1}&#x3D;2\pi\frac{\vec{a_2}\times\vec{a_3}}{\vec{a_1}\cdot\vec{a_2}\times\vec{a_3}} \ \vec{b_2}&#x3D;2\pi\frac{\vec{a_1}\times\vec{a_3}}{\vec{a_2}\cdot\vec{a_1}\times\vec{a_3}} \ \vec{b_3}&#x3D;2\pi\frac{\vec{a_1}\times\vec{a_2}}{\vec{a_3}\cdot\vec{a_1}\times\vec{a_2}} \ 其中\Omega_{原胞体积}&#x3D;\vec{a_1}\cdot\vec{a_2}\times\vec{a_3}<br>$$</p>
-]]></content>
-      <tags>
-        <tag>笔记</tag>
-        <tag>半导体物理</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>半导体物理笔记第一章</title>
     <url>/2024/12/11/%E7%AC%94%E8%AE%B0%E5%8D%8A%E7%89%A91%E5%8D%8A%E5%AF%BC%E4%BD%93%E4%B8%AD%E7%9A%84%E7%94%B5%E5%AD%90%E7%8A%B6%E6%80%81/</url>
     <content><![CDATA[<p>波函数：粒子在某时刻某位置出现的概率，且其概率密度函数为<br>$$[ P(x,t) &#x3D; \psi^<em>(x,t) \psi(x,t) &#x3D; |\psi(x,t)|^2 ]$$<br>与时间无关的概率密度函数为<br>$$P(x) &#x3D; \psi^</em>(x) \psi(x) &#x3D; |\psi(x)|^2$$</p>
@@ -785,6 +745,110 @@ $$
 <h2 id="1-2半导体中电子的运动"><a href="#1-2半导体中电子的运动" class="headerlink" title="1.2半导体中电子的运动"></a>1.2半导体中电子的运动</h2><h3 id="1-2-1半导体中电子的EK关系"><a href="#1-2-1半导体中电子的EK关系" class="headerlink" title="1.2.1半导体中电子的EK关系"></a>1.2.1半导体中电子的EK关系</h3><p><img src="/../pics/image-20250224090647239.png" alt="image-20250224090647239"></p>
 <p>在上图中我们研究的主要区域是$\frac {dE}{dk}&#x3D;0$</p>
 <h5 id="1导带底附近的EK关系（引入了有效质量-m-n-）"><a href="#1导带底附近的EK关系（引入了有效质量-m-n-）" class="headerlink" title="1导带底附近的EK关系（引入了有效质量$m_n^*$）"></a>1导带底附近的EK关系（引入了有效质量$m_n^*$）</h5><p>对于极值$\frac {dE}{dk}&#x3D;0$在$x_0$附近使用泰勒展开：<br>$$<br>f(x)&#x3D;f(x_0)+f’(x_0)+f’(x_0)(x-X_0)’+\frac 1{2!}f’(x_0)(x-x_0)^2…<br>$$<br>在波矢k空间中$x&#x3D;k&#x3D;0$：<br>$$<br>E(k)&#x3D;E(k&#x3D;0)+\frac {dE}{dk}|<em>{k&#x3D;0}\cdot(k-0)’+\frac 12 \frac{d^2E}{dk^2}(k-0)^2…<br>$$<br>将第三项提出：<br>$$<br>E(k)-E(0)&#x3D;\frac 12 \frac{d^2E}{dk^2}k^2 \rightarrow式1<br>$$<br>又因为在自由电子中<br>$$<br>E(k)-E(0)&#x3D;\frac {h^2k^2}{2m</em>{0}}\rightarrow式2<br>$$<br>将这个式子中的$m_0$换成有效质量$m_{n}^*$，并将式1和式2联立：<br>$$<br>\begin{align}<br>\frac 12 \frac{d^2E}{dk^2}k^2&amp;&#x3D;\frac {h^2k^2}{2m_{0}}<br>$$</p>
+]]></content>
+      <tags>
+        <tag>笔记</tag>
+        <tag>半导体物理</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>半导体物理笔记第零章</title>
+    <url>/2024/12/11/%E7%AC%94%E8%AE%B0%E5%8D%8A%E7%89%A90%E5%9B%BA%E4%BD%93%E7%89%A9%E7%90%86%E5%AF%BC%E5%85%A5/</url>
+    <content><![CDATA[<h2 id="固体物理导入"><a href="#固体物理导入" class="headerlink" title="固体物理导入"></a>固体物理导入</h2><h3 id="1-1单-多晶体，非-准晶体的特征"><a href="#1-1单-多晶体，非-准晶体的特征" class="headerlink" title="1.1单&#x2F;多晶体，非&#x2F;准晶体的特征"></a>1.1单&#x2F;多晶体，非&#x2F;准晶体的特征</h3><table>
+<thead>
+<tr>
+<th>固体</th>
+<th>单晶体</th>
+<th>多晶体</th>
+<th>非晶体</th>
+<th>准晶体</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>排列</strong></td>
+<td>长程有序</td>
+<td>每个晶粒长程有序</td>
+<td>短程有序</td>
+<td>长程有序</td>
+</tr>
+<tr>
+<td><strong>熔点</strong></td>
+<td>有</td>
+<td>有</td>
+<td>没有</td>
+<td>有</td>
+</tr>
+<tr>
+<td><strong>外形</strong></td>
+<td>规则</td>
+<td>不规则</td>
+<td>不规则</td>
+<td>规则</td>
+</tr>
+<tr>
+<td><strong>方向性</strong></td>
+<td>各向异性</td>
+<td>各向同性</td>
+<td>各向同性</td>
+<td>各向异性</td>
+</tr>
+</tbody></table>
+<p>注意<strong>单晶体</strong>有旋转和对称性，而<strong>准晶体</strong>只有旋转对称性</p>
+<h3 id="1-2晶体结构"><a href="#1-2晶体结构" class="headerlink" title="1.2晶体结构"></a>1.2晶体结构</h3><p>$$<br>点阵+基元&#x3D;晶体结构<br>$$</p>
+<img src="./../Semiconductorphysicalimage/image-20240914145848490.png" style="zoom: 33%;" />
+
+<p>点阵也称晶格：晶体结构可以由点阵来描述，在点阵的每一个点上有一群原子</p>
+<p>基元：上面的一群原子成为基元，基元在空间上重复就构成晶体结构，每个基元的组成，位形和去向全是同向的</p>
+<p>简单格子：基元只含有一个原子的晶格，也称布拉菲格子</p>
+<h3 id="1-2初基平移矢量"><a href="#1-2初基平移矢量" class="headerlink" title="1.2初基平移矢量"></a>1.2初基平移矢量</h3><p>$$<br>\begin{align}<br>\vec{r’}&#x3D;\vec{a}+u\vec{a}+v\vec{b}+w\vec{c} \<br>u,v,w是整数<br>\end{align}<br>$$<br>取初基平移矢量一般去abc三个矢量围成最小面积或者体积，即其构成了体积最小的<strong>原胞</strong></p>
+<p>原胞：以一个格点为原点，以三个基矢构成的平行六面体为重复单元，这样的单元可以堆积起来构建整个晶体。其中<strong>体积最小的周期性平行六面体称为原胞</strong>（在下面选取的边和图形内没有格点就是原胞）</p>
+<img src="./../Semiconductorphysicalimage/image-20240914145923020.png" style="zoom: 33%;" />
+
+<h3 id="1-3点阵初基晶胞"><a href="#1-3点阵初基晶胞" class="headerlink" title="1.3点阵初基晶胞"></a>1.3点阵初基晶胞</h3><p>结晶学原胞（晶胞）：在选取基矢时，不仅考虑晶体的周期性，还考虑晶体对称性的<strong>重复性单元</strong>（不一定是体积最小的周期性可重复单元，在图形的边和内部有格点如上图的B4）<br>初基晶胞：初基轴abc（类似于坐标系的xyz）确定的平行六面体成为一个初基晶胞，是体积最小的晶胞，只含有一个阵点（平行六面体的八个顶点只有1&#x2F;8共享）<br>abc所确定的平行六面体体积为</p>
+<img src="./../Semiconductorphysicalimage/image-20240914150018813.png" style="zoom: 33%;" />
+$$
+V_c=\vec{a}×\vec{b}·\vec{c}
+$$
+维格纳-赛茨初基晶胞：将某个阵点同与它相连的阵点链接起来，再在连线的中点处作垂线和垂面，构成的最小体积就是维格纳-赛茨初基晶胞
+
+<img src="./../Semiconductorphysicalimage/image-20240914150058269.png" style="zoom: 33%;" />
+
+<h3 id="1-4点阵的基本类型"><a href="#1-4点阵的基本类型" class="headerlink" title="1.4点阵的基本类型"></a>1.4点阵的基本类型</h3><p>总共14种，仍一点阵都是等价的，初基晶胞只含一个原子，它们都是惯用晶胞但不一定是初基晶胞</p>
+<img src="./../Semiconductorphysicalimage/image-20240914150122740.png" style="zoom: 50%;" />
+
+<p>简单立方晶胞：内部和边上没有任何格点，它其实是原胞也是晶胞</p>
+<p>体心立方晶胞：在简单立方晶胞体中心加上一个格点</p>
+<p>面心立法晶胞：在体心立方晶胞面中心加上一个格点</p>
+<h3 id="1-5晶面指数系统"><a href="#1-5晶面指数系统" class="headerlink" title="1.5晶面指数系统"></a>1.5晶面指数系统</h3><p>晶列：点阵中所有阵点全部位于一系列互相平行的直线上，这些直线系成为晶列</p>
+<img src="./../Semiconductorphysicalimage/image-20240914150224704.png" style="zoom:50%;" />
+
+<p>晶向：晶列的方向，在实际中方向是从某一阵点沿着某一晶列移动到另一阵点的方向</p>
+<img src="./../Semiconductorphysicalimage/image-20240914150257238.png" style="zoom:50%;" />
+$$
+r=l_1a+l_2b+l_3c \\ l_1:l_2:l_3=m:n:p
+$$
+晶向指数：将上面的mnp写成[mnp]且mnp要互为质数
+
+<ul>
+<li><p>同类晶向：在坐标轴中等价的晶向，用<mnp>表示<br>如</p>
+</li>
+<li><p>&lt;100&gt;表示了立方体中不是对角线的晶向，因为坐标轴abc是人为规定的，虽然有些晶向在同一坐标系中看起来不同，但若调换abc，这些不同的晶向可以变为等价的</p>
+</li>
+<li><p>&lt;111&gt;表示对角线8个晶向</p>
+</li>
+<li><p>&lt;110&gt;表示12个面对角线的晶向<br>晶面：点阵中所有点全部位于一系列相互平行且等距的平面上，这样的面称系为晶面</p>
+</li>
+</ul>
+<p>晶面指数：(hkl)，hkl是晶面与三晶轴rst的倒数，也称为米勒指数，其也为互质的</p>
+<ul>
+<li>若截距为无线大，则相应的指数为无穷大</li>
+<li>晶面的法向量为$$n&#x3D;hx+ky+lz$$</li>
+</ul>
+<h3 id="1-6常见晶体结构范例"><a href="#1-6常见晶体结构范例" class="headerlink" title="1.6常见晶体结构范例"></a>1.6常见晶体结构范例</h3><p>NaCl结构：面心立方（点阵）+NaCl（基元）&#x3D;晶体结构</p>
+<img src="./../Semiconductorphysicalimage/image-20240914150343451.png" style="zoom: 25%;" />
+
+<h3 id="1-7倒格子的格矢"><a href="#1-7倒格子的格矢" class="headerlink" title="1.7倒格子的格矢"></a>1.7倒格子的格矢</h3><p>正空间是$\vec{r}$的空间而倒空间是$\vec{k}$的空间（动量空间)，在本质上其实是对$\vec{r}$进行傅里叶变换得到了$\vec{k}$</p>
+<p>如$\vec{b_1}$和$\vec{a_2}$和$\vec{a_3}$所构成的晶面实际上是垂直的，由傅里叶可得倒格子的格矢量：<br>$$<br>\vec{b_1}&#x3D;2\pi\frac{\vec{a_2}\times\vec{a_3}}{\vec{a_1}\cdot\vec{a_2}\times\vec{a_3}} \ \vec{b_2}&#x3D;2\pi\frac{\vec{a_1}\times\vec{a_3}}{\vec{a_2}\cdot\vec{a_1}\times\vec{a_3}} \ \vec{b_3}&#x3D;2\pi\frac{\vec{a_1}\times\vec{a_2}}{\vec{a_3}\cdot\vec{a_1}\times\vec{a_2}} \ 其中\Omega_{原胞体积}&#x3D;\vec{a_1}\cdot\vec{a_2}\times\vec{a_3}<br>$$</p>
 ]]></content>
       <tags>
         <tag>笔记</tag>
@@ -2360,7 +2424,7 @@ XOR AX,AX
   </entry>
   <entry>
     <title>集成版图实验课笔记</title>
-    <url>/2025/12/13/%E7%AC%94%E8%AE%B0%E9%9B%86%E6%88%90%E7%89%88%E5%9B%BE%E5%AE%9E%E9%AA%8C%E8%AF%BE/</url>
+    <url>/2024/12/13/%E7%AC%94%E8%AE%B0%E9%9B%86%E6%88%90%E7%89%88%E5%9B%BE%E5%AE%9E%E9%AA%8C%E8%AF%BE/</url>
     <content><![CDATA[<h4 id="Liunx系统命令行指令"><a href="#Liunx系统命令行指令" class="headerlink" title="Liunx系统命令行指令"></a>Liunx系统命令行指令</h4><table>
 <thead>
 <tr>
@@ -2397,9 +2461,9 @@ XOR AX,AX
 <h4 id="文件解释"><a href="#文件解释" class="headerlink" title="文件解释"></a>文件解释</h4><p><img src="/../pics/image-20240911203018723.png" alt="输入cat cds.lib后输出的该文件的内容"></p>
 <p>文件cds.lib其实类似于地图，指引软件找到运行在服务器上的运行所需要的文件，下面运行的Virtuoso软件也是依赖lib运行</p>
 <h4 id="打开Virtuoso软件"><a href="#打开Virtuoso软件" class="headerlink" title="打开Virtuoso软件"></a>打开Virtuoso软件</h4><p>输入<code>virtuoso &amp;</code>注意一定要小写，打开Virtuoso软件，点击最上一栏tools—Library Manager即可查看当前软件里的所有库</p>
-<p><img src="/./../pics/%E7%AC%94%E8%AE%B0%E9%9B%86%E6%88%90%E7%89%88%E5%9B%BE%E5%AE%9E%E9%AA%8C%E8%AF%BE/image-20240911204734844.png" alt="img"></p>
+<p><img src="/../pics/image-20240911204734844.png" alt="img"></p>
 <p>现在双击图最右侧的layout，即可查看Nmos版图</p>
-<h5 id="版图认知"><a href="#版图认知" class="headerlink" title="版图认知"></a>版图认知</h5><p><img src="/./../pics/%E7%AC%94%E8%AE%B0%E9%9B%86%E6%88%90%E7%89%88%E5%9B%BE%E5%AE%9E%E9%AA%8C%E8%AF%BE/image-20240911205027202.png" alt="img"></p>
+<h5 id="版图认知"><a href="#版图认知" class="headerlink" title="版图认知"></a>版图认知</h5><p><img src="/../pics/image-20240911205027202.png" alt="img"></p>
 <p>图中</p>
 <ul>
 <li>SN N型参杂区</li>
