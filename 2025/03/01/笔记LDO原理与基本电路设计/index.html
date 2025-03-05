@@ -166,8 +166,9 @@
     </div>
 </div>
     <div class="post-content">
-    <h1 id="LDO原理与基本电路设计"><a href="#LDO原理与基本电路设计" class="headerlink" title="LDO原理与基本电路设计"></a>LDO原理与基本电路设计</h1><p>LDO全称低压差线性稳压器</p>
-<p><img src="/./../pics/COMSLDO/%7BF843C675-43C6-4834-AF07-3A71C0667D66%7D.png" alt="{F843C675-43C6-4834-AF07-3A71C0667D66}"></p>
+    <p><a target="_blank" rel="noopener" href="https://hexo-3gkct4oo828efd07-1345960524.tcloudbaseapp.com/">LDOPPT演示</a></p>
+<p>LDO全称低压差线性稳压器</p>
+<p><img src="/./../pics/LDO1.png"></p>
 <ul>
 <li>其通过使用在线性区域内运行的晶体管或者场效应管，通过调节晶体管或者场效应管两端的电压，产生经过调整的输出电压</li>
 <li>但其只能使用降压应用中，$V_{out}&lt;V_{in}$</li>
@@ -178,7 +179,7 @@
 <li>稳定电池电压：电池电压会随着电量而变化，LDO能将其输出的电压稳定在一个固定值上</li>
 <li>减小输出纹波：在DCDC模块后消除其输出电压的波动</li>
 </ul>
-<h2 id="1一个基本的LDO电路"><a href="#1一个基本的LDO电路" class="headerlink" title="1一个基本的LDO电路"></a>1一个基本的LDO电路</h2><p><img src="/./../pics/COMSLDO/%7BAB8890F1-68FD-42FC-87BB-22302E13DADD%7D.png" alt="{AB8890F1-68FD-42FC-87BB-22302E13DADD}"></p>
+<h2 id="1一个基本的LDO电路"><a href="#1一个基本的LDO电路" class="headerlink" title="1一个基本的LDO电路"></a>1一个基本的LDO电路</h2><p><img src="/./../pics/LDO2.png"></p>
 <h3 id="1-1电路组成和原理"><a href="#1-1电路组成和原理" class="headerlink" title="1.1电路组成和原理"></a>1.1电路组成和原理</h3><h4 id="1-1-1组成"><a href="#1-1-1组成" class="headerlink" title="1.1.1组成"></a>1.1.1组成</h4><ul>
 <li>分压取样电路</li>
 <li>基准电压：$V_{ref}$（带隙基准BGR产生的一个不受温度影响的零温度系数电压）</li>
@@ -188,7 +189,7 @@
 <h4 id="1-1-2负反馈调节稳压的原理"><a href="#1-1-2负反馈调节稳压的原理" class="headerlink" title="1.1.2负反馈调节稳压的原理"></a>1.1.2负反馈调节稳压的原理</h4><p>由运算放大器的虚短虚断将$V_{ref}$从‘+’端引到‘-’端：<br>$$<br>V_{ref}&#x3D;V_-&#x3D;V_+<br>$$<br>根据电阻分压得：<br>$$<br>V_{out} \cdot \frac {R_1} {R_1+R_2}&#x3D;V_{ref}<br>$$<br>进一步的：<br>$$<br>V_{out} &#x3D;V_{ref}\cdot \frac  {R_1+R_2}{R_1}<br>$$<br>可以看到$V_{out}$实际上是由$V_{ref}$放大得来的，通过$R_1,R_2$和运放组成的负反馈分压结构将$V_{out}$稳定在与$V_{ref}$相关联的一个固定值，从而&#x3D;&#x3D;实现了当负载电压发生变化时通过反馈回路来控制晶体管两端电压，使输出保持恒定不变&#x3D;&#x3D;</p>
 <h5 id="1-输出电压增大时"><a href="#1-输出电压增大时" class="headerlink" title="1.输出电压增大时"></a>1.输出电压增大时</h5><p>当$V_{out}$增大时，$V_{FB}$相应增大，由放大器$U1$对误差放大，故$UG$增大；若此时$V_{in}$保持不变，对于晶体管两端<br>$$<br>|V_{gs}|\downarrow &#x3D;|V_{in}|-|UG|  \uparrow<br>$$<br>根据晶体管在饱和区有：<br>$$<br>I_D \downarrow &#x3D; \frac 12 \mu_n C_{ox}\frac WL(V_{gs} \downarrow-V_{thp})^2<br>$$<br>$I_D$减小，$R_3$上分得的电流减小，分得的电压也相应减小，故$V_{out}$减小，调整到原理稳定的状态</p>
 <h5 id="2-输出电压减小时"><a href="#2-输出电压减小时" class="headerlink" title="2.输出电压减小时"></a>2.输出电压减小时</h5><p>当$V_{out}$减小时，$V_{FB}$相应减小，由放大器$U1$会减小其的输出&#x3D;&#x3D;（总是倾向于使得正（+）负（-）输入端的电压相等，当$V_{FB}&lt;V_{ref}$时，运放就会减小输出）&#x3D;&#x3D;，故$UG$较小；若此时$V_{in}$保持不变，对于晶体管两端<br>$$<br>|V_{gs}|\uparrow &#x3D;|V_{in}|-|UG|  \downarrow<br>$$<br>根据晶体管在饱和区有：<br>$$<br>I_D \uparrow &#x3D; \frac 12 \mu_n C_{ox}\frac WL(V_{gs} \uparrow-V_{thp})^2<br>$$<br>$I_D$增大，$R_3$上分得的电流增加，分得的电压也相应增大，故$V_{out}$增大，调整到原理稳定的状态</p>
-<h2 id="2LDO的重要性能指标"><a href="#2LDO的重要性能指标" class="headerlink" title="2LDO的重要性能指标"></a>2LDO的重要性能指标</h2><h3 id="2-1压差-V-drop-out"><a href="#2-1压差-V-drop-out" class="headerlink" title="2.1压差$V_{drop-out}$"></a>2.1压差$V_{drop-out}$</h3><p><img src="/./../pics/COMSLDO/image-20250303083503844.png" alt="image-20250303083503844"></p>
+<h2 id="2LDO的重要性能指标"><a href="#2LDO的重要性能指标" class="headerlink" title="2LDO的重要性能指标"></a>2LDO的重要性能指标</h2><h3 id="2-1压差-V-drop-out"><a href="#2-1压差-V-drop-out" class="headerlink" title="2.1压差$V_{drop-out}$"></a>2.1压差$V_{drop-out}$</h3><p><img src="/./../pics/LDO3.png"></p>
 <p>如上图所示$V_{drop-out}$即压差，&#x3D;&#x3D;是指正常稳压所需的$V_{IN}-V_{OUT}$的最小差值&#x3D;&#x3D;</p>
 <table>
 <thead>
