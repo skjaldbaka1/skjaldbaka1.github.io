@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Skjaldbaka1">
+
+
+
+
+
+
+
+<title>gmid设计法以及5OTA设计仿真 | Skjaldbaka1&#39;s blog</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&family=Roboto+Mono&display=swap');
+</style>
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/menu.js"></script>
+    
+
+
+
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+
+
+
+
+
+
+    <script type="text/javascript" async
+      src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        }
+      };
+    </script>
+  <meta name="generator" content="Hexo 7.3.0"></head>
+  <body>
+    <div class="mask-border"></div>
+
+    <div class="wrapper">
+      <div class="header">
+  <div class="flex-container">
+    <div class="header-inner">
+      <div class="site-brand-container">
+        <a href="/">
+          
+            Skjaldbaka1.
+          
+        </a>
+      </div>
+      <div id="menu-btn" class="menu-btn" onclick="toggleMenu()">
+        Menu
+      </div>
+      <nav class="site-nav">
+        <ul class="menu-list">
+          
+            
+              <li class="menu-item">
+                <a href="/">主页</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/archives/">文集</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/categories/gallery/">影集</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/tag/">引索</a>
+              </li> 
+                   
+          
+          
+            <li class="menu-item search-btn">
+              <a href="#">Search</a>
+            </li>
+          
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main">
+        <div class="flex-container">
+          <article id="post">
+
+  
+    <div class="post-head">
+    <div class="post-info">
+        <div class="tag-list">
+            
+                
+                    <span class="post-tag">
+                        <a href="/tags/%E7%AC%94%E8%AE%B0/">
+                            笔记
+                        </a>
+                    </span>    
+                
+                    <span class="post-tag">
+                        <a href="/tags/CMOS/">
+                            CMOS
+                        </a>
+                    </span>    
+                           
+            
+        </div>
+        <div class="post-title">
+            
+            
+                gmid设计法以及5OTA设计仿真
+            
+            
+        </div>
+        <span class="post-date">
+            3月 28, 2025
+        </span>
+    </div>
+    <div class="post-img">
+        
+            <div class="h-line-primary"></div>
+              
+    </div>
+</div>
+    <div class="post-content">
+    <h2 id="前言——为什么需要gmid设计法"><a href="#前言——为什么需要gmid设计法" class="headerlink" title="前言——为什么需要gmid设计法"></a>前言——为什么需要gmid设计法</h2><h3 id="1-为什么需要"><a href="#1-为什么需要" class="headerlink" title="1.为什么需要"></a>1.为什么需要</h3><p>为什么需要$\frac {g_m}{i_d}$，其与L和工艺无关其本质是：用功耗换增益可以理解为用多少电流换取多少$g_m$，通过的电流越大换取的$g_m$越大，带来的增益就越高，通常来说$i_d$在$\mu A$数量级</p>
+<p>其次还要考虑$f_t$管子的速度，代表能处理多高频率的信号，随着工艺的进步，管子将越来越像开关，这里给出简要表达式：<br>$$<br>f_t&#x3D;\frac 1{2\pi} \cdot \frac {g_m}{C_{gs}}<br>$$<br>其中：</p>
+<ul>
+<li>$g_m$为管子的跨导</li>
+<li>$C_{gs}$为栅极的寄生电容</li>
+</ul>
+<h3 id="2-主要设计流程："><a href="#2-主要设计流程：" class="headerlink" title="2.主要设计流程："></a>2.主要设计流程：</h3><ol>
+<li>选定要先选定过驱动电压$V_{OV}&#x3D;V_{GS}-V_{TH}$，确定直流工作点,其与增益密切相关，在Cadence中为<code>waveVsWave(?x gmid ?y id)</code></li>
+<li>再选定管子的尺寸L，其会直接影响管子的输出抗抗，与本征增益和频率特征相关</li>
+<li>最后再 来对不同类型的管子定$\frac {g_m}{i_d}$<ul>
+<li>放大管：需要高增益，其$g_m$要大一点，$\frac {g_m}{i_d}$的值偏大</li>
+<li>电流镜：需要降低噪声，$\frac {g_m}{i_d}$要尽量小</li>
+</ul>
+</li>
+</ol>
+<h2 id="理论——对-Nmos-扫参仿真得到参数以及基本操作"><a href="#理论——对-Nmos-扫参仿真得到参数以及基本操作" class="headerlink" title="理论——对$Nmos$扫参仿真得到参数以及基本操作"></a>理论——对$Nmos$扫参仿真得到参数以及基本操作</h2><p>先搭建如图的原理图：把漏端和栅端连接在一起，从而忽略$V_{ds}$对管子性能的影响</p>
+<p><img src="/./../Pics/image-20250325161105375.png"></p>
+<h3 id="1初步仿真流程和操作"><a href="#1初步仿真流程和操作" class="headerlink" title="1初步仿真流程和操作"></a>1初步仿真流程和操作</h3><ol>
+<li>点击左上角<code>Launch-ADE Explorer</code>新建一个<code>maestro</code>的仿真参数文件</li>
+<li>在打开的<code>maestro</code>界面的左侧右击<code>Design Variables</code>后点击<code>copy from Cellview</code>将参数设置如下</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>L</th>
+<th>1u</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>vin</td>
+<td>2</td>
+</tr>
+<tr>
+<td>W</td>
+<td>1u</td>
+</tr>
+</tbody></table>
+<ol start="3">
+<li>同样的在右侧右击<code>Analyses</code>，按图设置参数完后找到最右边的绿色三角开始仿真</li>
+</ol>
+<p><img src="/./../Pics/image-20250323152743062.png"></p>
+<ol start="4">
+<li>&#x3D;&#x3D;这里可直接跳到第5步，直接查看所有的仿真结果&#x3D;&#x3D;，点击最上面的<code>Result-Direct Plot-Main Form</code>，在版图右键空白处，在弹出的菜单中勾选<code>Annotations-DC Operating Points</code>再在同一菜单点击<code>setup</code>按下图所示添加<code>region,gm</code>两个变量</li>
+</ol>
+<p><img src="/./../Pics/image-20250323153345634.png"></p>
+<ol start="5">
+<li>回到liunx界面文件管理中在Cadence的启动文件夹打开终端，输入</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">touch savedc.scs</span><br></pre></td></tr></table></figure>
+
+<p>后在创建的文件savedc.scs中写上<code>save M0:all</code></p>
+<ol start="6">
+<li>在Cadence中<code>maestro</code>界面上面工具栏点击<code>setup-Model Liebrary</code>添加刚才写的savedc.scs</li>
+<li>在<code>maestro</code>界面工具栏中点击<code>tools-Results Browser</code>，弹出的界面左侧，如图所示上面的文件夹代表要选择的仿真类型，这里我们选择dc；下方代表要查看的具体变量</li>
+</ol>
+<p><img src="/./../Pics/image-20250323154627163.png"></p>
+<ol start="8">
+<li>依次右击下方的变量<code>M0/self_gain,M0/id,M0?gmoverid</code>，选择<code>calculator</code>，在弹出的界面中</li>
+</ol>
+<p><img src="/./../Pics/image-20250323155819679.png"></p>
+<pre><code>点击齿轮图标，可以把上面三个参量固定在`maestro`界面
+</code></pre>
+<p>在<code>maestro</code>界面左侧将L后面的值改为一下格式：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1u:1u:10u &#123;起点值&#125;:&#123;间隔&#125;:&#123;终点值&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以让仿真从L为1u开始每隔1u一直仿真到10u</p>
+<h3 id="2仿真计算-f-t"><a href="#2仿真计算-f-t" class="headerlink" title="2仿真计算$f_t$"></a>2仿真计算$f_t$</h3><p>$$<br>f_t&#x3D;\frac 1{2\pi} \cdot \frac {g_m}{C_{gs}}<br>$$</p>
+<p>将$f_t$的各参数如：<code>gm,cgs</code>送到<code>calculator</code>中，并按照上面给出的公式在<code>calculator</code>写出：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">((0.5 / pi) * (getData(&quot;M0:gm&quot; ?result &quot;dc&quot;) / (- getData(&quot;M0:cgs&quot; ?result &quot;dc&quot;))))</span><br></pre></td></tr></table></figure>
+
+<p>后点击齿轮将其送到<code>maestro</code>界面</p>
+<h3 id="3仿真计算-V-OV"><a href="#3仿真计算-V-OV" class="headerlink" title="3仿真计算$V_{OV}$"></a>3仿真计算$V_{OV}$</h3><p>$$<br>V_{OV}&#x3D;V_{gs}-V_{th}<br>$$</p>
+<p>同样的将<code>vgs,vth</code>等参数送到<code>calculator</code></p>
+<p>写出：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">v(&quot;M0:vgs&quot; ?result &quot;dc&quot;)-v(&quot;M0:vth&quot; ?result &quot;dc&quot;)</span><br></pre></td></tr></table></figure>
+
+<p>后点击齿轮将其送到<code>maestro</code>界面</p>
+<h3 id="4绘制-V-OV-gmid-和-f-t-图像"><a href="#4绘制-V-OV-gmid-和-f-t-图像" class="headerlink" title="4绘制$V_{OV},gmid$和$f_t$图像"></a>4绘制$V_{OV},gmid$和$f_t$图像</h3><p>在<code>maestro</code>界面的工具栏点击<code>Outputs-Add-Expression</code>添加一个新的表达式</p>
+<p><img src="/./../Pics/image-20250324155604113.png"></p>
+<p>在上图Details中添加：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">waveVsWave(?x vov ?y gmid)</span><br></pre></td></tr></table></figure>
+
+<p>点击仿真即可表达一个x轴是vov，y轴是gmid的图像</p>
+<p><img src="/./../Pics/image-20250324155506710.png"></p>
+<p>同样的绘制x轴是vov，y轴是ft的图像，输入：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">waveVsWave(?x vov ?y ft)</span><br></pre></td></tr></table></figure>
+
+<h3 id="5管子性能折中的重要参量FOM以及其余参数"><a href="#5管子性能折中的重要参量FOM以及其余参数" class="headerlink" title="5管子性能折中的重要参量FOM以及其余参数"></a>5管子性能折中的重要参量FOM以及其余参数</h3><p>我们新定义一个参量叫FOM：<br>$$<br>FOM&#x3D;f_t \cdot \frac {g_m}{i_d}<br>$$<br>同样的在在<code>maestro</code>界面的工具栏点击<code>Outputs-Add-Expression</code>添加一个新的表达式：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">FT*GMID</span><br></pre></td></tr></table></figure>
+
+<p>其所代表的图像如图：</p>
+<p><img src="/./../Pics/image-20250324161253946.png"></p>
+<p>一般FOM无论什么工艺基本上在$V_{OV}&#x3D;0.2V$附件取得最大值，此时管子速度和电流效率均取得较好的折中，在其他地方如下表：</p>
+<table>
+<thead>
+<tr>
+<th>$V_{OV}变化情况$</th>
+<th>性能影响</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>在极值点左侧变小</td>
+<td>电流效率gmid变好，管子速度ft变差</td>
+</tr>
+<tr>
+<td>在极值点右侧变大</td>
+<td>电流效率gmid变差，管子速度ft变好</td>
+</tr>
+</tbody></table>
+<p>所以我们一般FOM取0.02V，同样的将selfgain和id跟gmid的坐标图仿真出，依次输入：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">waveVsWave(?x gmid ?y selfgain)</span><br><span class="line">waveVsWave(?x gmid ?y id)</span><br></pre></td></tr></table></figure>
+
+<h2 id="实操——如何设计管子尺寸"><a href="#实操——如何设计管子尺寸" class="headerlink" title="实操——如何设计管子尺寸"></a>实操——如何设计管子尺寸</h2><p>假设我们要设计一个运放满足：$A_v &gt;80dB,GBW&#x3D;10MHz,C_L&#x3D;2pF,PM&gt;60$</p>
+<p><img src="/./../pics/1/%7B4C013BE3-D833-493D-975A-84BDFCF10269%7D.png"></p>
+<p>对于这个运放，要实现主极点$P_1$在带内，即GBW点内；次极点和零点在带外，我们在m8管的漏端和栅端加一个米勒补偿电容$C_c$，可以使主次极点向外推，有：<br>$$<br>P_1&#x3D;\frac 1{R_{OUT1}(1+A_2)C_C}<br>$$</p>
+<p>$$<br>P_2&#x3D;\frac {g_{m8}}{C_L}<br>$$<br>$$<br>Z&#x3D;\frac {g_{m8}}{C_C}<br>$$</p>
+<p>继续计算GBW，即增益为0的点：<br>$$<br>GBW&#x3D;P_1 \cdot A_{Vall}&#x3D;P_1 \cdot A_1 \cdot A_2<br>$$</p>
+<p>由于$A_2$很大，在下式分母中$1+A_2 \approx A_2$：<br>$$<br>GBW&#x3D;\frac {A_1 \cdot A_2}{R_{OUT1}(1+A_2)C_C}&#x3D;\frac {A_1}{R_{OUT1}C_C}&#x3D;\frac {g_{m1}}{C_C}<br>$$</p>
+<h3 id="1决定米勒电容-C-C-的值"><a href="#1决定米勒电容-C-C-的值" class="headerlink" title="1决定米勒电容$C_C$的值"></a>1决定米勒电容$C_C$的值</h3><p>由于$GBW&gt;&gt;10P_1$，在相位图中极限情况下GBW和$P_1$相位是90度，由于我们总共有180度的相位，在经过主极点后只有90度的相位剩余，要求$P_2,Z$的相位小于90度，按照以下经验设计$P_2,Z$两点的位置：<br>$$<br>P_2&#x3D;3GBW,Z&#x3D;6GBW<br>$$<br>带入公式有：<br>$$<br>P_2&#x3D;\frac {g_{m8}}{C_L}&#x3D;3GBW&#x3D;\frac {3g_{m1}}{C_C}<br>$$</p>
+<p>$$<br>Z&#x3D;\frac {g_{m8}}{C_C}&#x3D;6GBW&#x3D;\frac {6g_{m1}}{C_C}<br>$$</p>
+<p>化简后可解得：$C_C&#x3D;\frac 12C_L&#x3D;1pF$可知$C_C$的取值是根据要把零极点拉的多开决定的</p>
+<h3 id="2确定selfgain的值"><a href="#2确定selfgain的值" class="headerlink" title="2确定selfgain的值"></a>2确定selfgain的值</h3><p>由于：<br>$$<br>A_{Vall}&#x3D;A_1 \cdot A_2&#x3D;g_{m1}(r_{o2}||r_{o4})\cdot g_{m8}(r_{o7}||r_{o8})&gt;80dB<br>$$<br>在这里假设$r_{o2} \approx r_{o4},r_{o7} \approx r_{o8},80dB&#x3D;10000$化简可得：<br>$$<br>A_{Vall}&#x3D;\frac {g_{m1}r_{o2}g_{m8}r_{o8}}{4}&#x3D;\frac {M_{2selfgain}M_{8selfgain}}{4}&gt;10000<br>$$<br>可得：<br>$$<br>M_{2selfgain}M_{8selfgain}&gt;40000<br>$$</p>
+<h3 id="3确定-g-m1-g-m8-的值："><a href="#3确定-g-m1-g-m8-的值：" class="headerlink" title="3确定$g_{m1},g_{m8}$的值："></a>3确定$g_{m1},g_{m8}$的值：</h3><p>根据要求$GBW&#x3D;10MHz$，可求：<br>$$<br>\frac {g_{m1}}{C_C}&#x3D;10MHz<br>$$<br>带入计算可得$g_{m1}&#x3D;63 \mu s$</p>
+<p>由：<br>$$<br>Z&#x3D;\frac {g_{m8}}{C_C}&#x3D;6GBW&#x3D;\frac {6g_{m1}}{C_C}<br>$$<br>可得$g_{m8}&#x3D;6g_{m1}&#x3D;378 \mu s$</p>
+<h3 id="3-选取gmid的值确定W和L的值"><a href="#3-选取gmid的值确定W和L的值" class="headerlink" title="3.选取gmid的值确定W和L的值"></a>3.选取gmid的值确定W和L的值</h3><p>$g_{m8},g_{m1}$都是输入管，对于输入管有经验值可以使FOM最大：<br>$$<br>\frac {g_m}{i_d} \approx 10,11,12<br>$$<br>在这里我们取$gmid&#x3D;10$，根据上一步中$g_m$的值计算得：<br>$$<br>i_{id1}&#x3D;\frac {379}{10}&#x3D;37.8 \mu A<br>$$</p>
+<p>$$<br>i_{id8}&#x3D;\frac 16 \cdot 37.8&#x3D;6.3 \mu A<br>$$</p>
+<p>这时候要确定管子的L要在Cadence中进行扫参，先建立一个Pmos的扫参数仿真图，如下图</p>
+<p><img src="/./../pics/1/image-20250327143824612.png"></p>
+<p>决定L的值要仿真两个重要参数，如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">waveVsWave(?x gmid ?y selfgain)</span><br><span class="line">waveVsWave(?x gmid ?y id)</span><br></pre></td></tr></table></figure>
+
+<h4 id="1-L值的确定："><a href="#1-L值的确定：" class="headerlink" title="1.L值的确定："></a>1.L值的确定：</h4><p>根据<code>waveVsWave(?x gmid ?y selfgain)</code>仿真出的图像，在图中找到横坐标gmid&#x3D;10的地方</p>
+<ul>
+<li>此时pmos仿真图中纵坐标selfgain大约为176，这条曲线代表的$L&#x3D;1.2 \mu m$</li>
+<li>此时nmos仿真图中纵坐标selfgain大约为366，这条曲线代表的$L&#x3D;0.8 \mu m$</li>
+</ul>
+<p>两个selfgain相乘大于前面的条件：</p>
+<blockquote>
+<p>$$<br>M_{2selfgain}M_{8selfgain}&gt;40000<br>$$</p>
+</blockquote>
+<p>符合设计要求</p>
+<h4 id="2-W值的确定"><a href="#2-W值的确定" class="headerlink" title="2.W值的确定"></a>2.W值的确定</h4><p>此时对于nmos他的L已经确定，将<code>maestro</code>界面中L改为800n，根据仿真<code>waveVsWave(?x gmid ?y id)</code>的图像定W</p>
+<p><img src="/./../pics/1/%7B9CF549D4-9CDF-40D7-8D4E-BBBC2FB9E409%7D.png"></p>
+<p>在图中选定点按A或者B，后按Q，将x轴坐标定在10，此时W&#x3D;1u对应的电流为$2.96 \mu A$，在前面我们算得，需要的电流为$37.6 \mu A$，由：<br>$$<br>37.6 \mu A &#x2F;2.96 \mu A \approx13 \mu<br>$$<br>也就是说当$W&#x3D;13 \mu m$时，nmos管才能提供我们所需要的电流，同样的在pmos仿真中，取得$W&#x3D;8 \mu m$</p>
+<h3 id="4-其他管子尺寸的确定"><a href="#4-其他管子尺寸的确定" class="headerlink" title="4.其他管子尺寸的确定"></a>4.其他管子尺寸的确定</h3><p>对于尾电流源$M_{5,6,7}&#x3D;2 \mu m$，因为一个理想电流源内阻趋近于无穷，故我们将其L取得很大，其内阻也会很大，切合电流源的需求；按照经验值我们将其的gmid&#x3D;8</p>
+<ul>
+<li>对于$M_6,I_{BIAS}&#x3D;2 \mu A$同样的在<code>waveVsWave(?x gmid ?y selfgain)</code>仿真图中gmid&#x3D;8，I&#x3D;0.7 \mu A，在这里我们近似取$I_{BIAS}&#x3D;2.1 \mu A$，可以近似得到$W&#x3D;3 \mu m$</li>
+<li>对于$M_5$，两个输入pmos电流相加等于流过它的电流约等于$12 \mu A$，这电流相当于上面$M_5$的6倍，有$W&#x3D;3 \cdot 6 &#x3D;18 \mu m$</li>
+<li>对于$M_7$，下面输出管$I_{M_8} \approx 36 \mu A$，约为$M_5$的3倍，有$W&#x3D;3 \cdot 18&#x3D;54 \mu m$</li>
+</ul>
+<p>i对于$M_{3,4}$，由于$M_8$的的栅极电压在共模下实际上就是$M_{3,4}$的栅极电压，要保证第二集不进入线性区，故他们的gmid应该相同；$M_{3,4}$流过的电流为$\frac 16I_{M_8}$，故其$W_{3,4}&#x3D;\frac 16 13 \mu m \approx 2\mu m$</p>
+
+</div> 
+
+<script>
+    window.onload = detectors();
+</script>
+    <div class="post-footer">
+    <div class="h-line-primary"></div>
+    <nav class="post-nav">
+        <div class="prev-item">
+           
+        </div>
+        <div class="next-item">
+            
+                <div class="icon arrow-right"></div>
+                <div class="post-link">
+                  <a href="/2025/03/02/%E4%BF%AE%E5%A4%8Dframe%E4%B8%BB%E9%A2%98%E7%9A%84%E8%A1%8C%E5%86%85%E5%85%AC%E5%BC%8F%E4%B8%8D%E6%B8%B2%E6%9F%93%E9%97%AE%E9%A2%98/">Next</a>  
+                </div>  
+            
+        </div>
+    </nav>
+</div>
+
+    
+      <div class="post-comment">
+
+     
+
+     
+    
+    
+
+</div>
+     
+  
+</article>
+        </div>
+      </div>
+      
+      <div class="footer">
+    <div class="flex-container">
+        <div class="footer-text">
+            
+            
+                Skjaldbaka1© | 
+            
+            
+                Powered by <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/zoeingwingkei/frame/">Frame</a>
+                
+        </div>
+    </div>
+</div>
+    </div>
+  </body>
+</html>
+

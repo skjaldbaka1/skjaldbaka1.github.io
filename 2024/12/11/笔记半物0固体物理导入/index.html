@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Skjaldbaka1">
+
+
+
+
+
+
+
+<title>半导体物理笔记第零章 | Skjaldbaka1&#39;s blog</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&family=Roboto+Mono&display=swap');
+</style>
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/menu.js"></script>
+    
+
+
+
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+
+
+
+
+
+
+    <script type="text/javascript" async
+      src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        }
+      };
+    </script>
+  <meta name="generator" content="Hexo 7.3.0"></head>
+  <body>
+    <div class="mask-border"></div>
+
+    <div class="wrapper">
+      <div class="header">
+  <div class="flex-container">
+    <div class="header-inner">
+      <div class="site-brand-container">
+        <a href="/">
+          
+            Skjaldbaka1.
+          
+        </a>
+      </div>
+      <div id="menu-btn" class="menu-btn" onclick="toggleMenu()">
+        Menu
+      </div>
+      <nav class="site-nav">
+        <ul class="menu-list">
+          
+            
+              <li class="menu-item">
+                <a href="/">主页</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/archives/">文集</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/categories/gallery/">影集</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/tag/">引索</a>
+              </li> 
+                   
+          
+          
+            <li class="menu-item search-btn">
+              <a href="#">Search</a>
+            </li>
+          
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main">
+        <div class="flex-container">
+          <article id="post">
+
+  
+    <div class="post-head">
+    <div class="post-info">
+        <div class="tag-list">
+            
+                
+                    <span class="post-tag">
+                        <a href="/tags/%E7%AC%94%E8%AE%B0/">
+                            笔记
+                        </a>
+                    </span>    
+                
+                    <span class="post-tag">
+                        <a href="/tags/%E5%8D%8A%E5%AF%BC%E4%BD%93%E7%89%A9%E7%90%86/">
+                            半导体物理
+                        </a>
+                    </span>    
+                           
+            
+        </div>
+        <div class="post-title">
+            
+            
+                半导体物理笔记第零章
+            
+            
+        </div>
+        <span class="post-date">
+            12月 11, 2024
+        </span>
+    </div>
+    <div class="post-img">
+        
+            <div class="h-line-primary"></div>
+              
+    </div>
+</div>
+    <div class="post-content">
+    <h2 id="固体物理导入"><a href="#固体物理导入" class="headerlink" title="固体物理导入"></a>固体物理导入</h2><h3 id="1-1单-多晶体，非-准晶体的特征"><a href="#1-1单-多晶体，非-准晶体的特征" class="headerlink" title="1.1单&#x2F;多晶体，非&#x2F;准晶体的特征"></a>1.1单&#x2F;多晶体，非&#x2F;准晶体的特征</h3><table>
+<thead>
+<tr>
+<th>固体</th>
+<th>单晶体</th>
+<th>多晶体</th>
+<th>非晶体</th>
+<th>准晶体</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>排列</strong></td>
+<td>长程有序</td>
+<td>每个晶粒长程有序</td>
+<td>短程有序</td>
+<td>长程有序</td>
+</tr>
+<tr>
+<td><strong>熔点</strong></td>
+<td>有</td>
+<td>有</td>
+<td>没有</td>
+<td>有</td>
+</tr>
+<tr>
+<td><strong>外形</strong></td>
+<td>规则</td>
+<td>不规则</td>
+<td>不规则</td>
+<td>规则</td>
+</tr>
+<tr>
+<td><strong>方向性</strong></td>
+<td>各向异性</td>
+<td>各向同性</td>
+<td>各向同性</td>
+<td>各向异性</td>
+</tr>
+</tbody></table>
+<p>注意<strong>单晶体</strong>有旋转和对称性，而<strong>准晶体</strong>只有旋转对称性</p>
+<h3 id="1-2晶体结构"><a href="#1-2晶体结构" class="headerlink" title="1.2晶体结构"></a>1.2晶体结构</h3><p>$$<br>点阵+基元&#x3D;晶体结构<br>$$</p>
+<img src="./../Semiconductorphysicalimage/image-20240914145848490.png" style="zoom: 33%;" />
+
+<p>点阵也称晶格：晶体结构可以由点阵来描述，在点阵的每一个点上有一群原子</p>
+<p>基元：上面的一群原子成为基元，基元在空间上重复就构成晶体结构，每个基元的组成，位形和去向全是同向的</p>
+<p>简单格子：基元只含有一个原子的晶格，也称布拉菲格子</p>
+<h3 id="1-2初基平移矢量"><a href="#1-2初基平移矢量" class="headerlink" title="1.2初基平移矢量"></a>1.2初基平移矢量</h3><p>$$<br>\begin{align}<br>\vec{r’}&#x3D;\vec{a}+u\vec{a}+v\vec{b}+w\vec{c} \<br>u,v,w是整数<br>\end{align}<br>$$<br>取初基平移矢量一般去abc三个矢量围成最小面积或者体积，即其构成了体积最小的<strong>原胞</strong></p>
+<p>原胞：以一个格点为原点，以三个基矢构成的平行六面体为重复单元，这样的单元可以堆积起来构建整个晶体。其中<strong>体积最小的周期性平行六面体称为原胞</strong>（在下面选取的边和图形内没有格点就是原胞）</p>
+<img src="./../Semiconductorphysicalimage/image-20240914145923020.png" style="zoom: 33%;" />
+
+<h3 id="1-3点阵初基晶胞"><a href="#1-3点阵初基晶胞" class="headerlink" title="1.3点阵初基晶胞"></a>1.3点阵初基晶胞</h3><p>结晶学原胞（晶胞）：在选取基矢时，不仅考虑晶体的周期性，还考虑晶体对称性的<strong>重复性单元</strong>（不一定是体积最小的周期性可重复单元，在图形的边和内部有格点如上图的B4）<br>初基晶胞：初基轴abc（类似于坐标系的xyz）确定的平行六面体成为一个初基晶胞，是体积最小的晶胞，只含有一个阵点（平行六面体的八个顶点只有1&#x2F;8共享）<br>abc所确定的平行六面体体积为</p>
+<img src="./../Semiconductorphysicalimage/image-20240914150018813.png" style="zoom: 33%;" />
+$$
+V_c=\vec{a}×\vec{b}·\vec{c}
+$$
+维格纳-赛茨初基晶胞：将某个阵点同与它相连的阵点链接起来，再在连线的中点处作垂线和垂面，构成的最小体积就是维格纳-赛茨初基晶胞
+
+<img src="./../Semiconductorphysicalimage/image-20240914150058269.png" style="zoom: 33%;" />
+
+<h3 id="1-4点阵的基本类型"><a href="#1-4点阵的基本类型" class="headerlink" title="1.4点阵的基本类型"></a>1.4点阵的基本类型</h3><p>总共14种，仍一点阵都是等价的，初基晶胞只含一个原子，它们都是惯用晶胞但不一定是初基晶胞</p>
+<img src="./../Semiconductorphysicalimage/image-20240914150122740.png" style="zoom: 50%;" />
+
+<p>简单立方晶胞：内部和边上没有任何格点，它其实是原胞也是晶胞</p>
+<p>体心立方晶胞：在简单立方晶胞体中心加上一个格点</p>
+<p>面心立法晶胞：在体心立方晶胞面中心加上一个格点</p>
+<h3 id="1-5晶面指数系统"><a href="#1-5晶面指数系统" class="headerlink" title="1.5晶面指数系统"></a>1.5晶面指数系统</h3><p>晶列：点阵中所有阵点全部位于一系列互相平行的直线上，这些直线系成为晶列</p>
+<img src="./../Semiconductorphysicalimage/image-20240914150224704.png" style="zoom:50%;" />
+
+<p>晶向：晶列的方向，在实际中方向是从某一阵点沿着某一晶列移动到另一阵点的方向</p>
+<img src="./../Semiconductorphysicalimage/image-20240914150257238.png" style="zoom:50%;" />
+$$
+r=l_1a+l_2b+l_3c \\ l_1:l_2:l_3=m:n:p
+$$
+晶向指数：将上面的mnp写成[mnp]且mnp要互为质数
+
+<ul>
+<li><p>同类晶向：在坐标轴中等价的晶向，用<mnp>表示<br>如</p>
+</li>
+<li><p>&lt;100&gt;表示了立方体中不是对角线的晶向，因为坐标轴abc是人为规定的，虽然有些晶向在同一坐标系中看起来不同，但若调换abc，这些不同的晶向可以变为等价的</p>
+</li>
+<li><p>&lt;111&gt;表示对角线8个晶向</p>
+</li>
+<li><p>&lt;110&gt;表示12个面对角线的晶向<br>晶面：点阵中所有点全部位于一系列相互平行且等距的平面上，这样的面称系为晶面</p>
+</li>
+</ul>
+<p>晶面指数：(hkl)，hkl是晶面与三晶轴rst的倒数，也称为米勒指数，其也为互质的</p>
+<ul>
+<li>若截距为无线大，则相应的指数为无穷大</li>
+<li>晶面的法向量为$$n&#x3D;hx+ky+lz$$</li>
+</ul>
+<h3 id="1-6常见晶体结构范例"><a href="#1-6常见晶体结构范例" class="headerlink" title="1.6常见晶体结构范例"></a>1.6常见晶体结构范例</h3><p>NaCl结构：面心立方（点阵）+NaCl（基元）&#x3D;晶体结构</p>
+<img src="./../Semiconductorphysicalimage/image-20240914150343451.png" style="zoom: 25%;" />
+
+<h3 id="1-7倒格子的格矢"><a href="#1-7倒格子的格矢" class="headerlink" title="1.7倒格子的格矢"></a>1.7倒格子的格矢</h3><p>正空间是$\vec{r}$的空间而倒空间是$\vec{k}$的空间（动量空间)，在本质上其实是对$\vec{r}$进行傅里叶变换得到了$\vec{k}$</p>
+<p>如$\vec{b_1}$和$\vec{a_2}$和$\vec{a_3}$所构成的晶面实际上是垂直的，由傅里叶可得倒格子的格矢量：<br>$$<br>\vec{b_1}&#x3D;2\pi\frac{\vec{a_2}\times\vec{a_3}}{\vec{a_1}\cdot\vec{a_2}\times\vec{a_3}} \ \vec{b_2}&#x3D;2\pi\frac{\vec{a_1}\times\vec{a_3}}{\vec{a_2}\cdot\vec{a_1}\times\vec{a_3}} \ \vec{b_3}&#x3D;2\pi\frac{\vec{a_1}\times\vec{a_2}}{\vec{a_3}\cdot\vec{a_1}\times\vec{a_2}} \ 其中\Omega_{原胞体积}&#x3D;\vec{a_1}\cdot\vec{a_2}\times\vec{a_3}<br>$$</p>
+
+</div> 
+
+<script>
+    window.onload = detectors();
+</script>
+    <div class="post-footer">
+    <div class="h-line-primary"></div>
+    <nav class="post-nav">
+        <div class="prev-item">
+           
+                <div class="icon arrow-left"></div>
+                <div class="post-link">
+                    <a href="/2024/12/11/%E7%AC%94%E8%AE%B0%E5%8D%8A%E7%89%A92%E5%8D%8A%E5%AF%BC%E4%BD%93%E4%B8%AD%E6%9D%82%E8%B4%A8%E5%92%8C%E7%BC%BA%E9%99%B7%E8%83%BD%E7%BA%A7/">Prev</a>
+                </div>
+            
+        </div>
+        <div class="next-item">
+            
+                <div class="icon arrow-right"></div>
+                <div class="post-link">
+                  <a href="/2024/12/11/%E7%AC%94%E8%AE%B0%E5%8D%8A%E7%89%A94%E5%8D%8A%E5%AF%BC%E4%BD%93%E7%9A%84%E5%AF%BC%E7%94%B5%E6%80%A7/">Next</a>  
+                </div>  
+            
+        </div>
+    </nav>
+</div>
+
+    
+      <div class="post-comment">
+
+     
+
+     
+    
+    
+
+</div>
+     
+  
+</article>
+        </div>
+      </div>
+      
+      <div class="footer">
+    <div class="flex-container">
+        <div class="footer-text">
+            
+            
+                Skjaldbaka1© | 
+            
+            
+                Powered by <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/zoeingwingkei/frame/">Frame</a>
+                
+        </div>
+    </div>
+</div>
+    </div>
+  </body>
+</html>
+

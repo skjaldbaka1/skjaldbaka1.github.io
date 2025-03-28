@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Skjaldbaka1">
+
+
+
+
+
+
+
+<title>LDO原理与基本电路设计 | Skjaldbaka1&#39;s blog</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&family=Roboto+Mono&display=swap');
+</style>
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/menu.js"></script>
+    
+
+
+
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+
+
+
+
+
+
+    <script type="text/javascript" async
+      src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        }
+      };
+    </script>
+  <meta name="generator" content="Hexo 7.3.0"></head>
+  <body>
+    <div class="mask-border"></div>
+
+    <div class="wrapper">
+      <div class="header">
+  <div class="flex-container">
+    <div class="header-inner">
+      <div class="site-brand-container">
+        <a href="/">
+          
+            Skjaldbaka1.
+          
+        </a>
+      </div>
+      <div id="menu-btn" class="menu-btn" onclick="toggleMenu()">
+        Menu
+      </div>
+      <nav class="site-nav">
+        <ul class="menu-list">
+          
+            
+              <li class="menu-item">
+                <a href="/">主页</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/archives/">文集</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/categories/gallery/">影集</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/tag/">引索</a>
+              </li> 
+                   
+          
+          
+            <li class="menu-item search-btn">
+              <a href="#">Search</a>
+            </li>
+          
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main">
+        <div class="flex-container">
+          <article id="post">
+
+  
+    <div class="post-head">
+    <div class="post-info">
+        <div class="tag-list">
+            
+                
+                    <span class="post-tag">
+                        <a href="/tags/%E7%AC%94%E8%AE%B0/">
+                            笔记
+                        </a>
+                    </span>    
+                
+                    <span class="post-tag">
+                        <a href="/tags/CMOS/">
+                            CMOS
+                        </a>
+                    </span>    
+                           
+            
+        </div>
+        <div class="post-title">
+            
+            
+                LDO原理与基本电路设计
+            
+            
+        </div>
+        <span class="post-date">
+            3月 1, 2025
+        </span>
+    </div>
+    <div class="post-img">
+        
+            <div class="h-line-primary"></div>
+              
+    </div>
+</div>
+    <div class="post-content">
+    <p><a target="_blank" rel="noopener" href="https://hexo-3gkct4oo828efd07-1345960524.tcloudbaseapp.com/">LDOPPT演示</a></p>
+<p>LDO全称低压差线性稳压器</p>
+<p><img src="/./../pics/LDO1.png"></p>
+<ul>
+<li>其通过使用在线性区域内运行的晶体管或者场效应管，通过调节晶体管或者场效应管两端的电压，产生经过调整的输出电压</li>
+<li>但其只能使用降压应用中，$V_{out}&lt;V_{in}$</li>
+</ul>
+<p>LDO的一些功能</p>
+<ul>
+<li>直流转交流：将220V交流市电转化稳定的直流电压</li>
+<li>稳定电池电压：电池电压会随着电量而变化，LDO能将其输出的电压稳定在一个固定值上</li>
+<li>减小输出纹波：在DCDC模块后消除其输出电压的波动</li>
+</ul>
+<h2 id="1一个基本的LDO电路"><a href="#1一个基本的LDO电路" class="headerlink" title="1一个基本的LDO电路"></a>1一个基本的LDO电路</h2><p><img src="/./../pics/LDO2.png"></p>
+<h3 id="1-1电路组成和原理"><a href="#1-1电路组成和原理" class="headerlink" title="1.1电路组成和原理"></a>1.1电路组成和原理</h3><h4 id="1-1-1组成"><a href="#1-1-1组成" class="headerlink" title="1.1.1组成"></a>1.1.1组成</h4><ul>
+<li>分压取样电路</li>
+<li>基准电压：$V_{ref}$（带隙基准BGR产生的一个不受温度影响的零温度系数电压）</li>
+<li>误差放大电路：运算放大器OPA，总是倾向于使得正（+）负（-）输入端的电压相等，当$V_{FB}&lt;V_{ref}$时，运放就会减小输出</li>
+<li>晶体管调整电路</li>
+</ul>
+<h4 id="1-1-2负反馈调节稳压的原理"><a href="#1-1-2负反馈调节稳压的原理" class="headerlink" title="1.1.2负反馈调节稳压的原理"></a>1.1.2负反馈调节稳压的原理</h4><p>由运算放大器的虚短虚断将$V_{ref}$从‘+’端引到‘-’端：<br>$$<br>V_{ref}&#x3D;V_-&#x3D;V_+<br>$$<br>根据电阻分压得：<br>$$<br>V_{out} \cdot \frac {R_1} {R_1+R_2}&#x3D;V_{ref}<br>$$<br>进一步的：<br>$$<br>V_{out} &#x3D;V_{ref}\cdot \frac  {R_1+R_2}{R_1}<br>$$<br>可以看到$V_{out}$实际上是由$V_{ref}$放大得来的，通过$R_1,R_2$和运放组成的负反馈分压结构将$V_{out}$稳定在与$V_{ref}$相关联的一个固定值，从而&#x3D;&#x3D;实现了当负载电压发生变化时通过反馈回路来控制晶体管两端电压，使输出保持恒定不变&#x3D;&#x3D;</p>
+<h5 id="1-输出电压增大时"><a href="#1-输出电压增大时" class="headerlink" title="1.输出电压增大时"></a>1.输出电压增大时</h5><p>当$V_{out}$增大时，$V_{FB}$相应增大，由放大器$U1$对误差放大，故$UG$增大；若此时$V_{in}$保持不变，对于晶体管两端<br>$$<br>|V_{gs}|\downarrow &#x3D;|V_{in}|-|UG|  \uparrow<br>$$<br>根据晶体管在饱和区有：<br>$$<br>I_D \downarrow &#x3D; \frac 12 \mu_n C_{ox}\frac WL(V_{gs} \downarrow-V_{thp})^2<br>$$<br>$I_D$减小，$R_3$上分得的电流减小，分得的电压也相应减小，故$V_{out}$减小，调整到原理稳定的状态</p>
+<h5 id="2-输出电压减小时"><a href="#2-输出电压减小时" class="headerlink" title="2.输出电压减小时"></a>2.输出电压减小时</h5><p>当$V_{out}$减小时，$V_{FB}$相应减小，由放大器$U1$会减小其的输出&#x3D;&#x3D;（总是倾向于使得正（+）负（-）输入端的电压相等，当$V_{FB}&lt;V_{ref}$时，运放就会减小输出）&#x3D;&#x3D;，故$UG$较小；若此时$V_{in}$保持不变，对于晶体管两端<br>$$<br>|V_{gs}|\uparrow &#x3D;|V_{in}|-|UG|  \downarrow<br>$$<br>根据晶体管在饱和区有：<br>$$<br>I_D \uparrow &#x3D; \frac 12 \mu_n C_{ox}\frac WL(V_{gs} \uparrow-V_{thp})^2<br>$$<br>$I_D$增大，$R_3$上分得的电流增加，分得的电压也相应增大，故$V_{out}$增大，调整到原理稳定的状态</p>
+<h2 id="2LDO的重要性能指标"><a href="#2LDO的重要性能指标" class="headerlink" title="2LDO的重要性能指标"></a>2LDO的重要性能指标</h2><h3 id="2-1压差-V-drop-out"><a href="#2-1压差-V-drop-out" class="headerlink" title="2.1压差$V_{drop-out}$"></a>2.1压差$V_{drop-out}$</h3><p><img src="/./../pics/LDO3.png"></p>
+<p>如上图所示$V_{drop-out}$即压差，&#x3D;&#x3D;是指正常稳压所需的$V_{IN}-V_{OUT}$的最小差值&#x3D;&#x3D;</p>
+<table>
+<thead>
+<tr>
+<th>情况</th>
+<th>工作状态</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$V_{IN}-V_{OUT}&gt;V_{drop-out}$</td>
+<td>LDO电路正常工作</td>
+</tr>
+<tr>
+<td>$V_{IN}-V_{OUT}&lt;V_{drop-out}$</td>
+<td>由于功率管处于线性区，LDO对$V_{OUT}$失去调节作用，反馈环路不稳定</td>
+</tr>
+</tbody></table>
+<p>$V_{drop-out}$可以用以下公式表达：<br>$$<br>V_{drop-out}&#x3D; I_{POWER} \cdot r_{ds}<br>$$<br>其中：</p>
+<ul>
+<li>$I_{POWER}$是功率管上通过的电流</li>
+<li>$r_{ds}$是功率管的等效电阻</li>
+</ul>
+<p>还需要注意的是，$V_{drop-out}$还会受到$V_{IN}$，功率管种类尺寸，温度等因素影响，&#x3D;&#x3D;但通常来说更小压差代表LDO的效率更高&#x3D;&#x3D;；故一般来说，要把一个$9V$的电压转化为$3.3V$，我们通常取一个中间电压来提升LDO电路的效率</p>
+<h3 id="2-1静态电流-I-Q"><a href="#2-1静态电流-I-Q" class="headerlink" title="2.1静态电流$I_Q$"></a>2.1静态电流$I_Q$</h3><p>是指LDO工作在稳态情况下，$I_Q$有：<br>$$<br>I_Q &#x3D; I_{IN} - I_{LOAD}<br>$$<br>其中：</p>
+<ul>
+<li>$I_{IN}$是由$V_{IN}$提供的LDO工作所需要的电流大小</li>
+<li>$I_{LOAD}$负载电流</li>
+</ul>
+<p>在习惯上，一般认为静态电流为LDO空载时消耗的电流，此时$I_{LOAD}&#x3D;0$，上面的公式可改写为：<br>$$<br>I_Q &#x3D; I_{IN}<br>$$<br>误差放大器是主要消耗静态电流的模块</p>
+<h3 id="2-2效率-eta"><a href="#2-2效率-eta" class="headerlink" title="2.2效率$\eta$"></a>2.2效率$\eta$</h3><p>是指LDO输出与输入功率之比，有：<br>$$<br>\eta &#x3D; \frac {I_{OUT}V_{OUT}}{(I_{OUT}+I_Q) \cdot V_{IN}}…式1<br>$$<br>$I_Q$越小$\eta$越高，当$I_Q$足够小时，即$I_{OUT}&gt;&gt;I_Q$，上式可改写为：<br>$$<br>\eta &#x3D; \frac {V_{OUT}}{V_{IN}}…式2<br>$$<br>观察上面的公式：</p>
+<table>
+<thead>
+<tr>
+<th>工作状态</th>
+<th>影响效率的主要因素</th>
+<th>为什么？</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>工作时</td>
+<td>$V_{drop-out}$</td>
+<td>由式1，$V_{drop-out}$越小，代表$V_{OUT},V_{IN}$的差值越小，$\eta$的分子分母的值将接近，故效率越高</td>
+</tr>
+<tr>
+<td>空载时</td>
+<td>$I_Q$</td>
+<td>由式2，$I_Q$越小$\eta$越高</td>
+</tr>
+</tbody></table>
+<h3 id="2-3负载调整率LDR"><a href="#2-3负载调整率LDR" class="headerlink" title="2.3负载调整率LDR"></a>2.3负载调整率LDR</h3><p>是输出电流变化时，输出电压维持在标称值上的能力衡量，代表了LDO电路的大信号调节能力，有：<br>$$<br>L D R&#x3D;\frac{\Delta V_{OUT }}{\Delta I_{OUT } V_{OUT }}<br>$$<br>我们一般使用的PMOS管LDO：<br>$$<br>\Delta I_{OUT }&#x3D;\Delta V_{OUT } \frac{R_{F 2}}{R_{F 1}+R_{F 2}} A_{v, EA} \cdot g_{mP}<br>$$<br>其中：</p>
+<ul>
+<li>$\Delta V_{OUT }$是输出电压变化量</li>
+<li>$\Delta I_{OUT }$指负载电流变化量</li>
+<li>$A_{v, EA}$指误差放大器的低频增益</li>
+<li>$g_{mP}$指PMOS功率管的跨导</li>
+</ul>
+<p>进一步的，两边同除$\Delta V_{OUT}$可得：<br>$$<br>\frac {\Delta I_{OUT }}{V_{OUT}}&#x3D; \frac{R_{F 2}}{R_{F 1}+R_{F 2}} A_{v, EA} \cdot g_{mP}<br>$$<br>由上述两式可以得到：<br>$$<br>L D R&#x3D;\frac{1}{V_{OUT }} \frac{1}{A_{v, EA} g_{mP}} \frac{R_1+R_2}{R_2} × 100<br>$$<br>由此可知，负载调整率可由提高LDO的误差放大器低频增益，增大功率管宽长比得到改善。</p>
+<h3 id="2-4线性调整率"><a href="#2-4线性调整率" class="headerlink" title="2.4线性调整率"></a>2.4线性调整率</h3><p>是当输入电压变化时，输出电压维持在标称值上的能力，也是代表了LDO电路的大信号调节能力，表示为：<br>$$<br>LNR&#x3D;\frac{\Delta V_{OUT }}{\Delta V_{IN} V_{OUT }}…式1<br>$$<br>当输入电压变化引起输出电压变化时，$\Delta V_{\mathbb{N}}$与$\Delta V_{OUT }$有如下关系：<br>$$<br>\frac{\Delta V_{OUT}}{\Delta V_{IN}}&#x3D;\frac{1}{A_{v, EA} \cdot g_{mP}\left(r_{ds}+R_{LOAD}\right)} \frac{R_{F 1}+R_{F 2}}{R_{F 2}}…式2<br>$$<br>其中：</p>
+<ul>
+<li>$\Delta V_{IN}$是输入电压变化量</li>
+<li>$R_{LOAD }$是负载电阻大小</li>
+</ul>
+<p>将式2代入式1，可以得到：<br>$$<br>LR&#x3D;\frac{1}{V_{OUT}} \frac{1}{A_{v, EA} g_{mP}\left(r_{ds}+R_{LOAD}\right)} \frac{R_{F 1}+R_{F 2}}{R_{F 2}} × 100 %<br>$$<br>观察上式线性调整率也可由提高LDO的误差放大器低频增益得到改善</p>
+<h3 id="2-5电源抑制比"><a href="#2-5电源抑制比" class="headerlink" title="2.5电源抑制比"></a>2.5电源抑制比</h3><p>电源抑制比PSRR表示为：</p>
+<p>$$<br>PSRR &#x3D; 20lg\frac{\Delta V_{OUT}}{\Delta V_{IN}}<br>$$</p>
+<p>电源抑制比可看作输入电压$V_{IN}$到输出电压$V_{OUT}$的增益，单位为dB，随频率变化而变化。表征输出电压对输入电压噪声及纹波的抑制能力</p>
+<ul>
+<li><p>PSRR绝对值越大代表LDO对输入电压噪声及纹波的抑制能力越强，也是LDO具有“干净”输出电压的重要原因之一</p>
+</li>
+<li><p>在LDO中，电源抑制比通常与基准电压源的PSRR，EA的低频增益，系统零极点位置以及个数有关。</p>
+</li>
+</ul>
+<h3 id="2-6时域响应"><a href="#2-6时域响应" class="headerlink" title="2.6时域响应"></a>2.6时域响应</h3><p>在LDO电路中，随着负载的增大和减小，有下表的变化：</p>
+<table>
+<thead>
+<tr>
+<th>负载电流$I_{LOAD}$变化</th>
+<th align="left">电路内部变化</th>
+<th>$V_{OUT}$</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>增大</td>
+<td align="left">功率管的更多电流会流向负载，$R_1,R_2$；负载分得的电流减小</td>
+<td>下降，出现下冲</td>
+</tr>
+<tr>
+<td>减小</td>
+<td align="left">功率管的更多电流会流向$R_1,R_2$；负载分得的电流减小</td>
+<td>上升，出现上冲</td>
+</tr>
+</tbody></table>
+<p>对于下冲电流有：<br>$$<br>I_{dip}&#x3D;\frac {ΔI_{OUT}}{2πRC_L}⋅Δt<br>$$<br>乘上电阻R可以得到下冲电压：<br>$$<br>V_{dip}&#x3D;\frac {ΔI_{OUT}}{2πC_L}⋅Δt<br>$$<br>其中：</p>
+<ul>
+<li>$Δt$是稳定值到最高或者最低值的时间</li>
+<li>$C_L$是片外电容的容值</li>
+</ul>
+<p>Δt可以由下面公式得出：<br>$$<br>\Delta t &#x3D; \frac{1}{BW}+2\pi \frac{C_g\Delta V_g}{I_{SR}}<br>$$</p>
+<p>其中：</p>
+<ul>
+<li>$BW$为带宽</li>
+<li>$C_g$是功率管栅极的寄生电容</li>
+<li>$\Delta V_g$是功率管调整变化电流，所需的电压</li>
+<li>$I_{SR}$是压摆率</li>
+</ul>
+<p>故有片外电容的时候，我们常常用使$C_L$尽可能大来控制$V_{dip}$；无片外电容时，我们常常用$Δt$中$BW,Cg,ISR$来控制</p>
+<h2 id="3LDO设计的设计原理"><a href="#3LDO设计的设计原理" class="headerlink" title="3LDO设计的设计原理"></a>3LDO设计的设计原理</h2><h3 id="3-1片外电容和非片外电容"><a href="#3-1片外电容和非片外电容" class="headerlink" title="3.1片外电容和非片外电容"></a>3.1片外电容和非片外电容</h3><p><img src="/./../pics/f0dc7f4a573993865b27d73aa44f6f3c.png"></p>
+<h4 id="3-1-1传统有片外电容LDO稳定性分析"><a href="#3-1-1传统有片外电容LDO稳定性分析" class="headerlink" title="3.1.1传统有片外电容LDO稳定性分析"></a>3.1.1传统有片外电容LDO稳定性分析</h4><p>其最主要的特点在于 LDO 的输出电容和负载都在片外，要在输出端外接一个级别的大电容，其有两个作用：</p>
+<ol>
+<li>可以稳压和拉低输出极点频率的功能</li>
+<li>会带来一个寄生的等效串联电阻$R_{ESR}$，电阻会形成一个额外的低频零点，可以通过适当的设计该零点的频率和次主极点的频率，使得二者能做到相互抵消，以提升LDO的环路带宽和相位裕度</li>
+</ol>
+<p>缺点：</p>
+<ol>
+<li>但这种结构下，得到的LDO芯片的面积会因为较大的输出电容而增大，从而损耗更多的面积</li>
+<li>由于$R_{ESR}$的存在，片外大电容$C_{L}$无法对负载的突然变化做出跟随影响，因为其无法瞬间靠压差产生一个大电流，于是还需要在片内加入一个容值较小的高频稳压电容$C_A$</li>
+</ol>
+<p><img src="/./../pics/%7BA3835922-37E7-4116-96CA-FA783E9A7E35%7D.png"></p>
+<p>其中：</p>
+<ul>
+<li><p>$C_A$是高频稳压电容，和反馈电阻$R_1,R_2$均处于片上</p>
+</li>
+<li><p>$R_L$是负载电阻，是LDO负载电路的等效电阻，用以模拟负载端对LDO的电流需求</p>
+</li>
+<li><p>$C_L$为级$\mu F$别的片外的大负载电容，$R_{ESR}$是指其等效串联电阻</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>零极点情况</th>
+<th>形成原因</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>主极点$P_1&#x3D;\frac 1{R_LC_L}$</td>
+<td>传统LDO的输出电容极大，那么和输出阻抗也会产生一个极点；且由于输出电容$C_L$是$\mu F$级别，栅极寄生电容是$C_g$是$pF$级别，故这个极点为主极点</td>
+</tr>
+<tr>
+<td>次极点$P_2&#x3D;\frac 1{R_{EAout}C_g}$</td>
+<td>由于较大的误差放大器增益所要求的电阻$R_{EAout}$和功率管较大带负载需求导致功率管的$\frac WL$较大，所带来的寄生电容$C_g$组成的频率第二低的次主极点</td>
+</tr>
+<tr>
+<td>零点$Z&#x3D;R_{ESR}C_{OUT}$</td>
+<td>是由输出端的输出电容和ESR电阻产生，可以通过调整片外电容$C_L , R_{ESR}$的值改变零点的位置，同该次极点抵消，从而拉宽带宽，改善环路相位裕度</td>
+</tr>
+</tbody></table>
+<p><img src="/./../pics/%7B3FDF1DB0-0C30-4ADE-866D-5347F7ABEC82%7D.png"></p>
+<p>对于传统的LDO而言，当负载越来越大的时候，得到的等效输出电阻$R_L$会进一步变小，导致主极点$P_1$向高频（即上图右端）移动；当主次极点过于接近时，如无ESR 点存在（其中Z1和P2作用相互抵消，增加了带宽），相位裕度将会恶化，环路稳定失效，故整个LDO系统的稳定性会随着负载的增大而变差</p>
+<h4 id="3-1-2无片外电容LDO稳定性分析"><a href="#3-1-2无片外电容LDO稳定性分析" class="headerlink" title="3.1.2无片外电容LDO稳定性分析"></a>3.1.2无片外电容LDO稳定性分析</h4><p>由于需要片上集成因此：</p>
+<ul>
+<li>无法在输出引脚上加上外接的片外大电容，其所有需要的器件都必须将大小控制在可以集成于芯片内部的水平，如电容、电阻、带隙基准电路等</li>
+<li>可以看出输出端仍有稳压电容$C_L$，不过此时$C_L$大小仅有$pF$级别，最大不超过$nF$级别，并且是集成于片上的。</li>
+</ul>
+<p><img src="/./../pics/%7B225DE45C-9C46-496D-9A0B-963BE3D58FCE%7D.png"></p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>零极点情况</td>
+<td>形成原因</td>
+</tr>
+<tr>
+<td>主极点$P_1&#x3D;\frac 1{R_{EAout}C_g}$</td>
+<td>此时$C_L≈C_g$其数量级较为接近，而功率管栅极对地的等效输出阻抗$R_{EA}$远大于最后一级输出端的等效输出阻抗$R_L$，故主极点从LDO的输出端变为$\frac 1{RC}$数值更小的功率管的栅极</td>
+</tr>
+<tr>
+<td>次极点$P_2&#x3D;\frac 1 {R_LC_L}$</td>
+<td></td>
+</tr>
+<tr>
+<td>无零点存在</td>
+<td></td>
+</tr>
+</tbody></table>
+<p><img src="/./../pics/%7B7DA5EBBF-EF74-4246-8BF9-3163C1CF8094%7D.png" alt="{7DA5EBBF-EF74-4246-8BF9-3163C1CF8094}"></p>
+<p>如上图所示，对于无片外电容的LDO而言其LDO的相位裕度将足够大，环路将十分稳定，但稳定性受稳压电容$C_{L}$大小的影响，由：</p>
+<p>$$<br>P_{2} &#x3D; \frac{1}{R_{L}C_{L}}<br>$$</p>
+<ul>
+<li>当稳定电容增大时$C_{L}\uparrow$，$P_{2} &#x3D; \frac{1}{R_{L}C_{L}\uparrow}\downarrow$，次极点$P_{2}$会靠近主极点，使得环路稳定性变差</li>
+<li>当稳定电容过小时$C_{L}\downarrow$，$P_{2} &#x3D; \frac{1}{R_{L}C_{L}\downarrow}\uparrow$，虽然极点被推远，但当负载瞬态变化的时候，就没有足够大的电容为其短暂提供&#x2F;吸收电荷，会使得其有着更大的过冲&#x2F;下冲电压幅度</li>
+</ul>
+<h3 id="3-2频率补偿方式"><a href="#3-2频率补偿方式" class="headerlink" title="3.2频率补偿方式"></a>3.2频率补偿方式</h3><h4 id="3-2-1-动态零点补偿技术"><a href="#3-2-1-动态零点补偿技术" class="headerlink" title="3.2.1 动态零点补偿技术"></a>3.2.1 动态零点补偿技术</h4><p><img src="/./../pics/%7B1BB94AD7-2CB6-46CC-B73C-16BEB16EC6C1%7D.png"></p>
+<p>对于$M_{c}$这个$Pmos$，D端接$C_{c}$其上面几乎无电流，$M_{c}$工作在深线性区，其相当于一个电阻：</p>
+<p>$$<br>R_{c} &#x3D; \frac{1}{k’\frac{W}{L}(V_{gs} - V_{th})<br>}<br>$$</p>
+<p>又因为$Pmos$管$M_{c},M_{p}$栅极接在一起，其具有相同的$V_{gs}$，由上面的公式可以看到，$R_{c}$会随着$V_{gs}$变化，$R_{c}$可看作一个等效电阻。</p>
+<p>1.其会引入一个零点，是由于对于管$M_{c},C_{c}$的并联，其相当于管内阻$R_{c}$与$C_{c}$串联，根据$RC$法估计，零点的表达式为：<br>$$<br>Z_{c} &#x3D; \frac{1}{R_{c}C_{c}}…式1<br>$$<br>2.次极点位于输出端：<br>$$<br>P_{0} &#x3D; \frac{1}{r_{0}C_{o}}<br>$$<br>再带入管的内阻公式$r_{0} &#x3D; \frac{1}{\lambda I_{LOAD}}$带入上式中：<br>$$<br>P_{0} &#x3D; \frac{\lambda I_{LOAD}}{C_{0}}…式2<br>$$<br>根据式1和2，为了使零点$Z_{c}$能够较好的补偿跟随零点$P_{0}$，电容$C_{c}$的值要接近甚至大于$C_{o}$的数量级。<br>3.在$P_{D}$处： </p>
+<p><img src="/./../pics/%7B95B9166D-7951-4CF1-A1DF-D6AF8CF67515%7D.png"></p>
+<p>对$C_C$上KCl:<br>$$<br>\frac{1}{R_{EA}} + \frac{1}{SC_{c}} + R_{c} + SC_{g} &#x3D; 0<br>$$<br>化简:<br>$$<br>SC_{c}R_{C} + 1 + SC_{c}R_{EA} + SC_{g}R_{EA}(SC_{c}R_{c} + 1) &#x3D; 0<br>$$<br>$$<br>S^{2}C_{g}C_{c}R_{EA}R_{C} + SC_{g}R_{EA} + SC_{c}R_{EA} + SC_{c}R_{c} + 1 &#x3D; 0…式3<br>$$<br>利用主极点近似，一定能化为如下这种结构:<br>$$<br>(1 - \frac{S}{P_{2}})(1 - \frac{S}{P_{D}}) &#x3D; 0<br>$$<br>我们设$P_{D}$为主极点，即$|P_{2}| &gt; |P_{D}|$，将上式乘开:<br>$$<br>1 - \frac{S}{P_{D}} + \frac{S^{2}}{P_{2}P_{D}} &#x3D; 0<br>$$<br>与式3对比可解得:<br>$$<br>P_{D} &#x3D; \frac{1}{C_{g}R_{EA} + C_{c}R_{EA} + C_{c}R_{c}}<br>$$<br>根据前面我们的分析</p>
+<blockquote>
+<p>为了使零点$Z_{c}$能够较好的补偿跟随零点$P_{0}$，电容$C_{c}$的值要接近甚至大于$C_{o}$的数量级 </p>
+</blockquote>
+<p>可得$C_{g} \gg C_{c}$，继续化简上式，约去含$C_{c}$的项，可以得到主极点:<br>$$<br>P_{D} &#x3D; \frac{1}{C_{c}(R_{EA} + R_{c})}<br>$$<br>$C_{c}$要大，主极点$P_{D}$才能小，才能成为主极点，这也与我们上面分析$C_{c}$本身自己的值要大相符合，再继续解得次极点:<br>$$<br>P_{2} &#x3D; \frac{1}{R_{c}||R_{EA}}<br>$$<br>但上述的方法通过增大$C_{c}$的值来实现零点跟随补偿，会带来一个问题，越大的电容容值其在版图上所占面积越大 </p>
+<p><img src="/./../pics/%7B2C7944D4-0A61-4E42-A539-22183252EA1B%7D.png"></p>
+<p>原理跟上文一样，但其通过设计缓冲器，将$P_{N1}, P_{N2}$推到高频率处，通过Buffer隔离：</p>
+<ul>
+<li>使得输入寄生电容由$C_{p}$变为$Cib$，减小了输入电容</li>
+<li>使输出电阻由$r_{o},R_{EA}$变为了$r_{ob}$，减小了输出电阻</li>
+<li>通过设置零点去跟随单位增益频率带宽的频率点，与上文相比，由于其零点大得多，$C_{c}$可以小得多</li>
+</ul>
+<ol>
+<li><p>$P_{c}$上面我们已经推到过，直接套用：<br>$$<br>P_{c} &#x3D; \frac{1}{(R_{EA} + R_{z})C_{c}}<br>$$<br>由于$C_{c}$较小，且等效可调电阻$R_{z} \ll R_{EA}$，虽然其仍然会受负载变化影响，但整体上，$P_{c}$不受负载影响</p>
+</li>
+<li><p>对于主极点：<br>$$<br>P_{0} &#x3D; \frac{\lambda I_{LOAD}}{C_{L}}<br>$$<br>容易受影响且会引起$UGB$的变化</p>
+</li>
+</ol>
+<h4 id="3-2-2放大电路的设计原理"><a href="#3-2-2放大电路的设计原理" class="headerlink" title="3.2.2放大电路的设计原理"></a>3.2.2放大电路的设计原理</h4><p>运放的开环增益决定了使用运放的反馈系统的精度<br>$$<br>\frac{Y}{X} &#x3D; \frac{A}{1 + \beta A} \approx \frac{1}{\beta}(1 - \frac{1}{\beta A})<br>$$<br>可以看到开环增益会影响’+’和’-‘端虚短虚断的精度，当开环增益没有足够大时；在实际仿真中两端的电压并不完全相同，而是相差$0.005V$这样的数量级 </p>
+
+</div> 
+
+<script>
+    window.onload = detectors();
+</script>
+    <div class="post-footer">
+    <div class="h-line-primary"></div>
+    <nav class="post-nav">
+        <div class="prev-item">
+           
+                <div class="icon arrow-left"></div>
+                <div class="post-link">
+                    <a href="/2025/03/02/%E4%BF%AE%E5%A4%8Dframe%E4%B8%BB%E9%A2%98%E7%9A%84%E8%A1%8C%E5%86%85%E5%85%AC%E5%BC%8F%E4%B8%8D%E6%B8%B2%E6%9F%93%E9%97%AE%E9%A2%98/">Prev</a>
+                </div>
+            
+        </div>
+        <div class="next-item">
+            
+                <div class="icon arrow-right"></div>
+                <div class="post-link">
+                  <a href="/2024/12/28/%E7%AC%94%E8%AE%B0%E5%BE%AE%E6%9C%BA%E5%8E%9F%E7%90%86%E5%A4%8D%E4%B9%A0/">Next</a>  
+                </div>  
+            
+        </div>
+    </nav>
+</div>
+
+    
+      <div class="post-comment">
+
+     
+
+     
+    
+    
+
+</div>
+     
+  
+</article>
+        </div>
+      </div>
+      
+      <div class="footer">
+    <div class="flex-container">
+        <div class="footer-text">
+            
+            
+                Skjaldbaka1© | 
+            
+            
+                Powered by <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/zoeingwingkei/frame/">Frame</a>
+                
+        </div>
+    </div>
+</div>
+    </div>
+  </body>
+</html>
+

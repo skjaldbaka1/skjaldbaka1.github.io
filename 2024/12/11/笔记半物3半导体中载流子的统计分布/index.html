@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Skjaldbaka1">
+
+
+
+
+
+
+
+<title>半导体物理笔记第三章 | Skjaldbaka1&#39;s blog</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&family=Roboto+Mono&display=swap');
+</style>
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/menu.js"></script>
+    
+
+
+
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+
+
+
+
+
+
+    <script type="text/javascript" async
+      src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        }
+      };
+    </script>
+  <meta name="generator" content="Hexo 7.3.0"></head>
+  <body>
+    <div class="mask-border"></div>
+
+    <div class="wrapper">
+      <div class="header">
+  <div class="flex-container">
+    <div class="header-inner">
+      <div class="site-brand-container">
+        <a href="/">
+          
+            Skjaldbaka1.
+          
+        </a>
+      </div>
+      <div id="menu-btn" class="menu-btn" onclick="toggleMenu()">
+        Menu
+      </div>
+      <nav class="site-nav">
+        <ul class="menu-list">
+          
+            
+              <li class="menu-item">
+                <a href="/">主页</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/archives/">文集</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/categories/gallery/">影集</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/tag/">引索</a>
+              </li> 
+                   
+          
+          
+            <li class="menu-item search-btn">
+              <a href="#">Search</a>
+            </li>
+          
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main">
+        <div class="flex-container">
+          <article id="post">
+
+  
+    <div class="post-head">
+    <div class="post-info">
+        <div class="tag-list">
+            
+                
+                    <span class="post-tag">
+                        <a href="/tags/%E7%AC%94%E8%AE%B0/">
+                            笔记
+                        </a>
+                    </span>    
+                
+                    <span class="post-tag">
+                        <a href="/tags/%E5%8D%8A%E5%AF%BC%E4%BD%93%E7%89%A9%E7%90%86/">
+                            半导体物理
+                        </a>
+                    </span>    
+                           
+            
+        </div>
+        <div class="post-title">
+            
+            
+                半导体物理笔记第三章
+            
+            
+        </div>
+        <span class="post-date">
+            12月 11, 2024
+        </span>
+    </div>
+    <div class="post-img">
+        
+            <div class="h-line-primary"></div>
+              
+    </div>
+</div>
+    <div class="post-content">
+    <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">graph TD; A[载流子] --&gt; B[电子]; B --&gt; C[N型]; A --&gt; D[空穴]; D --&gt; E[P型]</span><br></pre></td></tr></table></figure>
+
+
+<p>由本征激发和杂质电离产生NP型</p>
+<h3 id="1-2状态密度"><a href="#1-2状态密度" class="headerlink" title="1.2状态密度"></a>1.2状态密度</h3><h4 id="1-2-1引入热平衡状态"><a href="#1-2-1引入热平衡状态" class="headerlink" title="1.2.1引入热平衡状态"></a>1.2.1引入热平衡状态</h4><p>T一定时，无外界其他激励因素，如光照等，下面两种情况产生和消失动态平衡</p>
+<ol>
+<li>电子可以从价带跃迁到导带，即本征激发，导致电子和空穴成对出现（本质是&#x3D;&#x3D;电子和空穴的产生，即电子从低能状态到高能状态&#x3D;&#x3D;），形成导电的电子与空穴；相应的有产生就会有消失，&#x3D;&#x3D;电子和空穴的消失（复合状态）电子从高能状态到低能状态，电子空穴减少&#x3D;&#x3D;</li>
+<li>电子和空穴也可由杂质电离方式产生，同样的也存在电子空穴消失的过程<br>这两种热平衡态下的导电电子和空穴称为热平衡载流子</li>
+</ol>
+<h4 id="1-2-2-g-E-状态密度对于导带底来说"><a href="#1-2-2-g-E-状态密度对于导带底来说" class="headerlink" title="1.2.2$g(E)$状态密度对于导带底来说"></a>1.2.2$g(E)$状态密度对于导带底来说</h4><p>导带或者价带很多能级存在，并且能级之间间隔很小，称为准连续，有定义：<br>$$<br>g(E)&#x3D;\frac {dZ(E)}{dE}<br>$$</p>
+<ul>
+<li>$g(E)$为状态密度：单位能量间隔中的量子态数</li>
+<li>$dZ(E)$在能量$E ～ E+dE$之间的量子态数<br>计算状态密度的步骤：</li>
+</ul>
+<ol>
+<li>计算k空间的量子态密度</li>
+<li>在计算能量为E但等能面所包含的体积大小，再乘以k空间的量子态密度得到Z(E)</li>
+<li>按上面的定义式求导</li>
+</ol>
+<h5 id="1-等能面为球体的状态密度即电子"><a href="#1-等能面为球体的状态密度即电子" class="headerlink" title="1.等能面为球体的状态密度即电子"></a>1.等能面为球体的状态密度即电子</h5><ol>
+<li>k空间的量子态密度<br>晶体中的电子满足如下两个关系式：<br>$$<br> -\frac{\hbar^2}{2m_0} \frac{d^2 \psi(x)}{dx^2} + V(x)\psi(x) &#x3D; E\psi(x)<br>$$<br>$$<br> \psi(x) &#x3D; V(x + a)<br>$$<br>得到布洛赫定理：<br>$$<br> \psi_{\mathbf{k}}(x) &#x3D; u_{\mathbf{k}}(x) e^{i \mathbf{k} \cdot x}<br>$$<br>$$<br> u_{\mathbf{k}}(x) &#x3D; u_{\mathbf{k}}(x + \mathbf{Sa})<br>$$<br>根据波恩卡曼循环边界条件：<br>$$<br>\psi_{\mathbf{k}}(0) &#x3D; u_{\mathbf{k}}(L)<br>$$<br>$$<br>L &#x3D; Na<br>$$<br>将其带入布洛赫定理中得到：<br>$$<br>e^{ikL} &#x3D; 1<br>$$<br>$$<br>k &#x3D; \frac {2 \pi n}{L}<br>$$<br>在x,y,z轴k值可以由上式求出：<br>$$<br>k_x &#x3D; \frac {2 \pi n_x}{L},<br>k_y &#x3D; \frac {2 \pi n_y}{L},<br>k_z &#x3D; \frac {2 \pi n_z}{L}<br>$$<br>把他们相乘可以得出每个k值在k空间中所占的体积：<br>$$<br>\frac {2 \pi}{L} \cdot \frac {2 \pi}{L} \cdot \frac {2 \pi}{L} &#x3D; \frac {8 \pi^3}V<br>$$<br>又因为量子态密度是k体积的倒数，故量子态密度，再计入自旋（乘于2）：<br>$$<br>\frac {2V}{8 \pi^3}<br>$$</li>
+<li>能量为E但等能面所包含的体积<br>对于一个各项同性的半导体，它的等能面是球形的：<br>其有效质量有：<br>$$ E(\mathbf{k}) - E_c &#x3D; \frac{\hbar^2 \mathbf{k}^2}{2m_n^*} $$<br>将式子表示为k的形式：<br>$$ \mathbf{k} &#x3D; ｛{\frac{2m_n^*}{\hbar^2} \left[ E(\mathbf{k}) - E_c \right]} ｝^{\frac 12}$$ 带入球形的体积公式$\frac 43 \pi k^3$中：<br>$$ \frac{4}{3} \pi \left( \frac{2m_n^*}{\hbar^2} \right)^{3&#x2F;2} (E - E_c)^{3&#x2F;2} $$<br>等能面中总量子态数为2中量子态密度和3中最终求出体积的乘积：<br>$$<br>Z(E) &#x3D; \frac {2V}{8 \pi^3} \cdot \frac{4}{3} \pi \left( \frac{2m_n^*}{\hbar^2} \right)^{3&#x2F;2} (E - E_c)^{3&#x2F;2}<br>$$</li>
+<li>根据定义式求导<br>将3中的$Z(E)$带入$g(E)&#x3D;\frac {dZ(E)}{dE}$对$dE$求导，得到导带底的状态密度为：<br>$$<br>g_c(E)&#x3D;\frac {dZ(E)}{dE} &#x3D; \frac {V}{2 \pi^2} (\frac {2m^*_n}{\hbar^2})^{\frac 32}(E - E_c)^{\frac 12}<br>$$</li>
+</ol>
+<h5 id="2-等能面为椭球体的状态密度"><a href="#2-等能面为椭球体的状态密度" class="headerlink" title="2.等能面为椭球体的状态密度"></a>2.等能面为椭球体的状态密度</h5><p>$$ E(\mathbf{k}) - E_c &#x3D; \frac{\hbar^2}{2} \left[ \frac{(k_x - k_{0x})^2}{m_{nx}^*} + \frac{(k_y - k_{0y})^2}{m_{ny}^*} + \frac{(k_z - k_{0z})^2}{m_{nz}^*} \right] $$</p>
+<h5 id="3-特殊Si-Ge的等能面的状态密度"><a href="#3-特殊Si-Ge的等能面的状态密度" class="headerlink" title="3.特殊Si,Ge的等能面的状态密度"></a>3.特殊Si,Ge的等能面的状态密度</h5><p>对于Si,Ge：</p>
+<p>$$<br>m_{nx}^* &#x3D; m_{ny}^* &#x3D; m_t, \quad m_{nz}^* &#x3D; m_l<br>$$</p>
+<p>$$<br>E(\mathbf{k}) - E_c &#x3D; \frac{\hbar^2}{2} \left[ \frac{k_1^2 + k_2^2}{m_t} + \frac{k_3^2}{m_l} \right]<br>$$</p>
+<p>可以得到类似于椭圆公式：</p>
+<p>$$<br>\frac{k_1^2 + k_2^2}{ \frac{2}{\hbar^2}m_t(E(\mathbf{k}) - E_c)} + \frac{k_3^2}{ \frac{2}{\hbar^2}m_l(E(\mathbf{k}) - E_c)} &#x3D; 1<br>$$</p>
+<p>其中：</p>
+<p>$$<br>a^2 &#x3D; b^2 &#x3D; \frac{2}{\hbar^2}m_t(E(\mathbf{k}) - E_c)<br>$$</p>
+<p>$$<br>c^2 &#x3D; \frac{2}{\hbar^2}E(\mathbf{k}) - E_c<br>$$</p>
+<p>代入椭球体积公式$\frac{4}{3} \pi abc$得</p>
+<p>$$<br>\frac{4}{3} \pi \frac{2}{\hbar^2}m_t(E(\mathbf{k}) - E_c) \sqrt{\frac{2}{\hbar^2}E(\mathbf{k}) - E_c}<br>$$</p>
+<p>$$<br>&#x3D; \frac{4}{3} \cdot \frac{m_t}{\hbar^3} \cdot 2^{\frac{3}{2}}(E(k) - E_c)^{\frac{3}{2}} \cdot m_t m_l^{\frac{1}{2}}<br>$$</p>
+<p>由于Si中有6个椭球</p>
+<p>$$<br>Z(E) &#x3D; (\text{椭球个数} S) \cdot (\text{椭球体积} V) \cdot \frac{2V}{8 \pi^3}<br>$$</p>
+<p>再对$Z(E)$进行求导得到最终结果：</p>
+<p>$$<br>g_c(E) &#x3D; \frac{dZ}{dE} &#x3D; \frac{V}{\pi^2} \cdot \frac{m_t}{\hbar^3} \cdot \sqrt{2} \cdot (E(k) - E_c)^{\frac{1}{2}} m_l^{\frac{1}{2}} \cdot S<br>$$</p>
+<h5 id="4-m-n-与-m-t-和-m-l-的区别"><a href="#4-m-n-与-m-t-和-m-l-的区别" class="headerlink" title="4. $m_n^*$与$m_t$和$m_l$的区别"></a>4. $m_n^*$与$m_t$和$m_l$的区别</h5><p>将上式与球形等能面相等：</p>
+<p>$$<br>\frac{dZ}{dE} &#x3D; \frac{V}{\pi^2} \cdot \frac{m_t}{\hbar^3} \cdot \sqrt{2} \cdot (E(k) - E_c)^{\frac{1}{2}} m_l^{\frac{1}{2}} \cdot S &#x3D; \frac{dZ(E)}{dE} &#x3D; \frac{V}{2 \pi^2} \left(\frac{2m_n^*}{\hbar^2}\right)^{\frac{3}{2}} (E - E_c)^{\frac{1}{2}}<br>$$</p>
+<p>化简之后得：</p>
+<p>$$<br>m_n^* &#x3D; (m_t^2 S^2 m_l)^{\frac{1}{3}}<br>$$</p>
+<p>在这里$m_n^*$的主要作用是为了使球形等能面与椭球等能面表达形式相同而设定的一个量，没有实际的物理含义。</p>
+<h5 id="5-状态密度对于价带顶即空穴"><a href="#5-状态密度对于价带顶即空穴" class="headerlink" title="5. 状态密度对于价带顶即空穴"></a>5. 状态密度对于价带顶即空穴</h5><p>对于价带顶，若$m_n^*$为正，则$m_p^*$为负，且各项同性，由含$m_n^*$的$E \sim k$关系得出$m_p^*$的表达式：</p>
+<p>$$<br>E(\mathbf{k}) - E_v &#x3D; -\frac{\hbar^2 k^2}{2m_p^*} \quad k &#x3D; \sqrt{\frac{2m_p^* (E_v - E)}{\hbar^2}}<br>$$</p>
+<p>球形等能面包围的体积：</p>
+<p>$$<br>\frac{4}{3} \pi k^3 &#x3D; \frac{4}{3} \pi \left( \frac{2m_p^*}{\hbar^2} \right)^{\frac{3}{2}} (E_v - E)^{\frac{3}{2}}<br>$$</p>
+<p>总量子态数目：</p>
+<p>$$<br>\frac{2v}{8\pi^3} \cdot \frac{4}{3} \pi \left( \frac{2m_p^*}{\hbar^2} \right)^{\frac{3}{2}} (E_v - E)^{\frac{3}{2}}<br>$$</p>
+<p>最后求状态密度：</p>
+<p>$$<br>g_c &#x3D; \frac{dZ}{dE} &#x3D; \frac{2v}{8\pi^3} \cdot \frac{4}{3} \pi \left( \frac{2m_p^*}{\hbar^2} \right)^{\frac{3}{2}} \cdot \frac{3}{2} (E_v - E)^{\frac{1}{2}}<br>$$</p>
+<p>$$<br>&#x3D; \frac{v}{2\pi^2} \left( \frac{2m_p^*}{\hbar^2} \right)^{\frac{3}{2}} (E_v - E)^{\frac{1}{2}}<br>$$</p>
+<h5 id="6-实际具体的状态密度"><a href="#6-实际具体的状态密度" class="headerlink" title="6.实际具体的状态密度"></a>6.实际具体的状态密度</h5><p>实际晶体的价带由重空穴和轻空穴两个能带组成，体积计算时应考虑中空穴和轻空穴两个能带</p>
+<ul>
+<li>重空穴<br>$$<br>g_v(E)<em>h &#x3D; \frac{v}{2\pi^2} \left( \frac{2m</em>{ph}^*}{\hbar^2} \right)^{\frac{3}{2}} (E_v - E)^{\frac{1}{2}}<br>$$</li>
+<li>轻空穴<br>$$<br>g_v(E)<em>l &#x3D; \frac{v}{2\pi^2} \left( \frac{2m</em>{pl}^*}{\hbar^2} \right)^{\frac{3}{2}} (E_v - E)^{\frac{1}{2}}<br>$$</li>
+<li>二者相加得到总状态密度<br>$$<br>g_v(E)<em>{all} &#x3D; \frac{v}{2\pi^2} \left( \frac{(2m</em>{ph}^*)^\frac 32 + (2m_{pl}^*)^\frac 32}{(\hbar^2)^\frac 32} \right) (E_v - E)^{\frac{1}{2}}<br>$$<br>同样的为了求出与原$m_n^*$的关系让上式与球形状态密度联立：<br>$$<br>g_c(E)&#x3D;\frac {dZ(E)}{dE} &#x3D; \frac {V}{2 \pi^2} (\frac {2m^*<em>n}{\hbar^2})^{\frac 32}(E - E_c)^{\frac 12}<br>$$<br>最终会得到：<br>$$<br>m_p^* &#x3D; ((m_ph^*)^\frac 32 + (m_pl^*)^\frac 32)^\frac 23<br>$$<br>禁带中不存在量子态，因此在$E_g$中，$g</em>(E)&#x3D;0$，如果电子和空穴的有效质量相同，那么$g_c(E)$和$g_v(E)$它们所代表的函数曲线将对于禁带中线对称<br>![[SmartSelect_20241125_105722_Obsidian.jpg]]</li>
+</ul>
+<h3 id="1-3费米能级以及载流子的统计分布"><a href="#1-3费米能级以及载流子的统计分布" class="headerlink" title="1.3费米能级以及载流子的统计分布"></a>1.3费米能级以及载流子的统计分布</h3><p>电子是费米子，受到泡利不相容原理制约，遵循费米狄拉克统计</p>
+<h4 id="1-3-1费米分布函数"><a href="#1-3-1费米分布函数" class="headerlink" title="1.3.1费米分布函数"></a>1.3.1费米分布函数</h4><p>这个函数反映的几率是一个能量为$E$的能级上被电子占据的几率<br>$$<br>f &#x3D; \frac 1 {1 + exp(\frac {E - E_F}{k_0T})}<br>$$</p>
+<ul>
+<li>$k_0$为玻尔兹曼常数在室温下$k_0T &#x3D; 0.026eV$（其余温度下的$k_0T$的值可由比值求出，如$\frac {200} {300} &#x3D; \frac {k_0T}{0.026}$)</li>
+<li>$T$热力学温度，如$300k$</li>
+<li>$E_F$费米能级，可以通过电中性条件求得，是平衡电子系统的一个重要参考量<br>讨论</li>
+</ul>
+<ol>
+<li>$f$是一个单调下降的函数：随着$E$上升，$E-E_F$上升，$exp(\frac {E - E_F}{k_0T})$上升，$f$下降</li>
+<li>$T\rightarrow0k$时，$k_0T$无限小<ul>
+<li>$E &gt; E_F,exp(\frac {E - E_F}{k_0T}) \rightarrow \infty,f\rightarrow0$ </li>
+<li>$E &lt; E_F,exp(\frac {E - E_F}{k_0T}) \rightarrow 0,f\rightarrow1$<br> 故在绝对零度时，费米能级是电子占据能级的标点，即在费米能级$E_F$之下所有的能级都被电子占据（电子占据能级的概率是$100％$），在之上没有任何电子<br> ![[SmartSelect_20241125_112814.jpg]]</li>
+</ul>
+</li>
+<li>$T&gt;0k$时，$k_0T$为正数<ul>
+<li>$E &gt; E_F,exp(\frac {E - E_F}{k_0T}) &gt; 1,f&lt;\frac12$ </li>
+<li>$E &lt; E_F,exp(\frac {E - E_F}{k_0T}) &lt; 1,f&gt;\frac12$<br> ![[SmartSelect_20241125_113052_Obsidian.jpg]]</li>
+</ul>
+</li>
+<li>$T&#x3D;0k$时，若$E&#x3D;E_F$，则$f(E_F) &#x3D; \frac 12$</li>
+</ol>
+<h5 id="1-费米能级的物理意义"><a href="#1-费米能级的物理意义" class="headerlink" title="1.费米能级的物理意义"></a>1.费米能级的物理意义</h5><p>费米能级是电子填充能级水平的标志，起着衡量能级被电子占据概率的作用，能量比费米能级高的量子态基本都是空的，而能量比费米能级低的量子态基本都是满的</p>
+<h5 id="2-空穴的费米能级"><a href="#2-空穴的费米能级" class="headerlink" title="2.空穴的费米能级"></a>2.空穴的费米能级</h5><p>相反的科学被占据的几率等于能级不被电子占据的几率，有：<br>$$<br>1 - f &#x3D; \frac 1 {1 + exp(\frac {E_F - E}{k_0T})}<br>$$<br>与电子费米分布相比只用$E_F - E$替代了$E - E_F$，因此在电子的能带图中，空穴的能量高低与电子的相反，空穴所处的能级越低，能量越高（即其分布函数与电子的对称相反）</p>
+<h5 id="3-通过-E-F-位置判断半导体导电类型"><a href="#3-通过-E-F-位置判断半导体导电类型" class="headerlink" title="3.通过$E_F$位置判断半导体导电类型"></a>3.通过$E_F$位置判断半导体导电类型</h5><table>
+<thead>
+<tr>
+<th>费米能级越靠近导带</th>
+<th>则导带中的电子越多</th>
+<th>N型半导体</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>费米能级越靠近价带</td>
+<td>则导带中的电子越少</td>
+<td>P型半导体</td>
+</tr>
+<tr>
+<td>在费米能级以上、并且越靠近费米能级（也就是能量差值 越小）的能级，被电子所占据的概率就越大</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<blockquote>
+<p><em>可以这样类比理解，把能级想象成一个个高低不同的台阶，费米能级是一个具有特殊意义的 “分界线”，电子就像是小球，小球更倾向于待在靠近这个 “分界线” 且在 “分界线” 以下的台阶上（对应能级被填满情况），而在 “分界线” 之上，越靠近它的那些较高台阶（能级），虽然总体小球数量少，但相对更靠近 “分界线” 的台阶上出现小球（电子占据）的可能性会比那些离得远的台阶更大一些</em></p>
+</blockquote>
+<h4 id="1-3-2玻尔兹曼分布函数"><a href="#1-3-2玻尔兹曼分布函数" class="headerlink" title="1.3.2玻尔兹曼分布函数"></a>1.3.2玻尔兹曼分布函数</h4><p>描述在一定温度一下电子在非简并半导体能带中的运动分布概率<br>$$<br>f &#x3D; \frac 1 {exp(\frac {E - E_F}{k_0T})}<br>$$<br>与费米分布的区别是将分母中的1去掉了，先将上式化为：<br>$$<br>f &#x3D; exp(- \frac {E - E_F}{k_0T})<br>$$<br>当$E - E_F &gt;&gt; k_0T$时：<br>$$<br>f &#x3D; exp(- \frac {E}{k_0T})&#x3D;Ae^{(- \frac {E}{k_0T})}&#x3D;1<br>$$<br>最终得到：<br>$$<br>A&#x3D;exp{(\frac {E}{k_0T})}<br>$$<br>除去在$E_F$附近几个量子态外，在$E - E_F &gt;&gt; k_0T$处，量子态被电子占据的几率很小，玻尔兹曼分布于费米分布相同,因为：<br>$$<br>f &#x3D; \frac 1 {1 + exp(\frac {E - E_F}{k_0T})}<br>$$<br>中$exp(\frac {E - E_F}{k_0T})\rightarrow \infty$故分母中的1可以省去，这样子就跟玻尔兹曼分布一样了<br>进一步的费米统计分布与玻尔兹曼统计分布的主要区别在费米分布受泡利不相容原理限制，而当$E - E_F &gt;&gt; k_0T$时泡利不相容原理失去作用跟我们上面证得到$f$表达式一样正好吻合</p>
+<h4 id="1-3-3载流子浓度的求法"><a href="#1-3-3载流子浓度的求法" class="headerlink" title="1.3.3载流子浓度的求法"></a>1.3.3载流子浓度的求法</h4><h5 id="1-非简并半导体与简并半导体"><a href="#1-非简并半导体与简并半导体" class="headerlink" title="1.非简并半导体与简并半导体"></a>1.非简并半导体与简并半导体</h5><p>从电子系统的角度出发</p>
+<ul>
+<li>非简并半导体：服从玻尔兹曼统计分布的半导体</li>
+<li>简并半导体：服从费米统计分布的半导体</li>
+</ul>
+<h5 id="2-电子浓度"><a href="#2-电子浓度" class="headerlink" title="2.电子浓度"></a>2.电子浓度</h5><p>求电子浓度的思路</p>
+<ol>
+<li>将导带分成无限小的能量间隔，在$E ～ E＋dE$之间有$dZ＝g_c(E)dE$个量子态</li>
+<li>电子占据能量为E的量子态概率E的量子态概率为$f(E)$</li>
+<li>$E ～ E＋dE$的内容了间隔内被电子占据的量子态$f(E)g_c(E)dE$<ul>
+<li>每个量子态上占有有不一个电子，故被占据的量子态数＝电子数</li>
+</ul>
+</li>
+<li>所有电子数相加为求积分，其范围为从导带底到导带顶对$f(E)g_c(E)dE$积分</li>
+<li>总电子数目再处于体积得到导带电子的浓度<br>![[SmartSelect_20241126_102400.jpg]]能量$E ～ E＋dE$的电子数，$dN&#x3D;f_{波尔斯曼}(E)g_c(E)dE$<br>所以：<br>$$<br>dN &#x3D; \frac {V}{2 \pi^2} (\frac {2m^*_n}{\hbar^2})^{\frac 32}(E - E_c)^{\frac 12} exp(- \frac {E - E_F}{k_0T}) dE<br>$$</li>
+</ol>
+<p>再除于所在k空间的体积可以得到单位体积电子数：<br>$$<br>dn &#x3D; \frac {dN} {V}  &#x3D; \frac {V}{2 \pi^2} (\frac {2m^*<em>n}{\hbar^2})^{\frac 32}(E - E_c)^{\frac 12} exp(- \frac {E - E_F}{k_0T}) dE<br>$$<br>再次积分可得到热平衡态非简并半导体导带电子浓度：<br>$$<br>n_0 &#x3D; \int</em>{E_c}^{E_c^&#96;}\frac {1}{2\pi^2} (\frac {2m^*<em>n}{\hbar^2})^{\frac 32}(E - E_c)^{\frac 12} exp(- \frac {E - E_F}{k_0T}) dE<br>$$<br>令$x&#x3D;\frac {E - E_c}{k_0T} \rightarrow dE&#x3D;E - E_c&#x3D;xk_0T$同时将$exp$这一项拆开：<br>$$<br>\begin{align}<br>&amp;&#x3D;exp(-\frac {E-E_c+E_c-E_F}{k_0T}) \<br>&amp;&#x3D; exp(- \frac {E_c - E_F}{k_0T}) exp(- \frac {E - E_c}{k_0T}) \<br>&amp;&#x3D; exp(- \frac {E_c - E_F}{k_0T}) exp(- x)<br>\end{align}<br>$$<br>将上面两式子带入式子化简：<br>$$ \begin{align} &amp;&#x3D;\int</em>{0}^{\infty}\frac{1}{2\pi^2}\left(\frac{2m^*}{\hbar^2}\right)^{3&#x2F;2}(k_0Tx)^{1&#x2F;2}\exp\left(-\frac{E_c - E_F}{kT}\right)exp(-x)d(k_0Tx)\ &amp;&#x3D;\frac{1}{2\pi^2}\left(\frac{2m^*<em>n}{\hbar^2}\right)^{3&#x2F;2}(k_0T)^\frac 12\exp\left(-\frac{E_c - E_F}{k_0T}\right)k_0T\int</em>{0}^{\infty}x^{1&#x2F;2}e^{-x}dx\ &amp;&#x3D;\frac{1}{2\pi^2}\left(\frac{2m^*_n}{\hbar^2}\right)^{3&#x2F;2}(k_oT)^\frac 32\exp\left(-\frac{E_c - E_F}{k_0T}\right){\frac{\sqrt\pi}{2}}\ &amp;&#x3D;2\left(\frac{m^*_nk_0T}{2\pi\hbar^2}\right)^{3&#x2F;2}\exp\left(-\frac{E_c - E_F}{k_0T}\right) \end{align} $$</p>
+<ul>
+<li>令$N_c &#x3D; 2\left(\frac{m^*_nk_0T}{2\pi\hbar^2}\right)^{3&#x2F;2}$，我们称$N_c$为导带的有效状态密度，导带所有能被电子占据态度总数，其与$T$有正比例系数关系</li>
+<li>令$f(E_c)&#x3D;\exp\left(-\frac{E_c - E_F}{k_0T}\right)$，我们称电子占据能量为$E_c$的量子态概率＝占据导带的电子概率</li>
+<li>把导带中所有的量子态都集中在导带底$E_c$，而它的状态密度则为$N_c$，则导带中的电子浓度是$N_c$中有电子占据的量子态密度<ul>
+<li>$f(E_c)&#x3D;\exp\left(-\frac{E_c - E_F}{k_0T}\right)$这个式子类似于波尔斯曼分布不过把E换成$E_c$，就从原来在整个能带中的分布概率，变成了在导带$E_c$中的分布概率，与$N_c$相乘就得到了导带中有电子占据的量子态数$n_0$<br>$$<br>  n_0&#x3D;2\left(\frac{m^*_nk_0T}{2\pi\hbar^2}\right)^{3&#x2F;2}\exp\left(-\frac{E_c - E_F}{k_0T}\right)</li>
+</ul>
+</li>
+</ul>
+<p>$$</p>
+<h5 id="3-空穴浓度"><a href="#3-空穴浓度" class="headerlink" title="3.空穴浓度"></a>3.空穴浓度</h5><p>热平衡状态下非简并半导体中的空穴浓度为$p_0$，与上面求电子相同，只不过最初式子要换成空穴的<br>$$<br>\begin{align}<br>p_0 &amp;&#x3D; \frac {\int_{E_v^,}^{E_v}[1-f(E)g_v(E)]}{V}\<br>&amp;&#x3D;\int_{E_v^,}^{E_v}\frac {1}{2\pi^2} (\frac {2m^*_p}{\hbar^2})^{\frac 32}(E_v - E)^{\frac 12} exp(\frac {E - E_F}{k_0T}) dE<br>\end{align}<br>$$<br>同样的代换后可以得到：<br>$$<br>p_0&#x3D;2\left(\frac{m^*_pk_0T}{2\pi\hbar^2}\right)^{3&#x2F;2}\exp\left(-\frac{E_F - E_V}{k_0T}\right)<br>$$</p>
+<ul>
+<li>令$N_v &#x3D; &#x3D;2\left(\frac{m^*_pk_0T}{2\pi\hbar^2}\right)^{3&#x2F;2}$故，$N_v$表示价带有效状态密度，同样与温度T有正比例关系</li>
+<li>$f_v(E)&#x3D;\exp\left(-\frac{E_F - E_V}{k_0T}\right)$是空穴占据能量E的量子态概率，把价带中所有量子态都集中在价带顶E处，而它的状态密度为N，则价带中的空穴浓度是N中有空穴占据的量子态数</li>
+<li>注意：exp中的数必须小于0</li>
+</ul>
+<h5 id="4-影响-n-0-p-0-的重要参数"><a href="#4-影响-n-0-p-0-的重要参数" class="headerlink" title="4.影响$n_0,p_0$的重要参数"></a>4.影响$n_0,p_0$的重要参数</h5><ol>
+<li>温度T：$N_c,N_v \propto T^{\frac 32}$题目中只给了温度可以利用这个简单的式子比大小</li>
+<li>费米能级$E_F$：费米能级本身与温度和掺杂浓度相关，其掺杂浓度越高，电子跃迁到价带越多，电子浓度越高，变相的$E_F$越靠近，温度也同理</li>
+<li>载流子浓度的乘积：<br>$$<br>\begin{align}<br>n_0p_0&amp;&#x3D;N_cN_v\exp\left(-\frac{E_c - E_F}{k_0T}\right)\exp\left(-\frac{E_F - E_V}{k_0T}\right) \<br>&amp;&#x3D;N_cN_v\exp\left(\frac{-E_c + E_F-  E_F + E_V}{k_0T}\right) \<br>&amp;&#x3D;N_cN_v\exp\left(-\frac{E_V-E_c}{k_0T}\right) \<br>&amp;&#x3D;N_cN_v\exp\left(-\frac{E_g}{k_0T}\right)<br>\end{align}<br>$$</li>
+</ol>
+<ul>
+<li>可以看到电子浓度和空穴浓度积$n_0p_0$与费米能级无关</li>
+<li>半导体材料一定($m_n^*,m_p^*,E_g$)，$n_0p_0$只于温度相关，掺杂与否和杂质浓度无关，将上式中的$N_cN_v$拆开可以观察到变量只有温度T</li>
+<li>温度T一定时，不同材料，$n_0p_0$积不同</li>
+<li>$n_0p_0$不论对本征半导体还是杂质半导体，只要是热平衡态的非简并半导体都适用</li>
+<li>对于特定的半导体材料温度一定时，$n_0p_0$积是一定的</li>
+<li>半导体中热平衡时如果$n_0大p_0小$反之亦然</li>
+</ul>
+<h4 id="1-3-4本征半导体的载流子浓度"><a href="#1-3-4本征半导体的载流子浓度" class="headerlink" title="1.3.4本征半导体的载流子浓度"></a>1.3.4本征半导体的载流子浓度</h4><p>本征半导体：没有任何杂质和缺陷的半导体，其在0k时价带中的量子态全部被电子所占据，导带中的量子态都是空的<br>本征激发：电子空穴对来自于本征激发，最主要的特征是电子空穴成对出现，于是有<br>$$<br>导带电子浓度n_0 &#x3D; 价带空穴浓度p_0<br>$$</p>
+<h5 id="1-E-i-本征费米能级："><a href="#1-E-i-本征费米能级：" class="headerlink" title="1.$E_i$本征费米能级："></a>1.$E_i$本征费米能级：</h5><p>$$<br>\begin{align}<br>n_0 &amp;&#x3D; N_c\exp\left(-\frac{E_c - E_F}{k_0T}\right) \<br>p_0 &amp;&#x3D; N_v\exp\left(-\frac{E_F - E_V}{k_0T}\right)<br>\end{align}<br>$$<br>将$E_i$当作$E_F$带入上两式中，又因为$n_0 &#x3D; p_0$得：<br>$$<br>N_c\exp\left(-\frac{E_c - E_i}{k_0T}\right) &#x3D;N_v\exp\left(-\frac{E_i - E_V}{k_0T}\right)<br>$$<br>两边同取$ln$：<br>$$<br>\begin{align}<br>-\frac{E_c - E_i}{k_0T}&amp;&#x3D; ln \frac {N_v}{N_c} - \frac{E_i - E_V}{k_0T} \<br>2E_i &amp;&#x3D; k_0Tln \frac {N_v}{N_c} +E_v+E_c \<br>E_i &amp;&#x3D; \frac {k_0T}{2}ln \frac {N_v}{N_c} + \frac {E_c + E_v}{2}<br>\end{align}<br>$$<br>上式中的$\frac {E_c + E_v}{2}$其实上是禁带的中心，即禁带中线，且比它向上移了$\frac {k_0T}{2}ln \frac {N_v}{N_c}$<br>![[SmartSelect_20241128_114950.jpg]]<br>若我们将$N_c,N_v$的表达式也带入，即可得到：<br>$$<br>\begin{align}<br>E_i &amp;&#x3D; \frac {k_0T}{2}ln \frac {N_v}{N_c} + \frac {E_c + E_v}{2} \<br> &amp;&#x3D; \frac {3k_0T}{4}ln \frac {m_p^*}{m_n^*} + \frac {E_c + E_v}{2}<br>\end{align}<br>$$</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>$m_p^*$</th>
+<th>$m_n^*$</th>
+<th>$\frac {m_p^*}{m_n^*}$</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$Si$</td>
+<td>$0.59m_0$</td>
+<td>$1.08m_0$</td>
+<td>0.55</td>
+</tr>
+<tr>
+<td>$Ge$</td>
+<td>$0.37m_0$</td>
+<td>$0.56m_0$</td>
+<td>0.66</td>
+</tr>
+<tr>
+<td>$GaAs$</td>
+<td>$0.47m_0$</td>
+<td>$0.068m_0$</td>
+<td>6.91</td>
+</tr>
+<tr>
+<td>我们以$GaAS$为例子$ln \frac {m_p^*}{m_n^*} &#x3D; 1.93$</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>且在室温下$k_0T&#x3D;0.026eV \rightarrow \frac {3k_0T}{4}ln \frac {m_p^*}{m_n^*}&#x3D;0.0366eV$</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<ul>
+<li>通常情况：故相比于禁带中线只往上偏移了$0.0366eV$，相比于整个能带的宽度基本上可以忽略不计，故本征费米能级$E_i$基本位于禁带中线</li>
+<li>特殊情况：但如果导带底电子有效质量$m_n^*$如果很小，会让$ln \frac {m_p^*}{m_n^*}$比值较大，让最后相比禁带中线的偏移量较大</li>
+</ul>
+<h5 id="2-本征载流子浓度-n-i"><a href="#2-本征载流子浓度-n-i" class="headerlink" title="2.本征载流子浓度$n_i$"></a>2.本征载流子浓度$n_i$</h5><p>由于本征费米能级$E_i$基本位于禁带中线，故有：<br>$$<br>\begin{align}<br>E_c - E_i &amp;&#x3D; \frac 12E_g\<br>E_i - E_v&amp;&#x3D; \frac 12E_g<br>\end{align}<br>$$<br>在带入$n_0,p_0$表达式后可以得到：<br>$$<br>n_0&#x3D;p_0&#x3D;n_i<br>$$<br>进一步得到质量作用定律：<br>$$<br>n_0 \cdot p_0&#x3D;n_i^2<br>$$<br>这个式子对于任何非简并半导体在热平衡条件下，其载流子浓度之乘积，与掺杂情况无关，&#x3D;&#x3D;对于掺杂本征半导体均成立&#x3D;&#x3D;<br>由上式进一步计算：<br>$$<br>\begin{align}<br>n_i^2 &amp;&#x3D; N_c  N_v\exp\left(-\frac{E_c - E_i}{k_0T}\right) \exp\left(-\frac{E_i - E_V}{k_0T}\right) \<br>&amp;&#x3D;N_c N_v exp(\frac {- E_c + E_i -E_i + E_V}{k_0T}) \<br>&amp;&#x3D;N_c N_v exp(-\frac { E_c - E_V}{k_0T}) \<br>&amp;&#x3D;N_c N_v exp(-\frac { E_g}{k_0T})<br>\end{align}<br>$$<br>开根号最终得到$n_i$的计算式子:<br>$$<br>n_0&#x3D;\sqrt{N_c N_v} exp(-\frac { E_g}{k_0T} \cdot \frac 12)<br>$$</p>
+<h5 id="3-载流子的来源"><a href="#3-载流子的来源" class="headerlink" title="3.载流子的来源"></a>3.载流子的来源</h5><p>一般报道体载流子来源一般有两种：</p>
+<ul>
+<li>本征激发</li>
+<li>杂质电离<br>由于杂质电离出的载流子浓度远远比本征激发都高，&#x3D;&#x3D;故本征激发一般忽略不计&#x3D;&#x3D;<br>随着温度身高，本征载流子浓度迅速增大，当温度升高到本征激发占主要地位时，器件将无法正常工作；因此每种半导体制成的器件都有一定的极限工作温度，超过这一温度，器件将失效<br>对于$Si$来说，当保持载流子浓度主要来源于杂质电离时，要求本征载流子浓度至少比杂质浓度低一个数量级<br>例题：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV15i4y1X7Ud">半物第三章2</a></li>
+</ul>
+<h3 id="1-4简并半导体"><a href="#1-4简并半导体" class="headerlink" title="1.4简并半导体"></a>1.4简并半导体</h3><p>N型半导体：一般情况下$施主浓度N_D &lt; N_c$或者$有效施主浓度N_D^* &#x3D; N_D - N_A &lt; N_c$，此时半导体为普通的N型半导体，$E_F$始终在$E_F$之下，$E_g$之中<br>N型简并半导体：$施主浓度N_D &gt; N_c$，$E_F$将在$E_c$之上，费米能级不在$E_g$中将进入导带$E_c$中，根据费米能级的意义，N型掺杂浓度很高，导带底附近的量子态基本已经被电子占据，此时，不能使用波尔斯曼分布，而是转而使用费米统计分布</p>
+<h4 id="1-4-1简并半导体载流子浓度的计算"><a href="#1-4-1简并半导体载流子浓度的计算" class="headerlink" title="1.4.1简并半导体载流子浓度的计算"></a>1.4.1简并半导体载流子浓度的计算</h4><p>对于一个N型简并半导体：</p>
+<h5 id="1-电子系统-n-0"><a href="#1-电子系统-n-0" class="headerlink" title="1.电子系统$n_0$"></a>1.电子系统$n_0$</h5><p>–&gt;由于电子是简并态的，用费米分布算<br>$$<br>\begin{align}<br>n_0 &amp;&#x3D; \frac 1V \int_{E_c}^{\infty}g(E)f_b(E)dE \<br>&amp;&#x3D;\frac {4\pi}{\hbar^3} (2m_n^*)^{\frac 32}\int_{E_c}^{\infty}\sqrt{E - E_c}\frac {1}{1+exp(\frac {E - E_F}{k_0T})}dE<br>\end{align}<br>$$<br>同样的把$\frac {E - E_F}{k_0T}$写成$\frac {E - E_c + E_c - E_F}{k_0T}$得：<br>$$<br>&#x3D;\frac {4\pi}{\hbar^3} (2m_n^*)^{\frac 32}\int_{E_c}^{\infty}\sqrt{E - E_c}\frac {1}{1+exp(\frac {E - E_c}{k_0T})+exp(\frac {E_c - E_F}{k_0T})}dE<br>$$<br>令$\frac {E - E_c }{k_0T} &#x3D; x,\frac {E_c - E_F}{k_0T} &#x3D; -y$，同时变积分上下限：<br>$$<br>\begin{align}<br>&amp;&#x3D;\frac {4\pi}{\hbar^3} (2m_n^*)^{\frac 32}\int_{0}^{\infty}\sqrt{xk_0T}\frac {1}{1+exp(x-y)}k_0Tdx \<br>&amp;&#x3D;\frac {4\pi}{\hbar^3} (2m_n^*k_oT)^{\frac 32}\int_{0}^{\infty}\frac {x^{\frac 12}}{1+exp(x-y)}dx<br>\end{align}<br>$$<br>将上式的前面用$N_c$替换，后面是费米积分$F_{\frac 12}(y) &#x3D;\int_{0}^{\infty}\frac {x^{\frac 12}}{1+e^{x-y}}dx$最终得到：<br>$$<br>n_0 &#x3D; \frac 2 {\sqrt \pi}N_cF_{\frac 12}(y)<br>$$</p>
+<h5 id="2-空穴系统-p-0"><a href="#2-空穴系统-p-0" class="headerlink" title="2.空穴系统$p_0$"></a>2.空穴系统$p_0$</h5><p>–&gt;空穴很少是非简并态度，用波尔斯曼分布算<br>$$<br>p_0&#x3D;N_v\exp\left(-\frac{E_F - E_V}{k_0T}\right)<br>$$<br>不能用$n_0 \cdot p_0&#x3D;n_i^2$计算</p>
+<h4 id="1-4-2简并化条件"><a href="#1-4-2简并化条件" class="headerlink" title="1.4.2简并化条件"></a>1.4.2简并化条件</h4><h5 id="1-对于N型半导体简并化条件"><a href="#1-对于N型半导体简并化条件" class="headerlink" title="1.对于N型半导体简并化条件"></a>1.对于N型半导体简并化条件</h5><table>
+<thead>
+<tr>
+<th>范围</th>
+<th>状态</th>
+<th>服从类型</th>
+<th>计算载流子公式</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$E_c - E_F &gt;&gt; 2k_0T$</td>
+<td>非简并</td>
+<td>波尔斯曼分布</td>
+<td>$n_0&#x3D;N_cexp(-\frac{E_c - E_F}{k_0T})$</td>
+<td>$p_0&#x3D;\frac {n_i^2}{n_0}&#x3D;N_v\exp(-\frac{E_F - E_V}{k_0T})$</td>
+</tr>
+<tr>
+<td>$E_c - E_F &lt;&lt; 2k_0T$</td>
+<td>弱简并</td>
+<td>同简并处理费米分布</td>
+<td>$n_0 &#x3D; \frac 2 {\sqrt \pi}N_cF_{\frac 12}(y)$</td>
+<td>$p_0&#x3D;N_v\exp\left(-\frac{E_F - E_V}{k_0T}\right)$但不能用$p_0&#x3D;\frac {n_i^2}{n_0}$计算</td>
+</tr>
+<tr>
+<td>$E_c - E_F &lt;0$</td>
+<td>简并</td>
+<td>费米分布</td>
+<td>同上</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>对于简并的N型半导体，它的电中性条件：</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>$$</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>n_0 &#x3D; 杂质电离的浓度n_D^+（本征激发可以忽略）</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>$$</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>其中：</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>$$</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>n_D^+ &#x3D; N_D \cdot f(E) &#x3D; \frac {N_D}{1 + 2exp(-\frac {E_D - E_F}{k_0T})}</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>$$</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<ul>
+<li>电离了的杂质的总数为$N_D$​</li>
+<li>$f(E)$ 是杂质电离的概率</li>
+<li>分式下面的$2exp$是考虑自旋情况下得出的<br>$$<br>\begin{align}<br>\frac 2 {\sqrt \pi}N_cF_{\frac 12}(y) &amp;&#x3D; \frac {N_D}{1 + 2exp(-\frac {E_D - E_F}{k_0T})} \<br>N_D&amp;&#x3D;\frac 2 {\sqrt \pi}N_cF_{\frac 12}(y)[1 + 2exp(-\frac {E_D - E_F}{k_0T})] \<br>&amp;&#x3D; \frac 2 {\sqrt \pi}N_cF_{\frac 12}(y)[1 + 2exp(\frac {\Delta  E_D}{k_0T})exp(-\frac {E_c - E_F}{k_0T})]<br>\end{align}<br>$$<br>观察上式可以看到随着杂质浓度的增加，$E_F$逐渐升高，升到$E_c$处$E_c - E_F &#x3D; 0$发生简并：<br>$$<br>\begin{align}<br>N_D &amp;&#x3D; \frac 2 {\sqrt \pi}N_cF_{\frac 12}(y)[1 + 2exp(\frac {\Delta  E_D}{k_0T})] \<br>&amp;&#x3D; 0.68N_c[1+2exp(\frac {\Delta  E_D}{k_0T})]<br>\end{align}<br>$$<br>简并时：</li>
+<li>杂质浓度很高</li>
+<li>简并与否与施主杂质电离能$\Delta E_D$很大时不易简并，很小时容易简并</li>
+<li>若$N_D,\Delta E_D$一定时，是否发生简并与温度有关，简并发生时有温度区间<ul>
+<li>温度升高时，会由本身杂质电离起作用过渡到本征激发起作用，原本$n_0 &gt;&gt; p_0，n_0$会逐渐增大到$n_0 &#x3D; p_0 &#x3D; n_i,E_F \rightarrow E_i$费米能级正好在中线附近</li>
+<li>当T过高时，半导体会呈本征激发，$E_F$在$E_i$附近</li>
+<li>当T过低时，$E_F$在$\frac {1}{2(E_c + E_D)}$附近</li>
+</ul>
+</li>
+</ul>
+<h5 id="2-简并时杂质不能充分电离"><a href="#2-简并时杂质不能充分电离" class="headerlink" title="2.简并时杂质不能充分电离"></a>2.简并时杂质不能充分电离</h5><p>$$<br>n_D^+ &#x3D; N_D \cdot f(E) &#x3D; \frac {N_D}{1 + 2exp(-\frac {E_D - E_F}{k_0T})} &#x3D; \frac {N_D}<br>{1 + 2exp(\frac {\Delta  E_D}{k_0T})exp(-\frac {E_c - E_F}{k_0T})}<br>$$<br>根据上面的规定：$-\frac {E_c - E_F}{k_0T} &#x3D; y$<br>$$<br>\frac {n_D^+} {N_D} &#x3D; \frac {N_D}<br>{1 + 2exp(\frac {\Delta  E_D}{k_0T})e^y}<br>$$ 电离载流子对杂质总数的占比，在简并时不超过总杂质浓度的$\frac 13$<br>$$E_c &#x3D; E_F \rightarrow y&#x3D;0 \rightarrow \frac {n_D^+} {N_D} &#x3D; \frac {N_D}<br>{1 + 2exp(\frac {\Delta  E_D}{k_0T})}&lt;&#x3D; \frac 13<br>$$</p>
+<h5 id="3-杂质带导电"><a href="#3-杂质带导电" class="headerlink" title="3.杂质带导电"></a>3.杂质带导电</h5><p>总掺杂才能实现简并，杂质原子距离很近，相互作用不可忽略，晶体中电子做共有化运动，能级展宽成为能带（杂质能带），将与导带连接在一起（$E_D$会向上靠近$E_c$）<br>重掺杂引起简并化：</p>
+<ul>
+<li>杂质不能充分电离</li>
+<li>离化能&#x2F;电离能</li>
+<li>禁带宽度变窄，形成杂质带导电</li>
+</ul>
+
+</div> 
+
+<script>
+    window.onload = detectors();
+</script>
+    <div class="post-footer">
+    <div class="h-line-primary"></div>
+    <nav class="post-nav">
+        <div class="prev-item">
+           
+                <div class="icon arrow-left"></div>
+                <div class="post-link">
+                    <a href="/2024/12/11/%E7%AC%94%E8%AE%B0%E5%8D%8A%E7%89%A91%E5%8D%8A%E5%AF%BC%E4%BD%93%E4%B8%AD%E7%9A%84%E7%94%B5%E5%AD%90%E7%8A%B6%E6%80%81/">Prev</a>
+                </div>
+            
+        </div>
+        <div class="next-item">
+            
+                <div class="icon arrow-right"></div>
+                <div class="post-link">
+                  <a href="/2024/12/10/%E7%AC%94%E8%AE%B0%E5%8D%8A%E7%89%A95%E9%9D%9E%E5%B9%B3%E8%A1%A1%E8%BD%BD%E6%B5%81%E5%AD%90/">Next</a>  
+                </div>  
+            
+        </div>
+    </nav>
+</div>
+
+    
+      <div class="post-comment">
+
+     
+
+     
+    
+    
+
+</div>
+     
+  
+</article>
+        </div>
+      </div>
+      
+      <div class="footer">
+    <div class="flex-container">
+        <div class="footer-text">
+            
+            
+                Skjaldbaka1© | 
+            
+            
+                Powered by <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/zoeingwingkei/frame/">Frame</a>
+                
+        </div>
+    </div>
+</div>
+    </div>
+  </body>
+</html>
+

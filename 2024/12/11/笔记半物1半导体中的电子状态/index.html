@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Skjaldbaka1">
+
+
+
+
+
+
+
+<title>半导体物理笔记第一章 | Skjaldbaka1&#39;s blog</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&family=Roboto+Mono&display=swap');
+</style>
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/menu.js"></script>
+    
+
+
+
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+
+
+
+
+
+
+    <script type="text/javascript" async
+      src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        }
+      };
+    </script>
+  <meta name="generator" content="Hexo 7.3.0"></head>
+  <body>
+    <div class="mask-border"></div>
+
+    <div class="wrapper">
+      <div class="header">
+  <div class="flex-container">
+    <div class="header-inner">
+      <div class="site-brand-container">
+        <a href="/">
+          
+            Skjaldbaka1.
+          
+        </a>
+      </div>
+      <div id="menu-btn" class="menu-btn" onclick="toggleMenu()">
+        Menu
+      </div>
+      <nav class="site-nav">
+        <ul class="menu-list">
+          
+            
+              <li class="menu-item">
+                <a href="/">主页</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/archives/">文集</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/categories/gallery/">影集</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/tag/">引索</a>
+              </li> 
+                   
+          
+          
+            <li class="menu-item search-btn">
+              <a href="#">Search</a>
+            </li>
+          
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main">
+        <div class="flex-container">
+          <article id="post">
+
+  
+    <div class="post-head">
+    <div class="post-info">
+        <div class="tag-list">
+            
+                
+                    <span class="post-tag">
+                        <a href="/tags/%E7%AC%94%E8%AE%B0/">
+                            笔记
+                        </a>
+                    </span>    
+                
+                    <span class="post-tag">
+                        <a href="/tags/%E5%8D%8A%E5%AF%BC%E4%BD%93%E7%89%A9%E7%90%86/">
+                            半导体物理
+                        </a>
+                    </span>    
+                           
+            
+        </div>
+        <div class="post-title">
+            
+            
+                半导体物理笔记第一章
+            
+            
+        </div>
+        <span class="post-date">
+            12月 11, 2024
+        </span>
+    </div>
+    <div class="post-img">
+        
+            <div class="h-line-primary"></div>
+              
+    </div>
+</div>
+    <div class="post-content">
+    <p>波函数：粒子在某时刻某位置出现的概率，且其概率密度函数为<br>$$[ P(x,t) &#x3D; \psi^*(x,t) \psi(x,t) &#x3D; |\psi(x,t)|^2 ]$$<br>与时间无关的概率密度函数为<br>$$P(x) &#x3D; \psi^*(x) \psi(x) &#x3D; |\psi(x)|^2$$</p>
+<h3 id="1-1半导体中的电子状态"><a href="#1-1半导体中的电子状态" class="headerlink" title="1.1半导体中的电子状态"></a>1.1半导体中的电子状态</h3><p>在这里我们讨论两种情况，由两种特殊情况得出半导体中的普遍规律</p>
+<h4 id="1-1-1孤立电子与自由电子的状态"><a href="#1-1-1孤立电子与自由电子的状态" class="headerlink" title="1.1.1孤立电子与自由电子的状态"></a>1.1.1孤立电子与自由电子的状态</h4><h5 id="1孤立原子"><a href="#1孤立原子" class="headerlink" title="1孤立原子"></a>1孤立原子</h5><p>电子处于原子核的束缚状态，只含有原子核和核外电子，如</p>
+<ul>
+<li>H原子<br>原子核对于电子有库伦力产生的势场<br>$$V(r)&#x3D;\frac{－q^2}{4\pi\epsilon_0r}$$<br>电子的能量需要满足以下条件薛定谔方程才有解<br>$$E_n&#x3D;－[\frac{m_0q^4}{8\epsilon_0^2h^2}]\frac 1n^2，n量子数&#x3D;1,2,3..$$<br>其中[]为13.6于是公式可以改写为<br>$$E_n&#x3D;－13.6\cdot\frac 1n^2 (eV)，n&#x3D;1,2,3..$$<br>由上述可得出H原子核外电子状态是一系列分立（离散）的确定的能量值（能级），&#x3D;&#x3D;可以得到孤立原子中电子的能量是不连续的，这种各个分立的能量值称为能级&#x3D;&#x3D;</li>
+<li>多电子原子<br>其电子和电子有作用力称之为微拢，其核与电子有作用力<br>&#x3D;&#x3D;其核外能量依然不连续&#x3D;&#x3D;，量子数不再是单个n，而是有四个量子数为别为：</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>$n$</th>
+<th>主量子数</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$l$</td>
+<td>角量子数</td>
+</tr>
+<tr>
+<td>$m_l$</td>
+<td>磁量子数</td>
+</tr>
+<tr>
+<td>$m_s$</td>
+<td>自旋量子数</td>
+</tr>
+</tbody></table>
+<h5 id="2自由电子"><a href="#2自由电子" class="headerlink" title="2自由电子"></a>2自由电子</h5><p>给定足够的能量，电子挣脱原子核束缚成为自由电子</p>
+<p>由一维薛定谔方程<br>$$<br>-\frac{\hbar^2}{2m} \frac{\partial^2 \psi(x, t)}{\partial x^2} + V(x) \psi(x, t)&#x3D;E\psi(x, t)<br>$$<br>定态薛定谔方程<br>$$<br>-\frac{\hbar^2}{2m} \frac{d^2 \psi(x)}{d x^2} + V(x) \psi(x) &#x3D; E \psi(x)<br>$$</p>
+<p>$$</p>
+<p>$$</p>
+<p>在自由电子中<br>$$<br>V(x)&#x3D;0，<br>可得-\frac{\hbar^2}{2m} \frac{d^2 \psi(x)}{d x^2}  &#x3D; E \psi(x)<br>$$<br>对后面这个二次幂函数求解<br>$$<br>\psi(x)&#x3D;A \cdot e^{i2 \pi kx}，k&#x3D;\frac 1\lambda<br>$$<br>由于并不像氢原子一样E有约束关系，解并不像氢原子一样是分立的，而是连续的从下面也可证得<br>$$<br>由\left{<br>\begin{aligned}<br>E&#x3D;\frac {P^2}{2m_0} \<br>P&#x3D;\hbar\cdot k<br>\end{aligned}<br>\right. 得E&#x3D;\frac{\hbar^2k^2}{2m_0}<br>$$</p>
+<ul>
+<li>从几何角度看，从得出的方程可以看到E和K的关系是连续的，E在坐标轴中是一个开口朝上连续的二次函数</li>
+<li>从波矢角度看，由于波矢是矢量，是连续变化的，E和K的关系中除$\vec k$都是固定的数，因此$\vec k$的连续变化引起了能量的连续变化</li>
+</ul>
+<p>&#x3D;&#x3D;由此可知自由粒子的能量状态是连续的&#x3D;&#x3D;</p>
+<h5 id="3半导体中的电子"><a href="#3半导体中的电子" class="headerlink" title="3半导体中的电子"></a>3半导体中的电子</h5><p>半导体中的势场由以下三种组成</p>
+<ul>
+<li>孤立原子中电子势场&#x3D;原子核势场+其他电子的势场</li>
+</ul>
+<p>$$<br>V(r)&#x3D;\frac{－q^2}{4\pi\epsilon_0r}<br>$$</p>
+<ul>
+<li>自由电子不受任何势场的控制</li>
+</ul>
+<p>$$<br>  V(x)&#x3D;0<br>$$</p>
+<ul>
+<li>半导体中电子势场不清楚，只讨论背景（严格周期性重复排列的原子间运动）<br>利用单电子近似模型，即把所有电子和其所受的力看做一个整体来研究，&#x3D;&#x3D;其有两个方面理想化：晶体（半导体）无缺陷，原子固定不动&#x3D;&#x3D;</li>
+</ul>
+<h4 id="1-1-2分析半导体电子状态的方法——单电子近似"><a href="#1-1-2分析半导体电子状态的方法——单电子近似" class="headerlink" title="1.1.2分析半导体电子状态的方法——单电子近似"></a>1.1.2分析半导体电子状态的方法——单电子近似</h4><p>单电子近似模型的定义：假设&#x3D;&#x3D;半导体中的电子是在严格周期性重复排列的（晶体无缺陷）&#x3D;&#x3D;，且&#x3D;&#x3D;固定不动的原子核势场（原子固定不动）&#x3D;&#x3D;，以及大量电子的平均势场下运动</p>
+<h5 id="1单电子近似的意义"><a href="#1单电子近似的意义" class="headerlink" title="1单电子近似的意义"></a>1单电子近似的意义</h5><ul>
+<li>把复杂的原子核和电子混合系统中的核与电子之间的作用力加以分离</li>
+<li>把众多电子相互牵制的复杂电子问题，近似看做大量电子对某个（单个）电子的影响等效为一个平均势场对电子的影响</li>
+</ul>
+<p>这种用单电子近似法研究晶体中电子状态的理论称为能带论</p>
+<h5 id="2单电子近似的计算"><a href="#2单电子近似的计算" class="headerlink" title="2单电子近似的计算"></a>2单电子近似的计算</h5><p>根据单电子近似，周期性势场＋平均势场&#x3D;周期性势场<br>$$<br>V(x)＋V(Sa)&#x3D;V(x)，S整数，a晶格常数<br>$$</p>
+<p>其在二维空间中是具有周期性的一维周期性势阱，再带入薛定谔方程：<br>$$<br>-\frac{\hbar^2}{2m} \frac{d^2 \psi(x)}{d x^2} + V(x＋Sa) \psi(x) &#x3D; E \psi(x)，\hbar&#x3D;\frac h{2\pi} \\hbar为修正普朗克常数是为了方便计算得出的<br>$$<br>为了解出上面新的$V(x+Sa)$我们要引入布洛赫定理，其是周期性势场的一维薛定谔方程的解，形式为：<br>$$<br>\psi_k(x)&#x3D;u_k(x) \cdot e^{ikx} \ u_k&#x3D;u_k(x+na)<br>$$<br>其中$u_k(x)$是周期性的，不是保持不变的</p>
+<h5 id="3结论"><a href="#3结论" class="headerlink" title="3结论"></a>3结论</h5><table>
+<thead>
+<tr>
+<th></th>
+<th>自由电子</th>
+<th>晶体中电子</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>波函数</td>
+<td>$\psi(x)&#x3D;Ae^{ikx}$，其中$k&#x3D;\frac{2 \pi}{\lambda}$</td>
+<td>$\psi_{k}(x)&#x3D;u_{k}(x)e^{i kx}$，其中$\lambda&#x3D;\frac{2\pi}k$</td>
+</tr>
+</tbody></table>
+<p>两者的波函数形式相似，都表示波长为$\lambda&#x3D;\frac{1}{k}$，沿$k$方向传播的平面波。但晶体中用周期性调制振幅$u_{k}(x)$代替了自由电子中的恒定振幅$A$</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>自由电子</th>
+<th>晶体中电子</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>概率密度函数</td>
+<td>$</td>
+<td>\psi(x)\psi^{*}(x)</td>
+</tr>
+<tr>
+<td>意义</td>
+<td>是晶格常数$a(A)$的周期性函数，表示晶格中找到电子的概率具有周期性</td>
+<td>反映了电子不再局限于某原子上，而是可以在基本原子自由运动到其近邻格胞对应位置的可能性，&#x3D;&#x3D;也称为共有化运动，电子在每个晶胞对应点等几率出现&#x3D;&#x3D;</td>
+</tr>
+</tbody></table>
+<h4 id="1-1-3半导体中的电子能带"><a href="#1-1-3半导体中的电子能带" class="headerlink" title="1.1.3半导体中的电子能带"></a>1.1.3半导体中的电子能带</h4><h5 id="1准自由电子近似"><a href="#1准自由电子近似" class="headerlink" title="1准自由电子近似"></a>1准自由电子近似</h5><p>设想将一个电子放在晶格中，由于晶格原子的存在，电子波在传播过程中会受到格点原子的反射</p>
+<ol>
+<li><p>一般情况：个反射波会相互抵消，对前进波无重大影响</p>
+</li>
+<li><p>特殊情况：前进波和反射波满足一定相位关系，满足1.2中的布拉格发射条件，在<br>$$<br>k&#x3D;\frac {n}{2a}，n&#x3D;\pm1,\pm2…处<br>$$<br>形成驻点，前进波和反射波形成驻波，&#x3D;&#x3D;且在驻点时：幅度&#x3D;0，速度&#x3D;0&#x3D;&#x3D;</p>
+</li>
+</ol>
+<p>在量子力学中，电子运动可以看作波包的运动，波包群速度就是电子运动的平均速度，设波包频率为$\gamma$，电子运动的平均速度可以由：<br>$$<br>v &#x3D; \frac{d\gamma}{dk} \leftarrow<br>\left{<br>\begin{aligned}<br>P &amp;&#x3D; h \cdot k \<br>E &amp;&#x3D; h \gamma<br>\end{aligned}<br>\right.<br>$$</p>
+<p>可以解得：</p>
+<p>$$<br>v &#x3D; \frac{d \frac{E}{h}}{dk} &#x3D; \frac{1}{h} \cdot \frac{dE}{dk}<br>$$</p>
+<p>又因为在驻点$v&#x3D;0$<br>$$<br>\frac 1h \cdot \frac {dE}{dk}&#x3D;0<br>$$<br>   其中的$\frac {dE}{dk}$为方程$E&#x3D;\frac {h^2k^2}{2m_0}$的斜率</p>
+<h5 id="2能带结构"><a href="#2能带结构" class="headerlink" title="2能带结构"></a>2能带结构</h5><ol>
+<li>允带禁带：由准自由电子近似可以看出，原先自由电子连续的EK关系被分割为一系列能量允许和不允许的区间，分别称之为允带和禁带</li>
+<li>紧束缚近似：从孤立原子核外电子状态出发，把晶体看作是组成晶体的原子相互靠近到一定程度的结果</li>
+<li>能级分裂：由于原子的靠近，会使电子的能级发生分裂，其能量有可能处于能级1或者能级2上<br>更进一步，电子具有一定几率具有该能级所代表的能量</li>
+</ol>
+<p>![image-20241021112029114 1](..&#x2F;pics&#x2F;image-20241021112029114 1.png)</p>
+<ol start="4">
+<li>随着原子互相靠拢，形成晶体，原先孤立原子的电子能级展开形成能带</li>
+</ol>
+<p>![image-20241021112612173 1](..&#x2F;pics&#x2F;image-20241021112612173 1.png)</p>
+<h5 id="3布里渊区"><a href="#3布里渊区" class="headerlink" title="3布里渊区"></a>3布里渊区</h5><p>当$k&#x3D;\frac n{za}$时能量出现不连续，形成了一系列相同的允带和禁带，其中：</p>
+<table>
+<thead>
+<tr>
+<th>$－\frac 1{2a}＜k＜\frac 1{2a}$</th>
+<th>第Ⅰ布里渊区</th>
+<th>简约布里渊区，也称为简约波矢</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$－\frac 1{a}＜k＜\frac 1{a}$</td>
+<td>第Ⅱ布里渊区</td>
+<td></td>
+</tr>
+</tbody></table>
+<p>![image-20241021112643489 1](..&#x2F;pics&#x2F;image-20241021112643489 1.png)</p>
+<ol>
+<li><p>禁带出现在布里渊区边界上，每个布里渊区对应一个能带</p>
+</li>
+<li><p>由于图中可以看出来，布里渊区具有周期性，其对应的能带对应的有<br>$$<br>E(k)&#x3D;E(k+ \frac na），周期为\frac na<br>$$</p>
+</li>
+</ol>
+<h5 id="4能带量子化"><a href="#4能带量子化" class="headerlink" title="4能带量子化"></a>4能带量子化</h5><p>由于$E&#x3D;\frac {h^2k^2}{2m_0}$，有了确定的k就可以确定E，一个k对应一个能级，若我们知道一个允带中有多少个k，就可以知道一个能带中有多少个能级<br>考虑最简单的情况，在一维晶体中：<br>$$<br>L_{长度}&#x3D;N \cdot a，N为原子数，a为晶格常数<br>$$</p>
+<p>根据循环边界条件：<br>在$x&#x3D;0$和$x&#x3D;L$处波函数由于周期性而相等，有：<br>$$<br>\psi(0)&#x3D;\psi(L)，由布洛赫\psi_k(x)&#x3D;u_k(x) \cdot e^{i2 \pi kx}<br>$$<br>故在$x&#x3D;0$处和$x&#x3D;L$处<br>$$<br>\psi_k(0) &#x3D; u_k(0) \cdot e^{i2 \pi k 0} &#x3D; \psi_k(L) &#x3D; u_k(L) \cdot e^{i2 \pi k L}<br>$$<br>由于布洛赫定律的幅值函数也具有周期性，$e^0&#x3D;1$，有：<br>$$<br>\psi_k(0) &#x3D;1 \cdot 1 &#x3D; \psi_k(L) &#x3D; 1\cdot e^{i2 \pi k L}&#x3D;1<br>$$<br>整理得$e^{i2 \pi k L}&#x3D;1$运用欧拉公式得：<br>$$<br>e^{i2 \pi k L}&#x3D;cos(2 \pi kL)+isin(2 \pi kL)&#x3D;1<br>$$<br>故解得：<br>$$<br>2 \pi kL&#x3D;2 \pi n，n为整数<br>$$<br>两边同除：<br>$$<br>k&#x3D;\frac nL&#x3D;\frac n {Na}<br>$$<br>观察公式k离散，得到&#x3D;&#x3D;能级离散&#x3D;&#x3D;</p>
+<h5 id="5布里渊区和k的关系"><a href="#5布里渊区和k的关系" class="headerlink" title="5布里渊区和k的关系"></a>5布里渊区和k的关系</h5><p>一个布里渊区对应一个允带，其中k的个数有如下关系：</p>
+<p><img src="/../pics/%7B6FFD74D3-4B9E-4D7A-BAA8-6D5C09E9B362%7D.png" alt="{6FFD74D3-4B9E-4D7A-BAA8-6D5C09E9B362}"><br>$$<br>k &#x3D; \frac {布里渊区宽度}{单位晶格长度} &#x3D; \frac {\frac 1a}{\frac 1L} &#x3D; \frac La &#x3D; \frac {Na}a &#x3D; N<br>$$<br>其中：</p>
+<ul>
+<li>$N$为原子个数，对应$N$个能级</li>
+<li>一个$k$对应一个能级</li>
+</ul>
+<h5 id="6结论"><a href="#6结论" class="headerlink" title="6结论"></a>6结论</h5><ol>
+<li><p>根据泡利不相容原理，每个能级上不可能有两个或两个以上完全相同的电子，但是可以有两个自旋相反的电子处在一个能级；&#x3D;&#x3D;一个布里渊区可以容纳$2N$个电子&#x3D;&#x3D;（因为每个布里渊区对应$N$个能级，每个能级上可对应两个自旋相反的电子）</p>
+</li>
+<li><p>允带中有$N$个分立的能级，其宽度又特别小只有几个$eV$，故其能级分布非常密，甚至可以称之为&#x3D;&#x3D;准连续&#x3D;&#x3D;</p>
+</li>
+</ol>
+<h3 id="1-1-4导体半导体和绝缘体的能带"><a href="#1-1-4导体半导体和绝缘体的能带" class="headerlink" title="1.1.4导体半导体和绝缘体的能带"></a>1.1.4导体半导体和绝缘体的能带</h3><p>固体物理认为晶体中的电子能够参与导电是因为在外力或者外场作用下，电子的能量状态，以及其在布里渊区的分布情况发生了改变</p>
+<h5 id="1在外电场作用条件下满带中电子分布情况"><a href="#1在外电场作用条件下满带中电子分布情况" class="headerlink" title="1在外电场作用条件下满带中电子分布情况"></a>1在外电场作用条件下满带中电子分布情况</h5><p><img src="/../pics/%7B3692DB25-A057-4DF2-98D1-9AA0358AED92%7D.png" alt="{3692DB25-A057-4DF2-98D1-9AA0358AED92}"></p>
+<ul>
+<li>在宏观上分布情况并未改变，故&#x3D;&#x3D;满带中电子不参与导电&#x3D;&#x3D;</li>
+<li>$k$随$t$均匀变化，由：</li>
+</ul>
+<p>$$<br>dE&#x3D;|\vec F|dS&#x3D;-q|\vec E|dS&#x3D;-q|\vec E|Vdt<br>$$</p>
+<p>​	又$v&#x3D;\frac 1h \frac {dE}{dk}dt$带入上式：<br>$$<br>dE&#x3D;-q|\vec E| \cdot \frac 1h\frac {dE}{dk}dt<br>$$<br>​	两边约去$dE$得：<br>$$<br>\frac {dk}{dt}&#x3D;-q|\vec E| \cdot \frac 1h<br>$$<br>​	等式左边都是常数，得$k$随$t$均匀变化</p>
+<h5 id="2在外电场作用条件下半满带中电子分布情况"><a href="#2在外电场作用条件下半满带中电子分布情况" class="headerlink" title="2在外电场作用条件下半满带中电子分布情况"></a>2在外电场作用条件下半满带中电子分布情况</h5><p><img src="/../pics/%7B72F91ACA-34D8-4836-B83B-3E97B2746F1E%7D.png" alt="{72F91ACA-34D8-4836-B83B-3E97B2746F1E}"></p>
+<h5 id="3导体、绝缘体、半导体的能带"><a href="#3导体、绝缘体、半导体的能带" class="headerlink" title="3导体、绝缘体、半导体的能带"></a>3导体、绝缘体、半导体的能带</h5><p><img src="/../pics/%7B648D89F0-0349-42CB-9C33-2C72A170F1BA%7D.png" alt="{648D89F0-0349-42CB-9C33-2C72A170F1BA}"></p>
+<h5 id="4在实验中各元素的禁带宽度"><a href="#4在实验中各元素的禁带宽度" class="headerlink" title="4在实验中各元素的禁带宽度"></a>4在实验中各元素的禁带宽度</h5><p>在室温$T&#x3D;300k$时</p>
+<table>
+<thead>
+<tr>
+<th>元素种类</th>
+<th>$Eg$</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$Si$</td>
+<td>$1.12eV$</td>
+</tr>
+<tr>
+<td>$Ge$</td>
+<td>$0.67eV$</td>
+</tr>
+<tr>
+<td>$GrAs$</td>
+<td>$1.43eV$</td>
+</tr>
+<tr>
+<td>绝缘体或金刚石</td>
+<td>$6 - 7eV$</td>
+</tr>
+</tbody></table>
+<h5 id="5本征半导体"><a href="#5本征半导体" class="headerlink" title="5本征半导体"></a>5本征半导体</h5><ul>
+<li>本征半导体：纯净的，不含任何杂质和缺陷的半导体</li>
+<li>本征激发：本征半导体中价带电子在电场作用下跃迁到导带的过程，&#x3D;&#x3D;即共价键上电子挣脱束缚成为自由电子的过程&#x3D;&#x3D;</li>
+</ul>
+<h2 id="1-2半导体中电子的运动"><a href="#1-2半导体中电子的运动" class="headerlink" title="1.2半导体中电子的运动"></a>1.2半导体中电子的运动</h2><h3 id="1-2-1半导体中电子的EK关系"><a href="#1-2-1半导体中电子的EK关系" class="headerlink" title="1.2.1半导体中电子的EK关系"></a>1.2.1半导体中电子的EK关系</h3><p><img src="/../pics/image-20250224090647239.png" alt="image-20250224090647239"></p>
+<p>在上图中我们研究的主要区域是$\frac {dE}{dk}&#x3D;0$</p>
+<h5 id="1导带底附近的EK关系（引入了有效质量-m-n-）"><a href="#1导带底附近的EK关系（引入了有效质量-m-n-）" class="headerlink" title="1导带底附近的EK关系（引入了有效质量$m_n^*$）"></a>1导带底附近的EK关系（引入了有效质量$m_n^*$）</h5><p>对于极值$\frac {dE}{dk}&#x3D;0$在$x_0$附近使用泰勒展开：<br>$$<br>f(x)&#x3D;f(x_0)+f’(x_0)+f’(x_0)(x-X_0)’+\frac 1{2!}f’(x_0)(x-x_0)^2…<br>$$<br>在波矢k空间中$x&#x3D;k&#x3D;0$：<br>$$<br>E(k)&#x3D;E(k&#x3D;0)+\frac {dE}{dk}|<em>{k&#x3D;0}\cdot(k-0)’+\frac 12 \frac{d^2E}{dk^2}(k-0)^2…<br>$$<br>将第三项提出：<br>$$<br>E(k)-E(0)&#x3D;\frac 12 \frac{d^2E}{dk^2}k^2 \rightarrow式1<br>$$<br>又因为在自由电子中<br>$$<br>E(k)-E(0)&#x3D;\frac {h^2k^2}{2m</em>{0}}\rightarrow式2<br>$$<br>将这个式子中的$m_0$换成有效质量$m_{n}^*$，并将式1和式2联立：<br>$$<br>\begin{align}<br>\frac 12 \frac{d^2E}{dk^2}k^2&amp;&#x3D;\frac {h^2k^2}{2m_{0}}<br>$$</p>
+
+</div> 
+
+<script>
+    window.onload = detectors();
+</script>
+    <div class="post-footer">
+    <div class="h-line-primary"></div>
+    <nav class="post-nav">
+        <div class="prev-item">
+           
+                <div class="icon arrow-left"></div>
+                <div class="post-link">
+                    <a href="/2024/12/11/%E7%AC%94%E8%AE%B0%E5%8D%8A%E7%89%A94%E5%8D%8A%E5%AF%BC%E4%BD%93%E7%9A%84%E5%AF%BC%E7%94%B5%E6%80%A7/">Prev</a>
+                </div>
+            
+        </div>
+        <div class="next-item">
+            
+                <div class="icon arrow-right"></div>
+                <div class="post-link">
+                  <a href="/2024/12/11/%E7%AC%94%E8%AE%B0%E5%8D%8A%E7%89%A93%E5%8D%8A%E5%AF%BC%E4%BD%93%E4%B8%AD%E8%BD%BD%E6%B5%81%E5%AD%90%E7%9A%84%E7%BB%9F%E8%AE%A1%E5%88%86%E5%B8%83/">Next</a>  
+                </div>  
+            
+        </div>
+    </nav>
+</div>
+
+    
+      <div class="post-comment">
+
+     
+
+     
+    
+    
+
+</div>
+     
+  
+</article>
+        </div>
+      </div>
+      
+      <div class="footer">
+    <div class="flex-container">
+        <div class="footer-text">
+            
+            
+                Skjaldbaka1© | 
+            
+            
+                Powered by <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/zoeingwingkei/frame/">Frame</a>
+                
+        </div>
+    </div>
+</div>
+    </div>
+  </body>
+</html>
+

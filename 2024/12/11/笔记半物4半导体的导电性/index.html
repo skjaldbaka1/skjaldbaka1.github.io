@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Skjaldbaka1">
+
+
+
+
+
+
+
+<title>半导体物理笔记第四章 | Skjaldbaka1&#39;s blog</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&family=Roboto+Mono&display=swap');
+</style>
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/menu.js"></script>
+    
+
+
+
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+
+
+
+
+
+
+    <script type="text/javascript" async
+      src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        }
+      };
+    </script>
+  <meta name="generator" content="Hexo 7.3.0"></head>
+  <body>
+    <div class="mask-border"></div>
+
+    <div class="wrapper">
+      <div class="header">
+  <div class="flex-container">
+    <div class="header-inner">
+      <div class="site-brand-container">
+        <a href="/">
+          
+            Skjaldbaka1.
+          
+        </a>
+      </div>
+      <div id="menu-btn" class="menu-btn" onclick="toggleMenu()">
+        Menu
+      </div>
+      <nav class="site-nav">
+        <ul class="menu-list">
+          
+            
+              <li class="menu-item">
+                <a href="/">主页</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/archives/">文集</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/categories/gallery/">影集</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/tag/">引索</a>
+              </li> 
+                   
+          
+          
+            <li class="menu-item search-btn">
+              <a href="#">Search</a>
+            </li>
+          
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main">
+        <div class="flex-container">
+          <article id="post">
+
+  
+    <div class="post-head">
+    <div class="post-info">
+        <div class="tag-list">
+            
+                
+                    <span class="post-tag">
+                        <a href="/tags/%E7%AC%94%E8%AE%B0/">
+                            笔记
+                        </a>
+                    </span>    
+                
+                    <span class="post-tag">
+                        <a href="/tags/%E5%8D%8A%E5%AF%BC%E4%BD%93%E7%89%A9%E7%90%86/">
+                            半导体物理
+                        </a>
+                    </span>    
+                           
+            
+        </div>
+        <div class="post-title">
+            
+            
+                半导体物理笔记第四章
+            
+            
+        </div>
+        <span class="post-date">
+            12月 11, 2024
+        </span>
+    </div>
+    <div class="post-img">
+        
+            <div class="h-line-primary"></div>
+              
+    </div>
+</div>
+    <div class="post-content">
+    <p>一个运动：载流子在外电场作用下的飘移运动<br>一个概率：载流子散射概念<br>一个规律：半导体中电阻率电导率迁移率和杂质浓度温度的变化规律</p>
+<h4 id="1-1载流子的飘移运动和迁移率"><a href="#1-1载流子的飘移运动和迁移率" class="headerlink" title="1.1载流子的飘移运动和迁移率"></a>1.1载流子的飘移运动和迁移率</h4><h5 id="1-微分形式的欧姆定律"><a href="#1-微分形式的欧姆定律" class="headerlink" title="1.微分形式的欧姆定律"></a>1.微分形式的欧姆定律</h5><p>对于一个半导体来说，再它两边施加上电源<br>![[SmartSelect_20241129_102910.jpg]]<br>$$<br>I&#x3D;\frac UR \leftarrow R&#x3D;\rho\frac lS<br>$$<br>得到：<br>$$<br>I&#x3D;\frac UR &#x3D; \frac U{\rho \frac lS}&#x3D;\frac {ElS}{\rho l}&#x3D;\frac {ES}{\rho}<br>$$<br>电流密度：单位截面积上通过的电流<br>$$<br>J&#x3D;\frac {ES}{\rho S}&#x3D;\frac {E}{\rho}<br>$$<br>又因为$\frac {1}{\rho}&#x3D;\sigma$这个符号是电导率的意思，代回到上式，得到欧姆定律的微分形式：<br>$$<br>J &#x3D; \sigma E<br>$$</p>
+<h5 id="2-漂移速度"><a href="#2-漂移速度" class="headerlink" title="2.漂移速度"></a>2.漂移速度</h5><p>漂移运动：指电子在外电场作用下，逆着电场线方向做定向运动<br>漂移速度：定向运动的速度称漂移速度，记作$V_d$<br>设电子平均漂移速度是$V_d$，则AB面相距$V_dt$其围成体积$SV_dt$<br>设半导体中电子浓度为n，AB面所围成的体积中总电子数为N</p>
+<ul>
+<li>$N &#x3D; n \cdot S V_d t$从A到B的这截半导体的电子数</li>
+<li>$I &#x3D; \frac Qt &#x3D; \frac {-qN}{t} &#x3D; \frac {-qSV_dt}{t} &#x3D; -qnsV_d$<br>再带入电流密度中：</li>
+<li>$J &#x3D; \frac IS &#x3D; -qnV_d$</li>
+<li>$J &#x3D; \sigma |E|$</li>
+</ul>
+<h5 id="3-迁移率"><a href="#3-迁移率" class="headerlink" title="3.迁移率"></a>3.迁移率</h5><p>观察上面一式可以得，当半导体内部电场恒定时，电子应具有一个恒定不变的平均漂移速度；电场强度增大，电流密度相应增加，平均漂移速度随着电场强度增大而增加<br>可知$V_d由E$引起的，令$V_d &#x3D; \mu |E| \rightarrow \mu &#x3D; \frac {\vec V_d}{|E|}$<br>我们称$\mu$为迁移率：单位电场强度下载流子的平均漂移速度，单位$cm^2&#x2F;vs$；<br>物理意义：反应了在外电场的作用下，载流子运动能力的强弱<br>我们规定：迁移率恒取正值<br>$$<br>\mu &#x3D; \frac {|\vec V_d|}{|E|}&#x3D;|\frac {\vec V_d}{E}|<br>$$</p>
+<h5 id="4-电导率"><a href="#4-电导率" class="headerlink" title="4.电导率"></a>4.电导率</h5><p>将上面的$V_d &#x3D; \mu|E|$带入下式第三个式子中<br>$$<br>J &#x3D; \frac IS &#x3D; -qnV_d &#x3D; nq\mu |E|<br>$$<br>我们令$\sigma &#x3D; nq\mu_n$它是电导率的定义式<br>5.<br>![[SmartSelect_20241129_163506.jpg]]<br>对于一个均匀半导体，两端施加电压，在半导体内部形成电场，电子带负电，逆电场运动；空穴带正电，沿着电场线方向运动，但形成的电流方向都是沿着电场方向的</p>
+<ul>
+<li>因此半导体的导电作用应为电子导电和空穴导电的总和</li>
+<li>导电的电子是在导带中，它们是脱离了共价键可以在半导体中自由运动的电子</li>
+<li>导电的空穴是在价带中，空穴电流实际上是代表共价键的电子在价键间运动产生的电流<br>故在相同的电场作用下，两者平均漂移速度是不同的，导带电子的漂移速度大；如以$\mu_n,\mu_p$代表电子和空穴的迁移率，$J_n,J_p$分别代表电子和空穴的电流密度，$n,p$代表电子和空穴的浓度，有：<br>$$<br>J_{总电流密度}  &#x3D; J_n + J_p &#x3D;(nq\mu_n + nq\mu_p)E<br>$$<br>且在电场强度不太大时，$J,E$之间仍然遵守欧姆定律<br>$$<br>\sigma_{总电导率} &#x3D; nq\mu_n + pq\mu_p<br>$$<br>对于两种载流子相差很悬殊且迁移率差别不大的杂质半导体来说，电导率主要取决于多数载流子</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>N型半导体</th>
+<th>$n&gt;&gt;p$</th>
+<th>空穴对电流贡献可以忽略</th>
+<th>$\sigma &#x3D; nq\mu_n，J&#x3D;\sigma E &#x3D; nq\mu_nE$</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>P型半导体</td>
+<td>$n&lt;&lt;p$</td>
+<td>电子对电流贡献可以忽略</td>
+<td>$\sigma &#x3D; pq\mu_p，J &#x3D; \sigma E ＝pq\mu_pE$</td>
+</tr>
+<tr>
+<td>本征半导体</td>
+<td>$n&#x3D;p&#x3D;n_i$</td>
+<td>都不可忽略</td>
+<td>$\sigma &#x3D; n_i(\mu_n+\mu_p)$</td>
+</tr>
+</tbody></table>
+<h4 id="1-2载流子的散射"><a href="#1-2载流子的散射" class="headerlink" title="1.2载流子的散射"></a>1.2载流子的散射</h4><h5 id="1散射的概念"><a href="#1散射的概念" class="headerlink" title="1散射的概念"></a>1散射的概念</h5><p>载流子在电场的作用下沿着某一方向运动，遭到其他离子库伦力改变方向和运动速度称为散射</p>
+<p>$$<br>\begin{align}<br>J &amp;&#x3D; \sigma |E| \rightarrow |E|一定J一定 \<br>J &amp;&#x3D; nq|\vec V_d| \ a &amp;&#x3D; - \frac {q\vec E}{m_n^*}<br>\end{align}<br>$$<br>矛盾：上三式中$a$为恒量，就有$\vec V_d$不断增大，$J$不断增大；但实际上（上一式），在恒定的场强作用，$J$是恒定的<br>解释：</p>
+<ul>
+<li>散射影响了$\vec V_d$</li>
+<li>载流子在没有外电场时，做无规则热运动，与格点上的原子（离子）以及其他载流子相互不碰撞，用波的概念，即电子波在传播的过程中遭受到散射</li>
+<li>存在外电场时，载流子一方面做漂移运动；另一方面在漂移过程中遭到散射，使漂移运动的大小与方向不断改变使漂移速度$\vec V_d$不能无限积累<br>载流子只有在连续两次散射作用（之间绿色的）下才存在加速作用；平均速度$\vec V_d$是指在外力和散射的双重作用下，载流子以一定平均速度作漂移运动</li>
+</ul>
+<h5 id="2-重要概念"><a href="#2-重要概念" class="headerlink" title="2.重要概念"></a>2.重要概念</h5><ul>
+<li>自由载流子：连续两次散射之间，载流子是自由的</li>
+<li>平均自由程：连续两次散射之间，载流子自由运动的平均路程</li>
+<li>平均自由时间：连续两次散射之间，载流子所经历的平均时间</li>
+</ul>
+<h4 id="1-3半导体中载流子的散射结构"><a href="#1-3半导体中载流子的散射结构" class="headerlink" title="1.3半导体中载流子的散射结构"></a>1.3半导体中载流子的散射结构</h4><p>散射原因：晶格的严格周期性势场遭到破坏，并且存在附加势场，从而使周期性势场发生变化；由于附加势场的作用，会使能带中电子在不同k状态之间发生跃迁</p>
+<h5 id="1-电离杂质散射"><a href="#1-电离杂质散射" class="headerlink" title="1.电离杂质散射"></a>1.电离杂质散射</h5><p>施主电离之后成为带正电的离子，受主电离成为带负电的离子，这电离的这两中离子的周围会形成库伦势场，这一库伦势场会破坏杂质附近的周期性势场，&#x3D;&#x3D;这个势场是使载流子散射的附加势场&#x3D;&#x3D;<br>常用散射几率$P$（单位时间内一个载流子发生散射的次数）表示散射的强弱<br>浓度为$N_i &#x3D; N_D + N_A$的电离杂质对载流子的散射概率$P_i$与温度的关系<br>$$<br>P \propto N_i T^{- \frac 32}<br>$$</p>
+<ul>
+<li>$N_i$越大遭到散射的机会越多</li>
+<li>温度越高，载流子热运动的平均速度越大，可以较快的掠过杂质离子，偏转越小，不易散射；可以利用离心力公式$F＝\frac {mV^2}{R}$理解，当速度越大，对抗引力的离心力就越大，偏转就越小</li>
+</ul>
+<h5 id="2-晶格振动散射和声子"><a href="#2-晶格振动散射和声子" class="headerlink" title="2.晶格振动散射和声子"></a>2.晶格振动散射和声子</h5><p>格波：在一定的温度下，晶格中的原子在各自平衡位置做微震动，晶格中的原子的震动都是有若干不同的基本波动按照波的叠加原理组合而成，这些基本振动称为格波<br>常用格波波矢$\vec q$表示格波的波长和传播方向，其数值是格波波长倒数的$2\pi$倍<br>$$<br>q &#x3D; \frac {2\pi}{\lambda}<br>$$<br>对于$Si,Ge$及Ⅲ、Ⅴ族化合物半导体，原胞中大多含有2个原子，对应$q$有6个格波，这6个格波的频率高的三支为光学波，频率低的为声学波</p>
+<ul>
+<li>声学波：相邻两个原子相位一致的振动</li>
+<li>光学波：质心不动，相邻两个原子相位相反的振动<br>从原子的振动方式来看，无论声学波还是光学波原子位移方向与波的传播方向都是一纵两横<br>![[SmartSelect_20241201_160835.jpg]]</li>
+</ul>
+<h5 id="3-声子的能量"><a href="#3-声子的能量" class="headerlink" title="3.声子的能量"></a>3.声子的能量</h5><p>角频率为$\omega_a$的格波能量是量子化的：<br>$$(n + \frac 12)\hbar \omega_a$$<br>当晶格与其他物质（电子光子）相互作用而交换能量时，晶格原子的振动状态要发生变化，格波能力也发生变化</p>
+<ul>
+<li>声子：格波的能量量子$\hbar \omega_a$</li>
+<li>当格波能量减少一个$\hbar \omega_a$时，放出一个声子</li>
+<li>当格波能量增加一个$\hbar \omega_a$时，吸收一个声子<br>温度为T，角频率为$\omega_a$的格波平均能量为：<br>$$<br>\frac 12 \hbar \omega_a + \vec n_q \hbar \omega_a,其中n_{q平均声子数}&#x3D;\frac {1}{exp(\frac {\hbar \omega_a}{k_0T}-1)}<br>$$<br>电子和声子的碰撞要遵守准动量守恒和能量守恒，对于散射时常发生的电子和晶格交换一个声子的单声子过程来说：</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>散射前</th>
+<th>散射后</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>波矢$k$</td>
+<td>能量$E$</td>
+</tr>
+<tr>
+<td>波矢$k’$</td>
+<td>能量$E’$</td>
+</tr>
+<tr>
+<td>满足以下两个公式：</td>
+<td></td>
+</tr>
+<tr>
+<td>$$</td>
+<td></td>
+</tr>
+<tr>
+<td>\begin{align}</td>
+<td></td>
+</tr>
+<tr>
+<td>\hbar k’ - \hbar k &amp;&#x3D; +- \hbar q声子的准动量</td>
+<td></td>
+</tr>
+<tr>
+<td>\</td>
+<td></td>
+</tr>
+<tr>
+<td>E’ - E &amp;&#x3D; +-\hbar \omega_a声子的能量</td>
+<td></td>
+</tr>
+<tr>
+<td>\end{align}</td>
+<td></td>
+</tr>
+<tr>
+<td>$$</td>
+<td></td>
+</tr>
+</tbody></table>
+<ul>
+<li>弹性散射：对于长声学波振动，声子的速度很小，散射之后电子能量基本不变</li>
+<li>非弹性散射：对于光学波来说$\omega_a$高，声子能量$\hbar \omega_a$大，散射后电子能量有较大改变</li>
+</ul>
+<h5 id="4-声学波散射"><a href="#4-声学波散射" class="headerlink" title="4.声学波散射"></a>4.声学波散射</h5><p>能带具有单一极值的半导体，起主要散射作用的是长学波，波长比原子间距大很多倍的格波；在长学波中，只有纵波起主要的散射作用<br>解释：纵波会引起原子疏密的变化，产生体变，稀疏的地方原子$E_g$变小，密处反之；因为稀疏处原子间距变大，共价键减小电子容易被激发<br>![[SmartSelect_20241201_164334.jpg]]<br>在图中相当于把能带变成了波型，波距离相比原来变大的地方相当于原子稀疏处；波相比原来减小处相当于原子密处<br>进一步的，禁带宽度的改变反应了$E_c,E_v$的升降，引起了极值的变化，同时处于$E_c,E_v$的电子或空穴，在半导体的不同地点，其能量就有差别，如同施加了一个附加的势场$\Delta E_c,\Delta E_v$<br>![[SmartSelect_20241201_165051_Obsidian.jpg]]<br>这一附加势场会破坏原来势场的周期性，使电子从k状态散射到k’状态<br>上面我们都讨论是单极值的情况，对于$Si,Ge$等具有多极值的有多个旋转椭球等能面，$m_n^*$应区状态密度有效质量，横声学波的散射一般较弱，只考虑强的纵声学波</p>
+<h5 id="4-光学波散射"><a href="#4-光学波散射" class="headerlink" title="4.光学波散射"></a>4.光学波散射</h5><p>对于离子性半导体（三五族化合物）离子晶体中，原胞中包含正负两个离子，在长纵光学波传播时振动方向相反，所形成的附加势场：</p>
+<ul>
+<li>正负离子分区形成疏密相间的区域</li>
+<li>正离子的密区与负离子的疏区相结合</li>
+<li>正离子的疏区与负离子的密区相结合<br>从造成在半个波长的区域带正电，另半个波长的区域带负电，带正负电的区域将会产生电场，对载流子施加一个附加势场<br>$$<br>p_{o光学波散射概率} \propto \vec n_q<br>$$<br>可得到如下的传导关系：<br>$$<br>T增加 \rightarrow \vec n_q 增加\rightarrow p_o增加<br>$$<br>可见低温时，光学波散射基本上不起作用<br>5.其主要散射作用的机构<br>对于$Si,Ge$等元素的半导体主要散射机构：</li>
+<li>电离杂质散射<br>$$<br>p_i \propto N_iT^{- \frac 32}<br>$$</li>
+<li>长纵声学波散射<br>$$<br>p_s &#x3D; T^{\frac 32}<br>$$<br>$GeAs$等化合物半导体，起主要散射机构：</li>
+<li>电离杂质散射<br>$$<br>p_i \propto N_iT^{- \frac 32}<br>$$</li>
+<li>长纵声学波散射<br>$$<br>p_s &#x3D; T^{\frac 32}<br>$$</li>
+<li>纵光学波散射<br>$$<br>p_o \propto \vec n_q<br>$$<br>其他因素引起的散射：</li>
+</ul>
+<ol>
+<li>等同的能谷间散射（高温时谷间散射比较总要低温时谷间散射很小）：<br>等同的能谷的概念：Si的导带具有极值能量相同的6个旋转椭球面，载流子在这些能谷中分布相同，称这些能谷为等同的能谷<br>谷间散射：对于多能谷半导体，电子从一个极值附近散射到另一个极值附近称为谷间散射</li>
+<li>中性杂质散射（重掺杂且低温下此散射可能起作用）：<br>没有电离的杂质显中性，它对周期性势场有一定的微扰作用而引起散射</li>
+<li>位错散射（散射几率与位错密度相关）：</li>
+<li>刃型位错处，刃型的原子共价键不饱和，易俘获电子形成负电中心</li>
+<li>合金散射：<br>混合晶体中所特有的散射机制，但在原子有序排列的混合解题中不存在合金散射效应</li>
+<li>载流子间的散射（在强简并条件下起作用）</li>
+</ol>
+<h3 id="1-4迁移率与杂质浓度和温度的关系"><a href="#1-4迁移率与杂质浓度和温度的关系" class="headerlink" title="1.4迁移率与杂质浓度和温度的关系"></a>1.4迁移率与杂质浓度和温度的关系</h3><h5 id="1-平均自由时间于散射几率的关系"><a href="#1-平均自由时间于散射几率的关系" class="headerlink" title="1.平均自由时间于散射几率的关系"></a>1.平均自由时间于散射几率的关系</h5><p>存在外电场E时，载流子做漂移运动，但仅在连续的两次散射之间载流子才被加速<br>连续两次散射之间所经历的时间称为自由时间，由于它长短不一，故取平均值，称为平均自由时间记为$t$<br>进一步的：若在$t$时刻没有遭到散射的电子数为$N(t)$，在$t + \Delta t$时刻未遭受散射的电子数为$N(t + \Delta t)$<br>可以得到在$\Delta t$之间散射的电子数为：<br>$$<br>PN(t)\Delta t<br>$$<br>散射前后电子数关系：<br>$$<br>N(t) &#x3D; PN(t)\Delta t + N(t + \Delta t)<br>$$<br>$$<br>N(t + \Delta t) - N(t) &#x3D; -PN(t)\Delta t<br>$$<br>两边同除一个$\Delta t$，得到的式子类似于高数中导数的定义式：<br>$$<br>\begin{align}<br>\frac {N(t + \Delta t) - N(t)}{\Delta t} &amp;&#x3D; \frac {-PN(t)\Delta t}{\Delta t}  \<br>\frac {dN(t)}{dt} &amp;&#x3D; -PN(t) \<br>N_t &amp;&#x3D; Ce^{-Pt}<br>\end{align}<br>$$<br>带入初始条件$t&#x3D;0,N(t)&#x3D;N_0$得到：<br>$$<br>N(t) &#x3D; N_0e^{-Pt}<br>$$<br>这个式子是在$t$时刻，未遭到散射的电子数<br>再对其积分可以得到平均自由时间<br>$$<br>\begin{align}<br>\tau &amp;&#x3D; \frac {1}{N_0} \int_0^{\infty} t P N_0 e^{-Pt} dt \<br> &amp;&#x3D; \frac {1}{P}<br>\end{align}<br>$$<br>可知平均自由时间$t$与散射几率互为倒数</p>
+<h5 id="2-迁移率电导率与平均自由时间的关系"><a href="#2-迁移率电导率与平均自由时间的关系" class="headerlink" title="2.迁移率电导率与平均自由时间的关系"></a>2.迁移率电导率与平均自由时间的关系</h5><p>设沿着x方向的电场$|E|$，电子有效质量为$m_n^*$为各项同性，若在$T &#x3D; 0$时刻某电子恰好被散射后，沿着$x$方向的速度分量记作$V_{x0}$，此电子接着加速被散射前的速度为$V_x$<br>$$<br>\begin{align}<br>V_x &amp;&#x3D; V_{x0} + at \<br>&amp;&#x3D; V_{x0} +(-\frac {q|E|}{m_n^*}t)<br>\end{align}<br>$$<br>若对大量电子，取平均自由时间$\tau$：<br>$$<br>\overline V_x &#x3D; \overline V_{x0} +(-\frac {q|E|}{m_n^*}\tau)<br>$$<br>由于大量电子运动沿着个方向上几率相同，所以$\overline V_{x0} &#x3D; 0$，又因为$V &#x3D; \mu |E|$可以得到：</p>
+<ul>
+<li>迁移率$\mu$，且迁移率只取正值<br>$$<br>\mu &#x3D; \frac {|\overline V_X|}{E} &#x3D; \frac {q\tau}{m_n^*}<br>$$</li>
+<li>电导率$\sigma$<br>$$<br>\begin{align}<br>\sigma &amp;&#x3D; nq\mu_n + pq\mu_p \<br> &amp;&#x3D; nq\frac {q\tau_n}{m_n^*} + pq\frac {q\tau_p}{m_p^*}<br>\end{align}<br>$$<br>可以得到：</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>迁移率$\mu$</th>
+<th>电子</th>
+<th>$\mu_n &#x3D; \frac {q\tau_n}{m_n^*}$</th>
+<th>空穴</th>
+<th>$\mu_p &#x3D; \frac {q\tau_n}{m_p^*}$</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>电导率$\sigma$</td>
+<td>N型</td>
+<td>$nq\frac {q\tau_n}{m_n^*}$</td>
+<td>P型</td>
+<td>$pq\frac {q\tau_p}{m_p^*}$</td>
+</tr>
+</tbody></table>
+<p>在实际情况下，以各向异性的$m_n^*$的半导体为例子，其等能面为椭球</p>
+<ul>
+<li>其长轴的有效质量为$m_l^*$，短轴的为$m_t^*$</li>
+<li>设电场$E$的方向是沿着$x$，记作$E_x$</li>
+<li>设$x,y,z$各轴的迁移率为$\mu_x &#x3D; \frac {q\tau_n}{m_l^*}$和$\mu_y &#x3D; \mu_z &#x3D;\frac {q\tau_n}{m_t^*}$</li>
+<li>设电子浓度为$n$，则六个能谷中一个能谷的浓度为$\frac n6$<br>对于$x$轴的电流密度$J &#x3D; nq\mu E$ 为：<br>$$<br>\begin{align}<br>J_x &amp;&#x3D; 2(\frac n6 q\mu_xE_x + \frac n6 q\mu_yE_x + \frac n6 q\mu_zE_x) \<br>&amp;&#x3D; \frac 13nq(\mu_x + \mu_y + \mu_z) \<br>\end{align}<br>$$<br>令$J_x &#x3D; nq\mu_cE_x$可以得到$\mu_c$电导迁移率为：<br>$$<br>\mu_c &#x3D; \frac 13(\frac {q\tau_n}{m_l^*} + 2 \cdot \frac {q\tau_n}{m_t^*})<br>$$<br>我们称$m_c$为电导有效质量<br>$$<br>\mu_c &#x3D; \frac {q\tau_n}{m_c}<br>$$<br>与上式联立得到：<br>$$<br>\frac 1{m_c} &#x3D; \frac 13 (\frac {1}{m_l} + \frac {2}{m_t})<br>$$</li>
+</ul>
+<h5 id="3迁移率跟杂质浓度和温度的关系"><a href="#3迁移率跟杂质浓度和温度的关系" class="headerlink" title="3迁移率跟杂质浓度和温度的关系"></a>3迁移率跟杂质浓度和温度的关系</h5><p>$GaAs$等化合物半导体</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th>$p &#x3D; \frac {1}{\tau}$</th>
+<th>$\mu &#x3D; \frac {q\tau}{m_n^*}$</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>电离杂质散射</td>
+<td>$p_i \propto N_iT^{- \frac 32}$</td>
+<td>$\tau_i \propto N_i^{-1}T^{ \frac 32}$</td>
+<td>$\mu_i \propto N_i^{-1}T^{ \frac 32}$</td>
+</tr>
+<tr>
+<td>长纵声学波散射</td>
+<td>$p_s &#x3D; T^{\frac 32}$</td>
+<td>$\tau_s &#x3D; T^{- \frac 32}$</td>
+<td>$\mu_s &#x3D; T^{- \frac 32}$</td>
+</tr>
+<tr>
+<td>纵光学波散射</td>
+<td>$p_o \propto \vec n_q$</td>
+<td>$\tau_o \propto \vec n_q^{-1}$</td>
+<td>$\mu_o \propto \vec n_q^{-1}$</td>
+</tr>
+<tr>
+<td>假设几种散射机构都是独立平行发生的–&gt;相互独立，互不影响</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>总的散射几率可由独立的相加：</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>$$</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>\begin{align}</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>p_{all} &amp;&#x3D; p_1 + p_2 + …. \</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>\tau_{all} &amp;&#x3D; \frac {1}{p_{all}} ＝ \frac {1}{p_1 + p_2 + ….} \</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>\frac {1}{\tau_{all}} &amp;&#x3D; p_1 + p_2 + …. &#x3D; \frac {1}{\tau_1} + \frac {1}{\tau_2} +…. \leftarrow 同乘\frac {1}{\frac {1}{m_n^*}} \</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>\frac {1}{\mu_{all}} &amp;&#x3D; \frac {1}{\mu_1} + \frac {1}{\mu_2}….</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>\end{align}</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>$$</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>观察上式可以得到</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<ul>
+<li>总平均时间的倒数等于各散射机构分别存在时所决定的平均自由时间之和</li>
+<li>迁移率的倒数等于各散射机构所决定的迁移到倒数之和<br>对于$Si,Ge$等元素的半导体主要散射机构：</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th>$p &#x3D; \frac {1}{\tau}$</th>
+<th>$\mu &#x3D; \frac {q\tau}{m_n^*}$</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>电离杂质散射</td>
+<td>$p_i \propto N_iT^{- \frac 32}$</td>
+<td>$\tau_i \propto N_i^{-1}T^{ \frac 32}$</td>
+<td>$\mu_i \propto N_i^{-1}T^{ \frac 32}$</td>
+</tr>
+<tr>
+<td>长纵声学波散射</td>
+<td>$p_s &#x3D; T^{\frac 32}$</td>
+<td>$\tau_s &#x3D; T^{- \frac 32}$</td>
+<td>$\mu_s &#x3D; T^{- \frac 32}$</td>
+</tr>
+<tr>
+<td>假设我们令</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>$\tau_i \propto (BN_i)^{-1}T^{ \frac 32} \rightarrow \mu_i &#x3D; \frac {q\tau}{m_n^*} &#x3D;  \frac {qT^{\frac 32}}{m_n^*BN_i}$</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>$\tau_s &#x3D; AT^{- \frac 32} \rightarrow \mu_s &#x3D; \frac {q \tau}{m_n^*} &#x3D; \frac {q}{m_n^* AT^{\frac 32}}$</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>按照上面的线性叠加关系可以得到：</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>$$ \begin{align} \frac {1}{\mu} &amp;&#x3D; \frac {1}{\mu_s} + \frac {1}{\mu_i}\ \mu &amp;&#x3D;\frac {q}{m_n^*}\left(\frac {1}{AT^{\frac 32} + \frac {BN_i}{T^{\frac {3}{2}}}}\right) \end{align} $$</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>观察上面的式子可以得到：</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<ul>
+<li>$N_i$较低时：在高纯样品$N_i &#x3D; 10^{13}cm^{-3}$或者杂质浓度较低的样品中，迁移率随温度升高迅速减小；$\frac {BN_i}{T^{\frac {3}{2}}}$可以忽略，晶格振动散射起主要作用，故迁移率随着温度升高迅速减小</li>
+<li>当杂质浓度增大时，迁移率下降趋势不明显，因为杂质散射作用增强；当杂质浓度继续增大到$N_i &#x3D; 10^{18} cm^{-3}$以上<ul>
+<li>在低温范围内，随温度升高，迁移率上升，杂质散射为主，晶格振动散射影响有限，$\frac {1}{AT^{\frac 32}}$可以忽略</li>
+<li>当温度升高时，以晶格振动散射为主，温度升高迁移率下降</li>
+</ul>
+</li>
+<li>当杂质浓度继续增大到$10^{18}cm^{-3}$以上<ul>
+<li>在低温范围内，随着温度升高迁移率上升，杂质散射为主</li>
+<li>升高到一定温度下才降低，以晶格振动为主，迁移率下降</li>
+</ul>
+</li>
+</ul>
+<h4 id="1-5电阻率与杂质浓度和温度的关系"><a href="#1-5电阻率与杂质浓度和温度的关系" class="headerlink" title="1.5电阻率与杂质浓度和温度的关系"></a>1.5电阻率与杂质浓度和温度的关系</h4><p>电阻率等于电导率的倒数有：<br>$$<br>\rho &#x3D; \frac {1}{\sigma} &#x3D; \frac {1}{nq\mu_n + pq\mu_q}<br>$$</p>
+<table>
+<thead>
+<tr>
+<th>N型</th>
+<th>由于$n &gt;&gt; p$</th>
+<th>$\rho &#x3D; \frac {1}{nq\mu_n}$</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>P型</td>
+<td>由于$n &lt;&lt;p$</td>
+<td>$\rho &#x3D; \frac {1}{pq\mu_p}$</td>
+</tr>
+<tr>
+<td>本征半导体</td>
+<td></td>
+<td>$\rho_i &#x3D; \frac {1}{n_iq(\mu_n+\mu_p)}$</td>
+</tr>
+<tr>
+<td>杂质补偿时电阻率的计算：</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<ul>
+<li>载流子浓度$n_0,p_0 &#x3D; |N_A - N_D|$</li>
+<li>迁移率影响$N_i &#x3D; N_A + N_P$，根据它的值选择$\mu_n,\mu_p$</li>
+</ul>
+<h6 id="4-电阻率和杂质浓度的关系"><a href="#4-电阻率和杂质浓度的关系" class="headerlink" title="4.电阻率和杂质浓度的关系"></a>4.电阻率和杂质浓度的关系</h6><ul>
+<li>轻参杂时($10^{16} ～ 10^{18}cm^{-3}$)，电阻率与杂质浓度成简单反比关系：<br>$$<br>\rho &#x3D; \frac {1}{\sigma} &#x3D; \frac {1}{nq\mu_n + pq\mu_q}<br>$$</li>
+<li>杂质浓度升高时，曲线严重偏移直线<ul>
+<li>杂质在室温下不能完全电离，在重参杂时的简并半导体中情况更加严重</li>
+<li>迁移率随杂质浓度增加而显著下降</li>
+</ul>
+</li>
+</ul>
+<h6 id="5-电阻率与温度之间的关系"><a href="#5-电阻率与温度之间的关系" class="headerlink" title="5.电阻率与温度之间的关系"></a>5.电阻率与温度之间的关系</h6><p>元素类掺杂半导体，随着温度升高，电离度逐渐增大，如图所示：<br>![[Screenshot_20241210_165611.jpg]]</p>
+<ol>
+<li>在AB段温度很低，本征激发可以忽略<ul>
+<li>载流子主要由杂质电离产生，随着$T \uparrow \rightarrow n \uparrow$</li>
+<li>散射主要为电离杂质散射，随着$T \uparrow \rightarrow \mu \uparrow$<br> $p \downarrow &#x3D; \frac {1}{n \uparrow q\mu_n \uparrow}$故电阻率随着温度升高而降低</li>
+</ul>
+</li>
+<li>在BC段室温下，杂质已完全电离，本征激发不明显<ul>
+<li>载流子浓度基本上不随温度变化</li>
+<li>散射主要为晶格振动散射，$T \uparrow \rightarrow \mu \downarrow$<br> $p \uparrow &#x3D; \frac {1}{n  q\mu_n \downarrow}$故电阻率随着温度升高而上升</li>
+</ul>
+</li>
+<li>在C之后，温度继续升高，本征激发起主要作用<ul>
+<li>载流子由本征激发迅速增加，成几何指数增加</li>
+<li>大量本征载流子$n \uparrow$远远超过$\mu \downarrow$，故$n$起主要作用<br> $p \downarrow &#x3D; \frac {1}{n \uparrow q\mu_n }$故电阻率随着温度升高而急剧下降<br> 且$n$也有如下的关系</li>
+</ul>
+</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>强电离</th>
+<th>$n_0 &#x3D; N_D$</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>过渡区</td>
+<td>$n_0 &#x3D; N_D + p_0$</td>
+</tr>
+<tr>
+<td>本征激发</td>
+<td>$n_0 &#x3D; p_0$</td>
+</tr>
+<tr>
+<td>本征激发越占优势温度就越高，温度高到本征导电起主要作用时，一般器件就无法正常工作，它就是器件的最高工作温度</td>
+<td></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>最高工作温度$°C$</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$Ge$</td>
+<td>100</td>
+</tr>
+<tr>
+<td>$Si$</td>
+<td>250</td>
+</tr>
+<tr>
+<td>$GaAs$</td>
+<td>450</td>
+</tr>
+<tr>
+<td>材料的禁带宽度越大，同一温度下的本征载流子浓度就越低，进入本征导电的温度就越高</td>
+<td></td>
+</tr>
+</tbody></table>
+
+</div> 
+
+<script>
+    window.onload = detectors();
+</script>
+    <div class="post-footer">
+    <div class="h-line-primary"></div>
+    <nav class="post-nav">
+        <div class="prev-item">
+           
+                <div class="icon arrow-left"></div>
+                <div class="post-link">
+                    <a href="/2024/12/11/%E7%AC%94%E8%AE%B0%E5%8D%8A%E7%89%A90%E5%9B%BA%E4%BD%93%E7%89%A9%E7%90%86%E5%AF%BC%E5%85%A5/">Prev</a>
+                </div>
+            
+        </div>
+        <div class="next-item">
+            
+                <div class="icon arrow-right"></div>
+                <div class="post-link">
+                  <a href="/2024/12/11/%E7%AC%94%E8%AE%B0%E5%8D%8A%E7%89%A91%E5%8D%8A%E5%AF%BC%E4%BD%93%E4%B8%AD%E7%9A%84%E7%94%B5%E5%AD%90%E7%8A%B6%E6%80%81/">Next</a>  
+                </div>  
+            
+        </div>
+    </nav>
+</div>
+
+    
+      <div class="post-comment">
+
+     
+
+     
+    
+    
+
+</div>
+     
+  
+</article>
+        </div>
+      </div>
+      
+      <div class="footer">
+    <div class="flex-container">
+        <div class="footer-text">
+            
+            
+                Skjaldbaka1© | 
+            
+            
+                Powered by <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/zoeingwingkei/frame/">Frame</a>
+                
+        </div>
+    </div>
+</div>
+    </div>
+  </body>
+</html>
+

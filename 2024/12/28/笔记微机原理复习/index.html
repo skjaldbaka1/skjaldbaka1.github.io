@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Skjaldbaka1">
+
+
+
+
+
+
+
+<title>微机原理复习 | Skjaldbaka1&#39;s blog</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&family=Roboto+Mono&display=swap');
+</style>
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/menu.js"></script>
+    
+
+
+
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+
+
+
+
+
+
+    <script type="text/javascript" async
+      src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        }
+      };
+    </script>
+  <meta name="generator" content="Hexo 7.3.0"></head>
+  <body>
+    <div class="mask-border"></div>
+
+    <div class="wrapper">
+      <div class="header">
+  <div class="flex-container">
+    <div class="header-inner">
+      <div class="site-brand-container">
+        <a href="/">
+          
+            Skjaldbaka1.
+          
+        </a>
+      </div>
+      <div id="menu-btn" class="menu-btn" onclick="toggleMenu()">
+        Menu
+      </div>
+      <nav class="site-nav">
+        <ul class="menu-list">
+          
+            
+              <li class="menu-item">
+                <a href="/">主页</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/archives/">文集</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/categories/gallery/">影集</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/tag/">引索</a>
+              </li> 
+                   
+          
+          
+            <li class="menu-item search-btn">
+              <a href="#">Search</a>
+            </li>
+          
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main">
+        <div class="flex-container">
+          <article id="post">
+
+  
+    <div class="post-head">
+    <div class="post-info">
+        <div class="tag-list">
+            
+                
+                    <span class="post-tag">
+                        <a href="/tags/%E7%AC%94%E8%AE%B0/">
+                            笔记
+                        </a>
+                    </span>    
+                           
+            
+        </div>
+        <div class="post-title">
+            
+            
+                微机原理复习
+            
+            
+        </div>
+        <span class="post-date">
+            12月 28, 2024
+        </span>
+    </div>
+    <div class="post-img">
+        
+            <div class="h-line-primary"></div>
+              
+    </div>
+</div>
+    <div class="post-content">
+    <h2 id="1、BCD码的意义和表示"><a href="#1、BCD码的意义和表示" class="headerlink" title="1、BCD码的意义和表示"></a>1、BCD码的意义和表示</h2><p><strong>压缩BCD数</strong> → 用8位二进制数表示2个十进制数位</p>
+<p><strong>非压缩BCD数</strong> → 用8位二进制数表示1个十进制数位</p>
+<p><strong>如：19</strong></p>
+<ul>
+<li><strong>压缩BCD</strong> → <strong>0001 1001 &#x3D; 19H</strong></li>
+<li><strong>非压缩BCD</strong> → <strong>00000001 00001001 &#x3D; 0109H</strong></li>
+</ul>
+<p><strong>① 十进制数与BCD数的转换</strong></p>
+<p>直接转换</p>
+<p><strong>② BCD数转换为二进制数</strong></p>
+<p>写出BCD数的十进制数 → 十进制数转换为二进制数</p>
+<p><strong>③ 二进制数转换为BCD数</strong></p>
+<p>二进制数转换为十进制数 → 根据十进制数写出BCD数</p>
+<p><strong>十进制数4256的压缩BCD码表示为：</strong></p>
+<p>0100 0010 0101 0110 B (即4256H)</p>
+<p><strong>十进制数4256的非压缩BCD码表示为：</strong></p>
+<p>xxxx0100 xxxx0010 xxxx0101 xxxx0110 B</p>
+<p>有时，要求非压缩BCD码的高4位为0，这时，4256（10）的非压缩BCD码为04020506H。</p>
+<p><strong>BCD数低位与高位之间逢“10”进1，4位二进制数之间逢“16”进1。而计算机按二进制规律运算，故BCD数进行运算后须进行调整</strong></p>
+<p><strong>简而言之，压缩BCD码就是一个十进制数占4位，非压缩BCD码就是一个十进制数占8位。</strong></p>
+<h3 id="1-BCD数加法运算"><a href="#1-BCD数加法运算" class="headerlink" title="1. BCD数加法运算"></a>1. BCD数加法运算</h3><p><strong>调整规则:</strong></p>
+<ul>
+<li>和在0～9之间, 保持不变;</li>
+<li>和大于9, 加6调整</li>
+</ul>
+<p><strong>如：48+59&#x3D;107</strong></p>
+<h3 id="1-BCD数减法运算"><a href="#1-BCD数减法运算" class="headerlink" title="1. BCD数减法运算"></a>1. BCD数减法运算</h3><p><strong>调整规则:</strong></p>
+<ul>
+<li>差在0～9之间, 不变;</li>
+<li>差大于9, 减6调整</li>
+</ul>
+<hr>
+<h2 id="2、执行单元和总线接口单元的作用"><a href="#2、执行单元和总线接口单元的作用" class="headerlink" title="2、执行单元和总线接口单元的作用"></a>2、执行单元和总线接口单元的作用</h2><p>8086 CPU从功能上可分为两部分，即总线接口部件(bus interface unit，缩写为BIU)和执行部件EU(execution unit)。8086的内部结构如图所示。</p>
+<p><img src="/./../Downloads/5f20676e3947118b71cf9ba82948ea41.png" alt="img"></p>
+<p>EU不与外部总线，即外部世界相连，只负责执行指令。BIU则负责从存储器或外部设备中读取指令和读写数据，即完成所有的总线操作。这两个单元处于并行工作状态，可以同时进行执行指令和读写操作。</p>
+<h3 id="1-执行单元EU"><a href="#1-执行单元EU" class="headerlink" title="1.执行单元EU"></a>1.执行单元EU</h3><p>对于负责执行指令的执行单元EU</p>
+<ul>
+<li>算数逻辑单元ALU</li>
+<li>标志寄存器FLAGS：反映CPU状态和控制标志状态的</li>
+<li>一组通用寄存器和运算寄存器系统：内部的数据传输都是16位</li>
+</ul>
+<p>EU从BIU中取得指令和数据，执行指令要求的操作，该操作有2种：</p>
+<ol>
+<li>进行算数逻辑运算</li>
+<li>计算存储器操作数的偏移地址</li>
+</ol>
+<p>当指令要求执行存储器或IO设备的数据存取操作时，EU向BIU发出请求,BIU根据EU的请求，完成8088&#x2F;8086与存储器或外设之间的数据传送</p>
+<h3 id="2总线接口BIU"><a href="#2总线接口BIU" class="headerlink" title="2总线接口BIU"></a>2总线接口BIU</h3><p>对于负责与存储器或外设进行读取指令和数据的总线接口BIU</p>
+<ul>
+<li>一组段寄存器CS,DS,SS,ES（S-segment）</li>
+<li>一个指令寄存器IP，6个字节的指令队列</li>
+<li>地址加法器</li>
+<li>总线控制逻辑。</li>
+</ul>
+<p>段寄存器提供的段地址和偏移地址在地址加法器中相加，并将其结果存放在物理地址锁存器中。</p>
+<p>指令队列寄存器为一个能存放6个字节的存储器，在EU执行指令的过程中，BIU根据指令提示器的偏移地址，从存放指令的存储器中预先取出一些指令放在指令队列中。指令在队列中是顺序排序的。（流水线结构）</p>
+<p>多数情况下，指令队列中至少应有一个字节的指令，这样EU不比等待BIU去取指令。</p>
+<p>BIU在下面两种情况要执行取值操作：</p>
+<ol>
+<li>指令队列中出现2个以上字节空的时候</li>
+<li>当程序发生转移时，BIU执行取值操作，BIU将所取得的第一条指令直接送到EU中去执行，将随后取来的指令重新填入指令队列中，冲掉转移前放入指令队列中的指令。</li>
+</ol>
+<hr>
+<h2 id="3、什么是物理地址，什么是逻辑地址，如何转换"><a href="#3、什么是物理地址，什么是逻辑地址，如何转换" class="headerlink" title="3、什么是物理地址，什么是逻辑地址，如何转换?"></a>3、什么是物理地址，什么是逻辑地址，如何转换?</h2><p>采用分段结构的存储器中，任何一个逻辑地址都是由段基址和偏移地址两部分构成，它们都是无符号的16位二进制数。存储器的任何单元都有唯一的物理地址。也就是说每个存储单元都可以用物理地址和逻辑地址来表示。物理地址是用唯一的20位二进制数表示的，CPU与存储器交换信息使用的是物理地址。程序中不能使用物理地址（位数不够），而要使用逻辑地址，即段基址：偏移地址</p>
+<p>物理地址的形成：段寄存器的值 × 10H + 偏移地址</p>
+<p>将段寄存器的值即段基址乘以10H(将16位二进制数逻辑左移4位)得到20位的段首址，然后与16位的偏移地址相加得到20位的物理地址。例如：</p>
+<ul>
+<li>逻辑地址0001H：1010H对应的物理地址为00010H+1010H&#x3D;01020H</li>
+<li>逻辑地址0101H：0010H对应的物理地址为01010H+0010H&#x3D;01020H</li>
+</ul>
+<hr>
+<h2 id="4、什么是段基址，什么是偏移地址-什么段-理解段的概念、意义、性质和使用。"><a href="#4、什么是段基址，什么是偏移地址-什么段-理解段的概念、意义、性质和使用。" class="headerlink" title="4、什么是段基址，什么是偏移地址?什么段?理解段的概念、意义、性质和使用。"></a>4、什么是段基址，什么是偏移地址?什么段?理解段的概念、意义、性质和使用。</h2><p>8086&#x2F;8088有20条地址线，存储器的物理地址必须用20位二进制数表示。ALU只能处理16位的地址运算，与地址有关的寄存器都只有16位。因此8086&#x2F;8088把20位的存储器地址分成若干个段来表示。段寄存器就是用来存放段基址（段的起始地址的高16位地址）的寄存器。段内再由16位二进制数来寻址，段内寻址的16位二进制数是段起始地址到存储单元的字节距离，称为段内偏移地址。</p>
+<p>存储单元的地址由段基址或段寄存器和偏移地址两部分组成，用冒号连接段基址或段寄存器和偏移地址，像这样表示的地址称为逻辑地址。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">段基址：偏移地址 或 段寄存器：偏移地址</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>CS——存放代码段的段基址</p>
+</li>
+<li><p>SS——存放堆栈段的段基址</p>
+</li>
+<li><p>DS——存放数据段的段基址</p>
+</li>
+<li><p>ES——存放附加数据段的段基址</p>
+</li>
+<li><p>代码段的逻辑地址 ——CS:IP</p>
+</li>
+<li><p>堆栈段的逻辑地址—— SS:SP</p>
+</li>
+</ul>
+<p>通过4个段寄存器的使用，使得在任意时刻，程序都可以仅通过偏移地址立即访问4个段中的存储器，CPU自动根据偏移地址安排到代码段中去存取指令代码，到数据段中去存储数据，到堆栈段中执行进栈和出栈操作。</p>
+<p>每次需要生成物理地址的时候，一个段寄存器就会自动被选择，且都可以自动左移4位，再与一个16位的偏移地址相加，产生所需要的20位物理地址。</p>
+<p>8086&#x2F;88有4个段寄存器CS,DS,SS,ES来存放段基址，还有6个16位寄存器SP,SI,DI,BX,BP,SP来存放偏移地址，在寻址时要使用哪个寄存器是BIU根据操作要求来确定的。</p>
+<p>如果是取指令，则由代码段寄存器CS给段基址，指令提示器IP给取指令的偏移地址。</p>
+<p>如果是存取数据，段基址一般由DS给出，偏移地址可以由指令直接给出，也可由BX,SI,DI给出，或者根据指令的要求计算出来，计算出来的偏移地址称为有效地址。</p>
+<p>如果是堆栈操作，被寻址的操作数的段基址和偏移地址由堆栈寄存器和堆栈指示器给出。</p>
+<h3 id="为什么一个段最大为64K？"><a href="#为什么一个段最大为64K？" class="headerlink" title="为什么一个段最大为64K？"></a>为什么一个段最大为64K？</h3><p>8086&#x2F;88是16位微处理器，所有操作可以按字节为单位也可以按字为单位处理。该系统中存储器是以8位（1个字节）为一个存储单元进行编址的，每个存储单元用唯一的一个地址码来表示，一个字即16位占2个单元，这两个单元都有各自的地址，规定处于低地址的字节的地址称为这个字的地址。存储器中任何连续存放2个字节都可以称为一个字。偶数地址的字称规则字，奇数地址的字称为非规则字。高地址字节为高位字节，低地址字节为低位字节。如00000H地址中存放一个字2301H，则00000H单元中存放01H，00001H单元中存放23H。字4523H的存放地址为00001H。字2301H为规则字，4523H为非规则字。</p>
+<p>大端：高对低，低对高</p>
+<p>小端：高对高，低对低</p>
+<h2 id="5、出栈和入栈操作的过程"><a href="#5、出栈和入栈操作的过程" class="headerlink" title="5、出栈和入栈操作的过程"></a>5、出栈和入栈操作的过程</h2><p>概念：是按后进先出原则组织的一片存储区域，用来暂存一批需要回避的数据或地址。用途：暂存数据、断点信息或传送信息</p>
+<p>8086中的堆栈是向下生长的。即栈顶向地址码小的方向生长。</p>
+<p><img src="https://i-blog.csdnimg.cn/blog_migrate/0277153f2e96c24037f70c251e017448.png" alt="在这里插入图片描述"></p>
+<p>空栈：在进行堆栈操作前，为空栈。此时SP应预置一个初值。该值为堆栈空间的大小。</p>
+<p>SP初值&#x3D;堆栈空间的最大容量</p>
+<p>例：SP&#x3D;0008H。则最大容量为8个字节。</p>
+<p>SP指向当前的栈顶。</p>
+<p><img src="https://i-blog.csdnimg.cn/blog_migrate/09c8fac629905acf630ce5ecbd0e0043.png" alt="img"></p>
+<h2 id="6、如何定义变量"><a href="#6、如何定义变量" class="headerlink" title="6、如何定义变量?"></a>6、如何定义变量?</h2><p>变量是存储器中数据的符号表示，变量名为数据首地址</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[变量名] DB 表达式[, ……] ;定义字节变量</span><br><span class="line">[变量名] DW 表达式[, ……] ;定义字变量</span><br><span class="line">[变量名] DD 表达式[, ……] ;定义双字变量</span><br><span class="line">[变量名] DQ 表达式[, ……] ;定义四字变量</span><br><span class="line">[变量名] DT 表达式[, ……] ;定义六字节变量</span><br><span class="line">[变量名] DT 表达式[, ……] ;定义十字节变量</span><br></pre></td></tr></table></figure>
+
+<p>数据定义指明了变量的类型</p>
+<p>表达式确定变量的初值。表达式有如下6种：</p>
+<p>（1）表达式为常量或数值表达式 → 存入数值</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">W1 DW 1</span><br></pre></td></tr></table></figure>
+
+<p>（2）表达式为ASCII字符串 → 存入ASCII值</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">W2 DW ’AB’ ;用DW定义时，串长不可大于2</span><br><span class="line">B2 DB ’AB$’ ;用DB定义时，串长可大于2</span><br></pre></td></tr></table></figure>
+
+<p>（3）表达式为重复子句</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">N DUP（表达式）</span><br><span class="line">如：B3 DB 2 DUP(0) ;B3为2个0</span><br><span class="line">B4 DB 2 DUP(5,’A’) ;B4为2个5&#x27;A&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>（4）地址表达式(只适用DW、DD和DF3个伪指令)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[变量名] DW 地址表达式 ;取其偏移地址来初始化变量</span><br><span class="line">[变量名] DD 地址表达式 ;取16位偏移地址和段基址来初始化其变量</span><br><span class="line">[变量名] DF 地址表达式 ;取32位偏移地址和段基址来初始化其变量</span><br></pre></td></tr></table></figure>
+
+<p>（5）由以上表达式组成的序列，之间用‘，’分隔</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">B5 DB 1,2,3</span><br><span class="line">B6 DB ’1,2,3’ ;此行的“,”不是序列分隔符</span><br></pre></td></tr></table></figure>
+
+<p>（6）地址表达式类型的变更</p>
+<p>变量、标号以及由其组成的地址表达式均有类型属性。地址表达式的类型属性由其中的变量或标号（一个地址表达式不可能同时含有变量和标号）决定。不含变量或标号，仅含寄存器的地址表达式没有类型属性。可以使用PTR算符临时变更原地址表达式的类型属性,或者明确没有类型属性的地址表达式的类型，而仍保持它们原来的段基址和偏移地址属性不变。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">类型 PTR 地址表达式</span><br><span class="line">如：BYTE PTR [BX+5] ；明确类型</span><br><span class="line">WORD PTR B2 ；临时变更</span><br><span class="line">例：B DB 3</span><br><span class="line">W DW 1122H</span><br><span class="line">WORD PTR B ;将B临时改变为字类型</span><br><span class="line">BYTE PTR W ;将W临时改变为字节类型</span><br><span class="line">例：BYTE PTR BX ╳ ;寄存器有类型属性，不能变更</span><br><span class="line">BYTE PTR [BX] √</span><br></pre></td></tr></table></figure>
+
+<p>7、8255写方式控制字时，地址线应如何连接?</p>
+<p>见笔记</p>
+<h2 id="8、定义变量在存储器中的存放，表7-2"><a href="#8、定义变量在存储器中的存放，表7-2" class="headerlink" title="8、定义变量在存储器中的存放，表7-2"></a>8、定义变量在存储器中的存放，表7-2</h2><p>在汇编语言中，我们通常使用变量和地址表达式来访问存储器，而不是直接使用物理地址。</p>
+<ul>
+<li><strong>变量：</strong> 变量是存储器位置的符号名称。例如，<code>BUFF</code> 就是一个变量，它代表存储器中的一个地址。</li>
+<li><strong>地址表达式：</strong> 地址表达式是使用变量和运算符（如 <code>+</code>、<code>-</code>）计算出的地址。例如，<code>BUFF+1</code> 表示 <code>BUFF</code> 地址后的一个字节的地址。</li>
+</ul>
+<p><strong>字（Word）和双字（Double Word）</strong></p>
+<ul>
+<li><strong>字（Word）：</strong> 一个字通常由 2 个字节（16 位）组成。</li>
+<li><strong>双字（Double Word）：</strong> 一个双字通常由 4 个字节（32 位）组成。</li>
+</ul>
+<p><strong>存储方式、地址和字节序（小端）</strong></p>
+<p>假设变量 <code>BUFF</code> 指向的内存区域如下（以十六进制表示，并假设 <code>BUFF</code> 的起始地址为 <code>0x1000</code>，仅作示例）：</p>
+<table>
+<thead>
+<tr>
+<th>地址</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>0x1000 (BUFF)</code></td>
+<td><code>01H</code></td>
+</tr>
+<tr>
+<td><code>0x1001 (BUFF+1)</code></td>
+<td><code>23H</code></td>
+</tr>
+<tr>
+<td><code>0x1002 (BUFF+2)</code></td>
+<td><code>45H</code></td>
+</tr>
+<tr>
+<td><code>0x1003 (BUFF+3)</code></td>
+<td><code>67H</code></td>
+</tr>
+<tr>
+<td><code>0x1004 (BUFF+4)</code></td>
+<td><code>89H</code></td>
+</tr>
+<tr>
+<td><code>0x1005 (BUFF+5)</code></td>
+<td><code>ABH</code></td>
+</tr>
+</tbody></table>
+<ul>
+<li><strong>字 <code>2301H</code>：</strong> 存储在 <code>BUFF</code> 和 <code>BUFF+1</code> 两个字节中。由于是<strong>小端字节序</strong>，低位字节 <code>01H</code> 存储在低地址 <code>BUFF (0x1000)</code>，高位字节 <code>23H</code> 存储在高地址 <code>BUFF+1 (0x1001)</code>。因此，字 <code>2301H</code> 的地址是 <code>BUFF (0x1000)</code>。</li>
+<li><strong>字 <code>4523H</code>：</strong> 存储在 <code>BUFF+1</code> 和 <code>BUFF+2</code> 两个字节中。低位字节 <code>23H</code> 存储在 <code>BUFF+1 (0x1001)</code>，高位字节 <code>45H</code> 存储在 <code>BUFF+2 (0x1002)</code>。因此，字 <code>4523H</code> 的地址是 <code>BUFF+1 (0x1001)</code>。</li>
+<li><strong>双字 <code>AB896745H</code>：</strong> 存储在 <code>BUFF+2</code>、<code>BUFF+3</code>、<code>BUFF+4</code> 和 <code>BUFF+5</code> 四个字节中。按照小端存储，字节的排列顺序为 <code>45H</code>、<code>67H</code>、<code>89H</code>、<code>ABH</code>。因此，双字 <code>AB896745H</code> 的地址是 <code>BUFF+2 (0x1002)</code>。</li>
+</ul>
+<p><strong>规则字和非规则字</strong></p>
+<ul>
+<li><strong>规则字：</strong> 如果一个字的起始地址是偶数，则称为规则字（或对齐的字）。</li>
+<li><strong>非规则字：</strong> 如果一个字的起始地址是奇数，则称为非规则字（或未对齐的字）。</li>
+</ul>
+<p>在上面的例子中，如果 <code>BUFF</code> 的地址是偶数（例如 <code>0x1000</code>），那么字 <code>2301H</code> 就是规则字，而字 <code>4523H</code> 就是非规则字。访问非规则字在某些处理器上可能会导致性能下降或需要特殊的处理。</p>
+<p><strong>字节序（小端）</strong></p>
+<p><strong>小端字节序（Little Endian）</strong> 指的是：</p>
+<ul>
+<li><strong>低位字节存储在低地址，高位字节存储在高地址。</strong></li>
+</ul>
+<p>这是与人类书写数字的习惯相反的。</p>
+<h2 id="9、总线中的数据流通是通过什么控制的"><a href="#9、总线中的数据流通是通过什么控制的" class="headerlink" title="9、总线中的数据流通是通过什么控制的?"></a>9、总线中的数据流通是通过什么控制的?</h2><h2 id="10、dos2号功能调用是做什么"><a href="#10、dos2号功能调用是做什么" class="headerlink" title="10、dos2号功能调用是做什么?"></a>10、dos2号功能调用是做什么?</h2><p>2号功能调用——显示器显示一个字符</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">MOV DL，;待显示字符的ASCII</span><br><span class="line">MOV AH，2</span><br><span class="line">INT 21H</span><br></pre></td></tr></table></figure>
+
+<p>入口：输出字符的ASCII 送 DL</p>
+<p>出口：无出口参数</p>
+<p>例：显示字符 ’B’</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">MOV AH，2</span><br><span class="line">MOV DL，’B’</span><br><span class="line">INT 21H</span><br></pre></td></tr></table></figure>
+
+<h2 id="11、什么是中断方式，什么是查询方式"><a href="#11、什么是中断方式，什么是查询方式" class="headerlink" title="11、什么是中断方式，什么是查询方式?"></a>11、什么是中断方式，什么是查询方式?</h2><p>传送控制方式有查询、中断和DMA 3种。</p>
+<p>（1）查询方式</p>
+<p>查询方式是中央处理器在数据传送之前通过接口的状态设置存储电路询问外设，待外设允许传送数据后才传送数据的操作方式。</p>
+<p>在查询方式下，CPU需要完成以下操作：</p>
+<ol>
+<li>CPU向接口发出传送命令，输入数据或输出数据；</li>
+<li>中央处理器查询外设是否允许传送？</li>
+</ol>
+<p>在查询方式下，中央处理器会询问外设是否允许传送，若不允许传送，则继续查询外设，直到外设允许CPU传送数据后，CPU才会向外设发送数据，因此CPU需要花费较多的时间去不断地“询问”外设，外设的接口电路处于被动状态。</p>
+<p>（2）中断方式</p>
+<p>中断方式是在外设要与中央处理器传送数据时，外设向中央处理器发出请求，中央处理器响应后再传送数据的操作方式。</p>
+<p>在中断方式下，中央处理器不必查询外设，提高了系统的工作效率，但中央处理器管理中断的接口比管理查询复杂。</p>
+<h2 id="12、8253的初始化、频率如何计算"><a href="#12、8253的初始化、频率如何计算" class="headerlink" title="12、8253的初始化、频率如何计算?"></a>12、8253的初始化、频率如何计算?</h2><h2 id="13、8255A的编程"><a href="#13、8255A的编程" class="headerlink" title="13、8255A的编程"></a>13、8255A的编程</h2><h2 id="14、左移指令，右移指令，求补指令，取反指令"><a href="#14、左移指令，右移指令，求补指令，取反指令" class="headerlink" title="14、左移指令，右移指令，求补指令，取反指令"></a>14、左移指令，右移指令，求补指令，取反指令</h2><p><strong>1. 左移指令 (Shift Left)</strong></p>
+<p>左移指令将操作数中的所有位向左移动指定的位数。空出的位用 0 填充。</p>
+<ul>
+<li><p><strong>逻辑左移 (SHL&#x2F;SAL):</strong> 移出的最高位进入进位标志位 CF (Carry Flag)，最低位补 0。SHL 和 SAL 指令在功能上是相同的。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SHL 操作数, 移位次数</span><br><span class="line">SAL 操作数, 移位次数</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>操作数</code>：可以是寄存器或内存单元。</li>
+<li><code>移位次数</code>：可以是立即数 (1 或 CL 寄存器中的值)。</li>
+</ul>
+<p><strong>例子：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">MOV AL, 00011011B  ; AL = 27</span><br><span class="line">SHL AL, 1         ; AL 左移 1 位，AL = 00110110B = 54，CF = 0</span><br><span class="line">SHL AL, 2         ; AL 左移 2 位，AL = 11011000B = 216，CF = 0</span><br></pre></td></tr></table></figure>
+
+<p><strong>解释：</strong> 每次左移一位，相当于将原数乘以 2。</p>
+</li>
+<li><p><strong>循环左移 (ROL):</strong> 移出的最高位不仅进入 CF，还填补到最低位。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ROL 操作数, 移位次数</span><br></pre></td></tr></table></figure>
+
+<p><strong>例子：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MOV AL, 10000001B</span><br><span class="line">ROL AL, 1         ; AL 循环左移 1 位，AL = 00000011B, CF=1</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p><strong>2. 右移指令 (Shift Right)</strong></p>
+<p>右移指令将操作数中的所有位向右移动指定的位数。</p>
+<ul>
+<li><p><strong>逻辑右移 (SHR):</strong> 移出的最低位进入 CF，最高位补 0。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SHR 操作数, 移位次数</span><br></pre></td></tr></table></figure>
+
+<p><strong>例子：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MOV AL, 11001000B</span><br><span class="line">SHR AL, 1        ; AL 逻辑右移 1 位，AL = 01100100B, CF = 0</span><br></pre></td></tr></table></figure>
+
+<p><strong>解释：</strong> 每次逻辑右移一位，相当于将无符号数除以 2。</p>
+</li>
+<li><p><strong>算术右移 (SAR):</strong> 移出的最低位进入 CF，最高位保持不变 (即用原最高位的值填充)。这对于有符号数的除法很有用，可以保持符号位不变。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SAR 操作数, 移位次数</span><br></pre></td></tr></table></figure>
+
+<p><strong>例子：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MOV AL, 11001000B (-56)  ; 假设是有符号数</span><br><span class="line">SAR AL, 1        ; AL 算术右移 1 位，AL = 11100100B (-28), CF = 0</span><br></pre></td></tr></table></figure>
+
+<p><strong>解释：</strong> 每次算术右移一位，相当于将有符号数除以 2。</p>
+</li>
+<li><p><strong>循环右移 (ROR):</strong> 移出的最低位不仅进入 CF，还填补到最高位。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ROR 操作数, 移位次数</span><br></pre></td></tr></table></figure>
+
+<p><strong>例子：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MOV AL, 00000011B</span><br><span class="line">ROR AL, 1         ; AL 循环右移 1 位，AL = 10000001B, CF=1</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p><strong>3. 求补指令 (NEG - Negate)</strong></p>
+<p>求补指令将操作数取反 (所有位取反)，然后加 1。这实际上就是计算操作数的二进制补码，相当于乘以 -1。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NEG 操作数</span><br></pre></td></tr></table></figure>
+
+<p><strong>例子：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MOV AX, 0000000000001010B (10)</span><br><span class="line">NEG AX             ; AX = 1111111111110110B (-10)</span><br></pre></td></tr></table></figure>
+
+<p><strong>解释：</strong></p>
+<ol>
+<li>先取反：<code>0000000000001010B</code> 取反后得到 <code>1111111111110101B</code>。</li>
+<li>然后加 1：<code>1111111111110101B + 1 = 1111111111110110B</code>。</li>
+</ol>
+<p><strong>4. 取反指令 (NOT - Not)</strong></p>
+<p>取反指令将操作数中的每一位进行翻转，0 变为 1，1 变为 0。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">NOT 操作数</span><br></pre></td></tr></table></figure>
+
+<p><strong>例子：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MOV AL, 00111100B</span><br><span class="line">NOT AL             ; AL = 11000011B</span><br></pre></td></tr></table></figure>
+
+<p><strong>总结</strong></p>
+<table>
+<thead>
+<tr>
+<th>指令</th>
+<th>功能</th>
+<th>影响标志位</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>SHL&#x2F;SAL</td>
+<td>逻辑&#x2F;算术左移</td>
+<td>CF, OF, PF, SF, ZF</td>
+</tr>
+<tr>
+<td>SHR</td>
+<td>逻辑右移</td>
+<td>CF, OF, PF, SF, ZF</td>
+</tr>
+<tr>
+<td>SAR</td>
+<td>算术右移</td>
+<td>CF, OF, PF, SF, ZF</td>
+</tr>
+<tr>
+<td>ROL</td>
+<td>循环左移</td>
+<td>CF, OF</td>
+</tr>
+<tr>
+<td>ROR</td>
+<td>循环右移</td>
+<td>CF, OF</td>
+</tr>
+<tr>
+<td>NEG</td>
+<td>求补 (取反加 1)</td>
+<td>AF, CF, OF, PF, SF, ZF</td>
+</tr>
+<tr>
+<td>NOT</td>
+<td>取反</td>
+<td>无</td>
+</tr>
+</tbody></table>
+<h2 id="编程例题"><a href="#编程例题" class="headerlink" title="编程例题"></a>编程例题</h2><h3 id="Eg2两个BCD数相加"><a href="#Eg2两个BCD数相加" class="headerlink" title="Eg2两个BCD数相加"></a>Eg2两个BCD数相加</h3><p>编程实现如下功能：已知字变量W1和W2分别存放着两个压缩BCD数，分别为W1&#x3D;8931H,W2&#x3D;5678H，求两数之和，并将其和送到SUM字节变量中</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">DATA SEGMENT</span><br><span class="line">    A DW 8931H</span><br><span class="line">    B DW 5678H</span><br><span class="line">    SUM DW ?</span><br><span class="line">DATA ENDS</span><br><span class="line"></span><br><span class="line">CODE SEGMENT</span><br><span class="line">    ASSUME CS:CODE,DS:DATA</span><br><span class="line">START:</span><br><span class="line">    MOV AX,DATA</span><br><span class="line">    MOV DS,AX</span><br><span class="line">    MOV AX,A</span><br><span class="line">    MOV BX,B</span><br><span class="line">    ADD AX,BX</span><br><span class="line">    DAA</span><br><span class="line">    MOV SUM AX</span><br><span class="line"></span><br><span class="line">    MOV AL,4CH</span><br><span class="line">    INT 21H</span><br><span class="line">CODE ENDS</span><br><span class="line">END START</span><br></pre></td></tr></table></figure>
+
+<p><code>DAA</code> (Decimal Adjust Accumulator after Addition) 指令用于在加法运算后对AL寄存器中的结果进行十进制调整，使其符合压缩BCD码的表示。</p>
+<ul>
+<li><p><code>DAA</code> 指令只对AL寄存器有效。由于我们进行的是字（16位）加法，结果在AX中，<code>DAA</code> 只会调整AL部分。因此，如果需要处理多字节BCD加法，需要分别处理每个字节，并考虑进位。</p>
+</li>
+<li><pre><code>DAA
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">   </span><br><span class="line"></span><br><span class="line">  指令根据以下规则进行调整：</span><br><span class="line"></span><br><span class="line">  - 如果AL的低四位大于9或辅助进位标志AF=1，则AL=AL+6。</span><br><span class="line">  - 如果AL的高四位大于9或进位标志CF=1，则AL=AL+60H。</span><br><span class="line"></span><br><span class="line">### Eg3冒泡法从大到小排序</span><br><span class="line"></span><br><span class="line">编程实现如下功能：设有3个单字节无符号数存放在BUF开始的缓冲区中，编写一个能将它们从大到小排列的程序。如何将以上三个数字代表的字符在屏幕上进行显示？</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+DATA SEGMENT
+  BUF DB 3H,7H,9H
+DATA ENDS
+</code></pre>
+</li>
+</ul>
+<p>CODE SEGMENT<br>    ASSUME CS:CODE,DS:DATA<br>START:<br>    MOV AX,DATA<br>    MOV DS,AX<br>    MOV AL,BUF[0]<br>    CMP AL,BUF[1]<br>    JG CON<br>    XCHG AL,BUF[1]<br>    ;如果0&lt;1，交换。此时AL中是BUF1的值为最大<br>    MOV BUF[0],AL<br>    ;最大值在AL中要给BUF0<br>CON:<br>    MOV AL,BUF[2]<br>    JG CON2<br>    XCHG AL,BUF[2]<br>    MOV BUF[0],AL<br>CON2:<br>    MOV AL,BUF[1]<br>    CMP AL,BUF[2]<br>    JG FINISH<br>    XCHG AL,BUF[2]<br>    MOV BUF[1],AL<br>FINISH:<br>    MOV AH,4CH<br>    INT 21H<br>CODE END<br>START END</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">在这个代码运用了冒泡的思想</span><br><span class="line"></span><br><span class="line">- 将1和2位比较，如果1比2小就交换</span><br><span class="line">- 再将2和3比较，如果2比3小就交换，这样就保证了最小的两个数在第23位</span><br><span class="line">- 最后再将23相比较</span><br><span class="line"></span><br><span class="line">就完成了从大到小的排列，这个代码中，两数之间较大的数永远在`AL`中，在利用`XCHG`指令</span><br><span class="line"></span><br><span class="line">**执行 `XCHG AL, BUF[2]` 后会发生什么：**</span><br><span class="line"></span><br><span class="line">1. 读取 `AL` 寄存器中的值。</span><br><span class="line">2. 读取 `BUF` 数组中第三个元素（`BUF[2]`）的值。</span><br><span class="line">3. 将 `AL` 寄存器中的值存储到 `BUF[2]` 所在内存单元。</span><br><span class="line">4. 将 `BUF[2]` 原来的值存储到 `AL` 寄存器</span><br><span class="line"></span><br><span class="line">由于 `AL` 中是最大的数，要存入BUF2和BUF1中较大的一位，还要执行`MOV BUF[2],AL`</span><br><span class="line"></span><br><span class="line">### Eg4循环的应用——两个双字相加</span><br><span class="line"></span><br><span class="line">编程实现如下功能：使用LOOP指令编程计算 Z=X+Y，其中X=723156A8H、Y= 91A4C2EFH，皆为双字变量。</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>DATA SEGMENT<br>    X DD 723156A8H<br>    Y DD 91A4C2EFH<br>    Z DD ?<br>DATA ENDS</p>
+<p>CODE SEGMENT<br>    CS:CODE,DS:DATA<br>START:<br>    MOV AX,DATA<br>    MOV DS,AX</p>
+<pre><code>MOV CX,4
+MOV SI,0
+AND AX,AX
+</code></pre>
+<p>AGAIN:<br>    MOV AL,BYTE PTR X[SI]<br>    ADC AL,BYTE PTR Y[SI]<br>    MOV BYTE PTR Z[SI],AL<br>    INC SI<br>    LOOP AGAIN<br>    MOV AL,4CH<br>    INT 21H<br>CODE ENDS<br>START END</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">**易错点变量 Z 的存储方式：** 定义了 `Z` 为双字 (`DD`)，但是在代码中使用了 `MOV Z[SI], AL` 这样的方式将结果存储到 `Z`，这会导致访问错误。你应该确保按字节、字、双字的方式处理数据。应该是`MOV BYTE PTR Z[SI],AL`</span><br><span class="line"></span><br><span class="line">**为什么非要使用循环：**不能直接使用 `MOV EAX, X` 和 `ADC EAX, Y` 来进行双字（32位）的加法，原因在于 `MOV` 指令和 `ADC` 指令在用于内存操作数时，默认情况下只能操作字（16位）或字节（8位），除非使用特定的前缀来指定操作数大小。</span><br><span class="line"></span><br><span class="line">### Eg5统计0变量的个数</span><br><span class="line"></span><br><span class="line">编程实现如下功能：设有5个字节数据，存放在数据段BUF1变量中，编程实现如下功能：统计其中零数据的个数，结果放入字节变量CNT中，请完成该程序。</span><br><span class="line"></span><br><span class="line">如何在程序运行时候直接在屏幕上显示零数据的个数？</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>DATA SEGMENT<br>   BUF1 DB 1H,0H,5H,0H,9H<br>   CNT DB 0<br>DATA ENDS</p>
+<p>CODE SEGMENT<br>    CS:CODE,DS:DATA<br>START:<br>    MOV AX,DATA<br>    MOV DS,AX</p>
+<pre><code>MOV CX,5
+MOV SI,0
+AND AX,AX
+</code></pre>
+<p>AGAIN:<br>    MOV AL,BYTE BUF1[SI]<br>    CMP AL,0<br>    JNE CON<br>    INC BL<br>    MOV CNT,BL<br>CON:<br>    INC SI<br>    LOOP AGAIN<br>FINISH:<br>    MOV AL,4CH<br>    INT 21H<br>CODE ENDS<br>START END</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">**易错点`CNT`变量的存储：** 不能直接在代码中使用了 `INC CNT` 来增加 `CNT` 的值，但这是不合法的，因为 `CNT` 是一个字节变量。如果你直接将 `CNT` 用作内存地址，它应该是 `MOV AL, [CNT]` 来读数据，再写回 `MOV [CNT], AL`。</span><br><span class="line"></span><br><span class="line">**解决方法：** 用 `BL` 寄存器来操作 `CNT` 变量的值，如</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>INC BL<br>MOV CNT,BL</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### Eg5正负数分开存储</span><br><span class="line"></span><br><span class="line">编程实现如下功能：设BLOCK数据块中存储有正数和负数，试编写程序将正负数分开，分别存放在Dplus和Dminus开始的存储区域。</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>DATA SEGMENT<br>    BLOCK DB 1H,-3H,5H,-7H,9H<br>    COUNT EQU $-BLOCK<br>    DPLUS DB COUNT DUP(0)<br>    DMINUS DB COUNT DUP(0)<br>DATA ENDS</p>
+<p>CODE SEGMENT<br>    CS:CODE,DS:DATA<br>START:<br>    MOV AX,DATA<br>    MOV DS,AX</p>
+<pre><code>MOV CX,5
+MOV SI,0
+MOV DI,0
+XOR AX,AX
+</code></pre>
+<p>AGAIN:<br>    MOV AL,BYTE BLOCK[SI]<br>    CMP AL,0<br>    JG PLUS<br>    MOV BYTE DMINUS[DI],AL<br>    INC DI<br>    JMP NEXT<br>PLUS:<br>    MOV BYTE DPLUE[DI],AL<br>    INC DI<br>NEXT:<br>    INC SI<br>    LOOP AGAIN<br>    MOV AL,4CH<br>    INT 21H<br>CODE ENDS<br>START END</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">**在这个代码中：**`COUNT EQU $-BLOCK`相当于`COUNT = BLOCK中字节个数`</span><br><span class="line"></span><br><span class="line">**`DPLUS` 和 `DMINUS` 数组索引问题：** 使用相同的 `SI` 值来存储正数和负数。这会导致它们混合存储在 `DPLUS` 和 `DMINUS` 数组中，因此需要分别使用不同的索引来存储正数和负数。应该通过通过设置两个不同的寄存器（例如 `SI` 和 `DI`）来分别索引它们。</span><br><span class="line"></span><br><span class="line">### Eg6统计负数个数</span><br><span class="line"></span><br><span class="line">编程实现如下功能：数据区从字节变量DATT开始的10个内存单元中存有10个8位二进制符号数，编写程序，统计这10个符号数中有多少个负数，放入字节变量NUM中。</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>DATA SEGMENT<br>    DATT DB 10H,-20H,23H,45H,-66H,77H,88H,99H,-32H,-12H<br>    NUM DB 0<br>DATA ENDS</p>
+<p>CODE SEGMENT<br>    CS:CODE,DS:DATA<br>START:<br>    MOV AX,DATA<br>    MOV DS,AX</p>
+<pre><code>MOV CX,10
+MOV SI,0
+MOV DI,0
+XOR AX,AX
+</code></pre>
+<p>AGAIN:<br>    MOV AL,BYTE DATT[SI]<br>    JS NEXT<br>    INC DI<br>NEXT:<br>    INC SI<br>    LOOP AGAIN<br>    MOV NUM,DL<br>    MOV AL,<br>    INT 21H<br>CODE ENDS<br>START END</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">**易错点：**</span><br><span class="line"></span><br><span class="line">**符号数判断：**</span><br><span class="line"></span><br><span class="line">- 使用 `JS` 指令判断当前值是否为负数，`JS` 会在符号位为 1 时跳转，因此它可以直接判断符号数是否为负。</span><br><span class="line">- 如果的用`CMP AL, 0` 判断方法对于 8 位符号数并不完全可靠，因为负数的值是小于 0 的（负数在 8 位二进制表示中是补码表示，负数的值会在 0x80 以上）。所以使用 `JS` 来检查符号位是更合适的做法。</span><br><span class="line"></span><br><span class="line">**`MOV NUM, DL`：**</span><br><span class="line"></span><br><span class="line">- `DI` 是一个 16 位寄存器，而 `NUM` 是一个 8 位字节，因此不能直接将 `DI` 存储到 `NUM`。我们需要用 `DI` 的低字节（即 `DL`）来存储负数计数。</span><br><span class="line"></span><br><span class="line">Eg7</span><br><span class="line"></span><br><span class="line">编程实现如下功能：</span><br><span class="line"></span><br><span class="line">统计字符串STRING的长度(字符的个数)，并通过系统功能调用将结果输出。</span><br><span class="line"></span><br><span class="line">数据段定义如下：</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>DATA   SEGMENT<br>    STRING DB  ‘AOPYSYSNN$’ ;（元素个数&lt;10）<br>DATA   ENDS<br>DATA SEGMENT<br>    STRING DB  ‘AOPYSYSNN$’<br>    LENGTH DB 0<br>DATA ENDS</p>
+<p>CODE SEGMENT<br>    CS:CODE,DS:DATA<br>START:<br>    MOV AX,DATA<br>    MOV DS,AX<br>    XOR DI,DI<br>    MOV SI, OFFSET STRING<br>AGAIN:<br>    CMP STRING[SI],’$’<br>    JE FINISH<br>    INC SI<br>    INC DI<br>    JMP AGAIN<br>FINISH:<br>    MOV LENGTH,DL<br>    ADD DL,’0’                  ; 将数字转换为 ASCII 字符<br>    MOV DL,DL                  ; 将字符存入 DL 寄存器（输出字符）<br>    MOV AH,2                    ; 系统调用：显示字符<br>    INT 21H                       ; 输出字符<br>CODE ENDS<br>START END</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">`MOV SI, OFFSET STRING` 将 `SI` 设置为 `STRING` 的起始地址。</span><br><span class="line"></span><br><span class="line">`ADD CL, &#x27;0&#x27;` 将 `CL` 中的数字转换为 ASCII 字符。</span><br><span class="line"></span><br><span class="line">`MOV DL, CL` 将字符放入 `DL` 寄存器。</span><br><span class="line"></span><br><span class="line">`MOV AH, 2` 和 `INT 21H` 用于输出字符。</span><br><span class="line"></span><br><span class="line">### Eg7综合题</span><br><span class="line"></span><br><span class="line">编程实现如下功能：ARRAY数组中有10个有符号字节数据，编写程序将ARRAY数据中的数据按正、负分别存入POSI和NEGA中，并统计最大值和最小值，以及正负数的个数，分别存在MAX、MIN、NUMPOSI和NUMNEGA中</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>DATA SEGMENT<br>    ARRAY DB 10H,-20H,23H,45H,-66H,77H,88H,99H,-32H,-12H<br>    POSI DB ?<br>    NEGA DB ?<br>    MAX DB ?<br>    MIN DB ?<br>    NUMPOSI DB ?<br>DATA ENDS</p>
+<pre><code>
+</code></pre>
+
+</div> 
+
+<script>
+    window.onload = detectors();
+</script>
+    <div class="post-footer">
+    <div class="h-line-primary"></div>
+    <nav class="post-nav">
+        <div class="prev-item">
+           
+                <div class="icon arrow-left"></div>
+                <div class="post-link">
+                    <a href="/2025/03/01/%E7%AC%94%E8%AE%B0LDO%E5%8E%9F%E7%90%86%E4%B8%8E%E5%9F%BA%E6%9C%AC%E7%94%B5%E8%B7%AF%E8%AE%BE%E8%AE%A1/">Prev</a>
+                </div>
+            
+        </div>
+        <div class="next-item">
+            
+                <div class="icon arrow-right"></div>
+                <div class="post-link">
+                  <a href="/2024/12/13/%E7%AC%94%E8%AE%B0%E9%9B%86%E6%88%90%E7%89%88%E5%9B%BE%E5%AE%9E%E9%AA%8C%E8%AF%BE/">Next</a>  
+                </div>  
+            
+        </div>
+    </nav>
+</div>
+
+    
+      <div class="post-comment">
+
+     
+
+     
+    
+    
+
+</div>
+     
+  
+</article>
+        </div>
+      </div>
+      
+      <div class="footer">
+    <div class="flex-container">
+        <div class="footer-text">
+            
+            
+                Skjaldbaka1© | 
+            
+            
+                Powered by <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/zoeingwingkei/frame/">Frame</a>
+                
+        </div>
+    </div>
+</div>
+    </div>
+  </body>
+</html>
+

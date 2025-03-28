@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Skjaldbaka1">
+
+
+
+
+
+
+
+<title>集成版图实验课笔记 | Skjaldbaka1&#39;s blog</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&family=Roboto+Mono&display=swap');
+</style>
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/menu.js"></script>
+    
+
+
+
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+
+
+
+
+
+
+    <script type="text/javascript" async
+      src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        }
+      };
+    </script>
+  <meta name="generator" content="Hexo 7.3.0"></head>
+  <body>
+    <div class="mask-border"></div>
+
+    <div class="wrapper">
+      <div class="header">
+  <div class="flex-container">
+    <div class="header-inner">
+      <div class="site-brand-container">
+        <a href="/">
+          
+            Skjaldbaka1.
+          
+        </a>
+      </div>
+      <div id="menu-btn" class="menu-btn" onclick="toggleMenu()">
+        Menu
+      </div>
+      <nav class="site-nav">
+        <ul class="menu-list">
+          
+            
+              <li class="menu-item">
+                <a href="/">主页</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/archives/">文集</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/categories/gallery/">影集</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/tag/">引索</a>
+              </li> 
+                   
+          
+          
+            <li class="menu-item search-btn">
+              <a href="#">Search</a>
+            </li>
+          
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main">
+        <div class="flex-container">
+          <article id="post">
+
+  
+    <div class="post-head">
+    <div class="post-info">
+        <div class="tag-list">
+            
+                
+                    <span class="post-tag">
+                        <a href="/tags/%E7%AC%94%E8%AE%B0/">
+                            笔记
+                        </a>
+                    </span>    
+                
+                    <span class="post-tag">
+                        <a href="/tags/CMOS/">
+                            CMOS
+                        </a>
+                    </span>    
+                           
+            
+        </div>
+        <div class="post-title">
+            
+            
+                集成版图实验课笔记
+            
+            
+        </div>
+        <span class="post-date">
+            12月 13, 2024
+        </span>
+    </div>
+    <div class="post-img">
+        
+            <div class="h-line-primary"></div>
+              
+    </div>
+</div>
+    <div class="post-content">
+    <h4 id="Liunx系统命令行指令"><a href="#Liunx系统命令行指令" class="headerlink" title="Liunx系统命令行指令"></a>Liunx系统命令行指令</h4><table>
+<thead>
+<tr>
+<th>命令行指令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>pwd</code></td>
+<td>查看当前处于什么路径</td>
+</tr>
+<tr>
+<td><code>ls</code></td>
+<td>查看cp所在路径文件夹下文件</td>
+</tr>
+<tr>
+<td><code>cd [路径]</code></td>
+<td>进入你输入的路径</td>
+</tr>
+<tr>
+<td><code>cat</code></td>
+<td>读取文件内容</td>
+</tr>
+<tr>
+<td><code>cp [源文件/目录] [目标位置]</code></td>
+<td>复制文件到另一处</td>
+</tr>
+<tr>
+<td><code>mkdir [新目录名字]</code></td>
+<td>创建新目录</td>
+</tr>
+</tbody></table>
+<p>注意表中的<code>[ ]</code>中在输入命令的时候不加<code>[ ]</code>直接加路径</p>
+<h4 id="文件解释"><a href="#文件解释" class="headerlink" title="文件解释"></a>文件解释</h4><p><img src="/../pics/image-20240911203018723.png" alt="输入cat cds.lib后输出的该文件的内容"></p>
+<p>文件cds.lib其实类似于地图，指引软件找到运行在服务器上的运行所需要的文件，下面运行的Virtuoso软件也是依赖lib运行</p>
+<h4 id="打开Virtuoso软件"><a href="#打开Virtuoso软件" class="headerlink" title="打开Virtuoso软件"></a>打开Virtuoso软件</h4><p>输入<code>virtuoso &amp;</code>注意一定要小写，打开Virtuoso软件，点击最上一栏tools—Library Manager即可查看当前软件里的所有库</p>
+<p><img src="/../pics/image-20240911204734844.png" alt="img"></p>
+<p>现在双击图最右侧的layout，即可查看Nmos版图</p>
+<h5 id="版图认知"><a href="#版图认知" class="headerlink" title="版图认知"></a>版图认知</h5><p><img src="/../pics/image-20240911205027202.png" alt="img"></p>
+<p>图中</p>
+<ul>
+<li>SN N型参杂区</li>
+<li>PN P型参杂区</li>
+</ul>
+<p>右边两个蓝色正方形中间的即是Nmos版</p>
+<p><img src="/../pics/image-20240911205643948.png" alt="img"></p>
+<p>最绿色正方形为P参杂的与地相接</p>
+<ul>
+<li>左边第一个红色S极</li>
+<li>第二个蓝色长方形是G端</li>
+<li>第三个是D端</li>
+</ul>
+<p>所有Mos都做在P-sub上面，Nmos做在N陷里</p>
+<h5 id="Virtuoso软件快捷键"><a href="#Virtuoso软件快捷键" class="headerlink" title="Virtuoso软件快捷键"></a>Virtuoso软件快捷键</h5><table>
+<thead>
+<tr>
+<th>快捷键</th>
+<th>作用</th>
+<th>快捷键</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>I</td>
+<td>打开添加一个元器件界面，之后点击版图可以添加你选择元器件</td>
+<td>C</td>
+<td>复制图形，再按F3可以选择复制的方式</td>
+</tr>
+<tr>
+<td>P</td>
+<td>打开添加一个电源，地界面，之后点击版图可以添加你选择源地</td>
+<td>L</td>
+<td>命名</td>
+</tr>
+<tr>
+<td>F</td>
+<td>将元器件整体在版图视角居中</td>
+<td>Pmos</td>
+<td>W为440nm</td>
+</tr>
+<tr>
+<td>W</td>
+<td>开启布线模式</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>R</td>
+<td>用于画各种版图</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Q</td>
+<td>显示并可以修改图形的四边坐标</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>O</td>
+<td>打孔</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>A</td>
+<td>将图形的边和边对齐</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>M</td>
+<td>移动图形，再按F3可精确控制移动距离</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>一个结点最多链接三根线</p>
+<p><img src="/../pics/image-20240911213552308.png" alt="img"></p>
+<p>一切结束后点击左边第三个Check and Save保存设计的版图</p>
+<h4 id="PMOS版图"><a href="#PMOS版图" class="headerlink" title="PMOS版图"></a>PMOS版图</h4><p>在绘制版图的时候应从内向外绘制，并遵守DRC规则；在以后绘制反相器时，PMOS应靠近VDD，NMOS靠近GND</p>
+<p><img src="/../pics/image-20240918192153785.png" alt="img"></p>
+<p><img src="/../pics/image-20240918193240938.png" alt="img"></p>
+<h5 id="Virtuous软件版图对应"><a href="#Virtuous软件版图对应" class="headerlink" title="Virtuous软件版图对应"></a>Virtuous软件版图对应</h5><table>
+<thead>
+<tr>
+<th>版图区域</th>
+<th>对应软件层名称</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>有源区</td>
+<td>AA</td>
+</tr>
+<tr>
+<td>栅电极</td>
+<td>GP</td>
+</tr>
+<tr>
+<td>P注入</td>
+<td>SP</td>
+</tr>
+<tr>
+<td>N注入</td>
+<td>SN</td>
+</tr>
+<tr>
+<td>N阱</td>
+<td>NW</td>
+</tr>
+<tr>
+<td>接触孔</td>
+<td>CT</td>
+</tr>
+<tr>
+<td>金属</td>
+<td>M1</td>
+</tr>
+</tbody></table>
+<h5 id="DRC规则英文单词解释"><a href="#DRC规则英文单词解释" class="headerlink" title="DRC规则英文单词解释"></a>DRC规则英文单词解释</h5><p>在DRC文件中语法会加上以下单词告知某些部件的尺寸</p>
+<p><img src="/../pics/image-20240918194258076.png" alt="img"></p>
+<p><img src="/../pics/image-20240918194310401.png" alt="img"></p>
+<h5 id="现在就可以开始绘制一个PMOS"><a href="#现在就可以开始绘制一个PMOS" class="headerlink" title="现在就可以开始绘制一个PMOS"></a>现在就可以开始绘制一个PMOS</h5><p><strong>1.绘制有源区：</strong>在左边Layers栏选择AA，按R在图中随便绘制一个正方形，再选择绘制的红色正方形按Q即可修改它的属性，在这里<strong>Bottom和Top分别是正负0.22</strong>，Right和Left暂时不管</p>
+<p><strong>2.绘制栅极：</strong>再在Layers选择GP，按照步骤1中<strong>修改Right和Left分别为正负0.18</strong>，长暂时不管</p>
+<p><strong>3.修改有源区宽度：</strong>符合RAC中AA只能延申出GP0.32，故AA的Right和Left应该为0.32</p>
+<p><img src="/../pics/image-20240918202921856.png" alt="img"></p>
+<p><strong>4.绘制接触控：孔的最小尺寸是0.22，两个孔的相邻最小间距为0.25，但若孔的个数大于3个时，最小间距为0.28</strong>，按O在Via Definition中选择M1_AA，选择两行一列如下图</p>
+<p><img src="/../pics/image-20240918203857916.png" alt="img"></p>
+<p>在版图中在点击即可画出M1_AA的矩形，选择这矩形按Shift+F即可显示内部实际版图，再按M即可移动，按A可以对齐边，将两个孔对齐</p>
+<p><strong>5.绘制P注入区：</strong>只需要覆盖有源区，注意与有源区的所有边界都为0.18，按Q调整将AA的边界加上0.18，Right和Left为0.75，Bottom和Top为0.625</p>
+<p><img src="/../pics/image-20240918212155108.png" alt="image-20240918212155108"></p>
+<p>再绘制中间的参杂区Right和Left为0.41，Bottom和Top为0.695</p>
+<p><img src="/../pics/image-20240918212520595.png" alt="img"></p>
+<p><strong>6.绘制衬底：</strong>按O修改参数为一行三列，同过M先把它置于X轴和Y轴对称来方便测量长度，注意AA边界与SN的边界仍然为0.18，再者通过M+F3让上面蓝色SN和下面SP间隔为0.08</p>
+<p><img src="/../pics/image-20240918213912283.png" alt="img"></p>
+<p><strong>7.绘制N阱：</strong>上面边界与蓝色SN平齐，下左右边界间隔都是0.25</p>
+<h3 id="把PMOS变为NMOS"><a href="#把PMOS变为NMOS" class="headerlink" title="把PMOS变为NMOS"></a>把PMOS变为NMOS</h3><p><strong>1.复制：</strong>用C+F3复制在弹出的界面中选择下图的Upside dowm</p>
+<p><img src="/../pics/image-20240925190924481.png" alt="img"></p>
+<p>再把最外面的N+注入选中后删除，得到一个上下对称的</p>
+<p><img src="/../pics/image-20240925191126407.png" alt="img"></p>
+<p>2.替换：选择上图下面NMOS的中黄色SP区域，按Q再弹出的界面中将SP drawing换成SN，同理SN区域换成SP</p>
+<p><img src="/../pics/image-20240925191805374.png" alt="img"></p>
+<p>3.修改宽长比：将复制过来的原本PMOS的宽长比修改成NMOS的如下图修改Bottom和Top</p>
+<p><img src="/../pics/image-20240925192508724.png" alt="img"></p>
+<p>4.链接成反相器：先将鼠标移动最小距离修改成0.01，点击软件上方栏的Options-Display将下图红色框中修改为0.01</p>
+<p><img src="/../pics/image-20240925192905587.png" alt="img"></p>
+<p>现在就可以开始链接金属线0</p>
+<ul>
+<li><p>按P将栅极和栅极链接再一起</p>
+</li>
+<li><p>按P后F3将线宽修改成034，将PMOS右边的下面的金属孔和NOS右边上面的金属孔链接在一起</p>
+</li>
+<li><p>画出一段金属线作为GND</p>
+</li>
+<li><p>将PMOS左边上面的孔链接到上面三个孔的最左边，中间孔链接倒上面的GND</p>
+</li>
+<li><p>按O打一个新通孔，选择M1_GP，如图放置并连线</p>
+<p><img src="/../pics/image-20240925194939688.png" alt="img"></p>
+</li>
+<li><p>按L将Patten改为VDD，Height改为0.3，图层改成M1，放置并关联后按Q修改名字，如图关联四个</p>
+<p><img src="/../pics/image-20240925195701422.png" alt="img"></p>
+</li>
+</ul>
+<p>画与或器</p>
+<ul>
+<li><p>将原先的PMOS layout复制一份倒Nand</p>
+</li>
+<li><p>然后按C选中原先PMOS的右半部分，复制后按A对齐得到</p>
+</li>
+<li><p>修改P区宽度，Right变为2倍<img src="/../pics/image-20240925205306162.png" alt="img"></p>
+<p><img src="/../pics/image-20240925212148980.png" alt="img"></p>
+</li>
+<li><p>打孔，按O修改成1行5列将新的替换旧的3列并想办法对齐，注意一定要把M1_AA改成M1_SN</p>
+</li>
+<li><p>复制镜像对称，参考上面几步</p>
+</li>
+<li><p>重复上面最后几步</p>
+</li>
+<li><p><img src="/../pics/image-20240925213735755.png" alt="image-20240925213735755"></p>
+</li>
+</ul>
+<h3 id="如何把丢失的库找回来"><a href="#如何把丢失的库找回来" class="headerlink" title="如何把丢失的库找回来"></a>如何把丢失的库找回来</h3><p><strong>1.创建一个新的库：</strong>在软件的左上角File-New-Library，创建任意一个名字的新库如hxy11</p>
+<p><img src="/../pics/image-20240923223922201.png" alt="img"></p>
+<p><strong>2.将新创建的库链接到丢失的库：</strong>在软件左上角点击Edit-Library Path</p>
+<p><img src="/../pics/image-20240923224137639.png" alt="img"></p>
+<p>在第一步骤中我们创建的新库名字是hxy11，要把新创建的库链接到丢失的库，要修改下图中红色框中是库指向的路径</p>
+<p><img src="/../pics/image-20240923224414347.png" alt="img"></p>
+<p>将新创建的库原来的路径<code>/home/student20/huxinyinglayout/hxy11</code>中的<code>hxy11</code>改为我们要链接的库<code>huxinying0923</code>即<code>/home/student20/huxinyinglayout/huxinying0923</code> 在点击软件左上角的File-Save即可退出，此时我们就找回了我们的旧库</p>
+<p><img src="/../pics/image-20240923224853471.png" alt="img"></p>
+<h3 id="检测版图是否符合RAC规则"><a href="#检测版图是否符合RAC规则" class="headerlink" title="检测版图是否符合RAC规则"></a>检测版图是否符合RAC规则</h3><p>1.在软件工具栏选择Calibre-nmRAC，先取消弹出来的对话框</p>
+<p>2.载入Rules文件：先复制DRC文件到自己的文件夹<code>cp /home/gz/smic.drc /home/student30/jyhlayout</code>复制完成后点击下图的三个<code>...</code>选择刚才复制过来的DRC文件</p>
+<p><img src="/../pics/image-20241009191749578.png" alt="img"></p>
+<p>在DRC检测完成后会生成一系列文件，我们要新建一个文件夹存储它们，回到命令行中输入<code>mkdir RAC1</code>新建一个文件夹，回来选中它</p>
+<p><img src="/../pics/image-20241009192330131.png" alt="img"></p>
+<p>3.找到并更改错误：点击DRC RUN之后在弹出的界面中将all show改成unsolve show，任意选中左边下图的错误，再选中右边的数字，点击软件栏上的小太阳图标便可以表示版图中错误部分</p>
+<p><img src="/../pics/image-20241009194430954.png" alt="img"></p>
+<p>4.修改GP_5中Minimum space between field interconnect poly and AA 0.10</p>
+<p><img src="/../pics/image-20241009195605587.png" alt="img"></p>
+<p>发现只有0.06而最小需要0.10</p>
+<p>1复制.cp &#x2F;home&#x2F;gz&#x2F;smic.lvs &#x2F;home&#x2F;student30&#x2F;jyhlayout之后与上面一切一样</p>
+<p>layout和netlist中的要勾上</p>
+<p><img src="/../pics/image-20241009210320021.png" alt="img"></p>
+<h3 id="根据原理图生成版图"><a href="#根据原理图生成版图" class="headerlink" title="根据原理图生成版图"></a>根据原理图生成版图</h3><p><strong>1.生成版图：</strong>打开原理图addfull点击左上角<code>Launch-Layout XL</code>，弹出的界面一路选择两个ok</p>
+<p><img src="/../pics/image-20241023193617352.png" alt="img"></p>
+<p><strong>2.生成MOS结构：</strong>在生成的版图界面的最左下角红框部分</p>
+<p><img src="/../pics/image-20241023193410165.png" alt="img"></p>
+<p>在弹出的界面中如图勾选选项后点击ok，后可以看到生成许多MOS</p>
+<p><img src="/../pics/image-20241023193600870.png" alt="img"></p>
+<h3 id="大作业二级运算器（模拟电路）"><a href="#大作业二级运算器（模拟电路）" class="headerlink" title="大作业二级运算器（模拟电路）"></a>大作业二级运算器（模拟电路）</h3><p>Q1和Q2管子匹配度要求最高，在版图设计中要交错放置，Q4Q5则无要求，Q7可以随意放置，电容不画</p>
+<p><img src="/../pics/image-20241030191829650.png" alt="img"></p>
+<p>最上面的Q8Q3Q6</p>
+<p><img src="/../pics/image-20241030193059278.png" alt="img"></p>
+<p>中间要线交叉的十字要跳线</p>
+<p><img src="/../pics/image-20241030192819339.png" alt="img"></p>
+<p>Q4Q5</p>
+<p><img src="/../pics/image-20241030193132296.png" alt="img"></p>
+<p><img src="/../pics/image-20241030193209506.png" alt="img"></p>
+<p>按P调用一个PMOS，如图设置参数</p>
+<p><img src="/../pics/image-20241030194104799.png" alt="img"></p>
+<p>Gate Connection 将栅极链接在一起</p>
+<p>S&#x2F;D Connection 将源极或者漏极链接在一起</p>
+<p>Bodytie Type 打衬底极</p>
+<p><img src="/../pics/image-20241030195343034.png" alt="img"></p>
+<p>电阻按I选择则Rm1用m1做电阻</p>
+<p><img src="/../pics/image-20241030194736385.png" alt="image-20241030194736385"></p>
+<p>Segments选择电阻金属的条数</p>
+<p>1.Rndif用Nmos做电阻</p>
+<p>改变Segment Length和Segment的值可以改变电阻的值，要合理的选择它们的值以求让它们尽量符合整体电路图</p>
+<p><img src="/../pics/image-20241030195136892.png" alt="img"> </p>
+
+</div> 
+
+<script>
+    window.onload = detectors();
+</script>
+    <div class="post-footer">
+    <div class="h-line-primary"></div>
+    <nav class="post-nav">
+        <div class="prev-item">
+           
+                <div class="icon arrow-left"></div>
+                <div class="post-link">
+                    <a href="/2024/12/28/%E7%AC%94%E8%AE%B0%E5%BE%AE%E6%9C%BA%E5%8E%9F%E7%90%86%E5%A4%8D%E4%B9%A0/">Prev</a>
+                </div>
+            
+        </div>
+        <div class="next-item">
+            
+                <div class="icon arrow-right"></div>
+                <div class="post-link">
+                  <a href="/2024/12/13/%E7%AC%94%E8%AE%B0Verilog/">Next</a>  
+                </div>  
+            
+        </div>
+    </nav>
+</div>
+
+    
+      <div class="post-comment">
+
+     
+
+     
+    
+    
+
+</div>
+     
+  
+</article>
+        </div>
+      </div>
+      
+      <div class="footer">
+    <div class="flex-container">
+        <div class="footer-text">
+            
+            
+                Skjaldbaka1© | 
+            
+            
+                Powered by <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/zoeingwingkei/frame/">Frame</a>
+                
+        </div>
+    </div>
+</div>
+    </div>
+  </body>
+</html>
+

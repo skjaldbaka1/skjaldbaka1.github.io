@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Skjaldbaka1">
+
+
+
+
+
+
+
+<title>半导体物理笔记第二章 | Skjaldbaka1&#39;s blog</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&family=Roboto+Mono&display=swap');
+</style>
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/menu.js"></script>
+    
+
+
+
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+
+
+
+
+
+
+    <script type="text/javascript" async
+      src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        }
+      };
+    </script>
+  <meta name="generator" content="Hexo 7.3.0"></head>
+  <body>
+    <div class="mask-border"></div>
+
+    <div class="wrapper">
+      <div class="header">
+  <div class="flex-container">
+    <div class="header-inner">
+      <div class="site-brand-container">
+        <a href="/">
+          
+            Skjaldbaka1.
+          
+        </a>
+      </div>
+      <div id="menu-btn" class="menu-btn" onclick="toggleMenu()">
+        Menu
+      </div>
+      <nav class="site-nav">
+        <ul class="menu-list">
+          
+            
+              <li class="menu-item">
+                <a href="/">主页</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/archives/">文集</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/categories/gallery/">影集</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/tag/">引索</a>
+              </li> 
+                   
+          
+          
+            <li class="menu-item search-btn">
+              <a href="#">Search</a>
+            </li>
+          
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main">
+        <div class="flex-container">
+          <article id="post">
+
+  
+    <div class="post-head">
+    <div class="post-info">
+        <div class="tag-list">
+            
+                
+                    <span class="post-tag">
+                        <a href="/tags/%E7%AC%94%E8%AE%B0/">
+                            笔记
+                        </a>
+                    </span>    
+                
+                    <span class="post-tag">
+                        <a href="/tags/%E5%8D%8A%E5%AF%BC%E4%BD%93%E7%89%A9%E7%90%86/">
+                            半导体物理
+                        </a>
+                    </span>    
+                           
+            
+        </div>
+        <div class="post-title">
+            
+            
+                半导体物理笔记第二章
+            
+            
+        </div>
+        <span class="post-date">
+            12月 11, 2024
+        </span>
+    </div>
+    <div class="post-img">
+        
+            <div class="h-line-primary"></div>
+              
+    </div>
+</div>
+    <div class="post-content">
+    <h3 id="1-1引入实际晶体与理想晶体的区别"><a href="#1-1引入实际晶体与理想晶体的区别" class="headerlink" title="1.1引入实际晶体与理想晶体的区别"></a>1.1引入实际晶体与理想晶体的区别</h3><ul>
+<li>原子不是静止的，而是在平衡位置附近做热运动</li>
+<li>实际半导体并不纯洁，或多或少含有若干杂质（非本征材料以外的元素）</li>
+<li>半导体的晶格存在者各式各样的缺陷<ul>
+<li>点缺陷：空位，间隙原子</li>
+<li>面缺陷：层错，多晶体中的晶粒间界</li>
+<li>线缺陷：位错</li>
+</ul>
+</li>
+</ul>
+<p>杂质和缺陷的引入会使严格周期性排列的原子产生的周期性势场受到破坏，有可能在禁带$E_g$中引入允许电子具有的能量状态</p>
+<h3 id="1-2Si和Ge中的杂质能级"><a href="#1-2Si和Ge中的杂质能级" class="headerlink" title="1.2Si和Ge中的杂质能级"></a>1.2Si和Ge中的杂质能级</h3><h4 id="1-2-1杂质来源与掺杂出本征半导体的方法"><a href="#1-2-1杂质来源与掺杂出本征半导体的方法" class="headerlink" title="1.2.1杂质来源与掺杂出本征半导体的方法"></a>1.2.1杂质来源与掺杂出本征半导体的方法</h4><h5 id="1-杂质来源"><a href="#1-杂质来源" class="headerlink" title="1.杂质来源"></a>1.杂质来源</h5><ul>
+<li>原材料纯度不够</li>
+<li>单晶制备和器件制造过程中的污染</li>
+<li>为了控制半导体的性质而人为引入的杂质，**这个技术称为&#x3D;&#x3D;掺杂&#x3D;&#x3D;**；掺杂出的半导体称为&#x3D;&#x3D;<strong>非本征半导体</strong>&#x3D;&#x3D;</li>
+</ul>
+<h5 id="2-掺杂出含杂质本征半导体的方法"><a href="#2-掺杂出含杂质本征半导体的方法" class="headerlink" title="2.掺杂出含杂质本征半导体的方法"></a>2.掺杂出含杂质本征半导体的方法</h5><p>杂质扩散：依赖于材料的特性，必要条件高温</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">graph TD;</span><br><span class="line">    A[加热到高温] --&gt; B[晶体原子随机进入或者移出晶格格点];</span><br><span class="line">    B --&gt; C[产生空位];</span><br><span class="line">    C --&gt; D[杂质原子通过空位移动；方向是从高浓度流向低浓度];</span><br><span class="line">    D --&gt; E[温度下降后杂质原子留在占据的晶格格点处];</span><br></pre></td></tr></table></figure>
+
+<p>离子注入：</p>
+<ul>
+<li>优点：所需温度低，可控制适量杂质离子注入到晶体指定区域</li>
+<li>缺点：入射杂质原子与晶体原子发生碰撞会引起&#x3D;&#x3D;晶格损伤&#x3D;&#x3D;；但通过热退火消除</li>
+</ul>
+<h4 id="1-2-2替位式杂质和间隙式杂质"><a href="#1-2-2替位式杂质和间隙式杂质" class="headerlink" title="1.2.2替位式杂质和间隙式杂质"></a>1.2.2替位式杂质和间隙式杂质</h4><h5 id="1-金刚石晶胞的特点"><a href="#1-金刚石晶胞的特点" class="headerlink" title="1.金刚石晶胞的特点"></a>1.金刚石晶胞的特点</h5><ul>
+<li>原子数目：8</li>
+<li>原子半径：</li>
+<li>致密度$k&#x3D;34 $%</li>
+</ul>
+<p>说明晶胞中至少有66%的体积是空的，是原子的间隙</p>
+<h5 id="2-杂质进入半导体的存在方式"><a href="#2-杂质进入半导体的存在方式" class="headerlink" title="2.杂质进入半导体的存在方式"></a>2.杂质进入半导体的存在方式</h5><ul>
+<li>间隙式杂质：位于晶格原子的间隙位置；原子一般较小如$Li,H$</li>
+<li>替位式杂质：位于晶格原子的格点位置：原子大小与被替代的晶格原子大小比较接近，且价电子的壳层结构也接近如，被替位的$Si,Ge$为Ⅳ族元素，故靠近Ⅳ族的Ⅲ、Ⅴ族元素是理想的替位杂质</li>
+</ul>
+<h5 id="3-杂质浓度"><a href="#3-杂质浓度" class="headerlink" title="3.杂质浓度"></a>3.杂质浓度</h5><p>单位体积中的杂质原子个数，它反映了杂质含量的多少（单位为$cm^3$）</p>
+<h4 id="1-2-3施主杂质和施主能级"><a href="#1-2-3施主杂质和施主能级" class="headerlink" title="1.2.3施主杂质和施主能级"></a>1.2.3施主杂质和施主能级</h4><h5 id="1-施主杂质的定义"><a href="#1-施主杂质的定义" class="headerlink" title="1.施主杂质的定义"></a>1.施主杂质的定义</h5><p>能够向晶体提供电子同时变成正电中心的杂质，以$Si$掺入Ⅴ族元素$P$为例</p>
+<h5 id="2-施主能级形成过程"><a href="#2-施主能级形成过程" class="headerlink" title="2.施主能级形成过程"></a>2.施主能级形成过程</h5><p>元素$P$五价元素替代Si后<br>![[2024-11-14 15_57_25.513575.png]]</p>
+<ul>
+<li>负电电子：五个价电子中的四个与周围Si原子形成饱和共价键；多余的一个价电子填充在导带中，可以在晶体中运动</li>
+<li>正电中心：失去电子的P原子会带正电，即形成了一个正电中心</li>
+</ul>
+<p>但其整体看来仍然为电中性，以下是施主能级的形成过程</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">graph TD;</span><br><span class="line">    A[Si中掺P] --&gt; B[产生正电中心的P+ + 多余一个电子];</span><br><span class="line">    B --&gt; C[受正电中心P+的空穴对电子的束缚远小于共价键的束缚（很小的能量ΔE就能使它挣脱束缚）];</span><br><span class="line">    C --&gt; E[成为准自由电子，做共有化运动];</span><br></pre></td></tr></table></figure>
+<p>且Ⅴ族元素在$Si,Ge$的电离能远小于$E_g$，进一步的，在进入实际的能带图前首先要有一些名词概念</p>
+<h5 id="3-名词概念"><a href="#3-名词概念" class="headerlink" title="3.名词概念"></a>3.名词概念</h5><ol>
+<li>杂质电离：电子挣脱施主杂质原子的束缚成为导电电子的过程</li>
+<li>杂质电离能：电子挣脱施主杂质原子的束缚，成为导电电子所需的能量，记为$\Delta E_g$，如Ⅴ族元素可以称为施主元素</li>
+<li>施主能级：电子被束缚在施主中心时，能量低于导带低的能量，相应的能级称为施主能级$E_D$</li>
+<li>施主电离：释放电子的过程</li>
+<li>施主电离能：$\Delta E_D &#x3D; E_c - E_D$</li>
+<li>束缚态&#x2F;中性态：施主杂质未电离时是电中性的</li>
+<li>离化态：电离后成为正电中心<br>之后再看这些概念在图中实际的位置<br>![[2024-11-14 15_57_25.513575 1.png]]<br>施主能级$E_D$一般离导带低很近，施主杂质电离后导带中的导电电子增多，我们称主要依靠电子导电的半导体为N型半导体</li>
+</ol>
+<h4 id="1-2-4受主杂质和受主能级"><a href="#1-2-4受主杂质和受主能级" class="headerlink" title="1.2.4受主杂质和受主能级"></a>1.2.4受主杂质和受主能级</h4><h5 id="1-受主杂质"><a href="#1-受主杂质" class="headerlink" title="1.受主杂质"></a>1.受主杂质</h5><p>能够接收价电子，即能提供空穴并形成负电中心的杂质</p>
+<h5 id="2-受主能级形成过程（以-Si-掺入Ⅲ族元素-B-为例）"><a href="#2-受主能级形成过程（以-Si-掺入Ⅲ族元素-B-为例）" class="headerlink" title="2.受主能级形成过程（以$Si$掺入Ⅲ族元素$B$为例）"></a>2.受主能级形成过程（以$Si$掺入Ⅲ族元素$B$为例）</h5><p>![[Screenshot_20241114_160759_Samsung capture.jpg]]<br>元素$B$五价元素替代Si后</p>
+<ul>
+<li>与周围4个原子形成饱和共价键</li>
+<li>由于还缺少一个价电子，要从周围夺取一个价电子<br>以下是受主能级的形成过程<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">graph TD;</span><br><span class="line">    A[Si中掺B] --&gt; B[产生负电中心的B + 一个空穴];</span><br><span class="line">    B --&gt; C[受负电中心B对空穴的束缚远小于共价键的束缚（很小的能量ΔE就能使它挣脱束缚）];</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h5 id="3-名词概念-1"><a href="#3-名词概念-1" class="headerlink" title="3.名词概念"></a>3.名词概念</h5><ol>
+<li>受主电离：空穴挣脱受主杂质的束缚的过程</li>
+<li>束缚态&#x2F;中性态：受主主杂质未电离时是电中性的</li>
+<li>受主离化态：电离时形成负电中心</li>
+<li>杂质电离能：空穴挣脱受主杂质原子的束缚，成为导电空穴所需的能量记为$\Delta E_A$，如Ⅲ族元素可以称为受主元素</li>
+<li>受主能级：被受主杂质束缚的空穴能量状态，记为$E_A$<br>之后再看这些概念在图中实际的位置<br>![[SmartSelect_20241114_160819.jpg]]<br>施主能级$E_A$一般离价带顶很近，受主杂质电离后价带中的导电电子增多，我们称主要依靠空穴导电的半导体为P型半导体</li>
+</ol>
+<h5 id="4-N型P型小结"><a href="#4-N型P型小结" class="headerlink" title="4.N型P型小结"></a>4.N型P型小结</h5><table>
+<thead>
+<tr>
+<th>元素族属</th>
+<th>类型</th>
+<th>能级形成</th>
+<th>状态</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Ⅲ族元素</td>
+<td>受主杂质</td>
+<td>禁带中引入比价带顶$E_V$高$\Delta E_A$的受主能级</td>
+<td>束缚态和离化态（向价带提供导电空穴从而形成负电中心）</td>
+</tr>
+<tr>
+<td>Ⅴ族元素</td>
+<td>施主主杂质</td>
+<td>禁带中引入比导带低$E_c$低$\Delta E_D$的施主能级</td>
+<td>束缚态和离化态（向导带提供导电电子从而形成正电中心）</td>
+</tr>
+</tbody></table>
+<ul>
+<li>Ⅲ、Ⅴ族元素的$\Delta E_A,\Delta E_D$很小，即它们离价带顶和导带低很近，我们把这种能级称为浅能级，对应的杂质称为&#x3D;&#x3D;浅能级杂质&#x3D;&#x3D;</li>
+<li>室温下，晶格原子热振动的能量会传递给电子，使$Si,Ge$中的Ⅲ、Ⅴ族杂质全部离化</li>
+<li>浅能级杂质的电离能可以用类氢模型简单计算<br>掺杂目的:</li>
+<li>浅能级杂质：增强导电能力，改变导电类型</li>
+</ul>
+<h5 id="5-补充类氢模型："><a href="#5-补充类氢模型：" class="headerlink" title="5.补充类氢模型："></a>5.补充类氢模型：</h5><p>浅能级杂质的电离能很低，电子或者空穴受到正负电中心的束缚很弱；束缚态时对于P掺杂，相当于正电中心束缚着一个价电子，这与氢原子原子核外只有一个电子很类似，故可以类比氢原子相关的能级<br>$$<br>氢原子的质量 E_n &#x3D; - \frac {m_0C}{2(4 \pi \epsilon_0)^2\hbar^2}<br>$$<br>$$<br>n &#x3D; 1时，是基态能量E_1 &#x3D;  - \frac {m_0C}{2(4 \pi \epsilon_0)^2\hbar^2}<br>$$<br>$$<br>n &#x3D; \infty时，氢原子电离E_{\infty} &#x3D; 0<br>$$<br> 故基态原子的电离能$E_0 &#x3D; E_{\infty} - E_1 &#x3D; 13.6eV$<br> 推广到晶体中的杂质电子，要做出以下改变</p>
+<ul>
+<li>正负电荷处于介电常数$\epsilon &#x3D; \epsilon_0 \cdot \epsilon_r$的介质中，不像氢原子在自由空间中，故要使用$\epsilon &#x3D; \epsilon_0 \cdot \epsilon_r$替代原式中的$\epsilon_0$</li>
+<li>电子不在自由空间中运动，而是在晶格周期性势场中运动，故要使用有效质量$m_n^*$来代替电子的惯性质量$m_0$<br>&#x3D;&#x3D;以上两个改变使得$\Delta E$计算值与实验值具有同一个数量级&#x3D;&#x3D;，修正后：</li>
+<li>对于施主杂质电离能：<br>  $$\Delta E_D &#x3D; \frac {m_n^<em>q^4}{2(4 \pi \epsilon_0 \epsilon_r)^2\hbar^2} &#x3D; \frac {m_n^</em> \cdot E_0}{m_0 \cdot \epsilon ^2_r}$$<br>  后面的式子是用基态能量$E_0$表示的</li>
+<li>对于受主杂质电离能：<br>$$\Delta E_A &#x3D; \frac {m_p^<em>q^4}{2(4 \pi \epsilon_0 \epsilon_r)^2\hbar^2} &#x3D; \frac {m_p^</em> \cdot E_0}{m_0 \cdot \epsilon ^2_r}$$</li>
+</ul>
+<h2 id="氢原子的玻尔半径：-a-0-frac-4-pi-epsilon-0-hbar-2-m-0q-2-推广到杂质中，依然替换-epsilon-m-0-得到杂质的等效玻尔半径：-a-0-frac-4-pi-epsilon-0-epsilon-r-hbar-2-m-n-q-2-epsilon-r-frac-m-0-m-n-a-0"><a href="#氢原子的玻尔半径：-a-0-frac-4-pi-epsilon-0-hbar-2-m-0q-2-推广到杂质中，依然替换-epsilon-m-0-得到杂质的等效玻尔半径：-a-0-frac-4-pi-epsilon-0-epsilon-r-hbar-2-m-n-q-2-epsilon-r-frac-m-0-m-n-a-0" class="headerlink" title="氢原子的玻尔半径：$$a_0 &#x3D; \frac {4 \pi \epsilon_0 \hbar^2}{m_0q^2}$$推广到杂质中，依然替换$\epsilon,m_0$得到杂质的等效玻尔半径：$$a_0 &#x3D; \frac {4 \pi \epsilon_0 \epsilon_r \hbar^2}{m_n^q^2} &#x3D; \epsilon_r(\frac {m_0}{m_n^})a_0$$"></a>氢原子的玻尔半径：<br>$$<br>a_0 &#x3D; \frac {4 \pi \epsilon_0 \hbar^2}{m_0q^2}<br>$$<br>推广到杂质中，依然替换$\epsilon,m_0$得到杂质的等效玻尔半径：<br>$$<br>a_0 &#x3D; \frac {4 \pi \epsilon_0 \epsilon_r \hbar^2}{m_n^<em>q^2} &#x3D; \epsilon_r(\frac {m_0}{m_n^</em>})a_0<br>$$</h2><h4 id="1-2-5杂质的补偿作用"><a href="#1-2-5杂质的补偿作用" class="headerlink" title="1.2.5杂质的补偿作用"></a>1.2.5杂质的补偿作用</h4><h5 id="1-杂质补偿的定义"><a href="#1-杂质补偿的定义" class="headerlink" title="1.杂质补偿的定义"></a>1.杂质补偿的定义</h5><p>在同一半导体的同一区域中，即掺入施主杂质又掺入受主杂质时，这两种杂质具有相互抵消的性质<br>一般情况下我们</p>
+<ul>
+<li>用$N_D$表示施主杂质浓度</li>
+<li>用$N_A$表示受主杂质浓度</li>
+<li>用$n$表示导带电子浓度</li>
+<li>用$p$表示价带空穴浓度</li>
+<li>假设杂质全部离化</li>
+</ul>
+<h5 id="2-N-D-N-A-施主多"><a href="#2-N-D-N-A-施主多" class="headerlink" title="2.$N_D &gt;&gt; N_A$施主多"></a>2.$N_D &gt;&gt; N_A$施主多</h5><ul>
+<li>在$T &#x3D; 0k$时严格按照能量最低原理，电子依次填充，由低能级到高能级（其实是由施主杂质浓度高的地方流向受主杂质低的地方，且对于能带来说越靠里为高能级），此时有效的施主浓度其实上减小了，为：<br>$$<br>N_D^*&#x3D; N_D -N_A<br>$$</li>
+<li>在温度升高至室温$T &#x3D; 300k$，有效施主中多余的价电子电离，释放至导带中，导带电子浓度为：<br>$$<br>n&#x3D; N_D - N_A<br>$$</li>
+</ul>
+<h5 id="3-N-D-N-A-受主多"><a href="#3-N-D-N-A-受主多" class="headerlink" title="3.$N_D &lt;&lt; N_A$受主多"></a>3.$N_D &lt;&lt; N_A$受主多</h5><ul>
+<li>同样的价带空穴浓度为<br>$$<br>p&#x3D; N_A -N_D<br>$$<br>补偿后的净杂质浓度称为有效杂质浓度</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>$N_D &gt; N_A$</th>
+<th>称$N_D - N_A$为有效施主浓度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$N_A &lt; N_D$</td>
+<td>称$N_D - N_A$为有效受主浓度</td>
+</tr>
+</tbody></table>
+<hr>
+<h4 id="1-2-6深能级杂质（非Ⅲ、Ⅴ族杂质）"><a href="#1-2-6深能级杂质（非Ⅲ、Ⅴ族杂质）" class="headerlink" title="1.2.6深能级杂质（非Ⅲ、Ⅴ族杂质）"></a>1.2.6深能级杂质（非Ⅲ、Ⅴ族杂质）</h4><h5 id="1-深能级杂质的定义"><a href="#1-深能级杂质的定义" class="headerlink" title="1.深能级杂质的定义"></a>1.深能级杂质的定义</h5><p>非Ⅲ、Ⅴ族元素在$Si,Ge$的禁带中也能产生能级，但施主和受主能级距离导带底和价带顶距离较远</p>
+<h5 id="2-深能级的多次电离特性"><a href="#2-深能级的多次电离特性" class="headerlink" title="2.深能级的多次电离特性"></a>2.深能级的多次电离特性</h5><p>深能级杂质可以产生多次电离，每一次电离相应的存在一个能级，所以深能级的杂质在$Si,Ge$的禁带中往往引入若干能级，并且有施主能级也有受主能级，故有些杂质即可以做施主也可以做受主</p>
+<h5 id="3-深能级杂质一般是替位式杂质"><a href="#3-深能级杂质一般是替位式杂质" class="headerlink" title="3.深能级杂质一般是替位式杂质"></a>3.深能级杂质一般是替位式杂质</h5><table>
+<thead>
+<tr>
+<th>对于$Si$</th>
+<th>$Cu$</th>
+<th>3个受主能级</th>
+<th>对于$Ge$</th>
+<th>$Cu$</th>
+<th>3个受主能级</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td>$Ag$</td>
+<td>1个受主能级＋1个施主能级</td>
+<td></td>
+<td>$Ag$</td>
+<td>3个受主能级</td>
+</tr>
+<tr>
+<td></td>
+<td>$Au$</td>
+<td>2个施主能级＋1个受主能级</td>
+<td></td>
+<td>$Au$</td>
+<td>3个受主能级＋1个施主能级</td>
+</tr>
+</tbody></table>
+<h5 id="4-以-Ge-掺杂金-Au-为例子讨论深能级杂质的能带关系"><a href="#4-以-Ge-掺杂金-Au-为例子讨论深能级杂质的能带关系" class="headerlink" title="4.以$Ge$掺杂金$Au$为例子讨论深能级杂质的能带关系"></a>4.以$Ge$掺杂金$Au$为例子讨论深能级杂质的能带关系</h5><p>![[SmartSelect_20241117_124101.jpg]]</p>
+<p>图中：</p>
+<ul>
+<li>$Ei$为禁带中线</li>
+<li>$Ei$上标的$eV$为距离导带底距离</li>
+<li>$Ei$下标的$eV$为距离价带底距离<br>中性的金原子$Au$替代了$Ge$原子，位于$Ge$的格点上，会有以下情况</li>
+</ul>
+<ol>
+<li>中性金原子$Au$的一个价电子，可以电离释放到导带，形成施主能级$E_D$；在结构上会形成正电中心$Au^+$，被称为单重电离施主离化态，因该电子为共价键束缚，故其电离能很大，略小于禁带宽度<br>$$<br>电离能\Delta E_D &#x3D; E_c - E_D ＝ E_g - 0.04eV<br>$$</li>
+<li>中性的金原子$Au$（原本只有一个核外电子）与周围4个$Ge$原子形成共价键，可以从价带接受3个价电子，这样便形成了$E_{A1 ～ 3}$这3个受主能级</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>从价带激发一个电子给$Au$</th>
+<th>使之成为$Au^-$</th>
+<th>电离能$E_{A1} - E_V$</th>
+<th>称$Au^-$“单重电离受主离化态”</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>再从价带激发一个电子给$Au^-$</td>
+<td>使之成为$Au^&#x3D;$</td>
+<td>电离能$E_{A2} - E_V$</td>
+<td>称$Au^&#x3D;$“二重电离受主离化态”</td>
+</tr>
+<tr>
+<td>再从价带激发一个电子给$Au^＝$</td>
+<td>使之成为$Au^≡$</td>
+<td>电离能$E_{A3} - E_V$</td>
+<td>称$Au^≡$“三重电离受主离化态”</td>
+</tr>
+</tbody></table>
+<ol start="3">
+<li>综上所述，由于电子之间的斥力作用，$Au$从价带接受电子越来越难，故Au在Ge中有五个荷电状态：$Au(中性态),Au^+(E_D),Au^-(E_{A1}),Au^＝(E_{A2}),Au^≡(E_{A3})$但是这些状态不能同时存在，最多只能有2个能级，故有以下结论，&#x3D;&#x3D;多重电离杂质能级不是相互独立的，不能同时存在&#x3D;&#x3D;</li>
+</ol>
+<h5 id="5-深能级杂质的作用"><a href="#5-深能级杂质的作用" class="headerlink" title="5.深能级杂质的作用"></a>5.深能级杂质的作用</h5><p>数量小，对导电影响小，对导电类型控制弱；主要起复合中心（用于做高速开关器件，工程上用掺金提高器件速度）的作用，即降低非平衡载流子的寿命</p>
+<h4 id="1-2-8Ⅲ-Ⅴ族化合物半导体的杂质"><a href="#1-2-8Ⅲ-Ⅴ族化合物半导体的杂质" class="headerlink" title="1.2.8Ⅲ-Ⅴ族化合物半导体的杂质"></a>1.2.8Ⅲ-Ⅴ族化合物半导体的杂质</h4><h5 id="1-杂质进入化合物半导体的存在方式"><a href="#1-杂质进入化合物半导体的存在方式" class="headerlink" title="1.杂质进入化合物半导体的存在方式"></a>1.杂质进入化合物半导体的存在方式</h5><p>同样的分为替位式和间隙式</p>
+<ol>
+<li>替位式杂质：由于有两种元素组合形成，所替代的位置可以是Ⅲ或者Ⅴ族所在的位置，故有两种<ul>
+<li>替Ⅲ族元素原子位于其格点</li>
+<li>替Ⅴ族元素原子位于其格点</li>
+</ul>
+</li>
+<li>间隙式杂质：<ul>
+<li>位于周围四个Ⅲ族元素原子的间隙</li>
+<li>位于周围四个Ⅴ族元素原子的间隙</li>
+</ul>
+</li>
+</ol>
+<h5 id="2-主要实验结果"><a href="#2-主要实验结果" class="headerlink" title="2.主要实验结果"></a>2.主要实验结果</h5><ol>
+<li>Ⅱ族元素通常替代Ⅲ族元素位置而位于格点上，但由于Ⅱ族元素比Ⅲ族元素少一个价电子，要获得一个价电子完成共价键的倾向；&#x3D;&#x3D;故表现为受主杂质，并引入浅受主能级&#x3D;&#x3D;</li>
+<li>VI族元素通常替代Ⅴ族元素位置而位于格点下，但由于VI族元素比Ⅴ族元素多一个价电子；&#x3D;&#x3D;表现为施主杂质，引入了施主能级&#x3D;&#x3D;</li>
+<li>IV族元素要看所处的位置，可替代Ⅲ族元素起施主作用或者替代Ⅴ元素起受主作用，都可参考1，2点<ul>
+<li>两性行为：$Si$在$GaAs$中既可以取代$Ga$($Si$浓度较低)，表现为施主杂质；又能取代$As$(浓度较低),表现为受主杂质，总体情况下起施主作用，具有补偿作用，保持$GaAs$为$N$型半导体</li>
+</ul>
+</li>
+<li>Ⅲ族和Ⅴ族元素掺入半到不是其本身所形成的Ⅲ-Ⅴ半导体中，实验测不到这些杂质的影响，在禁带中不引入能级</li>
+</ol>
+<h5 id="3-特殊情况-GaP-例外"><a href="#3-特殊情况-GaP-例外" class="headerlink" title="3.特殊情况$GaP$例外"></a>3.特殊情况$GaP$例外</h5><p>在上一点中第4点，如果对$GaP$的掺杂例外，当掺入N或Bi元素代替P，并产生能级，称为“等电子陷阱”，负电中心周围会束缚着电子，而这个被束缚电子所处的位置对应的能量状态就在原本的禁带之中，相当于在禁带中形成了一个特殊的、局域化的能级<br>具体表现如下：<br>1.$N（Ⅴ族）$掺入GaP$中，$N$取代$P$，由于N比P具有更强的电负性 ，共价半径差距大，所以</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">graph TB;</span><br><span class="line"> A[N具有较强的得到电子的能力] --&gt; B[N取代了P后可以获得电子形成负电中心];</span><br><span class="line"> B --&gt; C[形成等电子陷阱（负电中心会束缚电子且被束缚电子所处的位置对应的能量状态在禁带中）];</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>$Bi（Ⅴ族）$掺入$GaP$中，$Bi$取代$P$，BI但负电性比P弱，有较强的得到空穴的能力<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">graph TB;</span><br><span class="line"> A[P具有较强的得到空穴的能力] --&gt; B[Bi取代了P后可以获得空穴形成正电中心];</span><br><span class="line"> B --&gt; C[形成等电子陷阱];</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h5 id="3-等电子陷阱"><a href="#3-等电子陷阱" class="headerlink" title="3.等电子陷阱"></a>3.等电子陷阱</h5><p>等电子杂质是与基质原子同族的杂质元素，它们替代了格点上的同族原子后，仍为电中性，但是因为原子序数共价半径以及电负性的不同，从而能够获得俘获某种载流子而成为带电中心，这样的带电中心就称为等电子陷阱</p>
+<h5 id="4-束缚激子"><a href="#4-束缚激子" class="headerlink" title="4.束缚激子"></a>4.束缚激子</h5><p>等电子陷阱俘获载流子后成为带电中心，转载带电中心又因为库伦力俘获与它本身电性相反的载流子，这种载流子就称为束缚激子</p>
+<h5 id="5-各族元素在化合物的作用"><a href="#5-各族元素在化合物的作用" class="headerlink" title="5.各族元素在化合物的作用"></a>5.各族元素在化合物的作用</h5><table>
+<thead>
+<tr>
+<th>元素</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>I族元素($Au,Cu,Ag…$)</td>
+<td>在$GaAs$中引入受主杂质</td>
+</tr>
+<tr>
+<td>过度元素($Cr,Fe,Mn,Co,Ni…$)</td>
+<td>在$GaAS$中引入深受主能级</td>
+</tr>
+</tbody></table>
+<h3 id="1-3缺陷与位错能级"><a href="#1-3缺陷与位错能级" class="headerlink" title="1.3缺陷与位错能级"></a>1.3缺陷与位错能级</h3><h5 id="1-3-1点缺陷"><a href="#1-3-1点缺陷" class="headerlink" title="1.3.1点缺陷"></a>1.3.1点缺陷</h5><p>温度一定时组成晶体的原子在平衡位置附近做振动，部分原子可获得足够的能量来挣脱周围原子的束缚，挤入间隙位置留下相应的空位，其有如下情况</p>
+<ol>
+<li>弗伦仓耳缺陷：原子从原格点挤入间隙（相当于间隙式杂质），之后呈现为间隙原子和相应空位成对出现，同时存在</li>
+<li>肖特基缺陷：若间隙原子运动至（扩散至）样品表面，其在表面形成新原子层，体内仅存在空位，&#x3D;&#x3D;注：晶体形成后往往只有空位没有间隙，故肖特基的缺陷多&#x3D;&#x3D;<br>这两种由问题决定的点缺陷称为热缺陷</li>
+</ol>
+<h5 id="1-对于Ge-Si"><a href="#1-对于Ge-Si" class="headerlink" title="1.对于Ge,Si"></a>1.对于Ge,Si</h5><ol>
+<li>空位最近邻为4个原子，每个原子各有一个不成对的价电子，倾向于接受一个价电子，起受主作用</li>
+<li>间隙原子有4个未成键的价电子，它们既可起受主作用，又可以起施主作用</li>
+</ol>
+<h5 id="2-对于Ⅲ-Ⅴ族化合物半导体"><a href="#2-对于Ⅲ-Ⅴ族化合物半导体" class="headerlink" title="2.对于Ⅲ-Ⅴ族化合物半导体"></a>2.对于Ⅲ-Ⅴ族化合物半导体</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">graph LR; A[点缺陷来源] --&gt; B[热振动]; B --&gt; D[Ge间隙; As空位]; B --&gt; E[As间隙; Ge空位]; A --&gt; G[成分偏离正常比]; G --&gt; H[As偏移; Ga空位]; H --&gt; J[均表现为受主能级]; G --&gt; Y[Ge偏移; As空位]; Y --&gt; J[均表现为受主能级];</span><br></pre></td></tr></table></figure>
+<p>替位式原子缺陷也称反结构（反位缺陷）<br>对于一个化合物半导体AB</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">graph TD; A[AB] --&gt; B[A价电子少]; A --&gt; C[B价电子多] </span><br></pre></td></tr></table></figure>
+
+<p>有以下两种情况</p>
+<table>
+<thead>
+<tr>
+<th>A替代B</th>
+<th>记作$A_B$受主</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>B替代A</td>
+<td>记作$B_A$施主</td>
+</tr>
+</tbody></table>
+<h5 id="3-位错"><a href="#3-位错" class="headerlink" title="3.位错"></a>3.位错</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">graph TD; A[位错] --&gt; B[刃位错]; B --&gt; C[位错线存在悬挂键，即可给出电子也起施主作用又可接受电子起受主作用]; A --&gt; D[螺位错];</span><br></pre></td></tr></table></figure>
+
+</div> 
+
+<script>
+    window.onload = detectors();
+</script>
+    <div class="post-footer">
+    <div class="h-line-primary"></div>
+    <nav class="post-nav">
+        <div class="prev-item">
+           
+                <div class="icon arrow-left"></div>
+                <div class="post-link">
+                    <a href="/2024/12/13/%E7%AC%94%E8%AE%B0Verilog/">Prev</a>
+                </div>
+            
+        </div>
+        <div class="next-item">
+            
+                <div class="icon arrow-right"></div>
+                <div class="post-link">
+                  <a href="/2024/12/11/%E7%AC%94%E8%AE%B0%E5%8D%8A%E7%89%A90%E5%9B%BA%E4%BD%93%E7%89%A9%E7%90%86%E5%AF%BC%E5%85%A5/">Next</a>  
+                </div>  
+            
+        </div>
+    </nav>
+</div>
+
+    
+      <div class="post-comment">
+
+     
+
+     
+    
+    
+
+</div>
+     
+  
+</article>
+        </div>
+      </div>
+      
+      <div class="footer">
+    <div class="flex-container">
+        <div class="footer-text">
+            
+            
+                Skjaldbaka1© | 
+            
+            
+                Powered by <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/zoeingwingkei/frame/">Frame</a>
+                
+        </div>
+    </div>
+</div>
+    </div>
+  </body>
+</html>
+
