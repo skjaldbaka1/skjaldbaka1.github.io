@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Skjaldbaka1">
+
+
+    <meta name="subtitle" content="山河地理，退入大雾后">
+
+
+
+    <meta name="keywords" content="笔记">
+
+
+
+
+<title>偏置电路的设计和在Amp中偏置的设计 | Skjaldbaka1&#39;s blog</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&family=Roboto+Mono&display=swap');
+</style>
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/menu.js"></script>
+    
+
+
+
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+
+
+
+
+
+
+    <script type="text/javascript" async
+      src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        }
+      };
+    </script>
+  <meta name="generator" content="Hexo 7.3.0"></head>
+  <body>
+    <div class="mask-border"></div>
+
+    <div class="wrapper">
+      <div class="header">
+  <div class="flex-container">
+    <div class="header-inner">
+      <div class="site-brand-container">
+        <a href="/">
+          
+            Skjaldbaka1.
+          
+        </a>
+      </div>
+      <div id="menu-btn" class="menu-btn" onclick="toggleMenu()">
+        Menu
+      </div>
+      <nav class="site-nav">
+        <ul class="menu-list">
+          
+            
+              <li class="menu-item">
+                <a href="/">主页</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/archives/">文集</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/categories/gallery/">影集</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/tag/">引索</a>
+              </li> 
+                   
+          
+          
+            <li class="menu-item search-btn">
+              <a href="#">Search</a>
+            </li>
+          
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main">
+        <div class="flex-container">
+          <article id="post">
+
+  
+    <div class="post-head">
+    <div class="post-info">
+        <div class="tag-list">
+            
+                
+                    <span class="post-tag">
+                        <a href="/tags/%E7%AC%94%E8%AE%B0/">
+                            笔记
+                        </a>
+                    </span>    
+                
+                    <span class="post-tag">
+                        <a href="/tags/CMOS/">
+                            CMOS
+                        </a>
+                    </span>    
+                           
+            
+        </div>
+        <div class="post-title">
+            
+            
+                偏置电路的设计和在Amp中偏置的设计
+            
+            
+        </div>
+        <span class="post-date">
+            5月 12, 2025
+        </span>
+    </div>
+    <div class="post-img">
+        
+            <div class="h-line-primary"></div>
+              
+    </div>
+</div>
+    <div class="post-content">
+    <p>在virtuoso中我们搭建出如下的一个电路：</p>
+<p><img src="/./../pics/image-20250502114007998.png"></p>
+<p>注意右边的PNP BJT的multipler要改为8，再点击<code>ADE L</code>创建一个从-40度到125度的dc仿真，点击仿真完成后，选择<code>Results-Direct Plot-Main Form</code></p>
+<p><img src="/./../pics/image-20250502114430107.png" alt="image-20250502114430107"></p>
+<p>在上图的中蓝框中设定为Differential Nets，然后回到仿真图中先点击1后点击2</p>
+<p><img src="/./../pics/image-20250502114547167.png"></p>
+<p>可以得到一条斜率负，代表温度系数的直线</p>
+<p><img src="/./../pics/image-20250502114728493.png" alt="image-20250502114728493"></p>
+<p>斜率k&#x3D;1.873m，将代表直线方程送Calculator，得到：<code>(v(&quot;/net4&quot; ?result &quot;dc&quot;) - v(&quot;/AGND&quot; ?result &quot;dc&quot;))</code></p>
+<p>同理按上面的操作再生产右边BJT的负温度曲线</p>
+<p><img src="/./../pics/image-20250502124850147.png"></p>
+<p>斜率k&#x3D;1.873m，同样的将代表直线方程送Calculator，得到：<code>v(&quot;/net3&quot; ?result &quot;dc&quot;) - v(&quot;/AGND&quot; ?result &quot;dc&quot;))</code></p>
+<p>在Calculator中将上面两个代表负温度系数的方程相减(（第一根直线减去第二根）可以得到正温度系数的直线方程：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(v(&quot;/net4&quot; ?result &quot;dc&quot;) - v(&quot;/AGND&quot; ?result &quot;dc&quot;))-(v(&quot;/net3&quot; ?result &quot;dc&quot;) - v(&quot;/AGND&quot; ?result &quot;dc&quot;))</span><br></pre></td></tr></table></figure>
+
+<p>其所代表的斜率如图：</p>
+<p><img src="/./../pics/image-20250502125507425.png"></p>
+<p>斜率k&#x3D;189.5u&#x3D;0.1895m；也就是说，我们要将这个正温度系数的直线斜率扩大m倍到k&#x3D;1.873m才能让正温度和负温度系数相抵消，得到不受温度影响的电压，由：<br>$$<br>m&#x3D;\frac {1.873m}{0.1895m} \approx 9.88<br>$$<br>我们先将正温度系数扩大9.88倍</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">((v(&quot;/net4&quot; ?result &quot;dc&quot;) - v(&quot;/AGND&quot; ?result &quot;dc&quot;))-(v(&quot;/net3&quot; ?result &quot;dc&quot;) - v(&quot;/AGND&quot; ?result &quot;dc&quot;)))*9.88</span><br></pre></td></tr></table></figure>
+
+<p><img src="/./../pics/image-20250502131530833.png" alt="image-20250502131530833"></p>
+<p>再与下面第一条直线相加：</p>
+<blockquote>
+<p><code>(v(&quot;/net4&quot; ?result &quot;dc&quot;) - v(&quot;/AGND&quot; ?result &quot;dc&quot;))</code></p>
+</blockquote>
+<p>可以得到：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">((v(&quot;/net4&quot; ?result &quot;dc&quot;) - v(&quot;/AGND&quot; ?result &quot;dc&quot;))-(v(&quot;/net3&quot; ?result &quot;dc&quot;) - v(&quot;/AGND&quot; ?result &quot;dc&quot;)))*9.88+(v(&quot;/net4&quot; ?result &quot;dc&quot;) - v(&quot;/AGND&quot; ?result &quot;dc&quot;))</span><br></pre></td></tr></table></figure>
+
+<p><img src="/./../pics/image-20250502131657797.png"></p>
+<p>可以看到不受温度影响的电压在大的坐标轴中表现为抛物线</p>
+<h2 id="实际偏置电路的设计："><a href="#实际偏置电路的设计：" class="headerlink" title="实际偏置电路的设计："></a>实际偏置电路的设计：</h2><p>在如下的偏置电路中，我们将所有N和Pmos的L都设置为1u来避免沟道调制效应，在图中两个电阻$R_0,R_1$的比值对应着上文中的m，代表将正温度系数的直线斜率扩大m倍：<br>$$<br>m &#x3D; \frac {R_0}{R_1}<br>$$<br>先测量负温度系数直线：依次选择左边PNP的上和下两端</p>
+<p><img src="/./../pics/image-20250502134408146.png"></p>
+<p>得到以下直线图像</p>
+<p><img src="/./../pics/image-20250502134500048.png" alt="image-20250502134500048"></p>
+<p>斜率k&#x3D;1.767m</p>
+<p>再测量正温度系数：选择电阻$R_1$的上下两端</p>
+<p><img src="/./../pics/image-20250502134720442.png" alt="image-20250502134720442"></p>
+<p>得到以下直线</p>
+<p><img src="/./../pics/image-20250502134653370.png"></p>
+<p>斜率为k&#x3D;177.7u&#x3D;0.1777m，用负温度系数除正温度系数：<br>$$<br>m&#x3D;\frac {1.767m}{0.1777m}&#x3D;9.943<br>$$<br>所以$R_1$要扩大：<br>$$<br>R_1 &#x3D; mR_0&#x3D;5K \cdot 9.943&#x3D;49.715K<br>$$<br>测量正温度和负温度相加，依次点击图红框的上下两端</p>
+<p><img src="/./../pics/image-20250502135138476.png"></p>
+<p>发现得不到一条抛物线，判断管子尺寸有问题，将上下5个mos的改为如下图：</p>
+<p><img src="/./../pics/image-20250502140815515.png" alt="image-20250502140815515"></p>
+<p>重新测正负温度系数：</p>
+<p><img src="/./../pics/image-20250502141225626.png" alt="image-20250502141225626"></p>
+<p><img src="/./../pics/image-20250502141310494.png" alt="image-20250502141310494"></p>
+<p>重新计算:<br>$$<br>m&#x3D;\frac {1.77899m}{0.174668m}&#x3D;10.18497950397325<br>$$<br>得到$R_0&#x3D;50.92489751986626K \approx 50.924K$</p>
+<p><img src="/./../pics/image-20250502141818956.png"></p>
+<h2 id="LDO中的偏置电路设计"><a href="#LDO中的偏置电路设计" class="headerlink" title="LDO中的偏置电路设计"></a>LDO中的偏置电路设计</h2><p>我们从下面的电源抑制比好的V2这处引出电压</p>
+<p><img src="/./../pics/image-20250503114826973.png" alt="image-20250503114826973"></p>
+<p>然后进行dc仿真，发现这条支路的电流与实际我们用理想电流源做出的idc&#x3D;8.5u差距过大</p>
+<p><img src="/./../pics/image-20250503114641420.png" alt="image-20250503114641420"></p>
+<p>要将红框中的Nmos的L尺寸放大m倍：<br>$$<br>m &#x3D; \frac {102.4u}{8.5u} \approx 12<br>$$<br>但在实际中我们不希望偏置的电流过大，希望在1uA左右，在V2处的电压还是过高，我们将V2换到下图中位置</p>
+<p><img src="/./../pics/image-20250503120926831.png"></p>
+<p>调整M23的L使其Id&#x3D;1uA，同时因为id变小了，我们希望Vod不变，电流要从8.5uA缩小到1.044uA，L要放大k倍：<br>$$<br>k&#x3D;\frac {8.5u}{1.044u}&#x3D;8.141<br>$$<br>将M24的L扩大8倍，同时再微调L使Vod与原理想电流源的M17的Vod相同</p>
+<p><img src="/./../pics/image-20250503121604218.png"></p>
+<p>之后所有需要提供偏置电压的地方都按此方法将三端电压与理想电流源出来的电压相等</p>
+
+</div> 
+
+<script>
+    window.onload = detectors();
+</script>
+    <div class="post-footer">
+    <div class="h-line-primary"></div>
+    <nav class="post-nav">
+        <div class="prev-item">
+           
+        </div>
+        <div class="next-item">
+            
+                <div class="icon arrow-right"></div>
+                <div class="post-link">
+                  <a href="/2025/05/12/%E7%AC%94%E8%AE%B0gmid%E8%AE%BE%E8%AE%A1%E6%B3%95%E8%AE%BE%E8%AE%A1%E5%A5%97%E7%AD%92%E5%85%B1%E6%BA%90%E5%85%B1%E6%A0%85%E6%94%BE%E5%A4%A7%E5%99%A8/">Next</a>  
+                </div>  
+            
+        </div>
+    </nav>
+</div>
+
+    
+      <div class="post-comment">
+
+     
+
+     
+    
+    
+
+</div>
+     
+  
+</article>
+        </div>
+      </div>
+      
+      <div class="footer">
+    <div class="flex-container">
+        <div class="footer-text">
+            
+            
+                Skjaldbaka1© | 
+            
+            
+                Powered by <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/zoeingwingkei/frame/">Frame</a>
+                
+        </div>
+    </div>
+</div>
+    </div>
+  </body>
+</html>
+

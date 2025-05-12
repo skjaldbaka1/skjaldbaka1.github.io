@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Skjaldbaka1">
+
+
+    <meta name="subtitle" content="山河地理，退入大雾后">
+
+
+
+    <meta name="keywords" content="笔记">
+
+
+
+
+<title>gmid法设计套筒式共源共栅放大器 | Skjaldbaka1&#39;s blog</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&family=Roboto+Mono&display=swap');
+</style>
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/menu.js"></script>
+    
+
+
+
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+
+
+
+
+
+
+    <script type="text/javascript" async
+      src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+    </script>
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        }
+      };
+    </script>
+  <meta name="generator" content="Hexo 7.3.0"></head>
+  <body>
+    <div class="mask-border"></div>
+
+    <div class="wrapper">
+      <div class="header">
+  <div class="flex-container">
+    <div class="header-inner">
+      <div class="site-brand-container">
+        <a href="/">
+          
+            Skjaldbaka1.
+          
+        </a>
+      </div>
+      <div id="menu-btn" class="menu-btn" onclick="toggleMenu()">
+        Menu
+      </div>
+      <nav class="site-nav">
+        <ul class="menu-list">
+          
+            
+              <li class="menu-item">
+                <a href="/">主页</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/archives/">文集</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/categories/gallery/">影集</a>
+              </li> 
+                   
+          
+            
+              <li class="menu-item">
+                <a href="/tag/">引索</a>
+              </li> 
+                   
+          
+          
+            <li class="menu-item search-btn">
+              <a href="#">Search</a>
+            </li>
+          
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main">
+        <div class="flex-container">
+          <article id="post">
+
+  
+    <div class="post-head">
+    <div class="post-info">
+        <div class="tag-list">
+            
+                
+                    <span class="post-tag">
+                        <a href="/tags/%E7%AC%94%E8%AE%B0/">
+                            笔记
+                        </a>
+                    </span>    
+                
+                    <span class="post-tag">
+                        <a href="/tags/CMOS/">
+                            CMOS
+                        </a>
+                    </span>    
+                           
+            
+        </div>
+        <div class="post-title">
+            
+            
+                gmid法设计套筒式共源共栅放大器
+            
+            
+        </div>
+        <span class="post-date">
+            5月 12, 2025
+        </span>
+    </div>
+    <div class="post-img">
+        
+            <div class="h-line-primary"></div>
+              
+    </div>
+</div>
+    <div class="post-content">
+    <blockquote>
+<p> 注意这篇中套筒是共源共栅放大器其实是Ldo电路的一部分，但在实际Ldo设计中其由于增益过大会给后续调整Ldo电路带来困难，故这篇文章并不完整；推荐参考此文章的思路设计折叠式设计套筒是共源共栅放大器来作为Ldo电路的Amp</p>
+</blockquote>
+<h2 id="运输放大器设计"><a href="#运输放大器设计" class="headerlink" title="运输放大器设计"></a>运输放大器设计</h2><h3 id="1-理论设计"><a href="#1-理论设计" class="headerlink" title="1.理论设计"></a>1.理论设计</h3><p>设计一个运输放大器，其性能指标为：</p>
+<table>
+<thead>
+<tr>
+<th>$CL&#x3D;5pF$</th>
+<th>$0.5V&lt;V_{out-range}&lt;2.5V$</th>
+<th>$A_V&gt;20000$</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$V_{DD}&#x3D;3.3V$</td>
+<td>$GBW &#x3D;20MHz$</td>
+<td>$Phase margin&gt;60deg$</td>
+</tr>
+</tbody></table>
+<p>对于$A_V&gt;20000$的要求，我们采用第一级大增益，第二级还行的增益：</p>
+<ul>
+<li>第一级：Cascode结构要达到10000左右的增益</li>
+<li>第二级：采用简单P和Nmos的对管结构，增益可以再个位数</li>
+</ul>
+<p>这样子很轻松的就可以达到$A_V&gt;20000$</p>
+<p><img src="/./../pics/image-20250507223521643.png" alt="image-20250507223521643"></p>
+<p>但对于输入$V_{in}$来说，这样的结构天生上限被$V_{B3}$限制$V_{B3}-(V_{gs}-V_{th})$，为：<br>$$<br>V_{lim-max}&lt;V_{B3}-V_{gs}+V_{th}<br>$$<br>我们要加入偏置电路（下图红框）使M14的漏极与$V_{B3}$的差恒定，让$V_{B3}$能随着$V_{in}$增大而增大</p>
+<p><img src="/./../pics/image-20250507224840728.png" alt="image-20250507224840728"></p>
+<p>在图中M8管和输入对管M0和M4的W&#x2F;L，为了使偏置电路上的电流尽可能小，有如下关系：<br>$$<br>\frac 16 \cdot (\frac WL)<em>{M0}&#x3D;(\frac WL)</em>{M8}<br>$$<br>在偏置电路中，我们假设Nmos的$V_{OD}$都相同；M8和M9的电流，由于电流镜电流相同，有：</p>
+<p>$$<br>I_{D9}&#x3D;I_{D8}<br>$$<br>根据$I_D&#x3D;\frac 12 \mu C_{ox} \frac WL (V_{gs}-V_{th})^2$，且M8和M9栅极不链接在一起，有：</p>
+<p>对于M8来说：<br>$$<br>V_{g8}&#x3D;V_{gs11}+V_{B2}&#x3D;(V_{gs11}-V_{th})+V_{B2}+V_{th}&#x3D;V_{OD}+V_{th}<br>$$<br>对于M9来说：<br>$$<br>V_{g9}&#x3D;V_{gs5}+V_{gs11}-V_{th}+V_{B2}&#x3D;(V_{gs5}-V_{th})+(V_{gs11}-V_{th})+V_{th}<br>$$</p>
+<p>$$<br>V_{g9}&#x3D;2 \cdot V_{OD}+V_{th}<br>$$</p>
+<p>带入饱和区电流方程可以得到：</p>
+<p>$$<br>\frac 12 \mu C_{ox} (\frac WL)<em>8 (V</em>{OD}+V_{th}-V_{th})^2&#x3D;\frac 12 \mu C_{ox} (\frac WL)<em>9 2 \cdot (V</em>{OD}+V_{th}-V_{th})^2<br>$$</p>
+<p>化简得：</p>
+<p>$$<br>\frac 12 \mu C_{ox} (\frac WL)<em>8 (V</em>{OD})^2&#x3D;\frac 12 \mu C_{ox} (\frac WL)<em>9 \cdot 4 \cdot V</em>{OD}^2<br>$$</p>
+<p>最终得到：</p>
+<p>$$<br>\frac 14 \cdot (\frac WL)<em>{M8}&#x3D;(\frac WL)</em>{M9}<br>$$</p>
+<h3 id="2-参数确定："><a href="#2-参数确定：" class="headerlink" title="2.参数确定："></a>2.参数确定：</h3><p>继续计算GBW，即增益为0的点：</p>
+<p>$$<br>GBW&#x3D;P_1 \cdot A_{Vall}&#x3D;P_1 \cdot A_1 \cdot A_2<br>$$</p>
+<p>在下式分母中$1+A_2 \approx A_2$：</p>
+<p>$$<br>GBW&#x3D;\frac {A_1 \cdot A_2}{R_{OUT1}(1+A_2)C_C}&#x3D;\frac {A_1}{R_{OUT1}C_C}&#x3D;\frac {g_{m1}}{C_C}<br>$$</p>
+<p>主极点$P_2&#x3D;\frac {g_{m2}}{C_L}$，零点$Z&#x3D;\frac {g_{m2}}{C_C}$</p>
+<p>我们取：</p>
+<p>$$<br>Z &gt; 10GBW \rightarrow g_{m2}&#x3D;10g_{m1}<br>$$</p>
+<p>要满足$Ph&gt;60deg$：</p>
+<p>$$<br>P_2&gt;2.2GBW \rightarrow C_C&#x3D;0.22 \cdot C_L&#x3D;1.1pF<br>$$</p>
+<p>$$<br>g_{m1}&#x3D;GBW \cdot C_C&#x3D;20M \cdot 2 \pi \cdot 1.1pF \approx 136u<br>$$</p>
+<p>在前面我们确定$g_m$有如下关系：</p>
+<blockquote>
+<p>$g_{m2}&#x3D;10g_{m1}$</p>
+</blockquote>
+<p>故：<br>$$<br>g_{m2}&#x3D;10g_{m1}&#x3D;1360u<br>$$<br>接下来用gmid设计法则确定各支路的电流，取gm&#x2F;id&#x3D;16有：<br>$$<br>I_{D-M0,M4}&#x3D;\frac {136u}{12} \approx 8.5uA<br>$$</p>
+<p>$$<br>I_{D-M12}&#x3D;\frac {1360u}{16} \approx 85uA<br>$$</p>
+<p>为了使次极点在GBW外，实际我们取$g_{m2}&#x3D;1500u$，故实际电流可以得到：<br>$$<br>I_{D-M12}&#x3D;\frac {1500u}{16} \approx 93uA<br>$$<br>知道了各支路的电流，可以求尾电流源的电流大小：</p>
+<p>由$I_D&#x3D;\frac 12 \mu C_{ox} \frac WL (V_{gs}-V_{th})^2$可得到：</p>
+<p>$$<br>\frac {I_{D8}}{I_{D0}}&#x3D;\frac {(\frac WL)<em>{M8}}{ (\frac WL)</em>{M0}}&#x3D;6<br>$$</p>
+<p>故偏置电路上的电流为：</p>
+<p>$$<br>I_{D-M8}&#x3D;\frac {8.5uA}{6} \approx 1.4uA<br>$$</p>
+<p>观察电流可以看到有两条偏置电路上的电流$I_{D-M8}$，两条Cascdoe电流$I_{D-M0,M4}$流过尾电流源：</p>
+<p>$$<br>I_{ss}&#x3D;2 \cdot 8.5uA + 2 \cdot 1.4uA &#x3D;19.8uA<br>$$</p>
+<h3 id="3-电路设计参数表"><a href="#3-电路设计参数表" class="headerlink" title="3.电路设计参数表"></a>3.电路设计参数表</h3><p>至此我们可以给出各个电路的设计参数：</p>
+<table>
+<thead>
+<tr>
+<th>$g_{m1}$</th>
+<th>$136uA$</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$g_{m2}$</td>
+<td>$1360uA$</td>
+</tr>
+<tr>
+<td>$I_{D-M0,M4}$</td>
+<td>$8.5uA$</td>
+</tr>
+<tr>
+<td>$I_{D-M12}$</td>
+<td>$85uA$实际是$93uA$</td>
+</tr>
+<tr>
+<td>$I_{D-M8}$</td>
+<td>$1.4uA$</td>
+</tr>
+<tr>
+<td>$I_{ss}$</td>
+<td>19.8uA</td>
+</tr>
+</tbody></table>
+<h3 id="4-Nmos设计"><a href="#4-Nmos设计" class="headerlink" title="4.Nmos设计"></a>4.Nmos设计</h3><h4 id="4-1输入四管Nmos"><a href="#4-1输入四管Nmos" class="headerlink" title="4.1输入四管Nmos"></a>4.1输入四管Nmos</h4><p>我们取最小L&#x3D;800n，gmid前文提到我们设置成16</p>
+<p><img src="/./../pics/image-20250503105608959.png" alt="image-20250503105608959"></p>
+<p>根据仿真结果，1W对应电流为671n，我们总共需要$8.5uA$的电流：<br>$$<br>\frac {8.5uA}{671n}&#x3D;12.4u<br>$$<br>故输入的四个Nmos我们取：<br>$$<br>\frac WL&#x3D;\frac {12.4u}{800n}<br>$$</p>
+<h4 id="4-2负载管ss"><a href="#4-2负载管ss" class="headerlink" title="4.2负载管ss"></a>4.2负载管ss</h4><p>gmid取15，降低噪声，L取大一点，L&#x3D;1u</p>
+<p><img src="/./../pics/image-20250508203510516.png" alt="image-20250508203510516"></p>
+<p>输出对管的Nmos，gmid取小一点取12</p>
+<p><img src="/./../pics/image-20250508204453370.png"></p>
+<p>22u&#x2F;800n 22u&#x2F;400n</p>
+<h3 id="5-Pmos设计"><a href="#5-Pmos设计" class="headerlink" title="5.Pmos设计"></a>5.Pmos设计</h3><p>设计cascode上面四个Pmos以及两个偏置电路中的Pmos，它们都是负载管我们尽量把其L取大，取L&#x3D;1u，要让它的$Vov\approx200mV$</p>
+<p><img src="/./../pics/image-20250417144714338.png"></p>
+<p>由上图取gmid&#x3D;7.6，差不多满足Vov在200mV的要求，此时$I_d&#x3D;1u$<br>$$<br>W&#x3D;\frac {8.5u}{1u}&#x3D;8.5u<br>$$<br>输出管Pmos的Vov与上面几个Pmos的相同：其Vov&#x3D;232mV，gm&#x3D;1.5m，保持，其$I_d&#x3D;93uA$，W差不多要扩大十倍，可以缩小二倍L，扩大五倍W<br>$$<br>\frac WL&#x3D;8.5&#x3D;\frac {44.2u}{340n}<br>$$<br><img src="/./../pics/image-20250417163056973.png" alt="image-20250417163056973"></p>
+<p>发现基本符合，可以选择，且VB1的电流源电流应该跟上图的id相同为228.6uA</p>
+<h2 id="AC仿真"><a href="#AC仿真" class="headerlink" title="AC仿真"></a>AC仿真</h2><p>两级运放0dB时勉强达到60deg，满足ph&gt;60deg，此时输出支路的id被推的非常高来让gm&#x3D;1.34m，$C_C&#x3D;3.5pF$</p>
+<p><img src="/./../pics/image-20250509131719368.png" alt="image-20250509131719368"></p>
+<h2 id="偏置网络的设计"><a href="#偏置网络的设计" class="headerlink" title="偏置网络的设计"></a>偏置网络的设计</h2><p>我们希望得到一个与$V_{DD}$和温度变化无关的电压，用电路的自身关系，我们设置一个电阻和一个二极管接法的mos，他们的电流相同，从上端看入的电压也相同，在绘制他们的IV特性的直线和曲线会相交于一点$V_{2}$，把稳定电压在$V_{2}$</p>
+<p>但是这种接法的电流，mos管的电流会分到电阻上，要引入隔离管，让mos管维持饱和，负反馈可以稳定输出，且隔离管的g到s没有通路，也解决了上面mos分流的问题</p>
+<p><img src="/./../pics/%7BDE616696-64ED-4483-92C0-5A4F8648CEB8%7D.png" alt="{DE616696-64ED-4483-92C0-5A4F8648CEB8}"></p>
+<h3 id="1-与电源VDD无关的电源"><a href="#1-与电源VDD无关的电源" class="headerlink" title="1.与电源VDD无关的电源"></a>1.与电源VDD无关的电源</h3><p><img src="/./../pics/image-20250509140538049.png" alt="image-20250509140538049"></p>
+<p>图上的是电源抑制网络，实现了与电源VDD无关的电压，在设计时我们我要让左边的管子M1的$V_{gs}$小于右边的管子M2，他们的宽长比如下关系：<br>$$<br>(\frac WL)<em>{M1}&lt;(\frac WL)</em>{M2}<br>$$<br>由因为：<br>$$<br>V_{gs1}&lt;V_{gs2}<br>$$<br>多出来的$\Delta V_{gs}&#x3D;V_{gs2}-V_{gs1}$将被电阻R分得，有：<br>$$<br>I_R &#x3D;\frac {\Delta V_{gs}}{R}<br>$$</p>
+<h3 id="2-与温度无关的电源"><a href="#2-与温度无关的电源" class="headerlink" title="2.与温度无关的电源"></a>2.与温度无关的电源</h3><p>要综合</p>
+<ul>
+<li>PTAT温度正系数电路</li>
+<li>CTAT温度负系数电路</li>
+</ul>
+<h4 id="2-1PTAT温度正系数电路"><a href="#2-1PTAT温度正系数电路" class="headerlink" title="2.1PTAT温度正系数电路"></a>2.1PTAT温度正系数电路</h4><p><img src="/./../pics/image-20250509135721379.png" alt="image-20250509135721379"></p>
+<p>$$<br>\Delta V_{BE}&#x3D;\frac {KT}{q}ln \frac {A_2}{A_1}<br>$$<br>其与温度是正相关的</p>
+<h4 id="2-2CTAT温度负系数电路"><a href="#2-2CTAT温度负系数电路" class="headerlink" title="2.2CTAT温度负系数电路"></a>2.2CTAT温度负系数电路</h4><p>二极管两端电压随着温度升高而减小（非线性关系） </p>
+<h4 id="2-3不受温度影响电路"><a href="#2-3不受温度影响电路" class="headerlink" title="2.3不受温度影响电路"></a>2.3不受温度影响电路</h4><p>在仿真中VREF到BJT下端应该是一个抛物线</p>
+<p><img src="/./../pics/image-20250509135756737.png" alt="image-20250509135756737"> </p>
+<h2 id="LDO电路设计："><a href="#LDO电路设计：" class="headerlink" title="LDO电路设计："></a>LDO电路设计：</h2><p><img src="/./../pics/image-20250509135938000.png"></p>
+<p>VREF处将接一个Bandgap电压源作参考电压，假设我们输入一个2.2V的不规整信号，希望输出一个1.8V的稳定电压；由如下公式：<br>$$<br>V_{OUT}&#x3D;(1+\frac {R_1}{R_0}) \cdot V_{IN}<br>$$<br>可以解出：<br>$$<br>\frac {R_1}{R_0}&#x3D;\frac 12<br>$$</p>
+<h2 id="电路参数验证："><a href="#电路参数验证：" class="headerlink" title="电路参数验证："></a>电路参数验证：</h2><p>发现GBW对应的61deg</p>
+<p><img src="/./../pics/image-20250509101902068.png" alt="image-20250509101902068"></p>
+
+</div> 
+
+<script>
+    window.onload = detectors();
+</script>
+    <div class="post-footer">
+    <div class="h-line-primary"></div>
+    <nav class="post-nav">
+        <div class="prev-item">
+           
+                <div class="icon arrow-left"></div>
+                <div class="post-link">
+                    <a href="/2025/05/12/%E7%AC%94%E8%AE%B0%E5%81%8F%E7%BD%AE%E7%94%B5%E8%B7%AF%E7%9A%84%E8%AE%BE%E8%AE%A1%E5%92%8C%E5%9C%A8Amp%E4%B8%AD%E5%81%8F%E7%BD%AE%E7%9A%84%E8%AE%BE%E8%AE%A1/">Prev</a>
+                </div>
+            
+        </div>
+        <div class="next-item">
+            
+                <div class="icon arrow-right"></div>
+                <div class="post-link">
+                  <a href="/2025/03/28/%E7%AC%94%E8%AE%B0gmid%E8%AE%BE%E8%AE%A1%E6%B3%95%E4%BB%A5%E5%8F%8A5OTA%E8%AE%BE%E8%AE%A1%E4%BB%BF%E7%9C%9F/">Next</a>  
+                </div>  
+            
+        </div>
+    </nav>
+</div>
+
+    
+      <div class="post-comment">
+
+     
+
+     
+    
+    
+
+</div>
+     
+  
+</article>
+        </div>
+      </div>
+      
+      <div class="footer">
+    <div class="flex-container">
+        <div class="footer-text">
+            
+            
+                Skjaldbaka1© | 
+            
+            
+                Powered by <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a> & <a target="_blank" rel="noopener" href="https://github.com/zoeingwingkei/frame/">Frame</a>
+                
+        </div>
+    </div>
+</div>
+    </div>
+  </body>
+</html>
+
