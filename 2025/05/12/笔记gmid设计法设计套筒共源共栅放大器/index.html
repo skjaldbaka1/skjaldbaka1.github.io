@@ -191,11 +191,19 @@
 </ul>
 <p>这样子很轻松的就可以达到$A_V&gt;20000$</p>
 <p><img src="/./../pics/image-20250507223521643.png" alt="image-20250507223521643"></p>
-<p>但对于输入$V_{in}$来说，这样的结构天生上限被$V_{B3}$限制$V_{B3}-(V_{gs}-V_{th})$，为：<br>$$<br>V_{lim-max}&lt;V_{B3}-V_{gs}+V_{th}<br>$$<br>我们要加入偏置电路（下图红框）使M14的漏极与$V_{B3}$的差恒定，让$V_{B3}$能随着$V_{in}$增大而增大</p>
+<p>但对于输入$V_{in}$来说，这样的结构天生上限被$V_{B3}$限制$V_{B3}-(V_{gs}-V_{th})$，为：</p>
+<p>$$<br>V_{lim-max}&lt;V_{B3}-V_{gs}+V_{th}<br>$$</p>
+<p>我们要加入偏置电路（下图红框）使M14的漏极与$V_{B3}$的差恒定，让$V_{B3}$能随着$V_{in}$增大而增大</p>
 <p><img src="/./../pics/image-20250507224840728.png" alt="image-20250507224840728"></p>
-<p>在图中M8管和输入对管M0和M4的W&#x2F;L，为了使偏置电路上的电流尽可能小，有如下关系：<br>$$<br>\frac 16 \cdot (\frac WL)<em>{M0}&#x3D;(\frac WL)</em>{M8}<br>$$<br>在偏置电路中，我们假设Nmos的$V_{OD}$都相同；M8和M9的电流，由于电流镜电流相同，有：</p>
-<p>$$<br>I_{D9}&#x3D;I_{D8}<br>$$<br>根据$I_D&#x3D;\frac 12 \mu C_{ox} \frac WL (V_{gs}-V_{th})^2$，且M8和M9栅极不链接在一起，有：</p>
-<p>对于M8来说：<br>$$<br>V_{g8}&#x3D;V_{gs11}+V_{B2}&#x3D;(V_{gs11}-V_{th})+V_{B2}+V_{th}&#x3D;V_{OD}+V_{th}<br>$$<br>对于M9来说：<br>$$<br>V_{g9}&#x3D;V_{gs5}+V_{gs11}-V_{th}+V_{B2}&#x3D;(V_{gs5}-V_{th})+(V_{gs11}-V_{th})+V_{th}<br>$$</p>
+<p>在图中M8管和输入对管M0和M4的W&#x2F;L，为了使偏置电路上的电流尽可能小，有如下关系：</p>
+<p>$$<br>\frac 16 \cdot (\frac WL)<em>{M0}&#x3D;(\frac WL)</em>{M8}<br>$$</p>
+<p>在偏置电路中，我们假设Nmos的$V_{OD}$都相同；M8和M9的电流，由于电流镜电流相同，有：</p>
+<p>$$<br>I_{D9}&#x3D;I_{D8}<br>$$</p>
+<p>根据$I_D&#x3D;\frac 12 \mu C_{ox} \frac WL (V_{gs}-V_{th})^2$，且M8和M9栅极不链接在一起，有：</p>
+<p>对于M8来说：</p>
+<p>$$<br>V_{g8}&#x3D;V_{gs11}+V_{B2}&#x3D;(V_{gs11}-V_{th})+V_{B2}+V_{th}&#x3D;V_{OD}+V_{th}<br>$$</p>
+<p>对于M9来说：</p>
+<p>$$<br>V_{g9}&#x3D;V_{gs5}+V_{gs11}-V_{th}+V_{B2}&#x3D;(V_{gs5}-V_{th})+(V_{gs11}-V_{th})+V_{th}<br>$$</p>
 <p>$$<br>V_{g9}&#x3D;2 \cdot V_{OD}+V_{th}<br>$$</p>
 <p>带入饱和区电流方程可以得到：</p>
 <p>$$<br>\frac 12 \mu C_{ox} (\frac WL)<em>8 (V</em>{OD}+V_{th}-V_{th})^2&#x3D;\frac 12 \mu C_{ox} (\frac WL)<em>9 2 \cdot (V</em>{OD}+V_{th}-V_{th})^2<br>$$</p>
@@ -217,9 +225,14 @@
 <blockquote>
 <p>$g_{m2}&#x3D;10g_{m1}$</p>
 </blockquote>
-<p>故：<br>$$<br>g_{m2}&#x3D;10g_{m1}&#x3D;1360u<br>$$<br>接下来用gmid设计法则确定各支路的电流，取gm&#x2F;id&#x3D;16有：<br>$$<br>I_{D-M0,M4}&#x3D;\frac {136u}{12} \approx 8.5uA<br>$$</p>
+<p>故：</p>
+<p>$$<br>g_{m2}&#x3D;10g_{m1}&#x3D;1360u<br>$$</p>
+<p>接下来用gmid设计法则确定各支路的电流，取gm&#x2F;id&#x3D;16有：</p>
+<p>$$<br>I_{D-M0,M4}&#x3D;\frac {136u}{12} \approx 8.5uA<br>$$</p>
 <p>$$<br>I_{D-M12}&#x3D;\frac {1360u}{16} \approx 85uA<br>$$</p>
-<p>为了使次极点在GBW外，实际我们取$g_{m2}&#x3D;1500u$，故实际电流可以得到：<br>$$<br>I_{D-M12}&#x3D;\frac {1500u}{16} \approx 93uA<br>$$<br>知道了各支路的电流，可以求尾电流源的电流大小：</p>
+<p>为了使次极点在GBW外，实际我们取$g_{m2}&#x3D;1500u$，故实际电流可以得到：</p>
+<p>$$<br>I_{D-M12}&#x3D;\frac {1500u}{16} \approx 93uA<br>$$</p>
+<p>知道了各支路的电流，可以求尾电流源的电流大小：</p>
 <p>由$I_D&#x3D;\frac 12 \mu C_{ox} \frac WL (V_{gs}-V_{th})^2$可得到：</p>
 <p>$$<br>\frac {I_{D8}}{I_{D0}}&#x3D;\frac {(\frac WL)<em>{M8}}{ (\frac WL)</em>{M0}}&#x3D;6<br>$$</p>
 <p>故偏置电路上的电流为：</p>
@@ -257,7 +270,10 @@
 </tbody></table>
 <h3 id="4-Nmos设计"><a href="#4-Nmos设计" class="headerlink" title="4.Nmos设计"></a>4.Nmos设计</h3><h4 id="4-1输入四管Nmos"><a href="#4-1输入四管Nmos" class="headerlink" title="4.1输入四管Nmos"></a>4.1输入四管Nmos</h4><p>我们取最小L&#x3D;800n，gmid前文提到我们设置成16</p>
 <p><img src="/./../pics/image-20250503105608959.png" alt="image-20250503105608959"></p>
-<p>根据仿真结果，1W对应电流为671n，我们总共需要$8.5uA$的电流：<br>$$<br>\frac {8.5uA}{671n}&#x3D;12.4u<br>$$<br>故输入的四个Nmos我们取：<br>$$<br>\frac WL&#x3D;\frac {12.4u}{800n}<br>$$</p>
+<p>根据仿真结果，1W对应电流为671n，我们总共需要$8.5uA$的电流：</p>
+<p>$$<br>\frac {8.5uA}{671n}&#x3D;12.4u<br>$$</p>
+<p>故输入的四个Nmos我们取：</p>
+<p>$$<br>\frac WL&#x3D;\frac {12.4u}{800n}<br>$$</p>
 <h4 id="4-2负载管ss"><a href="#4-2负载管ss" class="headerlink" title="4.2负载管ss"></a>4.2负载管ss</h4><p>gmid取15，降低噪声，L取大一点，L&#x3D;1u</p>
 <p><img src="/./../pics/image-20250508203510516.png" alt="image-20250508203510516"></p>
 <p>输出对管的Nmos，gmid取小一点取12</p>
@@ -265,7 +281,11 @@
 <p>22u&#x2F;800n 22u&#x2F;400n</p>
 <h3 id="5-Pmos设计"><a href="#5-Pmos设计" class="headerlink" title="5.Pmos设计"></a>5.Pmos设计</h3><p>设计cascode上面四个Pmos以及两个偏置电路中的Pmos，它们都是负载管我们尽量把其L取大，取L&#x3D;1u，要让它的$Vov\approx200mV$</p>
 <p><img src="/./../pics/image-20250417144714338.png"></p>
-<p>由上图取gmid&#x3D;7.6，差不多满足Vov在200mV的要求，此时$I_d&#x3D;1u$<br>$$<br>W&#x3D;\frac {8.5u}{1u}&#x3D;8.5u<br>$$<br>输出管Pmos的Vov与上面几个Pmos的相同：其Vov&#x3D;232mV，gm&#x3D;1.5m，保持，其$I_d&#x3D;93uA$，W差不多要扩大十倍，可以缩小二倍L，扩大五倍W<br>$$<br>\frac WL&#x3D;8.5&#x3D;\frac {44.2u}{340n}<br>$$<br><img src="/./../pics/image-20250417163056973.png" alt="image-20250417163056973"></p>
+<p>由上图取gmid&#x3D;7.6，差不多满足Vov在200mV的要求，此时$I_d&#x3D;1u$</p>
+<p>$$<br>W&#x3D;\frac {8.5u}{1u}&#x3D;8.5u<br>$$</p>
+<p>输出管Pmos的Vov与上面几个Pmos的相同：其Vov&#x3D;232mV，gm&#x3D;1.5m，保持，其$I_d&#x3D;93uA$，W差不多要扩大十倍，可以缩小二倍L，扩大五倍W</p>
+<p>$$<br>\frac WL&#x3D;8.5&#x3D;\frac {44.2u}{340n}<br>$$</p>
+<p><img src="/./../pics/image-20250417163056973.png" alt="image-20250417163056973"></p>
 <p>发现基本符合，可以选择，且VB1的电流源电流应该跟上图的id相同为228.6uA</p>
 <h2 id="AC仿真"><a href="#AC仿真" class="headerlink" title="AC仿真"></a>AC仿真</h2><p>两级运放0dB时勉强达到60deg，满足ph&gt;60deg，此时输出支路的id被推的非常高来让gm&#x3D;1.34m，$C_C&#x3D;3.5pF$</p>
 <p><img src="/./../pics/image-20250509131719368.png" alt="image-20250509131719368"></p>
@@ -273,19 +293,28 @@
 <p>但是这种接法的电流，mos管的电流会分到电阻上，要引入隔离管，让mos管维持饱和，负反馈可以稳定输出，且隔离管的g到s没有通路，也解决了上面mos分流的问题</p>
 <p><img src="/./../pics/%7BDE616696-64ED-4483-92C0-5A4F8648CEB8%7D.png" alt="{DE616696-64ED-4483-92C0-5A4F8648CEB8}"></p>
 <h3 id="1-与电源VDD无关的电源"><a href="#1-与电源VDD无关的电源" class="headerlink" title="1.与电源VDD无关的电源"></a>1.与电源VDD无关的电源</h3><p><img src="/./../pics/image-20250509140538049.png" alt="image-20250509140538049"></p>
-<p>图上的是电源抑制网络，实现了与电源VDD无关的电压，在设计时我们我要让左边的管子M1的$V_{gs}$小于右边的管子M2，他们的宽长比如下关系：<br>$$<br>(\frac WL)<em>{M1}&lt;(\frac WL)</em>{M2}<br>$$<br>由因为：<br>$$<br>V_{gs1}&lt;V_{gs2}<br>$$<br>多出来的$\Delta V_{gs}&#x3D;V_{gs2}-V_{gs1}$将被电阻R分得，有：<br>$$<br>I_R &#x3D;\frac {\Delta V_{gs}}{R}<br>$$</p>
+<p>图上的是电源抑制网络，实现了与电源VDD无关的电压，在设计时我们我要让左边的管子M1的$V_{gs}$小于右边的管子M2，他们的宽长比如下关系：</p>
+<p>$$<br>(\frac WL)<em>{M1}&lt;(\frac WL)</em>{M2}<br>$$</p>
+<p>由因为：</p>
+<p>$$<br>V_{gs1}&lt;V_{gs2}<br>$$</p>
+<p>多出来的$\Delta V_{gs}&#x3D;V_{gs2}-V_{gs1}$将被电阻R分得，有：</p>
+<p>$$<br>I_R &#x3D;\frac {\Delta V_{gs}}{R}<br>$$</p>
 <h3 id="2-与温度无关的电源"><a href="#2-与温度无关的电源" class="headerlink" title="2.与温度无关的电源"></a>2.与温度无关的电源</h3><p>要综合</p>
 <ul>
 <li>PTAT温度正系数电路</li>
 <li>CTAT温度负系数电路</li>
 </ul>
 <h4 id="2-1PTAT温度正系数电路"><a href="#2-1PTAT温度正系数电路" class="headerlink" title="2.1PTAT温度正系数电路"></a>2.1PTAT温度正系数电路</h4><p><img src="/./../pics/image-20250509135721379.png" alt="image-20250509135721379"></p>
-<p>$$<br>\Delta V_{BE}&#x3D;\frac {KT}{q}ln \frac {A_2}{A_1}<br>$$<br>其与温度是正相关的</p>
+<p>$$<br>\Delta V_{BE}&#x3D;\frac {KT}{q}ln \frac {A_2}{A_1}<br>$$</p>
+<p>其与温度是正相关的</p>
 <h4 id="2-2CTAT温度负系数电路"><a href="#2-2CTAT温度负系数电路" class="headerlink" title="2.2CTAT温度负系数电路"></a>2.2CTAT温度负系数电路</h4><p>二极管两端电压随着温度升高而减小（非线性关系） </p>
 <h4 id="2-3不受温度影响电路"><a href="#2-3不受温度影响电路" class="headerlink" title="2.3不受温度影响电路"></a>2.3不受温度影响电路</h4><p>在仿真中VREF到BJT下端应该是一个抛物线</p>
 <p><img src="/./../pics/image-20250509135756737.png" alt="image-20250509135756737"> </p>
 <h2 id="LDO电路设计："><a href="#LDO电路设计：" class="headerlink" title="LDO电路设计："></a>LDO电路设计：</h2><p><img src="/./../pics/image-20250509135938000.png"></p>
-<p>VREF处将接一个Bandgap电压源作参考电压，假设我们输入一个2.2V的不规整信号，希望输出一个1.8V的稳定电压；由如下公式：<br>$$<br>V_{OUT}&#x3D;(1+\frac {R_1}{R_0}) \cdot V_{IN}<br>$$<br>可以解出：<br>$$<br>\frac {R_1}{R_0}&#x3D;\frac 12<br>$$</p>
+<p>VREF处将接一个Bandgap电压源作参考电压，假设我们输入一个2.2V的不规整信号，希望输出一个1.8V的稳定电压；由如下公式：</p>
+<p>$$<br>V_{OUT}&#x3D;(1+\frac {R_1}{R_0}) \cdot V_{IN}<br>$$</p>
+<p>可以解出：</p>
+<p>$$<br>\frac {R_1}{R_0}&#x3D;\frac 12<br>$$</p>
 <h2 id="电路参数验证："><a href="#电路参数验证：" class="headerlink" title="电路参数验证："></a>电路参数验证：</h2><p>发现GBW对应的61deg</p>
 <p><img src="/./../pics/image-20250509101902068.png" alt="image-20250509101902068"></p>
 
